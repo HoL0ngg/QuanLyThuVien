@@ -1,4 +1,5 @@
-﻿using System;
+﻿using QuanLyThuVien.DTO;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,9 +13,11 @@ namespace QuanLyThuVien.GUI
 {
     public partial class MainForm : Form
     {
-        public MainForm()
+        private TaiKhoanDTO currentUser;
+        public MainForm(TaiKhoanDTO taiKhoan)
         {
             InitializeComponent();
+            this.currentUser = taiKhoan;
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -29,7 +32,8 @@ namespace QuanLyThuVien.GUI
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-
+            label1.Text = currentUser.TenDangNhap;
+            label2.Text = currentUser.ChucVu;
         }
 
         private void label3_Click(object sender, EventArgs e)

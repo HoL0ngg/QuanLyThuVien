@@ -1,4 +1,6 @@
-﻿using System;
+﻿using QuanLyThuVien.BUS;
+using QuanLyThuVien.DTO;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,9 +14,11 @@ namespace QuanLyThuVien.GUI
 {
     public partial class LoginForm : Form
     {
+        private TaiKhoanBUS tkBUS = new TaiKhoanBUS();
         public LoginForm()
         {
             InitializeComponent();
+            this.AcceptButton = button1;
         }
 
         private void textBox2_TextChanged(object sender, EventArgs e)
@@ -24,10 +28,27 @@ namespace QuanLyThuVien.GUI
 
         private void button1_Click(object sender, EventArgs e)
         {
-            MainForm mainForm = new MainForm();
-            this.Hide();
-            mainForm.ShowDialog();
-            this.Show();
+            string username = textBox1.Text;
+            string password = textBox2.Text;
+
+            TaiKhoanDTO tk = tkBUS.DangNhap(username, password);
+            Console.WriteLine(tk);
+
+            if (tk != null)
+            {
+                MessageBox.Show("Đăng nhập thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MainForm mainForm = new MainForm(tk);
+                this.Hide();
+                mainForm.ShowDialog();
+                this.Show();
+                textBox1.Clear();
+                textBox2.Clear();
+            }
+            else
+            {
+                MessageBox.Show("Tên đăng nhập hoặc mật khẩu không đúng!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
@@ -40,6 +61,11 @@ namespace QuanLyThuVien.GUI
             {
                 textBox2.UseSystemPasswordChar = true;
             }
+        }
+
+        private void LoginForm_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
