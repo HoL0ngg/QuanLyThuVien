@@ -97,6 +97,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BUS\CTPhieuNhapBUS.cs" />
+    <Compile Include="BUS\PhieuNhapBUS.cs" />
     <Compile Include="BUS\TaiKhoanBUS.cs" />
     <Compile Include="DAO\CTPhieuNhapDAO.cs" />
     <Compile Include="DAO\DataProvider.cs" />

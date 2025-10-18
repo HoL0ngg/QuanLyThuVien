@@ -51,5 +51,30 @@ namespace QuanLyThuVien.DAO
             object[] param = { maPhieuNhap };
             return DataProvider.ExecuteNonQuery(query, param) > 0;
         }
+        public PhieuNhapDTO GetById(int maPhieuNhap)
+        {
+            string query = "SELECT * FROM phieu_nhap WHERE MaPhieuNhap = @MaPhieuNhap";
+            var param = new Dictionary<string, object> { { "@MaPhieuNhap", maPhieuNhap } };
+
+            DataTable dt = DataProvider.ExecuteQuery(query, param);
+
+            if (dt.Rows.Count == 0)
+                return null;
+
+            DataRow row = dt.Rows[0];
+
+            PhieuNhapDTO phieu = new PhieuNhapDTO
+            {
+                MaPhieuNhap = Convert.ToInt32(row["MaPhieuNhap"]),
+                ThoiGian = Convert.ToDateTime(row["ThoiGian"]),
+                MaNV = Convert.ToInt32(row["MaNV"]),
+                MaNCC = Convert.ToInt32(row["MaNCC"])
+            };
+            CTPhieuNhapDAO ctDAO = new CTPhieuNhapDAO();
+            phieu.ct = ctDAO.GetByPhieuNhap(phieu.MaPhieuNhap);
+
+            return phieu;
+        }
+
     }
 }
