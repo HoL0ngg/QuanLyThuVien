@@ -40,5 +40,28 @@ namespace QuanLyThuVien.GUI
         {
 
         }
+
+        private void label8_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label9_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void panel2_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void panelPhieuMuon_Click(Object sender, EventArgs e)
+        {
+            PhieuMuon phieuMuon = new PhieuMuon();
+            phieuMuon.Dock = DockStyle.Fill;
+            this.panel3.Controls.Clear();
+            this.panel3.Controls.Add(phieuMuon);
+        }
     }
 }
