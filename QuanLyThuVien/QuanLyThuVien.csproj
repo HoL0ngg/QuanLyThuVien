@@ -98,8 +98,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BUS\TaiKhoanBUS.cs" />
+    <Compile Include="DAO\CTPhieuNhapDAO.cs" />
     <Compile Include="DAO\DataProvider.cs" />
+    <Compile Include="DAO\PhieuNhapDAO.cs" />
     <Compile Include="DAO\TaiKhoanDAO.cs" />
+    <Compile Include="DTO\CTPhieuNhapDTO.cs" />
+    <Compile Include="DTO\PhieuNhapDTO.cs" />
     <Compile Include="DTO\TaiKhoanDTO.cs" />
     <Compile Include="GUI\LoginForm.cs">
       <SubType>Form</SubType>
