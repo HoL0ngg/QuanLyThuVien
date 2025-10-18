@@ -40,12 +40,12 @@ namespace QuanLyThuVien.DAO
         // sua phieu nhap
         public bool Update(PhieuNhapDTO pn)
         {
-            string query = "UPDATE FROM phieu_nhap SET ThoiGian=@ThoiGian, MaNV=@MaNV, MaNCC=@MaNCC WHERE MaPhieuNhap=@MaPhieuNhap";
+            string query = "UPDATE phieu_nhap SET ThoiGian=@ThoiGian, MaNV=@MaNV, MaNCC=@MaNCC WHERE MaPhieuNhap=@MaPhieuNhap";
             object[] param = { pn.ThoiGian, pn.MaNV, pn.MaNCC, pn.MaPhieuNhap };
             return DataProvider.ExecuteNonQuery(query, param) > 0;
         }
         // xoa phieu nhap
-        public bool Update(int maPhieuNhap)
+        public bool Delete(int maPhieuNhap)
         {
             string query = "DELETE FROM phieu_nhap WHERE MaPhieuNhap = @MaPhieuNhap";
             object[] param = { maPhieuNhap };
