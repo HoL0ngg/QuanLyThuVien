@@ -24,7 +24,8 @@ namespace QuanLyThuVien.DAO
                 {
                     MaPhieuNhap = Convert.ToInt32(row["MaPhieuNhap"]),
                     MaDauSach = Convert.ToInt32(row["MaDauSach"]),
-                    SoLuong = Convert.ToInt32(row["SoLuong"])
+                    SoLuong = Convert.ToInt32(row["SoLuong"]),
+                    DonGia = Convert.ToDouble(row["DonGia"])
                 };
                 ls.Add(ct);
             }
@@ -33,8 +34,8 @@ namespace QuanLyThuVien.DAO
         //them ct phieu nhap
         public bool Insert(CTPhieuNhapDTO ct)
         {
-            string query = "INSERT INTO ctphieu_nhap (MaPhieuNhap, MaDauSach, SoLuong) VALUES (@MaPhieuNhap, @MaDauSach, @SoLuong)";
-            object[] param = { ct.MaPhieuNhap, ct.MaDauSach, ct.SoLuong };
+            string query = "INSERT INTO ctphieu_nhap (MaPhieuNhap, MaDauSach, SoLuong, DonGia) VALUES (@MaPhieuNhap, @MaDauSach, @SoLuong, @DonGia)";
+            object[] param = { ct.MaPhieuNhap, ct.MaDauSach, ct.SoLuong, ct.DonGia };
             return DataProvider.ExecuteNonQuery(query, param) > 0;
         }
         // xoa ct phieu nhap theo ma phieu nhap

@@ -11,6 +11,7 @@ namespace QuanLyThuVien.DTO
         public int MaPhieuNhap { get; set; }
         public int MaDauSach { get; set; }
         public int SoLuong { get; set; }
+        public double DonGia { get; set; }
 
     }
 }
