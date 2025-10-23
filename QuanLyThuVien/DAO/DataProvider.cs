@@ -44,7 +44,7 @@ namespace QuanLyNhanSu.DAO
 
 
         // Hàm INSERT / UPDATE / DELETE
-        public static int ExecuteNonQuery(string query, object[] parameters = null)
+        public static int ExecuteNonQuery(string query, Dictionary<string, object> parameters = null)
         {
             int result = 0;
 
@@ -55,23 +55,18 @@ namespace QuanLyNhanSu.DAO
 
                 if (parameters != null)
                 {
-                    string[] listPara = query.Split(' ');
-                    int i = 0;
-                    foreach (string item in listPara)
+                    // Dùng Dictionary, an toàn và rõ ràng
+                    foreach (var param in parameters)
                     {
-                        if (item.Contains('@'))
-                        {
-                            command.Parameters.AddWithValue(item, parameters[i]);
-                            i++;
-                        }
+                        command.Parameters.AddWithValue(param.Key, param.Value);
                     }
                 }
 
                 result = command.ExecuteNonQuery();
-                connection.Close();
+                // Không cần connection.Close() vì "using" sẽ tự động làm
             }
 
-            return result;
+            return result; // Trả về số dòng bị ảnh hưởng
         }
     }
 }
