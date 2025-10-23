@@ -97,10 +97,24 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BUS\DauSachBUS.cs" />
     <Compile Include="BUS\TaiKhoanBUS.cs" />
     <Compile Include="DAO\DataProvider.cs" />
+    <Compile Include="DAO\DauSachDAO.cs" />
     <Compile Include="DAO\TaiKhoanDAO.cs" />
     <Compile Include="DTO\TaiKhoanDTO.cs" />
+    <Compile Include="GUI\BaseModuleUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\BaseModuleUC.Designer.cs">
+      <DependentUpon>BaseModuleUC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\DauSach.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\DauSach.Designer.cs">
+      <DependentUpon>DauSach.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI\LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -135,6 +149,9 @@
     <Folder Include="Resources\" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="GUI\DauSach.resx">
+      <DependentUpon>DauSach.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GUI\LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </EmbeddedResource>

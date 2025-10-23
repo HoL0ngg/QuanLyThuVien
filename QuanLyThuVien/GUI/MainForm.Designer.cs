@@ -144,6 +144,7 @@ namespace QuanLyThuVien.GUI
             this.panel9.Name = "panel9";
             this.panel9.Size = new System.Drawing.Size(280, 100);
             this.panel9.TabIndex = 0;
+            this.panel9.Paint += new System.Windows.Forms.PaintEventHandler(this.panel9_Paint);
             // 
             // label9
             // 
@@ -268,6 +269,7 @@ namespace QuanLyThuVien.GUI
             this.panel4.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.panel4.Controls.Add(this.pictureBox2);
             this.panel4.Controls.Add(this.label4);
+            this.panel4.Cursor = System.Windows.Forms.Cursors.Hand;
             this.panel4.Location = new System.Drawing.Point(3, 97);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(350, 85);
@@ -298,6 +300,7 @@ namespace QuanLyThuVien.GUI
             this.panel5.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.panel5.Controls.Add(this.pictureBox3);
             this.panel5.Controls.Add(this.label5);
+            this.panel5.Cursor = System.Windows.Forms.Cursors.Hand;
             this.panel5.Location = new System.Drawing.Point(3, 188);
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(350, 85);
@@ -328,6 +331,7 @@ namespace QuanLyThuVien.GUI
             this.panel6.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.panel6.Controls.Add(this.pictureBox4);
             this.panel6.Controls.Add(this.label6);
+            this.panel6.Cursor = System.Windows.Forms.Cursors.Hand;
             this.panel6.Location = new System.Drawing.Point(3, 279);
             this.panel6.Name = "panel6";
             this.panel6.Size = new System.Drawing.Size(350, 85);
@@ -358,10 +362,12 @@ namespace QuanLyThuVien.GUI
             this.panel7.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.panel7.Controls.Add(this.pictureBox5);
             this.panel7.Controls.Add(this.label7);
+            this.panel7.Cursor = System.Windows.Forms.Cursors.Hand;
             this.panel7.Location = new System.Drawing.Point(3, 370);
             this.panel7.Name = "panel7";
             this.panel7.Size = new System.Drawing.Size(350, 85);
             this.panel7.TabIndex = 1;
+            this.panel7.Click += new System.EventHandler(this.panelDauSach_Click);
             // 
             // pictureBox5
             // 
@@ -388,6 +394,7 @@ namespace QuanLyThuVien.GUI
             this.panel8.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.panel8.Controls.Add(this.pictureBox6);
             this.panel8.Controls.Add(this.label8);
+            this.panel8.Cursor = System.Windows.Forms.Cursors.Hand;
             this.panel8.Location = new System.Drawing.Point(3, 461);
             this.panel8.Name = "panel8";
             this.panel8.Size = new System.Drawing.Size(350, 85);
@@ -419,6 +426,7 @@ namespace QuanLyThuVien.GUI
             this.panel13.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.panel13.Controls.Add(this.pictureBox7);
             this.panel13.Controls.Add(this.label13);
+            this.panel13.Cursor = System.Windows.Forms.Cursors.Hand;
             this.panel13.Location = new System.Drawing.Point(3, 552);
             this.panel13.Name = "panel13";
             this.panel13.Size = new System.Drawing.Size(350, 85);
@@ -449,6 +457,7 @@ namespace QuanLyThuVien.GUI
             this.panel14.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.panel14.Controls.Add(this.pictureBox8);
             this.panel14.Controls.Add(this.label14);
+            this.panel14.Cursor = System.Windows.Forms.Cursors.Hand;
             this.panel14.Location = new System.Drawing.Point(3, 643);
             this.panel14.Name = "panel14";
             this.panel14.Size = new System.Drawing.Size(350, 85);

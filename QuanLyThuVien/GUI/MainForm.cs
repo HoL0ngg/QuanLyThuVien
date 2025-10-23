@@ -63,5 +63,18 @@ namespace QuanLyThuVien.GUI
             this.panel3.Controls.Clear();
             this.panel3.Controls.Add(phieuMuon);
         }
+
+        private void panelDauSach_Click(Object sender, EventArgs e)
+        {
+            DauSach dauSach = new DauSach();
+            dauSach.Dock = DockStyle.Fill;
+            this.panel3.Controls.Clear();
+            this.panel3.Controls.Add(dauSach);
+        }
+
+        private void panel9_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }
