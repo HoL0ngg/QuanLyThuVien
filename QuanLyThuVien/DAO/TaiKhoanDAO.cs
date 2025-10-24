@@ -9,8 +9,8 @@ namespace QuanLyThuVien.DAO
     {
         public TaiKhoanDTO KiemTraDangNhap(string username, string password)
         {
-            string query = "SELECT * FROM taikhoan t " +
-                           "JOIN nhanvien n ON t.MaNV = n.MaNV " +
+            string query = "SELECT * FROM nhan_vien t " +
+                           //"JOIN nhanvien n ON t.MaNV = n.MaNV " +
                            "WHERE TenDangNhap=@u AND MatKhau=@p";
 
             var parameters = new Dictionary<string, object>
@@ -28,7 +28,7 @@ namespace QuanLyThuVien.DAO
                 {
                     TenDangNhap = row["TenDangNhap"].ToString(),
                     MaNV = row["MaNV"].ToString(),
-                    ChucVu = row["ChucVu"].ToString()
+                    //ChucVu = row["ChucVu"].ToString()
                 };
             }
 
