@@ -1,4 +1,4 @@
-﻿using QuanLyNhanSu.DAO;
+﻿using QuanLyThuVien.DAO;
 using QuanLyThuVien.DTO;
 using System;
 using System.Collections.Generic;
@@ -35,15 +35,26 @@ namespace QuanLyThuVien.DAO
         public bool Insert(CTPhieuNhapDTO ct)
         {
             string query = "INSERT INTO ctphieu_nhap (MaPhieuNhap, MaDauSach, SoLuong, DonGia) VALUES (@MaPhieuNhap, @MaDauSach, @SoLuong, @DonGia)";
-            object[] param = { ct.MaPhieuNhap, ct.MaDauSach, ct.SoLuong, ct.DonGia };
-            return DataProvider.ExecuteNonQuery(query, param) > 0;
+            //object[] param = { ct.MaPhieuNhap, ct.MaDauSach, ct.SoLuong, ct.DonGia };
+            var parameters = new Dictionary<string, object>
+            {
+                {"@MaPhieuNhap", ct.MaPhieuNhap},
+                {"@MaDauSach", ct.MaDauSach},
+                {"@SoLuong", ct.SoLuong},
+                {"@DonGia", ct.DonGia }
+            };
+            return DataProvider.ExecuteNonQuery(query, parameters) > 0;
         }
         // xoa ct phieu nhap theo ma phieu nhap
         public bool DeleteByPhieuNhap(int maPhieuNhap)
         {
             string query = "DELETE FROM ctphieu_nhap WHERE MaPhieuNhap=@MaPhieuNhap";
-            object[] param = { maPhieuNhap };
-            return DataProvider.ExecuteNonQuery(query, param) > 0;
+            //object[] param = { maPhieuNhap };
+            var parameters = new Dictionary<string, object>
+            {
+                {"@MaPhieuNhap", maPhieuNhap }
+            };
+            return DataProvider.ExecuteNonQuery(query, parameters) > 0;
         }
     }
 }

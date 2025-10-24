@@ -3,7 +3,7 @@ using System.Data;
 // Thư viện này cần thiết cho Dictionary
 using System.Collections.Generic;
 // Đảm bảo using đúng namespace của DataProvider
-using QuanLyNhanSu.DAO;
+using QuanLyThuVien.DAO;
 
 namespace QuanLyThuVien.DAO // Hoặc QuanLyNhanSu.DAO
 {

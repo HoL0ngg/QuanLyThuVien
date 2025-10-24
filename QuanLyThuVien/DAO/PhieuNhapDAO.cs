@@ -1,4 +1,4 @@
-﻿using QuanLyNhanSu.DAO;
+﻿using QuanLyThuVien.DAO;
 using QuanLyThuVien.DTO;
 using System;
 using System.Collections.Generic;
@@ -34,22 +34,39 @@ namespace QuanLyThuVien.DAO
         public bool Insert(PhieuNhapDTO pn)
         {
             string query = "INSERT INTO phieu_nhap (ThoiGian,MaNV,MaNCC) VALUES (@ThoiGian,@MaNV,@MaNCC)";
-            object[] param = { pn.ThoiGian, pn.MaNV, pn.MaNCC };
-            return DataProvider.ExecuteNonQuery(query, param) > 0;
+            //object[] param = { pn.ThoiGian, pn.MaNV, pn.MaNCC };
+            var parameters = new Dictionary<string, object>
+            {
+                {"@ThoiGian", pn.ThoiGian},
+                {"@MaNV", pn.MaNV},
+                {"@MaNCC", pn.MaNCC }
+            };
+            return DataProvider.ExecuteNonQuery(query, parameters) > 0;
         }
         // sua phieu nhap
         public bool Update(PhieuNhapDTO pn)
         {
             string query = "UPDATE phieu_nhap SET ThoiGian=@ThoiGian, MaNV=@MaNV, MaNCC=@MaNCC WHERE MaPhieuNhap=@MaPhieuNhap";
-            object[] param = { pn.ThoiGian, pn.MaNV, pn.MaNCC, pn.MaPhieuNhap };
-            return DataProvider.ExecuteNonQuery(query, param) > 0;
+            //object[] param = { pn.ThoiGian, pn.MaNV, pn.MaNCC, pn.MaPhieuNhap };
+            var parameters = new Dictionary<string, object>
+            {
+                {"@ThoiGian", pn.ThoiGian},
+                {"@MaNV", pn.MaNV},
+                {"@MaNCC", pn.MaNCC },
+                {"@MaPhieuNhap", pn.MaPhieuNhap }
+            };
+            return DataProvider.ExecuteNonQuery(query, parameters) > 0;
         }
         // xoa phieu nhap
         public bool Delete(int maPhieuNhap)
         {
             string query = "DELETE FROM phieu_nhap WHERE MaPhieuNhap = @MaPhieuNhap";
-            object[] param = { maPhieuNhap };
-            return DataProvider.ExecuteNonQuery(query, param) > 0;
+            //object[] param = { maPhieuNhap };
+            var parameters = new Dictionary<string, object>
+            {
+                {"@MaPhieuNhap", maPhieuNhap }
+            };
+            return DataProvider.ExecuteNonQuery(query, parameters) > 0;
         }
         public PhieuNhapDTO GetById(int maPhieuNhap)
         {

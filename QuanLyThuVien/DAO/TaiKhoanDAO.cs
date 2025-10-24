@@ -1,4 +1,4 @@
-﻿using QuanLyNhanSu.DAO;
+﻿using QuanLyThuVien.DAO;
 using QuanLyThuVien.DTO;
 using System.Collections.Generic;
 using System.Data;
