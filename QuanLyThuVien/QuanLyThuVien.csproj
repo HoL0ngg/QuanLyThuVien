@@ -118,11 +118,23 @@
     <Compile Include="GUI\BaseModuleUC.Designer.cs">
       <DependentUpon>BaseModuleUC.cs</DependentUpon>
     </Compile>
+    <Compile Include="GUI\CTPhieuNhapGUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\CTPhieuNhapGUI.Designer.cs">
+      <DependentUpon>CTPhieuNhapGUI.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI\DauSach.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="GUI\DauSach.Designer.cs">
       <DependentUpon>DauSach.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\FormThemPhieuNhap.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\FormThemPhieuNhap.Designer.cs">
+      <DependentUpon>FormThemPhieuNhap.cs</DependentUpon>
     </Compile>
     <Compile Include="GUI\LoginForm.cs">
       <SubType>Form</SubType>
@@ -136,7 +148,13 @@
     <Compile Include="GUI\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-  <Compile Include="GUI\ThongKeGUI\UCMain.cs">
+    <Compile Include="GUI\PhieuNhapGUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\PhieuNhapGUI.Designer.cs">
+      <DependentUpon>PhieuNhapGUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\ThongKeGUI\UCMain.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="GUI\ThongKeGUI\UCMain.Designer.cs">
@@ -170,8 +188,14 @@
     <Folder Include="Resources\" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="GUI\CTPhieuNhapGUI.resx">
+      <DependentUpon>CTPhieuNhapGUI.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GUI\DauSach.resx">
       <DependentUpon>DauSach.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\FormThemPhieuNhap.resx">
+      <DependentUpon>FormThemPhieuNhap.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
@@ -182,7 +206,10 @@
     <EmbeddedResource Include="GUI\PhieuMuon.resx">
       <DependentUpon>PhieuMuon.cs</DependentUpon>
     </EmbeddedResource>
-<EmbeddedResource Include="GUI\ThongKeGUI\UCHeaderThongKe.resx">
+    <EmbeddedResource Include="GUI\PhieuNhapGUI.resx">
+      <DependentUpon>PhieuNhapGUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\ThongKeGUI\UCHeaderThongKe.resx">
       <DependentUpon>UCHeaderThongKe.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\ThongKeGUI\UCMain.resx">

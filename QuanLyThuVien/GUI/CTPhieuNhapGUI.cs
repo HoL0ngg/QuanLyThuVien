@@ -1,5 +1,5 @@
 ﻿using Mysqlx.Crud;
-using QuanLyNhanSu.DAO;
+using QuanLyThuVien.DAO;
 using QuanLyThuVien.BUS;
 using QuanLyThuVien.DTO;
 using System;
