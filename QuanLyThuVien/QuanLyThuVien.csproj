@@ -102,25 +102,27 @@
   <ItemGroup>
     <Compile Include="BUS\CTPhieuNhapBUS.cs" />
     <Compile Include="BUS\PhieuNhapBUS.cs" />
+    <Compile Include="BUS\DauSachBUS.cs" />
     <Compile Include="BUS\TaiKhoanBUS.cs" />
     <Compile Include="DAO\CTPhieuNhapDAO.cs" />
     <Compile Include="DAO\DataProvider.cs" />
     <Compile Include="DAO\PhieuNhapDAO.cs" />
+    <Compile Include="DAO\DauSachDAO.cs" />
     <Compile Include="DAO\TaiKhoanDAO.cs" />
     <Compile Include="DTO\CTPhieuNhapDTO.cs" />
     <Compile Include="DTO\PhieuNhapDTO.cs" />
     <Compile Include="DTO\TaiKhoanDTO.cs" />
-    <Compile Include="GUI\CTPhieuNhapGUI.cs">
-      <SubType>Form</SubType>
+    <Compile Include="GUI\BaseModuleUC.cs">
+      <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="GUI\CTPhieuNhapGUI.Designer.cs">
-      <DependentUpon>CTPhieuNhapGUI.cs</DependentUpon>
+    <Compile Include="GUI\BaseModuleUC.Designer.cs">
+      <DependentUpon>BaseModuleUC.cs</DependentUpon>
     </Compile>
-    <Compile Include="GUI\FormThemPhieuNhap.cs">
-      <SubType>Form</SubType>
+    <Compile Include="GUI\DauSach.cs">
+      <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="GUI\FormThemPhieuNhap.Designer.cs">
-      <DependentUpon>FormThemPhieuNhap.cs</DependentUpon>
+    <Compile Include="GUI\DauSach.Designer.cs">
+      <DependentUpon>DauSach.cs</DependentUpon>
     </Compile>
     <Compile Include="GUI\LoginForm.cs">
       <SubType>Form</SubType>
@@ -134,26 +136,42 @@
     <Compile Include="GUI\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="GUI\PhieuNhapGUI.cs">
-      <SubType>Form</SubType>
+  <Compile Include="GUI\ThongKeGUI\UCMain.cs">
+      <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="GUI\PhieuNhapGUI.Designer.cs">
-      <DependentUpon>PhieuNhapGUI.cs</DependentUpon>
+    <Compile Include="GUI\ThongKeGUI\UCMain.Designer.cs">
+      <DependentUpon>UCMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\ThongKeGUI\UCHeaderThongKe.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\ThongKeGUI\UCHeaderThongKe.Designer.cs">
+      <DependentUpon>UCHeaderThongKe.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\PhieuMuon.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\PhieuMuon.Designer.cs">
+      <DependentUpon>PhieuMuon.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
-    <EmbeddedResource Include="GUI\CTPhieuNhapGUI.resx">
-      <DependentUpon>CTPhieuNhapGUI.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GUI\FormThemPhieuNhap.resx">
-      <DependentUpon>FormThemPhieuNhap.cs</DependentUpon>
+    <Folder Include="Resources\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="GUI\DauSach.resx">
+      <DependentUpon>DauSach.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
@@ -161,8 +179,18 @@
     <EmbeddedResource Include="GUI\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GUI\PhieuNhapGUI.resx">
-      <DependentUpon>PhieuNhapGUI.cs</DependentUpon>
+    <EmbeddedResource Include="GUI\PhieuMuon.resx">
+      <DependentUpon>PhieuMuon.cs</DependentUpon>
+    </EmbeddedResource>
+<EmbeddedResource Include="GUI\ThongKeGUI\UCHeaderThongKe.resx">
+      <DependentUpon>UCHeaderThongKe.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\ThongKeGUI\UCMain.resx">
+      <DependentUpon>UCMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

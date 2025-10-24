@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 
-namespace QuanLyNhanSu.DAO
+namespace QuanLyThuVien.DAO
 {
     public class DataProvider
     {
@@ -62,10 +62,10 @@ namespace QuanLyNhanSu.DAO
                 }
 
                 result = command.ExecuteNonQuery();
-                connection.Close();
+                // Không cần connection.Close() vì "using" sẽ tự động làm
             }
 
-            return result;
+            return result; // Trả về số dòng bị ảnh hưởng
         }
 
     }
