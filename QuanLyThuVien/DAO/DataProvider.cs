@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 
-namespace QuanLyNhanSu.DAO
+namespace QuanLyThuVien.DAO
 {
     public class DataProvider
     {
@@ -55,7 +55,6 @@ namespace QuanLyNhanSu.DAO
 
                 if (parameters != null)
                 {
-                    // Dùng Dictionary, an toàn và rõ ràng
                     foreach (var param in parameters)
                     {
                         command.Parameters.AddWithValue(param.Key, param.Value);
@@ -68,5 +67,6 @@ namespace QuanLyNhanSu.DAO
 
             return result; // Trả về số dòng bị ảnh hưởng
         }
+
     }
 }
