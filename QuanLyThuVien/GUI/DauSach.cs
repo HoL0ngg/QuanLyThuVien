@@ -22,9 +22,13 @@ namespace QuanLyThuVien.GUI
         public override void OnAdd()
         {
             // Mở form_ThemPhieuMuon
-            //form_ThemPhieuMuon frm = new form_ThemPhieuMuon();
-            //frm.ShowDialog();
-            LoadData(); // Tải lại dữ liệu sau khi thêm
+            DauSachDialog dialog = new DauSachDialog();
+            var result = dialog.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                MessageBox.Show("Thêm đầu sách thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                LoadData(); // Tải lại dữ liệu sau khi thêm
+            }
         }
 
         public override void OnEdit()

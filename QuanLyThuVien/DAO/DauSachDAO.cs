@@ -23,9 +23,6 @@ namespace QuanLyThuVien.DAO // Hoặc QuanLyNhanSu.DAO
         }
         private DauSachDAO() { }
 
-        /// <summary>
-        /// Lấy TẤT CẢ đầu sách, không lọc
-        /// </summary>
         public DataTable GetAllDauSach()
         {
             string query = @"
@@ -49,9 +46,6 @@ namespace QuanLyThuVien.DAO // Hoặc QuanLyNhanSu.DAO
             return data;
         }
 
-        /// <summary>
-        /// Tìm kiếm đầu sách theo keyword (tên sách, tên tác giả, NXB)
-        /// </summary>
         public DataTable SearchDauSach(string keyword)
         {
             string searchKeyword = "%" + keyword + "%";
@@ -74,9 +68,6 @@ namespace QuanLyThuVien.DAO // Hoặc QuanLyNhanSu.DAO
                 ORDER BY 
                     ds.MaDauSach ASC";
 
-            // THAY ĐỔI 2: 
-            // Hàm ExecuteQuery mới của bạn dùng Dictionary<string, object>
-            // thay vì object[]
             var parameters = new Dictionary<string, object>();
             parameters.Add("@keyword", searchKeyword);
 
@@ -84,6 +75,26 @@ namespace QuanLyThuVien.DAO // Hoặc QuanLyNhanSu.DAO
             DataTable data = DataProvider.ExecuteQuery(query, parameters);
 
             return data;
+        }
+
+        public bool AddDauSach(string tenDauSach, int maTacGia, int maNXB, DateTime ngayNhap)
+        {
+            string query = @"
+            INSERT INTO DAUSACH (TenDauSach, MaTacGia, MaNXB, NgayNhap)
+            VALUES (@tenDauSach, @maTacGia, @maNXB, @ngayNhap)";
+
+            var parameters = new Dictionary<string, object>
+            {
+                { "@tenDauSach", tenDauSach },
+                { "@maTacGia", maTacGia },
+                { "@maNXB", maNXB },
+                { "@ngayNhap", ngayNhap }
+            };
+
+            // Gọi hàm ExecuteNonQuery đã sửa
+            int result = DataProvider.ExecuteNonQuery(query, parameters);
+
+            return result > 0; // Trả về true nếu thành công (có > 0 dòng bị ảnh hưởng)
         }
     }
 }

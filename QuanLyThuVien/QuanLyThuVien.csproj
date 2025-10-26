@@ -98,13 +98,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BUS\CTPhieuNhapBUS.cs" />
+    <Compile Include="BUS\NxbBUS.cs" />
     <Compile Include="BUS\PhieuNhapBUS.cs" />
     <Compile Include="BUS\DauSachBUS.cs" />
+    <Compile Include="BUS\TacGiaBUS.cs" />
     <Compile Include="BUS\TaiKhoanBUS.cs" />
     <Compile Include="DAO\CTPhieuNhapDAO.cs" />
     <Compile Include="DAO\DataProvider.cs" />
+    <Compile Include="DAO\NxbDAO.cs" />
     <Compile Include="DAO\PhieuNhapDAO.cs" />
     <Compile Include="DAO\DauSachDAO.cs" />
+    <Compile Include="DAO\TacGiaDAO.cs" />
     <Compile Include="DAO\TaiKhoanDAO.cs" />
     <Compile Include="DTO\CTPhieuNhapDTO.cs" />
     <Compile Include="DTO\PhieuNhapDTO.cs" />
@@ -121,6 +125,12 @@
     <Compile Include="GUI\DauSach.Designer.cs">
       <DependentUpon>DauSach.cs</DependentUpon>
     </Compile>
+    <Compile Include="GUI\DauSachDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\DauSachDialog.Designer.cs">
+      <DependentUpon>DauSachDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI\LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -133,7 +143,7 @@
     <Compile Include="GUI\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-  <Compile Include="GUI\ThongKeGUI\UCMain.cs">
+    <Compile Include="GUI\ThongKeGUI\UCMain.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="GUI\ThongKeGUI\UCMain.Designer.cs">
@@ -170,6 +180,9 @@
     <EmbeddedResource Include="GUI\DauSach.resx">
       <DependentUpon>DauSach.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="GUI\DauSachDialog.resx">
+      <DependentUpon>DauSachDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GUI\LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -179,7 +192,7 @@
     <EmbeddedResource Include="GUI\PhieuMuon.resx">
       <DependentUpon>PhieuMuon.cs</DependentUpon>
     </EmbeddedResource>
-<EmbeddedResource Include="GUI\ThongKeGUI\UCHeaderThongKe.resx">
+    <EmbeddedResource Include="GUI\ThongKeGUI\UCHeaderThongKe.resx">
       <DependentUpon>UCHeaderThongKe.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\ThongKeGUI\UCMain.resx">
