@@ -520,7 +520,7 @@ namespace QuanLyThuVien.GUI
             this.panel3.Cursor = System.Windows.Forms.Cursors.Default;
             this.panel3.Location = new System.Drawing.Point(377, 113);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(1043, 728);
+            this.panel3.Size = new System.Drawing.Size(1010, 624);
             this.panel3.TabIndex = 5;
             // 
             // MainForm
@@ -528,7 +528,7 @@ namespace QuanLyThuVien.GUI
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.ClientSize = new System.Drawing.Size(1432, 853);
+            this.ClientSize = new System.Drawing.Size(1377, 749);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.flowLayoutPanel2);
             this.Controls.Add(this.flowLayoutPanel1);

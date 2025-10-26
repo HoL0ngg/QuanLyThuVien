@@ -12,6 +12,12 @@ namespace QuanLyThuVien.BUS
     {
         private CTPhieuNhapDAO dao = new CTPhieuNhapDAO();
 
+        // lay danh sach ct phieu nhap
+        public List<CTPhieuNhapDTO> GetALL()
+        {   
+            return dao.GetAll();
+        }
+
         // lay ct phieu nhap theo ma phieu nhap
         public List<CTPhieuNhapDTO> GetByPhieuNhap(int maPhieuNhap)
         {
@@ -33,11 +39,11 @@ namespace QuanLyThuVien.BUS
         }
 
         // xoa ct phieu nhap theo ma phieu nhap
-        public bool DeleteByPhieuNhap(int maPhieuNhap)
+        public bool DeletePhieuNhap(int maPhieuNhap,int maDauSach)
         {
-            if (maPhieuNhap <= 0)
+            if (maPhieuNhap <= 0  && maDauSach <= 0)
                 throw new Exception("Ma phieu nhap khong hop le");
-            return dao.DeleteByPhieuNhap(maPhieuNhap);
+            return dao.DeletePhieuNhap(maPhieuNhap,maDauSach);
         }
 
         // tinh tong so luong sach trong phieu nhap
@@ -48,6 +54,11 @@ namespace QuanLyThuVien.BUS
             foreach(var ct in list)
                 sum += ct.SoLuong;
             return sum;
+        }
+        //sua chi tiet
+        public bool Update(CTPhieuNhapDTO cT)
+        {
+            return dao.Update(cT);
         }
     }
 }

@@ -55,7 +55,6 @@ namespace QuanLyThuVien.DAO
 
                 if (parameters != null)
                 {
-                    // Dùng Dictionary, an toàn và rõ ràng
                     foreach (var param in parameters)
                     {
                         command.Parameters.AddWithValue(param.Key, param.Value);
@@ -68,5 +67,6 @@ namespace QuanLyThuVien.DAO
 
             return result; // Trả về số dòng bị ảnh hưởng
         }
+
     }
 }
