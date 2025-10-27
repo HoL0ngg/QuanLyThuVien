@@ -62,7 +62,6 @@ namespace QuanLyThuVien.DAO
                 }
 
                 result = command.ExecuteNonQuery();
-                // Không cần connection.Close() vì "using" sẽ tự động làm
             }
 
             return result; // Trả về số dòng bị ảnh hưởng

@@ -14,10 +14,34 @@ namespace QuanLyThuVien.GUI
     public partial class MainForm : Form
     {
         private TaiKhoanDTO currentUser;
+        private BaseModuleUC currentModule;
+
+        private Panel activeMenuPanel = null;
+        private Color defaultColor = System.Drawing.Color.LightSteelBlue; // Màu gốc
+        private Color activeColor = System.Drawing.Color.DodgerBlue;      // Màu khi click
+        private Color hoverColor = System.Drawing.Color.LightSkyBlue;     // Màu khi hover
         public MainForm(TaiKhoanDTO taiKhoan)
         {
             InitializeComponent();
             this.currentUser = taiKhoan;
+        }
+
+        private void LoadModule(BaseModuleUC module)
+        {
+            // Nếu có module cũ thì xóa đi
+            if (this.currentModule != null)
+            {
+                this.panel3.Controls.Remove(this.currentModule);
+                this.currentModule.Dispose();
+            }
+
+            // Gán module mới
+            this.currentModule = module;
+            this.currentModule.Dock = DockStyle.Fill;
+
+            // Thêm vào panel
+            this.panel3.Controls.Add(this.currentModule);
+            this.currentModule.BringToFront();
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -32,8 +56,12 @@ namespace QuanLyThuVien.GUI
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            label1.Text = currentUser.TenDangNhap;
-            label2.Text = currentUser.ChucVu;
+            if (this.DesignMode)
+            {
+                return; // Nếu đang ở chế độ Design, không làm gì cả
+            }
+            //label1.Text = currentUser.TenDangNhap;
+            //label2.Text = currentUser.ChucVu;
         }
 
         private void label3_Click(object sender, EventArgs e)
@@ -55,26 +83,87 @@ namespace QuanLyThuVien.GUI
         {
 
         }
-
-        private void panelPhieuMuon_Click(Object sender, EventArgs e)
+        private void panelMenu_MouseEnter(object sender, EventArgs e)
         {
-            PhieuMuon phieuMuon = new PhieuMuon();
-            phieuMuon.Dock = DockStyle.Fill;
-            this.panel3.Controls.Clear();
-            this.panel3.Controls.Add(phieuMuon);
+            Panel hoveredPanel = sender as Panel;
+
+            // Chỉ đổi màu hover nếu nó KHÔNG PHẢI là panel đang active
+            if (hoveredPanel != activeMenuPanel)
+            {
+                hoveredPanel.BackColor = hoverColor;
+            }
         }
 
-        private void panelDauSach_Click(Object sender, EventArgs e)
+        private void panelMenu_MouseLeave(object sender, EventArgs e)
         {
-            DauSach dauSach = new DauSach();
-            dauSach.Dock = DockStyle.Fill;
-            this.panel3.Controls.Clear();
-            this.panel3.Controls.Add(dauSach);
+            Panel hoveredPanel = sender as Panel;
+
+            // Chỉ trả lại màu cũ nếu nó KHÔNG PHẢI là panel đang active
+            if (hoveredPanel != activeMenuPanel)
+            {
+                hoveredPanel.BackColor = defaultColor;
+            }
+        }
+
+        private void panelMenu_Click(object sender, EventArgs e)
+        {
+            // Lấy panel vừa được click
+            Panel clickedPanel = sender as Panel;
+
+            // Nếu click vào panel đang active rồi thì không làm gì cả
+            if (clickedPanel == activeMenuPanel)
+            {
+                return;
+            }
+
+            // 1. Tắt sáng panel CŨ (nếu có)
+            if (activeMenuPanel != null)
+            {
+                activeMenuPanel.BackColor = defaultColor;
+            }
+
+            // 2. Làm sáng panel MỚI
+            clickedPanel.BackColor = activeColor;
+            activeMenuPanel = clickedPanel; // "Nhớ" panel mới này
+
+            // 3. Tải User Control tương ứng (Quan trọng!)
+            // (Hãy đảm bảo tên panel của bạn khớp, ví dụ: panelDauSach, panelPhieuMuon)
+            if (clickedPanel.Name == "panelPhieuNhap")
+            {
+                // LoadModule(new PhieuNhap()); // (Bạn tự thêm UC của mình)
+            }
+            else if (clickedPanel.Name == "panelPhieuMuon")
+            {
+                LoadModule(new PhieuMuon());
+            }
+            // else if (clickedPanel.Name == "panelPhieuTra")
+            // {
+            //     // LoadModule(new PhieuTra());
+            // }
+            // else if (clickedPanel.Name == "panelPhieuPhat")
+            // {
+            //     // LoadModule(new PhieuPhat());
+            // }
+            else if (clickedPanel.Name == "panelDauSach")
+            {
+                LoadModule(new DauSach());
+            }
+            // ... Thêm các else if cho các nút khác ...
         }
 
         private void panel9_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void btnThem_Click(object sender, EventArgs e)
+        {
+            // 1. Kiểm tra xem có module nào đang chạy không
+            if (currentModule != null)
+            {
+                // 2. Ra lệnh cho module đó thực hiện hành vi "OnAdd"
+                currentModule.OnAdd();
+            }
         }
     }
 }

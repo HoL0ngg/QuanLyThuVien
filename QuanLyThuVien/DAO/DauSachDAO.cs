@@ -1,9 +1,11 @@
-﻿using System;
-using System.Data;
-// Thư viện này cần thiết cho Dictionary
-using System.Collections.Generic;
+﻿using MySql.Data.MySqlClient;
 // Đảm bảo using đúng namespace của DataProvider
 using QuanLyThuVien.DAO;
+using System;
+// Thư viện này cần thiết cho Dictionary
+using System.Collections.Generic;
+using System.Data;
+using System.Text;
 
 namespace QuanLyThuVien.DAO // Hoặc QuanLyNhanSu.DAO
 {
@@ -23,22 +25,20 @@ namespace QuanLyThuVien.DAO // Hoặc QuanLyNhanSu.DAO
         }
         private DauSachDAO() { }
 
-        /// <summary>
-        /// Lấy TẤT CẢ đầu sách, không lọc
-        /// </summary>
         public DataTable GetAllDauSach()
         {
-            string query = @"
+                string query = @"
                 SELECT 
-                    ds.MaDauSach, 
-                    ds.TenDauSach,
-                    ds.HinhAnh,
-                    ds.NhaXuatBan, 
-                    ds.NamXuatBan,
-                    ds.NgonNgu,
-                    ds.SoLuong
+                    ds.MaDauSach as 'Mã đầu sách',
+                    ds.TenDauSach as 'Tên đầu sách',
+                    nxb.tenNXB as 'Nhà xuất bản', 
+                    ds.NamXuatBan as 'Năm xuất bản',
+                    ds.NgonNgu as 'Ngôn ngữ',
+                    ds.SoLuong as 'Số lượng'
                 FROM 
                     dau_sach ds
+                JOIN 
+                    nha_xuat_ban nxb ON ds.NhaXuatBan = nxb.MaNXB
                 ORDER BY 
                     ds.MaDauSach ASC";
 
@@ -49,9 +49,6 @@ namespace QuanLyThuVien.DAO // Hoặc QuanLyNhanSu.DAO
             return data;
         }
 
-        /// <summary>
-        /// Tìm kiếm đầu sách theo keyword (tên sách, tên tác giả, NXB)
-        /// </summary>
         public DataTable SearchDauSach(string keyword)
         {
             string searchKeyword = "%" + keyword + "%";
@@ -74,9 +71,6 @@ namespace QuanLyThuVien.DAO // Hoặc QuanLyNhanSu.DAO
                 ORDER BY 
                     ds.MaDauSach ASC";
 
-            // THAY ĐỔI 2: 
-            // Hàm ExecuteQuery mới của bạn dùng Dictionary<string, object>
-            // thay vì object[]
             var parameters = new Dictionary<string, object>();
             parameters.Add("@keyword", searchKeyword);
 
@@ -84,6 +78,73 @@ namespace QuanLyThuVien.DAO // Hoặc QuanLyNhanSu.DAO
             DataTable data = DataProvider.ExecuteQuery(query, parameters);
 
             return data;
+        }
+
+        public bool AddDauSach(string tenDauSach, int maNXB, string hinhAnhPath, string namXuatBan, string NgonNgu, List<int> maTacGiaList)
+        {
+            using (MySqlConnection connection = DataProvider.GetConnection())
+            {
+                connection.Open();
+                MySqlTransaction transaction = connection.BeginTransaction();
+                MySqlCommand command = connection.CreateCommand();
+                command.Transaction = transaction;
+                try
+                {
+                    string queryDauSach = @"
+                        INSERT INTO dau_sach (TenDauSach, NhaXuatBan, HinhAnh, NamXuatBan, NgonNgu)
+                        VALUES (@tenDauSach, @maNXB, @hinhAnhPath, @namXuatBan, @NgonNgu); SELECT LAST_INSERT_ID();";
+
+                    command.CommandText = queryDauSach;
+                    command.Parameters.AddWithValue("@tenDauSach", tenDauSach);
+                    command.Parameters.AddWithValue("@maNXB", maNXB);
+                    command.Parameters.AddWithValue("@hinhAnhPath", hinhAnhPath);
+                    command.Parameters.AddWithValue("@namXuatBan", namXuatBan);
+                    command.Parameters.AddWithValue("@NgonNgu", NgonNgu);
+
+                    int newMaDauSach = Convert.ToInt32(command.ExecuteScalar());
+
+                    if (newMaDauSach == 0)
+                    {
+                        throw new Exception("Không thể tạo đầu sách mới.");
+                    }
+
+                    // Xóa các tham số cũ
+                    command.Parameters.Clear();
+
+                    var queryTacGia = new StringBuilder();
+                    queryTacGia.Append("INSERT INTO tacgia_dausach (MaDauSach, MaTacGia) VALUES ");
+
+                    for (int i = 0; i < maTacGiaList.Count; i++)
+                    {
+                        string maDSParam = "@MaDS" + i;
+                        string maTGParam = "@MaTG" + i;
+
+                        queryTacGia.AppendFormat("({0}, {1})", maDSParam, maTGParam);
+                        if (i < maTacGiaList.Count - 1)
+                        {
+                            queryTacGia.Append(", ");
+                        }
+
+                        // Thêm tham số cho vòng lặp
+                        command.Parameters.AddWithValue(maDSParam, newMaDauSach);
+                        command.Parameters.AddWithValue(maTGParam, maTacGiaList[i]);
+                    }
+
+                    // Chạy câu query thêm tác giả
+                    command.CommandText = queryTacGia.ToString();
+                    command.ExecuteNonQuery();
+
+                    // BƯỚC 3: Nếu mọi thứ OK, commit transaction
+                    transaction.Commit();
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    throw new Exception("Lỗi CSDL khi thêm đầu sách: " + ex.Message);
+                }
+            }
+
         }
     }
 }

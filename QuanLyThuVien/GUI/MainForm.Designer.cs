@@ -43,28 +43,28 @@ namespace QuanLyThuVien.GUI
             this.panel11 = new System.Windows.Forms.Panel();
             this.label11 = new System.Windows.Forms.Label();
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
-            this.panel2 = new System.Windows.Forms.Panel();
+            this.panelPhieuNhap = new System.Windows.Forms.Panel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.panel4 = new System.Windows.Forms.Panel();
+            this.panelPhieuMuon = new System.Windows.Forms.Panel();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.panel5 = new System.Windows.Forms.Panel();
+            this.panelPhieuTra = new System.Windows.Forms.Panel();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.panel6 = new System.Windows.Forms.Panel();
+            this.panelPhieuPhat = new System.Windows.Forms.Panel();
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.panel7 = new System.Windows.Forms.Panel();
+            this.panelDauSach = new System.Windows.Forms.Panel();
             this.pictureBox5 = new System.Windows.Forms.PictureBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.panel8 = new System.Windows.Forms.Panel();
+            this.panelDocGia = new System.Windows.Forms.Panel();
             this.pictureBox6 = new System.Windows.Forms.PictureBox();
             this.label8 = new System.Windows.Forms.Label();
-            this.panel13 = new System.Windows.Forms.Panel();
+            this.panelThongKe = new System.Windows.Forms.Panel();
             this.pictureBox7 = new System.Windows.Forms.PictureBox();
             this.label13 = new System.Windows.Forms.Label();
-            this.panel14 = new System.Windows.Forms.Panel();
+            this.panelDangXuat = new System.Windows.Forms.Panel();
             this.pictureBox8 = new System.Windows.Forms.PictureBox();
             this.label14 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
@@ -75,21 +75,21 @@ namespace QuanLyThuVien.GUI
             this.panel12.SuspendLayout();
             this.panel11.SuspendLayout();
             this.flowLayoutPanel2.SuspendLayout();
-            this.panel2.SuspendLayout();
+            this.panelPhieuNhap.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            this.panel4.SuspendLayout();
+            this.panelPhieuMuon.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
-            this.panel5.SuspendLayout();
+            this.panelPhieuTra.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
-            this.panel6.SuspendLayout();
+            this.panelPhieuPhat.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
-            this.panel7.SuspendLayout();
+            this.panelDauSach.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
-            this.panel8.SuspendLayout();
+            this.panelDocGia.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
-            this.panel13.SuspendLayout();
+            this.panelThongKe.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).BeginInit();
-            this.panel14.SuspendLayout();
+            this.panelDangXuat.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).BeginInit();
             this.SuspendLayout();
             // 
@@ -144,6 +144,7 @@ namespace QuanLyThuVien.GUI
             this.panel9.Name = "panel9";
             this.panel9.Size = new System.Drawing.Size(280, 100);
             this.panel9.TabIndex = 0;
+            this.panel9.Click += new System.EventHandler(this.btnThem_Click);
             this.panel9.Paint += new System.Windows.Forms.PaintEventHandler(this.panel9_Paint);
             // 
             // label9
@@ -217,31 +218,35 @@ namespace QuanLyThuVien.GUI
             // flowLayoutPanel2
             // 
             this.flowLayoutPanel2.BackColor = System.Drawing.SystemColors.Info;
-            this.flowLayoutPanel2.Controls.Add(this.panel2);
-            this.flowLayoutPanel2.Controls.Add(this.panel4);
-            this.flowLayoutPanel2.Controls.Add(this.panel5);
-            this.flowLayoutPanel2.Controls.Add(this.panel6);
-            this.flowLayoutPanel2.Controls.Add(this.panel7);
-            this.flowLayoutPanel2.Controls.Add(this.panel8);
-            this.flowLayoutPanel2.Controls.Add(this.panel13);
-            this.flowLayoutPanel2.Controls.Add(this.panel14);
+            this.flowLayoutPanel2.Controls.Add(this.panelPhieuNhap);
+            this.flowLayoutPanel2.Controls.Add(this.panelPhieuMuon);
+            this.flowLayoutPanel2.Controls.Add(this.panelPhieuTra);
+            this.flowLayoutPanel2.Controls.Add(this.panelPhieuPhat);
+            this.flowLayoutPanel2.Controls.Add(this.panelDauSach);
+            this.flowLayoutPanel2.Controls.Add(this.panelDocGia);
+            this.flowLayoutPanel2.Controls.Add(this.panelThongKe);
+            this.flowLayoutPanel2.Controls.Add(this.panelDangXuat);
             this.flowLayoutPanel2.Location = new System.Drawing.Point(12, 113);
+            this.flowLayoutPanel2.Margin = new System.Windows.Forms.Padding(0);
             this.flowLayoutPanel2.Name = "flowLayoutPanel2";
             this.flowLayoutPanel2.Size = new System.Drawing.Size(359, 728);
             this.flowLayoutPanel2.TabIndex = 4;
             // 
-            // panel2
+            // panelPhieuNhap
             // 
-            this.panel2.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.panel2.Controls.Add(this.pictureBox1);
-            this.panel2.Controls.Add(this.label3);
-            this.panel2.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.panel2.Location = new System.Drawing.Point(3, 3);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(350, 88);
-            this.panel2.TabIndex = 0;
-            this.panel2.Click += new System.EventHandler(this.panelPhieuMuon_Click);
-            this.panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
+            this.panelPhieuNhap.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.panelPhieuNhap.Controls.Add(this.pictureBox1);
+            this.panelPhieuNhap.Controls.Add(this.label3);
+            this.panelPhieuNhap.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.panelPhieuNhap.Location = new System.Drawing.Point(0, 0);
+            this.panelPhieuNhap.Margin = new System.Windows.Forms.Padding(0);
+            this.panelPhieuNhap.Name = "panelPhieuNhap";
+            this.panelPhieuNhap.Size = new System.Drawing.Size(359, 91);
+            this.panelPhieuNhap.TabIndex = 0;
+            this.panelPhieuNhap.Click += new System.EventHandler(this.panelMenu_Click);
+            this.panelPhieuNhap.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
+            this.panelPhieuNhap.MouseEnter += new System.EventHandler(this.panelMenu_MouseEnter);
+            this.panelPhieuNhap.MouseLeave += new System.EventHandler(this.panelMenu_MouseLeave);
             // 
             // pictureBox1
             // 
@@ -264,16 +269,20 @@ namespace QuanLyThuVien.GUI
             this.label3.Text = "Phiếu nhập";
             this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
-            // panel4
+            // panelPhieuMuon
             // 
-            this.panel4.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.panel4.Controls.Add(this.pictureBox2);
-            this.panel4.Controls.Add(this.label4);
-            this.panel4.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.panel4.Location = new System.Drawing.Point(3, 97);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(350, 85);
-            this.panel4.TabIndex = 1;
+            this.panelPhieuMuon.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.panelPhieuMuon.Controls.Add(this.pictureBox2);
+            this.panelPhieuMuon.Controls.Add(this.label4);
+            this.panelPhieuMuon.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.panelPhieuMuon.Location = new System.Drawing.Point(0, 91);
+            this.panelPhieuMuon.Margin = new System.Windows.Forms.Padding(0);
+            this.panelPhieuMuon.Name = "panelPhieuMuon";
+            this.panelPhieuMuon.Size = new System.Drawing.Size(359, 91);
+            this.panelPhieuMuon.TabIndex = 1;
+            this.panelPhieuMuon.Click += new System.EventHandler(this.panelMenu_Click);
+            this.panelPhieuMuon.MouseEnter += new System.EventHandler(this.panelMenu_MouseEnter);
+            this.panelPhieuMuon.MouseLeave += new System.EventHandler(this.panelMenu_MouseLeave);
             // 
             // pictureBox2
             // 
@@ -295,16 +304,20 @@ namespace QuanLyThuVien.GUI
             this.label4.TabIndex = 0;
             this.label4.Text = "Phiếu mượn";
             // 
-            // panel5
+            // panelPhieuTra
             // 
-            this.panel5.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.panel5.Controls.Add(this.pictureBox3);
-            this.panel5.Controls.Add(this.label5);
-            this.panel5.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.panel5.Location = new System.Drawing.Point(3, 188);
-            this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(350, 85);
-            this.panel5.TabIndex = 1;
+            this.panelPhieuTra.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.panelPhieuTra.Controls.Add(this.pictureBox3);
+            this.panelPhieuTra.Controls.Add(this.label5);
+            this.panelPhieuTra.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.panelPhieuTra.Location = new System.Drawing.Point(0, 182);
+            this.panelPhieuTra.Margin = new System.Windows.Forms.Padding(0);
+            this.panelPhieuTra.Name = "panelPhieuTra";
+            this.panelPhieuTra.Size = new System.Drawing.Size(359, 91);
+            this.panelPhieuTra.TabIndex = 1;
+            this.panelPhieuTra.Click += new System.EventHandler(this.panelMenu_Click);
+            this.panelPhieuTra.MouseEnter += new System.EventHandler(this.panelMenu_MouseEnter);
+            this.panelPhieuTra.MouseLeave += new System.EventHandler(this.panelMenu_MouseLeave);
             // 
             // pictureBox3
             // 
@@ -326,16 +339,20 @@ namespace QuanLyThuVien.GUI
             this.label5.TabIndex = 0;
             this.label5.Text = "Phiếu trả";
             // 
-            // panel6
+            // panelPhieuPhat
             // 
-            this.panel6.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.panel6.Controls.Add(this.pictureBox4);
-            this.panel6.Controls.Add(this.label6);
-            this.panel6.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.panel6.Location = new System.Drawing.Point(3, 279);
-            this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(350, 85);
-            this.panel6.TabIndex = 1;
+            this.panelPhieuPhat.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.panelPhieuPhat.Controls.Add(this.pictureBox4);
+            this.panelPhieuPhat.Controls.Add(this.label6);
+            this.panelPhieuPhat.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.panelPhieuPhat.Location = new System.Drawing.Point(0, 273);
+            this.panelPhieuPhat.Margin = new System.Windows.Forms.Padding(0);
+            this.panelPhieuPhat.Name = "panelPhieuPhat";
+            this.panelPhieuPhat.Size = new System.Drawing.Size(359, 91);
+            this.panelPhieuPhat.TabIndex = 1;
+            this.panelPhieuPhat.Click += new System.EventHandler(this.panelMenu_Click);
+            this.panelPhieuPhat.MouseEnter += new System.EventHandler(this.panelMenu_MouseEnter);
+            this.panelPhieuPhat.MouseLeave += new System.EventHandler(this.panelMenu_MouseLeave);
             // 
             // pictureBox4
             // 
@@ -357,17 +374,20 @@ namespace QuanLyThuVien.GUI
             this.label6.TabIndex = 0;
             this.label6.Text = "Phiếu phạt";
             // 
-            // panel7
+            // panelDauSach
             // 
-            this.panel7.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.panel7.Controls.Add(this.pictureBox5);
-            this.panel7.Controls.Add(this.label7);
-            this.panel7.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.panel7.Location = new System.Drawing.Point(3, 370);
-            this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(350, 85);
-            this.panel7.TabIndex = 1;
-            this.panel7.Click += new System.EventHandler(this.panelDauSach_Click);
+            this.panelDauSach.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.panelDauSach.Controls.Add(this.pictureBox5);
+            this.panelDauSach.Controls.Add(this.label7);
+            this.panelDauSach.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.panelDauSach.Location = new System.Drawing.Point(0, 364);
+            this.panelDauSach.Margin = new System.Windows.Forms.Padding(0);
+            this.panelDauSach.Name = "panelDauSach";
+            this.panelDauSach.Size = new System.Drawing.Size(359, 91);
+            this.panelDauSach.TabIndex = 1;
+            this.panelDauSach.Click += new System.EventHandler(this.panelMenu_Click);
+            this.panelDauSach.MouseEnter += new System.EventHandler(this.panelMenu_MouseEnter);
+            this.panelDauSach.MouseLeave += new System.EventHandler(this.panelMenu_MouseLeave);
             // 
             // pictureBox5
             // 
@@ -389,16 +409,20 @@ namespace QuanLyThuVien.GUI
             this.label7.TabIndex = 0;
             this.label7.Text = "Đầu sách";
             // 
-            // panel8
+            // panelDocGia
             // 
-            this.panel8.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.panel8.Controls.Add(this.pictureBox6);
-            this.panel8.Controls.Add(this.label8);
-            this.panel8.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.panel8.Location = new System.Drawing.Point(3, 461);
-            this.panel8.Name = "panel8";
-            this.panel8.Size = new System.Drawing.Size(350, 85);
-            this.panel8.TabIndex = 1;
+            this.panelDocGia.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.panelDocGia.Controls.Add(this.pictureBox6);
+            this.panelDocGia.Controls.Add(this.label8);
+            this.panelDocGia.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.panelDocGia.Location = new System.Drawing.Point(0, 455);
+            this.panelDocGia.Margin = new System.Windows.Forms.Padding(0);
+            this.panelDocGia.Name = "panelDocGia";
+            this.panelDocGia.Size = new System.Drawing.Size(359, 91);
+            this.panelDocGia.TabIndex = 1;
+            this.panelDocGia.Click += new System.EventHandler(this.panelMenu_Click);
+            this.panelDocGia.MouseEnter += new System.EventHandler(this.panelMenu_MouseEnter);
+            this.panelDocGia.MouseLeave += new System.EventHandler(this.panelMenu_MouseLeave);
             // 
             // pictureBox6
             // 
@@ -421,16 +445,20 @@ namespace QuanLyThuVien.GUI
             this.label8.Text = "Độc giả";
             this.label8.Click += new System.EventHandler(this.label8_Click);
             // 
-            // panel13
+            // panelThongKe
             // 
-            this.panel13.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.panel13.Controls.Add(this.pictureBox7);
-            this.panel13.Controls.Add(this.label13);
-            this.panel13.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.panel13.Location = new System.Drawing.Point(3, 552);
-            this.panel13.Name = "panel13";
-            this.panel13.Size = new System.Drawing.Size(350, 85);
-            this.panel13.TabIndex = 1;
+            this.panelThongKe.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.panelThongKe.Controls.Add(this.pictureBox7);
+            this.panelThongKe.Controls.Add(this.label13);
+            this.panelThongKe.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.panelThongKe.Location = new System.Drawing.Point(0, 546);
+            this.panelThongKe.Margin = new System.Windows.Forms.Padding(0);
+            this.panelThongKe.Name = "panelThongKe";
+            this.panelThongKe.Size = new System.Drawing.Size(359, 91);
+            this.panelThongKe.TabIndex = 1;
+            this.panelThongKe.Click += new System.EventHandler(this.panelMenu_Click);
+            this.panelThongKe.MouseEnter += new System.EventHandler(this.panelMenu_MouseEnter);
+            this.panelThongKe.MouseLeave += new System.EventHandler(this.panelMenu_MouseLeave);
             // 
             // pictureBox7
             // 
@@ -452,16 +480,20 @@ namespace QuanLyThuVien.GUI
             this.label13.TabIndex = 0;
             this.label13.Text = "Thống kê";
             // 
-            // panel14
+            // panelDangXuat
             // 
-            this.panel14.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.panel14.Controls.Add(this.pictureBox8);
-            this.panel14.Controls.Add(this.label14);
-            this.panel14.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.panel14.Location = new System.Drawing.Point(3, 643);
-            this.panel14.Name = "panel14";
-            this.panel14.Size = new System.Drawing.Size(350, 85);
-            this.panel14.TabIndex = 8;
+            this.panelDangXuat.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.panelDangXuat.Controls.Add(this.pictureBox8);
+            this.panelDangXuat.Controls.Add(this.label14);
+            this.panelDangXuat.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.panelDangXuat.Location = new System.Drawing.Point(0, 637);
+            this.panelDangXuat.Margin = new System.Windows.Forms.Padding(0);
+            this.panelDangXuat.Name = "panelDangXuat";
+            this.panelDangXuat.Size = new System.Drawing.Size(359, 91);
+            this.panelDangXuat.TabIndex = 8;
+            this.panelDangXuat.Click += new System.EventHandler(this.panelMenu_Click);
+            this.panelDangXuat.MouseEnter += new System.EventHandler(this.panelMenu_MouseEnter);
+            this.panelDangXuat.MouseLeave += new System.EventHandler(this.panelMenu_MouseLeave);
             // 
             // pictureBox8
             // 
@@ -496,7 +528,7 @@ namespace QuanLyThuVien.GUI
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.ClientSize = new System.Drawing.Size(1421, 749);
+            this.ClientSize = new System.Drawing.Size(1420, 841);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.flowLayoutPanel2);
             this.Controls.Add(this.flowLayoutPanel1);
@@ -517,29 +549,29 @@ namespace QuanLyThuVien.GUI
             this.panel11.ResumeLayout(false);
             this.panel11.PerformLayout();
             this.flowLayoutPanel2.ResumeLayout(false);
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
+            this.panelPhieuNhap.ResumeLayout(false);
+            this.panelPhieuNhap.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            this.panel4.ResumeLayout(false);
-            this.panel4.PerformLayout();
+            this.panelPhieuMuon.ResumeLayout(false);
+            this.panelPhieuMuon.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            this.panel5.ResumeLayout(false);
-            this.panel5.PerformLayout();
+            this.panelPhieuTra.ResumeLayout(false);
+            this.panelPhieuTra.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
-            this.panel6.ResumeLayout(false);
-            this.panel6.PerformLayout();
+            this.panelPhieuPhat.ResumeLayout(false);
+            this.panelPhieuPhat.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
-            this.panel7.ResumeLayout(false);
-            this.panel7.PerformLayout();
+            this.panelDauSach.ResumeLayout(false);
+            this.panelDauSach.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
-            this.panel8.ResumeLayout(false);
-            this.panel8.PerformLayout();
+            this.panelDocGia.ResumeLayout(false);
+            this.panelDocGia.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).EndInit();
-            this.panel13.ResumeLayout(false);
-            this.panel13.PerformLayout();
+            this.panelThongKe.ResumeLayout(false);
+            this.panelThongKe.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).EndInit();
-            this.panel14.ResumeLayout(false);
-            this.panel14.PerformLayout();
+            this.panelDangXuat.ResumeLayout(false);
+            this.panelDangXuat.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).EndInit();
             this.ResumeLayout(false);
 
@@ -552,7 +584,7 @@ namespace QuanLyThuVien.GUI
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel2;
-        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Panel panelPhieuNhap;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Panel panel9;
         private System.Windows.Forms.Panel panel10;
@@ -563,17 +595,17 @@ namespace QuanLyThuVien.GUI
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.Panel panelPhieuMuon;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Panel panel5;
+        private System.Windows.Forms.Panel panelPhieuTra;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Panel panel6;
+        private System.Windows.Forms.Panel panelPhieuPhat;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Panel panel7;
-        private System.Windows.Forms.Panel panel8;
+        private System.Windows.Forms.Panel panelDauSach;
+        private System.Windows.Forms.Panel panelDocGia;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Panel panel13;
+        private System.Windows.Forms.Panel panelThongKe;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.PictureBox pictureBox2;
@@ -582,7 +614,7 @@ namespace QuanLyThuVien.GUI
         private System.Windows.Forms.PictureBox pictureBox5;
         private System.Windows.Forms.PictureBox pictureBox6;
         private System.Windows.Forms.PictureBox pictureBox7;
-        private System.Windows.Forms.Panel panel14;
+        private System.Windows.Forms.Panel panelDangXuat;
         private System.Windows.Forms.PictureBox pictureBox8;
         private System.Windows.Forms.Label label14;
     }

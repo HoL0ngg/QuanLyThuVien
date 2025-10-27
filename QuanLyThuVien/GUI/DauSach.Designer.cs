@@ -45,13 +45,14 @@
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Padding = new System.Windows.Forms.Padding(50, 35, 50, 20);
             this.flowLayoutPanel1.Size = new System.Drawing.Size(1043, 100);
             this.flowLayoutPanel1.TabIndex = 0;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(5, 8);
+            this.label1.Location = new System.Drawing.Point(55, 43);
             this.label1.Margin = new System.Windows.Forms.Padding(5, 8, 0, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(65, 16);
@@ -60,7 +61,7 @@
             // 
             // txtSearch
             // 
-            this.txtSearch.Location = new System.Drawing.Point(75, 5);
+            this.txtSearch.Location = new System.Drawing.Point(125, 40);
             this.txtSearch.Margin = new System.Windows.Forms.Padding(5);
             this.txtSearch.Name = "txtSearch";
             this.txtSearch.Size = new System.Drawing.Size(250, 22);
@@ -68,7 +69,7 @@
             // 
             // btnSearch
             // 
-            this.btnSearch.Location = new System.Drawing.Point(333, 3);
+            this.btnSearch.Location = new System.Drawing.Point(383, 38);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(75, 23);
             this.btnSearch.TabIndex = 2;
@@ -80,6 +81,8 @@
             // 
             this.dgvDauSach.AllowUserToAddRows = false;
             this.dgvDauSach.AllowUserToDeleteRows = false;
+            this.dgvDauSach.AllowUserToResizeColumns = false;
+            this.dgvDauSach.AllowUserToResizeRows = false;
             this.dgvDauSach.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvDauSach.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvDauSach.Dock = System.Windows.Forms.DockStyle.Fill;

@@ -39,5 +39,29 @@ namespace QuanLyThuVien.BUS
             // Gọi thẳng xuống DAO
             return DauSachDAO.Instance.GetAllDauSach();
         }
+
+        public bool AddDauSach(string tenDauSach, int maNXB, string hinhAnhPath, string namXuatBan, string ngonNgu, List<int> maTacGiaList)
+        {
+            // 1. Kiểm tra nghiệp vụ (Validation)
+            if (string.IsNullOrWhiteSpace(tenDauSach))
+            {
+                // Có thể throw exception hoặc trả về false
+                return false;
+            }
+            if (maTacGiaList == null || maTacGiaList.Count == 0 || maNXB <= 0)
+            {
+                // Sách phải có ít nhất 1 tác giả
+                return false;
+            }
+
+            // 2. Gọi DAO
+            try
+            {
+                return DauSachDAO.Instance.AddDauSach(tenDauSach, maNXB, hinhAnhPath, namXuatBan, ngonNgu, maTacGiaList);
+            } catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }
