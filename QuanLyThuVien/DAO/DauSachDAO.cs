@@ -1,9 +1,11 @@
-﻿using System;
-using System.Data;
-// Thư viện này cần thiết cho Dictionary
-using System.Collections.Generic;
+﻿using MySql.Data.MySqlClient;
 // Đảm bảo using đúng namespace của DataProvider
 using QuanLyThuVien.DAO;
+using System;
+// Thư viện này cần thiết cho Dictionary
+using System.Collections.Generic;
+using System.Data;
+using System.Text;
 
 namespace QuanLyThuVien.DAO // Hoặc QuanLyNhanSu.DAO
 {
@@ -25,17 +27,18 @@ namespace QuanLyThuVien.DAO // Hoặc QuanLyNhanSu.DAO
 
         public DataTable GetAllDauSach()
         {
-            string query = @"
+                string query = @"
                 SELECT 
-                    ds.MaDauSach, 
-                    ds.TenDauSach,
-                    ds.HinhAnh,
-                    ds.NhaXuatBan, 
-                    ds.NamXuatBan,
-                    ds.NgonNgu,
-                    ds.SoLuong
+                    ds.MaDauSach as 'Mã đầu sách',
+                    ds.TenDauSach as 'Tên đầu sách',
+                    nxb.tenNXB as 'Nhà xuất bản', 
+                    ds.NamXuatBan as 'Năm xuất bản',
+                    ds.NgonNgu as 'Ngôn ngữ',
+                    ds.SoLuong as 'Số lượng'
                 FROM 
                     dau_sach ds
+                JOIN 
+                    nha_xuat_ban nxb ON ds.NhaXuatBan = nxb.MaNXB
                 ORDER BY 
                     ds.MaDauSach ASC";
 
@@ -77,24 +80,71 @@ namespace QuanLyThuVien.DAO // Hoặc QuanLyNhanSu.DAO
             return data;
         }
 
-        public bool AddDauSach(string tenDauSach, int maTacGia, int maNXB, DateTime ngayNhap)
+        public bool AddDauSach(string tenDauSach, int maNXB, string hinhAnhPath, string namXuatBan, string NgonNgu, List<int> maTacGiaList)
         {
-            string query = @"
-            INSERT INTO DAUSACH (TenDauSach, MaTacGia, MaNXB, NgayNhap)
-            VALUES (@tenDauSach, @maTacGia, @maNXB, @ngayNhap)";
-
-            var parameters = new Dictionary<string, object>
+            using (MySqlConnection connection = DataProvider.GetConnection())
             {
-                { "@tenDauSach", tenDauSach },
-                { "@maTacGia", maTacGia },
-                { "@maNXB", maNXB },
-                { "@ngayNhap", ngayNhap }
-            };
+                connection.Open();
+                MySqlTransaction transaction = connection.BeginTransaction();
+                MySqlCommand command = connection.CreateCommand();
+                command.Transaction = transaction;
+                try
+                {
+                    string queryDauSach = @"
+                        INSERT INTO dau_sach (TenDauSach, NhaXuatBan, HinhAnh, NamXuatBan, NgonNgu)
+                        VALUES (@tenDauSach, @maNXB, @hinhAnhPath, @namXuatBan, @NgonNgu); SELECT LAST_INSERT_ID();";
 
-            // Gọi hàm ExecuteNonQuery đã sửa
-            int result = DataProvider.ExecuteNonQuery(query, parameters);
+                    command.CommandText = queryDauSach;
+                    command.Parameters.AddWithValue("@tenDauSach", tenDauSach);
+                    command.Parameters.AddWithValue("@maNXB", maNXB);
+                    command.Parameters.AddWithValue("@hinhAnhPath", hinhAnhPath);
+                    command.Parameters.AddWithValue("@namXuatBan", namXuatBan);
+                    command.Parameters.AddWithValue("@NgonNgu", NgonNgu);
 
-            return result > 0; // Trả về true nếu thành công (có > 0 dòng bị ảnh hưởng)
+                    int newMaDauSach = Convert.ToInt32(command.ExecuteScalar());
+
+                    if (newMaDauSach == 0)
+                    {
+                        throw new Exception("Không thể tạo đầu sách mới.");
+                    }
+
+                    // Xóa các tham số cũ
+                    command.Parameters.Clear();
+
+                    var queryTacGia = new StringBuilder();
+                    queryTacGia.Append("INSERT INTO tacgia_dausach (MaDauSach, MaTacGia) VALUES ");
+
+                    for (int i = 0; i < maTacGiaList.Count; i++)
+                    {
+                        string maDSParam = "@MaDS" + i;
+                        string maTGParam = "@MaTG" + i;
+
+                        queryTacGia.AppendFormat("({0}, {1})", maDSParam, maTGParam);
+                        if (i < maTacGiaList.Count - 1)
+                        {
+                            queryTacGia.Append(", ");
+                        }
+
+                        // Thêm tham số cho vòng lặp
+                        command.Parameters.AddWithValue(maDSParam, newMaDauSach);
+                        command.Parameters.AddWithValue(maTGParam, maTacGiaList[i]);
+                    }
+
+                    // Chạy câu query thêm tác giả
+                    command.CommandText = queryTacGia.ToString();
+                    command.ExecuteNonQuery();
+
+                    // BƯỚC 3: Nếu mọi thứ OK, commit transaction
+                    transaction.Commit();
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    throw new Exception("Lỗi CSDL khi thêm đầu sách: " + ex.Message);
+                }
+            }
+
         }
     }
 }

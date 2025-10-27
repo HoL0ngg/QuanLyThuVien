@@ -16,7 +16,7 @@ namespace QuanLyThuVien.DAO
         public DataTable GetAllTacGia()
         {
             // Giả sử bảng của bạn là TACGIA(MaTacGia, TenTacGia)
-            string query = "SELECT MaTacGia, TenTacGia FROM TACGIA ORDER BY TenTacGia";
+            string query = "SELECT MaTacGia, TenTacGia FROM TAC_GIA ORDER BY TenTacGia";
             return DataProvider.ExecuteQuery(query);
         }
     }

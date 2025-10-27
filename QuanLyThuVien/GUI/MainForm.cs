@@ -56,8 +56,12 @@ namespace QuanLyThuVien.GUI
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            label1.Text = currentUser.TenDangNhap;
-            label2.Text = currentUser.ChucVu;
+            if (this.DesignMode)
+            {
+                return; // Nếu đang ở chế độ Design, không làm gì cả
+            }
+            //label1.Text = currentUser.TenDangNhap;
+            //label2.Text = currentUser.ChucVu;
         }
 
         private void label3_Click(object sender, EventArgs e)

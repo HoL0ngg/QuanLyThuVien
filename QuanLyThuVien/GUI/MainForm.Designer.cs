@@ -528,7 +528,7 @@ namespace QuanLyThuVien.GUI
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.ClientSize = new System.Drawing.Size(1377, 749);
+            this.ClientSize = new System.Drawing.Size(1420, 841);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.flowLayoutPanel2);
             this.Controls.Add(this.flowLayoutPanel1);

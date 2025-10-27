@@ -16,7 +16,7 @@ namespace QuanLyThuVien.DAO
         private NxbDAO() { }
 
         public DataTable getAllNxb() {
-            string query = "SELECT MaNCC, TenNCC FROM nha_cung_cap ORDER BY TenNCC";
+            string query = "SELECT MaNXB, TenNXB FROM nha_xuat_ban where status = 1 ORDER BY TenNXB";
             return DataProvider.ExecuteQuery(query);
         }
     }

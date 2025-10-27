@@ -115,12 +115,19 @@
     <Compile Include="DAO\TaiKhoanDAO.cs" />
     <Compile Include="DTO\CTPhieuNhapDTO.cs" />
     <Compile Include="DTO\PhieuNhapDTO.cs" />
+    <Compile Include="DTO\TacGiaDTO.cs" />
     <Compile Include="DTO\TaiKhoanDTO.cs" />
     <Compile Include="GUI\BaseModuleUC.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="GUI\BaseModuleUC.Designer.cs">
       <DependentUpon>BaseModuleUC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\ChonTacGiaDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\ChonTacGiaDialog.Designer.cs">
+      <DependentUpon>ChonTacGiaDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="GUI\CTPhieuNhapGUI.cs">
       <SubType>Form</SubType>
@@ -195,9 +202,13 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="assets\img\" />
     <Folder Include="Resources\" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="GUI\ChonTacGiaDialog.resx">
+      <DependentUpon>ChonTacGiaDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GUI\CTPhieuNhapGUI.resx">
       <DependentUpon>CTPhieuNhapGUI.cs</DependentUpon>
     </EmbeddedResource>
@@ -222,7 +233,6 @@
     <EmbeddedResource Include="GUI\PhieuNhapGUI.resx">
       <DependentUpon>PhieuNhapGUI.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GUI\ThongKeGUI\UCHeaderThongKe.resx">
     <EmbeddedResource Include="GUI\ThongKeGUI\UCHeaderThongKe.resx">
       <DependentUpon>UCHeaderThongKe.cs</DependentUpon>
     </EmbeddedResource>
