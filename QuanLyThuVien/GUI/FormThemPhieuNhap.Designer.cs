@@ -115,7 +115,6 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(575, 448);
             this.Controls.Add(this.cbMaNCC);
             this.Controls.Add(this.cbMaNV);
             this.Controls.Add(this.btnHuy);
@@ -125,8 +124,7 @@
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label2);
             this.Name = "FormThemPhieuNhap";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "FormThemPhieuNhap";
+            this.Size = new System.Drawing.Size(575, 448);
             this.Load += new System.EventHandler(this.FormThemPhieuNhap_Load_1);
             this.ResumeLayout(false);
 

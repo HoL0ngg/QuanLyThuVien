@@ -188,6 +188,7 @@ namespace QuanLyThuVien.GUI
             this.panel12.Name = "panel12";
             this.panel12.Size = new System.Drawing.Size(255, 100);
             this.panel12.TabIndex = 3;
+            this.panel12.Click += new System.EventHandler(this.btnXoa_Click);
             // 
             // label12
             // 
@@ -198,6 +199,7 @@ namespace QuanLyThuVien.GUI
             this.label12.Size = new System.Drawing.Size(48, 25);
             this.label12.TabIndex = 3;
             this.label12.Text = "Xóa";
+            this.label12.Click += new System.EventHandler(this.btnXoa_Click);
             // 
             // panel11
             // 
@@ -207,6 +209,8 @@ namespace QuanLyThuVien.GUI
             this.panel11.Name = "panel11";
             this.panel11.Size = new System.Drawing.Size(247, 100);
             this.panel11.TabIndex = 2;
+            this.panel11.Click += new System.EventHandler(this.btnChiTiet_Click);
+            this.panel11.Paint += new System.Windows.Forms.PaintEventHandler(this.panel11_Paint);
             // 
             // label11
             // 
@@ -520,11 +524,13 @@ namespace QuanLyThuVien.GUI
             // 
             // panel3
             // 
+            this.panel3.AutoScroll = true;
             this.panel3.Cursor = System.Windows.Forms.Cursors.Default;
             this.panel3.Location = new System.Drawing.Point(377, 113);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(1037, 624);
+            this.panel3.Size = new System.Drawing.Size(1037, 728);
             this.panel3.TabIndex = 5;
+            this.panel3.Paint += new System.Windows.Forms.PaintEventHandler(this.panel3_Paint);
             // 
             // MainForm
             // 

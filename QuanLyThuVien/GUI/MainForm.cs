@@ -130,7 +130,7 @@ namespace QuanLyThuVien.GUI
             // (Hãy đảm bảo tên panel của bạn khớp, ví dụ: panelDauSach, panelPhieuMuon)
             if (clickedPanel.Name == "panelPhieuNhap")
             {
-                // LoadModule(new PhieuNhap()); // (Bạn tự thêm UC của mình)
+                 LoadModule(new PhieuNhapGUI());
             }
             else if (clickedPanel.Name == "panelPhieuMuon")
             {
@@ -172,6 +172,30 @@ namespace QuanLyThuVien.GUI
             {
                 currentModule.OnEdit();
             }
+        }
+        private void btnXoa_Click(object sender, EventArgs e)
+        {
+            if (currentModule != null)
+            {
+                currentModule.OnDelete();
+            }
+        }
+        private void btnChiTiet_Click(object sender, EventArgs e)
+        {
+            if (currentModule != null)
+            {
+                currentModule.OnDetails();
+            }
+        }
+
+        private void panel3_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void panel11_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

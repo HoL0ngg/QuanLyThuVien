@@ -17,6 +17,7 @@ namespace QuanLyThuVien.GUI
     public partial class FormThemPhieuNhap : UserControl
     {
         private PhieuNhapBUS bus = new PhieuNhapBUS();
+        public event Action OnPhieuNhapAdded;
         public FormThemPhieuNhap()
         {
             InitializeComponent();
@@ -69,8 +70,8 @@ namespace QuanLyThuVien.GUI
                 if (rs)
                 {
                     MessageBox.Show("Thêm phiếu nhập thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    this.DialogResult = DialogResult.OK;
-                    this.Close();
+                    OnPhieuNhapAdded?.Invoke();
+                    this.Visible = false;
                 }
                 else
                 {
@@ -90,9 +91,7 @@ namespace QuanLyThuVien.GUI
 
         private void btnCancel(object sender, EventArgs e)
         {
-            this.DialogResult = DialogResult.Cancel;
-
-            this.Close();
+            this.Visible = false;
         }
 
         private void label1_Click(object sender, EventArgs e)

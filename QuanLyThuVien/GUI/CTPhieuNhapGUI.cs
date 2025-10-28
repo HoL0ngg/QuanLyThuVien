@@ -30,6 +30,15 @@ namespace QuanLyThuVien.GUI
             this.Load += FormCTPhieuNhap_Load;
         }
 
+        public void LoadChiTiet(int maPhieuChon)
+        {
+            this.MaPhieuHienTai = maPhieuChon;
+
+            LoadSach();
+
+            LoadDanhSach();
+        }
+
         private void LoadDanhSach()
         {
             dataGridView1.AutoGenerateColumns = false;
@@ -108,6 +117,7 @@ namespace QuanLyThuVien.GUI
             btnThem.Click += new EventHandler(them);
             btnXoa.Click += new EventHandler(xoa);
             btnSua.Click += new EventHandler(sua);
+            btnHuy.Click += new EventHandler(Cancel);
 
         }
 
@@ -236,12 +246,21 @@ namespace QuanLyThuVien.GUI
                 MessageBox.Show("Lỗi khi sửa: " + ex.Message, "Lỗi");
             }
         }
+        private void Cancel(object sender, EventArgs e)
+        {
+            this.Visible = false;
+        }
         private void CTPhieuNhapGUI_Load(object sender, EventArgs e)
         {
 
         }
 
         private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
         }

@@ -1,4 +1,5 @@
 ﻿using QuanLyThuVien.BUS;
+using QuanLyThuVien.DAO;
 using QuanLyThuVien.DTO;
 using System;
 using System.Collections.Generic;
@@ -12,16 +13,27 @@ using System.Windows.Forms;
 
 namespace QuanLyThuVien.GUI
 {
-    public partial class PhieuNhapGUI : UserControl
+    public partial class PhieuNhapGUI : BaseModuleUC
     {
         PhieuNhapBUS bus = new PhieuNhapBUS();
+        private FormThemPhieuNhap formThemPhieuNhap1;
+        private CTPhieuNhapGUI ctPhieuNhapGUI1;
         public PhieuNhapGUI()
         {
             InitializeComponent();
-            this.Load += new System.EventHandler(this.FormPhieuNhap_Load);
+            formThemPhieuNhap1 = new FormThemPhieuNhap();
+            formThemPhieuNhap1.Dock = DockStyle.Fill;
+            formThemPhieuNhap1.Visible = false;
+            this.Controls.Add(formThemPhieuNhap1);
+
+            ctPhieuNhapGUI1 = new CTPhieuNhapGUI();
+            ctPhieuNhapGUI1.Dock = DockStyle.Fill;
+            ctPhieuNhapGUI1.Visible = false;
+            this.Controls.Add(ctPhieuNhapGUI1);
+            formThemPhieuNhap2.OnPhieuNhapAdded += () => LoadDanhSach();
         }
         
-        private void LoadDanhSach()
+        public void LoadDanhSach()
         {
             dataGridView1.AutoGenerateColumns = false;
             colMaPhieuNhap.DataPropertyName = "MaPhieuNhap";
@@ -29,16 +41,6 @@ namespace QuanLyThuVien.GUI
             colMaNV.DataPropertyName = "MaNV";
             colMaNCC.DataPropertyName = "MaNCC";
             dataGridView1.DataSource = bus.GetALL();
-        }
-
-        private void FormPhieuNhap_Load(object sender, EventArgs e)
-        {
-            LoadDanhSach();
-            dataGridView1.CellClick += PhieuNhap_CellClick;
-            btnThem.Click += them;
-            btnChiTiet.Click += chitiet;
-            btnXoa.Click += xoa;
-            btnSua.Click += sua;
         }
 
         private void PhieuNhap_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -55,10 +57,10 @@ namespace QuanLyThuVien.GUI
                         dtpDate.Value = DateTime.Now;
                     
                     if (row.Cells["colMaNV"].Value != null)
-                        txtMaNV.Text = row.Cells["colMaNV"].Value.ToString();
+                        cbMaNV.SelectedValue = row.Cells["colMaNV"].Value;
 
                     if (row.Cells["colMaNCC"].Value != null)
-                        txtMaNCC.Text = row.Cells["colMaNCC"].Value.ToString();
+                        cbMaNCC.SelectedValue = row.Cells["colMaNCC"].Value;
                 }
             }
             catch (Exception ex)
@@ -69,17 +71,17 @@ namespace QuanLyThuVien.GUI
 
         private void them(object sender, EventArgs e)
         {
-            FormThemPhieuNhap f =  new FormThemPhieuNhap();
-            f.ShowDialog();
-            LoadDanhSach();
+            formThemPhieuNhap2.Visible = true;
+            formThemPhieuNhap2.BringToFront();
         }
         private void chitiet(object sender, EventArgs e)
         {
             if (dataGridView1.CurrentRow != null)
             {
                 int maPhieuChon = Convert.ToInt32(dataGridView1.CurrentRow.Cells["colMaPhieuNhap"].Value);
-                CTPhieuNhapGUI gui = new CTPhieuNhapGUI(maPhieuChon);
-                gui.ShowDialog();
+                ctPhieuNhapGUI1.LoadChiTiet(maPhieuChon);
+                ctPhieuNhapGUI1.Visible = true;
+                ctPhieuNhapGUI1.BringToFront();
             }
             else
             {
@@ -94,7 +96,7 @@ namespace QuanLyThuVien.GUI
                 return;
             }
                 
-            int maPhieuCanXoa = int.Parse(dataGridView1.CurrentRow.Cells["colMaPhieuNhap"].Value.ToString());
+            int maPhieuCanXoa = Convert.ToInt32(dataGridView1.CurrentRow.Cells["colMaPhieuNhap"].Value.ToString());
             DialogResult result = MessageBox.Show("Bạn có chắc chắn muốn xóa phiếu nhập " + maPhieuCanXoa + "?", "Xác nhận xóa", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (result == DialogResult.Yes)
             {
@@ -118,10 +120,10 @@ namespace QuanLyThuVien.GUI
                 MessageBox.Show("Vui lòng chọn một phiếu nhập để xóa!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            int maPhieuCanSua = int.Parse(dataGridView1.CurrentRow.Cells["colMaPhieuNhap"].Value.ToString());
+            int maPhieuCanSua = Convert.ToInt32(dataGridView1.CurrentRow.Cells["colMaPhieuNhap"].Value.ToString());
             DateTime NewDay = dtpDate.Value;
-            int NewMaNV = int.Parse(txtMaNV.Text);
-            int NewMaNNCC = int.Parse(txtMaNCC.Text);
+            int NewMaNV = Convert.ToInt32(cbMaNV.SelectedValue);
+            int NewMaNNCC = Convert.ToInt32(cbMaNCC.SelectedValue);
             PhieuNhapDTO NewPhieu = new PhieuNhapDTO();
             NewPhieu.MaPhieuNhap = maPhieuCanSua;
             NewPhieu.ThoiGian = NewDay;
@@ -138,7 +140,45 @@ namespace QuanLyThuVien.GUI
                 MessageBox.Show("Cập nhật thất bại. Vui lòng thử lại.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        private void LoadNhanVien()
+        {
+            string query = "SELECT MANV, TENNV FROM nhan_vien";
+            DataTable dt = DataProvider.ExecuteQuery(query);
 
+            dt.Columns.Add("MATEN", typeof(string), "MANV + ' - ' + TENNV");
+
+            cbMaNV.DataSource = dt;
+            cbMaNV.DisplayMember = "MATEN";
+            cbMaNV.ValueMember = "MANV";
+        }
+
+        private void LoadNhacungCap()
+        {
+            string query = "SELECT MANCC, TENNCC FROM nha_cung_cap";
+            DataTable dt = DataProvider.ExecuteQuery(query);
+            dt.Columns.Add("MATEN", typeof(string), "MANCC + ' - ' + TENNCC");
+            cbMaNCC.DataSource = dt;
+            cbMaNCC.DisplayMember = "MATEN";
+            cbMaNCC.ValueMember = "MANCC";
+        }
+
+        public override void OnAdd()
+        {
+            them(this,EventArgs.Empty);
+        }
+        public override void OnEdit()
+        {
+            sua(this, EventArgs.Empty);
+        }
+        public override void OnDelete()
+        {
+            xoa(this, EventArgs.Empty);
+        }
+
+        public override void OnDetails()
+        {
+            chitiet(this, EventArgs.Empty);
+        }
         private void label3_Click(object sender, EventArgs e)
         {
 
@@ -170,6 +210,19 @@ namespace QuanLyThuVien.GUI
         }
 
         private void PhieuNhapGUI_Load(object sender, EventArgs e)
+        {
+            LoadDanhSach();
+            LoadNhanVien();
+            LoadNhacungCap();
+            dataGridView1.CellClick += PhieuNhap_CellClick;
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void formThemPhieuNhap2_Load(object sender, EventArgs e)
         {
 
         }
