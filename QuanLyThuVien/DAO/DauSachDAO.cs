@@ -1,6 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
-// Đảm bảo using đúng namespace của DataProvider
-using QuanLyThuVien.DAO;
+using QuanLyThuVien.DTO;
 using System;
 // Thư viện này cần thiết cho Dictionary
 using System.Collections.Generic;
@@ -78,6 +77,72 @@ namespace QuanLyThuVien.DAO // Hoặc QuanLyNhanSu.DAO
             DataTable data = DataProvider.ExecuteQuery(query, parameters);
 
             return data;
+        }
+
+        public DauSachDTO GetDauSachByID(int dauSach)
+        {
+            string query = @"
+                SELECT 
+                    MaDauSach,
+                    TenDauSach,
+                    NhaXuatBan,
+                    NamXuatBan,
+                    NgonNgu,
+                    SoLuong,
+                    HinhAnh
+                FROM 
+                    dau_sach
+                WHERE 
+                    MaDauSach = @dauSachID";
+            var parameters = new Dictionary<string, object>();
+            parameters.Add("@dauSachID", dauSach);
+            DataTable dt = DataProvider.ExecuteQuery(query, parameters);
+            if (dt.Rows.Count == 0)
+                return null;
+            DataRow row = dt.Rows[0];
+            DauSachDTO dauSachDTO = new DauSachDTO
+            {
+                MaDauSach = Convert.ToInt32(row["MaDauSach"]),
+                TenDauSach = row["TenDauSach"].ToString(),
+                NhaXuatBan = Convert.ToInt32(row["NhaXuatBan"]),
+                NamXuatBan = Convert.ToInt32(row["NamXuatBan"]),
+                NgonNgu = row["NgonNgu"].ToString(),
+                SoLuong = Convert.ToInt32(row["SoLuong"]),
+                HinhAnh = row["HinhAnh"].ToString()
+            };
+            return dauSachDTO;
+        }
+
+        public List<TacGiaDTO> GetTacGiaByDauSachID(int dauSachID)
+        {
+            string query = @"
+                SELECT 
+                    tg.MaTacGia,
+                    tg.TenTacGia,
+                    tg.NamSinh,
+                    tg.QuocTich
+                FROM 
+                    tac_gia tg
+                JOIN
+                    tacgia_dausach ON tacgia_dausach.MaTacGia = tg.MaTacGia
+                WHERE 
+                    MaDauSach = @dauSachID";
+            var parameters = new Dictionary<string, object>();
+            parameters.Add("@dauSachID", dauSachID);
+            DataTable dt = DataProvider.ExecuteQuery(query, parameters);
+            List<TacGiaDTO> tacGiaList = new List<TacGiaDTO>();
+            foreach (DataRow row in dt.Rows)
+            {
+                TacGiaDTO tacGia = new TacGiaDTO
+                {
+                    maTacGia = Convert.ToInt32(row["MaTacGia"]),
+                    tenTacGia = row["TenTacGia"].ToString(),
+                    namSinh = row["NamSinh"].ToString(),
+                    quocTich = row["QuocTich"].ToString()
+                };
+                tacGiaList.Add(tacGia);
+            }
+            return tacGiaList;
         }
 
         public bool AddDauSach(string tenDauSach, int maNXB, string hinhAnhPath, string namXuatBan, string NgonNgu, List<int> maTacGiaList)

@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using QuanLyThuVien.DTO;
 
 namespace QuanLyThuVien.BUS
 {
@@ -38,6 +39,29 @@ namespace QuanLyThuVien.BUS
         {
             // Gọi thẳng xuống DAO
             return DauSachDAO.Instance.GetAllDauSach();
+        }
+
+        public DauSachDTO GetDauSachByID(int dauSach)
+        {
+            try
+            {
+                return DauSachDAO.Instance.GetDauSachByID(dauSach);
+            } catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public List<TacGiaDTO> GetTacGiaByDauSachID(int dauSachID)
+        {
+            try
+            {
+                return DauSachDAO.Instance.GetTacGiaByDauSachID(dauSachID);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public bool AddDauSach(string tenDauSach, int maNXB, string hinhAnhPath, string namXuatBan, string ngonNgu, List<int> maTacGiaList)

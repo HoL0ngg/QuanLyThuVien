@@ -114,6 +114,7 @@
     <Compile Include="DAO\TacGiaDAO.cs" />
     <Compile Include="DAO\TaiKhoanDAO.cs" />
     <Compile Include="DTO\CTPhieuNhapDTO.cs" />
+    <Compile Include="DTO\DauSachDTO.cs" />
     <Compile Include="DTO\PhieuNhapDTO.cs" />
     <Compile Include="DTO\TacGiaDTO.cs" />
     <Compile Include="DTO\TaiKhoanDTO.cs" />

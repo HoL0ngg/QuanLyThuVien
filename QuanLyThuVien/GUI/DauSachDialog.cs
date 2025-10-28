@@ -18,14 +18,43 @@ namespace QuanLyThuVien.GUI
     {
         private string newImagePath = null;
         private List<TacGiaDTO> danhSachTacGiaChon = new List<TacGiaDTO>();
-        public DauSachDialog()
+        private string mode;
+        private int dauSachID;
+        public DauSachDialog(string mode, int dauSachID)
         {
             InitializeComponent();
+            this.mode = mode;
+            this.dauSachID = dauSachID;
         }
 
         private void DauSachDialog_Load(object sender, EventArgs e)
         {
             LoadComboBoxes();
+            if (dauSachID != 0)
+            {
+                var dauSach = DauSachBUS.Instance.GetDauSachByID(dauSachID);
+                if (dauSach != null)
+                {
+                    txtTenDauSach.Text = dauSach.TenDauSach;
+                    cmbNXB.SelectedValue = dauSach.NhaXuatBan;
+                    txtNamXuatBan.Text = dauSach.NamXuatBan.ToString();
+                    txtNgonNgu.Text = dauSach.NgonNgu;
+                    if (!string.IsNullOrEmpty(dauSach.HinhAnh))
+                    {
+                        string appDirectory = AppDomain.CurrentDomain.BaseDirectory;
+                        string projectRoot = Path.GetFullPath(Path.Combine(appDirectory, @"..\.."));
+                        string imagePath = Path.Combine(projectRoot, dauSach.HinhAnh);
+                        if (File.Exists(imagePath))
+                        {
+                            pictureBox1.Image = Image.FromFile(imagePath);
+                            this.newImagePath = dauSach.HinhAnh; // Giữ nguyên đường dẫn ảnh hiện tại
+                        }
+                    }
+                    List<TacGiaDTO> tacGiaListhihi = DauSachBUS.Instance.GetTacGiaByDauSachID(dauSachID);
+                    danhSachTacGiaChon = tacGiaListhihi;
+                    RefreshTacGiaGrid();
+                }
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)

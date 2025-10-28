@@ -140,6 +140,7 @@ namespace QuanLyThuVien.GUI
             // 
             this.panel9.BackColor = System.Drawing.SystemColors.GrayText;
             this.panel9.Controls.Add(this.label9);
+            this.panel9.Cursor = System.Windows.Forms.Cursors.Hand;
             this.panel9.Location = new System.Drawing.Point(3, 3);
             this.panel9.Name = "panel9";
             this.panel9.Size = new System.Drawing.Size(280, 100);
@@ -162,10 +163,12 @@ namespace QuanLyThuVien.GUI
             // 
             this.panel10.BackColor = System.Drawing.SystemColors.GrayText;
             this.panel10.Controls.Add(this.label10);
+            this.panel10.Cursor = System.Windows.Forms.Cursors.Hand;
             this.panel10.Location = new System.Drawing.Point(289, 3);
             this.panel10.Name = "panel10";
             this.panel10.Size = new System.Drawing.Size(237, 100);
             this.panel10.TabIndex = 1;
+            this.panel10.Click += new System.EventHandler(this.btnSua_Click);
             // 
             // label10
             // 

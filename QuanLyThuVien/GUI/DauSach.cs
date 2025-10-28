@@ -22,7 +22,7 @@ namespace QuanLyThuVien.GUI
         public override void OnAdd()
         {
             // Mở form_ThemPhieuMuon
-            DauSachDialog dialog = new DauSachDialog();
+            DauSachDialog dialog = new DauSachDialog("ADD", 0);
             var result = dialog.ShowDialog();
             if (result == DialogResult.OK)
             {
@@ -34,9 +34,20 @@ namespace QuanLyThuVien.GUI
         public override void OnEdit()
         {
             // Lấy ID của phiếu mượn đang chọn trên DataGridView
-            // Mở form_SuaPhieuMuon với ID đó
-            // ...
-            LoadData(); // Tải lại
+            if (dgvDauSach.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Vui lòng chọn đầu sách để sửa!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            int selectedDauSachID = Convert.ToInt32(dgvDauSach.SelectedRows[0].Cells["Mã đầu sách"].Value);
+            DauSachDialog dialog = new DauSachDialog("EDIT", selectedDauSachID);
+            
+            var result = dialog.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                MessageBox.Show("Sửa đầu sách thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                LoadData(); // Tải lại dữ liệu sau khi thêm
+            }
         }
 
         public override void OnDelete()

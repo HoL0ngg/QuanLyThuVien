@@ -165,5 +165,13 @@ namespace QuanLyThuVien.GUI
                 currentModule.OnAdd();
             }
         }
+
+        private void btnSua_Click(object sender, EventArgs e)
+        {
+            if (currentModule != null)
+            {
+                currentModule.OnEdit();
+            }
+        }
     }
 }
