@@ -14,7 +14,7 @@ using System.Windows.Forms;
 
 namespace QuanLyThuVien.GUI
 {
-    public partial class FormThemPhieuNhap : Form
+    public partial class FormThemPhieuNhap : UserControl
     {
         private PhieuNhapBUS bus = new PhieuNhapBUS();
         public FormThemPhieuNhap()

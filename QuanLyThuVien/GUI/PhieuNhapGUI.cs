@@ -12,7 +12,7 @@ using System.Windows.Forms;
 
 namespace QuanLyThuVien.GUI
 {
-    public partial class PhieuNhapGUI : Form
+    public partial class PhieuNhapGUI : UserControl
     {
         PhieuNhapBUS bus = new PhieuNhapBUS();
         public PhieuNhapGUI()

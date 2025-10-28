@@ -523,7 +523,7 @@ namespace QuanLyThuVien.GUI
             this.panel3.Cursor = System.Windows.Forms.Cursors.Default;
             this.panel3.Location = new System.Drawing.Point(377, 113);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(1010, 624);
+            this.panel3.Size = new System.Drawing.Size(1037, 624);
             this.panel3.TabIndex = 5;
             // 
             // MainForm

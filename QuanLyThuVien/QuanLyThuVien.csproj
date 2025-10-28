@@ -131,7 +131,7 @@
       <DependentUpon>ChonTacGiaDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="GUI\CTPhieuNhapGUI.cs">
-      <SubType>Form</SubType>
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="GUI\CTPhieuNhapGUI.Designer.cs">
       <DependentUpon>CTPhieuNhapGUI.cs</DependentUpon>
@@ -149,7 +149,7 @@
       <DependentUpon>DauSachDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="GUI\FormThemPhieuNhap.cs">
-      <SubType>Form</SubType>
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="GUI\FormThemPhieuNhap.Designer.cs">
       <DependentUpon>FormThemPhieuNhap.cs</DependentUpon>
@@ -167,7 +167,7 @@
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="GUI\PhieuNhapGUI.cs">
-      <SubType>Form</SubType>
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="GUI\PhieuNhapGUI.Designer.cs">
       <DependentUpon>PhieuNhapGUI.cs</DependentUpon>
