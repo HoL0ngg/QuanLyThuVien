@@ -97,15 +97,20 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BUS\PhieuMuonBUS.cs" />
     <Compile Include="BUS\CTPhieuNhapBUS.cs" />
     <Compile Include="BUS\PhieuNhapBUS.cs" />
     <Compile Include="BUS\DauSachBUS.cs" />
     <Compile Include="BUS\TaiKhoanBUS.cs" />
+    <Compile Include="DAO\CTPhieuMuonDAO.cs" />
+    <Compile Include="DAO\PhieuMuonDAO.cs" />
     <Compile Include="DAO\CTPhieuNhapDAO.cs" />
     <Compile Include="DAO\DataProvider.cs" />
     <Compile Include="DAO\PhieuNhapDAO.cs" />
     <Compile Include="DAO\DauSachDAO.cs" />
     <Compile Include="DAO\TaiKhoanDAO.cs" />
+    <Compile Include="DTO\CTPhieuMuonDTO.cs" />
+    <Compile Include="DTO\PhieuMuonDTO.cs" />
     <Compile Include="DTO\CTPhieuNhapDTO.cs" />
     <Compile Include="DTO\PhieuNhapDTO.cs" />
     <Compile Include="DTO\TaiKhoanDTO.cs" />
