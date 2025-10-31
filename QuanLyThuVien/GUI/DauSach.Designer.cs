@@ -48,6 +48,7 @@
             this.flowLayoutPanel1.Padding = new System.Windows.Forms.Padding(50, 35, 50, 20);
             this.flowLayoutPanel1.Size = new System.Drawing.Size(1043, 100);
             this.flowLayoutPanel1.TabIndex = 0;
+            this.flowLayoutPanel1.Paint += new System.Windows.Forms.PaintEventHandler(this.flowLayoutPanel1_Paint);
             // 
             // label1
             // 

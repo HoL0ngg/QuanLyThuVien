@@ -101,6 +101,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BUS\PhieuMuonBUS.cs" />
+    <Compile Include="BUS\PhieuPhatBUS.cs" />
     <Compile Include="BUS\CTPhieuNhapBUS.cs" />
     <Compile Include="BUS\NxbBUS.cs" />
     <Compile Include="BUS\PhieuNhapBUS.cs" />
@@ -109,6 +110,7 @@
     <Compile Include="BUS\TaiKhoanBUS.cs" />
     <Compile Include="DAO\CTPhieuMuonDAO.cs" />
     <Compile Include="DAO\PhieuMuonDAO.cs" />
+    <Compile Include="DAO\PhieuPhatDAO.cs" />
     <Compile Include="DAO\CTPhieuNhapDAO.cs" />
     <Compile Include="DAO\DataProvider.cs" />
     <Compile Include="DAO\NxbDAO.cs" />
@@ -116,6 +118,7 @@
     <Compile Include="DAO\DauSachDAO.cs" />
     <Compile Include="DAO\TacGiaDAO.cs" />
     <Compile Include="DAO\TaiKhoanDAO.cs" />
+    <Compile Include="DTO\PhieuPhatDTO.cs" />
     <Compile Include="DTO\CTPhieuMuonDTO.cs" />
     <Compile Include="DTO\PhieuMuonDTO.cs" />
     <Compile Include="DTO\CTPhieuNhapDTO.cs" />
@@ -183,17 +186,17 @@
     <Compile Include="GUI\ThongKeGUI\UCMain.Designer.cs">
       <DependentUpon>UCMain.cs</DependentUpon>
     </Compile>
-    <Compile Include="GUI\ThongKeGUI\UCHeaderThongKe.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="GUI\ThongKeGUI\UCHeaderThongKe.Designer.cs">
-      <DependentUpon>UCHeaderThongKe.cs</DependentUpon>
-    </Compile>
     <Compile Include="GUI\PhieuMuon.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="GUI\PhieuMuon.Designer.cs">
       <DependentUpon>PhieuMuon.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\PhieuPhat.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\PhieuPhat.Designer.cs">
+      <DependentUpon>PhieuPhat.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -241,6 +244,8 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\ThongKeGUI\UCHeaderThongKe.resx">
       <DependentUpon>UCHeaderThongKe.cs</DependentUpon>
+    <EmbeddedResource Include="GUI\PhieuPhat.resx">
+      <DependentUpon>PhieuPhat.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\ThongKeGUI\UCMain.resx">
       <DependentUpon>UCMain.cs</DependentUpon>
@@ -249,6 +254,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="database\quanlythuvien.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -156,6 +156,56 @@ namespace QuanLyThuVien.GUI
 
         }
 
+        private void label6_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label7_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        
+
+        private void panel6_Paint_1(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void panelPhieuPhat_Click(object sender, EventArgs e)
+        {
+           
+            var uc = new PhieuPhat();
+            uc.Dock = DockStyle.Fill;
+            panel3.Controls.Clear();
+            panel3.Controls.Add(uc);
+            uc.BringToFront();
+        }
+
+        private void panel3_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void panelPhieuPhat_DoubleClick(object sender, EventArgs e)
+        {
+            PhieuPhat phieuphat = new PhieuPhat();
+            phieuphat.Dock = DockStyle.Fill;
+            this.panel3.Controls.Clear();
+            this.panel3.Controls.Add(phieuphat);
+        }
+
+        private void panelPhieuPhat_MouseDown(object sender, MouseEventArgs e)
+        {
+            
+        }
+
         private void btnThem_Click(object sender, EventArgs e)
         {
             // 1. Kiểm tra xem có module nào đang chạy không

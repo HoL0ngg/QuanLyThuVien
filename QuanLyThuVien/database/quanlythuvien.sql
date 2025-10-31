@@ -1,544 +1,967 @@
--- MySQL dump 10.13  Distrib 8.0.36, for Win64 (x86_64)
+-- phpMyAdmin SQL Dump
+-- version 5.2.1
+-- https://www.phpmyadmin.net/
 --
--- Host: localhost    Database: qltv
--- ------------------------------------------------------
--- Server version	8.0.37
+-- Máy chủ: 127.0.0.1
+-- Thời gian đã tạo: Th10 28, 2025 lúc 09:30 PM
+-- Phiên bản máy phục vụ: 10.4.32-MariaDB
+-- Phiên bản PHP: 8.2.12
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!50503 SET NAMES utf8 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
--- Table structure for table `chuc_nang`
+-- Cơ sở dữ liệu: `quanlythuvien`
 --
 
-DROP TABLE IF EXISTS `chuc_nang`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `chucnang_nhomquyen`
+--
+
+CREATE TABLE `chucnang_nhomquyen` (
+  `MaNhomQuyen` int(11) NOT NULL,
+  `MaChucNang` int(11) NOT NULL,
+  `HanhDong` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `chucnang_nhomquyen`
+--
+
+INSERT INTO `chucnang_nhomquyen` (`MaNhomQuyen`, `MaChucNang`, `HanhDong`) VALUES
+(1, 1, 'THEM'),
+(1, 1, 'XOA'),
+(1, 1, 'SUA'),
+(1, 1, 'XEM'),
+(1, 2, 'THEM'),
+(1, 2, 'XOA'),
+(1, 2, 'SUA'),
+(1, 2, 'XEM'),
+(1, 3, 'THEM'),
+(1, 3, 'XOA'),
+(1, 3, 'SUA'),
+(1, 3, 'XEM'),
+(1, 4, 'THEM'),
+(1, 4, 'XOA'),
+(1, 4, 'SUA'),
+(1, 4, 'XEM'),
+(1, 5, 'THEM'),
+(1, 5, 'XOA'),
+(1, 5, 'SUA'),
+(1, 5, 'XEM'),
+(1, 6, 'THEM'),
+(1, 6, 'XOA'),
+(1, 6, 'SUA'),
+(1, 6, 'XEM'),
+(1, 7, 'THEM'),
+(1, 7, 'XOA'),
+(1, 7, 'SUA'),
+(1, 7, 'XEM'),
+(1, 8, 'THEM'),
+(1, 8, 'XOA'),
+(1, 8, 'SUA'),
+(1, 8, 'XEM'),
+(2, 1, 'THEM'),
+(2, 1, 'XOA'),
+(2, 1, 'SUA'),
+(2, 1, 'XEM'),
+(2, 2, 'THEM'),
+(2, 2, 'XOA'),
+(2, 2, 'SUA'),
+(2, 2, 'XEM'),
+(2, 3, 'THEM'),
+(2, 3, 'XOA'),
+(2, 3, 'SUA'),
+(2, 3, 'XEM'),
+(2, 4, 'THEM'),
+(2, 4, 'XOA'),
+(2, 4, 'SUA'),
+(2, 4, 'XEM'),
+(2, 5, 'THEM'),
+(2, 5, 'XOA'),
+(2, 5, 'SUA'),
+(2, 5, 'XEM'),
+(2, 6, 'THEM'),
+(2, 6, 'XOA'),
+(2, 6, 'SUA'),
+(2, 6, 'XEM'),
+(2, 7, 'THEM'),
+(2, 7, 'XOA'),
+(2, 7, 'SUA'),
+(2, 7, 'XEM'),
+(2, 8, 'THEM'),
+(2, 8, 'XOA'),
+(2, 8, 'SUA'),
+(2, 8, 'XEM'),
+(3, 1, 'THEM'),
+(3, 1, 'XOA'),
+(3, 1, 'SUA'),
+(3, 1, 'XEM'),
+(3, 2, 'THEM'),
+(3, 2, 'XOA'),
+(3, 2, 'SUA'),
+(3, 2, 'XEM'),
+(3, 3, 'THEM'),
+(3, 3, 'XOA'),
+(3, 3, 'SUA'),
+(3, 3, 'XEM'),
+(3, 4, 'THEM'),
+(3, 4, 'XOA'),
+(3, 4, 'SUA'),
+(3, 4, 'XEM'),
+(3, 5, 'THEM'),
+(3, 5, 'XOA'),
+(3, 5, 'SUA'),
+(3, 5, 'XEM'),
+(3, 6, 'THEM'),
+(3, 6, 'XOA'),
+(3, 6, 'SUA'),
+(3, 6, 'XEM'),
+(3, 7, 'THEM'),
+(3, 7, 'XOA'),
+(3, 7, 'SUA'),
+(3, 7, 'XEM'),
+(3, 8, 'THEM'),
+(3, 8, 'XOA'),
+(3, 8, 'SUA'),
+(3, 8, 'XEM');
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `chuc_nang`
+--
+
 CREATE TABLE `chuc_nang` (
-  `MACN` int NOT NULL,
-  `TENCN` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
-  PRIMARY KEY (`MACN`)
+  `MACN` int(11) NOT NULL,
+  `TENCN` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `chuc_nang`
+-- Đang đổ dữ liệu cho bảng `chuc_nang`
 --
 
-LOCK TABLES `chuc_nang` WRITE;
-/*!40000 ALTER TABLE `chuc_nang` DISABLE KEYS */;
-INSERT INTO `chuc_nang` VALUES (1,'them nv');
-/*!40000 ALTER TABLE `chuc_nang` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `chuc_nang` (`MACN`, `TENCN`) VALUES
+(1, 'Nhân Viên'),
+(2, 'Phiếu Mượn'),
+(3, 'Phiếu Nhập'),
+(4, 'Phiếu Trả'),
+(5, 'Phiếu Phạt'),
+(6, 'Đầu Sách'),
+(7, 'Độc Giả'),
+(8, 'Thống Kê');
+
+-- --------------------------------------------------------
 
 --
--- Table structure for table `ctphieu_muon`
+-- Cấu trúc bảng cho bảng `ctphieu_muon`
 --
 
-DROP TABLE IF EXISTS `ctphieu_muon`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `ctphieu_muon` (
-  `MaPhieuMuon` int NOT NULL,
-  `MaSach` int NOT NULL,
-  PRIMARY KEY (`MaPhieuMuon`,`MaSach`),
-  KEY `MaSach` (`MaSach`),
-  CONSTRAINT `ctphieu_muon_ibfk_1` FOREIGN KEY (`MaPhieuMuon`) REFERENCES `phieu_muon` (`MaPhieuMuon`),
-  CONSTRAINT `ctphieu_muon_ibfk_2` FOREIGN KEY (`MaSach`) REFERENCES `sach` (`MaSach`)
+  `MaPhieuMuon` int(11) NOT NULL,
+  `MaSach` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `ctphieu_muon`
+-- Đang đổ dữ liệu cho bảng `ctphieu_muon`
 --
 
-LOCK TABLES `ctphieu_muon` WRITE;
-/*!40000 ALTER TABLE `ctphieu_muon` DISABLE KEYS */;
-/*!40000 ALTER TABLE `ctphieu_muon` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `ctphieu_muon` (`MaPhieuMuon`, `MaSach`) VALUES
+(1, 1),
+(1, 2),
+(2, 3),
+(3, 4),
+(3, 5),
+(3, 6),
+(4, 7),
+(5, 8),
+(5, 9),
+(6, 10),
+(7, 1),
+(7, 3),
+(8, 2),
+(9, 4),
+(9, 6),
+(9, 8),
+(10, 5),
+(10, 7);
+
+-- --------------------------------------------------------
 
 --
--- Table structure for table `ctphieu_nhap`
+-- Cấu trúc bảng cho bảng `ctphieu_nhap`
 --
 
-DROP TABLE IF EXISTS `ctphieu_nhap`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `ctphieu_nhap` (
-  `MaPhieuNhap` int NOT NULL,
-  `MaDauSach` int NOT NULL,
-  `SoLuong` int NOT NULL,
-  PRIMARY KEY (`MaPhieuNhap`,`MaDauSach`),
-  KEY `MaDauSach` (`MaDauSach`),
-  CONSTRAINT `ctphieu_nhap_ibfk_1` FOREIGN KEY (`MaDauSach`) REFERENCES `dau_sach` (`MaDauSach`),
-  CONSTRAINT `ctphieu_nhap_ibfk_2` FOREIGN KEY (`MaPhieuNhap`) REFERENCES `phieu_nhap` (`MaPhieuNhap`)
+  `MaPhieuNhap` int(11) NOT NULL,
+  `MaDauSach` int(11) NOT NULL,
+  `SoLuong` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+
+-- --------------------------------------------------------
 
 --
--- Dumping data for table `ctphieu_nhap`
+-- Cấu trúc bảng cho bảng `ctphieu_phat`
 --
 
-LOCK TABLES `ctphieu_nhap` WRITE;
-/*!40000 ALTER TABLE `ctphieu_nhap` DISABLE KEYS */;
-/*!40000 ALTER TABLE `ctphieu_nhap` ENABLE KEYS */;
-UNLOCK TABLES;
+CREATE TABLE `ctphieu_phat` (
+  `TienPhat` int(11) NOT NULL,
+  `MaSach` int(11) NOT NULL,
+  `MaPhieuPhat` int(11) NOT NULL,
+  `MaCTPhieuPhat` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Table structure for table `ctphieu_tra`
+-- Đang đổ dữ liệu cho bảng `ctphieu_phat`
 --
 
-DROP TABLE IF EXISTS `ctphieu_tra`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+INSERT INTO `ctphieu_phat` (`TienPhat`, `MaSach`, `MaPhieuPhat`, `MaCTPhieuPhat`) VALUES
+(0, 1, 1, 1),
+(5000, 3, 2, 2),
+(0, 4, 3, 3),
+(10000, 7, 4, 4),
+(30000, 8, 5, 5),
+(0, 10, 6, 6),
+(0, 1, 7, 7),
+(5000, 2, 8, 8),
+(15000, 4, 9, 9),
+(150000, 5, 10, 10);
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `ctphieu_tra`
+--
+
 CREATE TABLE `ctphieu_tra` (
-  `MaCTPhieuTra` int NOT NULL,
-  `TrangThai` int NOT NULL,
-  `MaPhieuTra` int NOT NULL,
-  `MaSach` int NOT NULL,
-  PRIMARY KEY (`MaCTPhieuTra`),
-  KEY `fk_maPhieuTra_idx` (`MaPhieuTra`),
-  CONSTRAINT `fk_maPhieuTra` FOREIGN KEY (`MaPhieuTra`) REFERENCES `phieu_tra` (`MaPhieuTra`)
+  `MaCTPhieuTra` int(11) NOT NULL,
+  `TrangThai` int(11) NOT NULL,
+  `MaPhieuTra` int(11) NOT NULL,
+  `MaSach` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `ctphieu_tra`
+-- Đang đổ dữ liệu cho bảng `ctphieu_tra`
 --
 
-LOCK TABLES `ctphieu_tra` WRITE;
-/*!40000 ALTER TABLE `ctphieu_tra` DISABLE KEYS */;
-/*!40000 ALTER TABLE `ctphieu_tra` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `ctphieu_tra` (`MaCTPhieuTra`, `TrangThai`, `MaPhieuTra`, `MaSach`) VALUES
+(1, 1, 1, 1),
+(2, 2, 2, 3),
+(3, 1, 3, 4),
+(4, 2, 4, 7),
+(5, 3, 5, 8),
+(6, 1, 6, 10),
+(7, 1, 7, 1),
+(8, 2, 8, 2),
+(9, 1, 9, 4),
+(10, 4, 10, 5);
+
+-- --------------------------------------------------------
 
 --
--- Table structure for table `ctthe_loai`
+-- Cấu trúc bảng cho bảng `ctthe_loai`
 --
 
-DROP TABLE IF EXISTS `ctthe_loai`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `ctthe_loai` (
-  `MaTheLoai` int NOT NULL,
-  `TenTheLoai` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
-  PRIMARY KEY (`MaTheLoai`)
+  `MaTheLoai` int(11) NOT NULL,
+  `TenTheLoai` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `ctthe_loai`
+-- Đang đổ dữ liệu cho bảng `ctthe_loai`
 --
 
-LOCK TABLES `ctthe_loai` WRITE;
-/*!40000 ALTER TABLE `ctthe_loai` DISABLE KEYS */;
-/*!40000 ALTER TABLE `ctthe_loai` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `ctthe_loai` (`MaTheLoai`, `TenTheLoai`) VALUES
+(1, 'Văn học'),
+(2, 'Tiểu thuyết'),
+(3, 'Truyện tranh'),
+(4, 'Thiếu nhi'),
+(5, 'Khoa học'),
+(6, 'Công nghệ thông tin'),
+(7, 'Kinh tế'),
+(8, 'Kỹ năng sống'),
+(9, 'Tâm lý học'),
+(10, 'Lịch sử'),
+(11, 'Địa lý'),
+(12, 'Ngoại ngữ'),
+(13, 'Pháp luật'),
+(14, 'Khoa học viễn tưởng');
+
+-- --------------------------------------------------------
 
 --
--- Table structure for table `dau_sach`
+-- Cấu trúc bảng cho bảng `dau_sach`
 --
 
-DROP TABLE IF EXISTS `dau_sach`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `dau_sach` (
-  `MaDauSach` int NOT NULL,
-  `TenDauSach` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
-  `HinhAnh` varchar(200) COLLATE utf8mb4_general_ci NOT NULL,
-  `NhaXuatBan` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
-  `NamXuatBan` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
-  `NgonNgu` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
-  `SoLuong` int NOT NULL,
-  PRIMARY KEY (`MaDauSach`)
+  `MaDauSach` int(11) NOT NULL,
+  `TenDauSach` varchar(100) NOT NULL,
+  `HinhAnh` varchar(200) NOT NULL,
+  `NhaXuatBan` varchar(100) NOT NULL,
+  `NamXuatBan` varchar(100) NOT NULL,
+  `NgonNgu` varchar(100) NOT NULL,
+  `SoLuong` int(11) NOT NULL,
+  `Gia` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `dau_sach`
+-- Đang đổ dữ liệu cho bảng `dau_sach`
 --
 
-LOCK TABLES `dau_sach` WRITE;
-/*!40000 ALTER TABLE `dau_sach` DISABLE KEYS */;
-/*!40000 ALTER TABLE `dau_sach` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `dau_sach` (`MaDauSach`, `TenDauSach`, `HinhAnh`, `NhaXuatBan`, `NamXuatBan`, `NgonNgu`, `SoLuong`, `Gia`) VALUES
+(1, 'Tuổi Thơ Dữ Dội', 'tuoithodu_doi.jpg', 'Kim Đồng', '1988', 'Tiếng Việt', 50, NULL),
+(2, 'Doraemon - Tập 1', 'doraemon_tap1.jpg', 'Kim Đồng', '1992', 'Tiếng Việt', 120, NULL),
+(3, 'Harry Potter và Hòn Đá Phù Thủy', 'hp1.jpg', 'Trẻ', '1997', 'Tiếng Anh', 80, NULL),
+(4, 'Nhà Giả Kim', 'nha_gia_kim.jpg', 'NXB Văn Học', '1988', 'Tiếng Việt', 60, NULL),
+(5, 'Đắc Nhân Tâm', 'dac_nhan_tam.jpg', 'NXB Tổng Hợp', '1936', 'Tiếng Việt', 100, NULL),
+(6, 'Chí Phèo', 'chi_pheo.jpg', 'NXB Văn Học', '1941', 'Tiếng Việt', 40, NULL),
+(7, 'Sherlock Holmes - Tập 1', 'sherlock1.jpg', 'NXB Thế Giới', '1892', 'Tiếng Anh', 55, NULL),
+(8, 'Không Gia Đình', 'khong_gia_dinh.jpg', 'Kim Đồng', '1878', 'Tiếng Việt', 70, NULL),
+(9, 'One Piece - Tập 1', 'onepiece_tap1.jpg', 'Kim Đồng', '1997', 'Tiếng Việt', 150, NULL),
+(10, 'Around the World in 80 Days', 'around80days.jpg', 'Macmillan', '1873', 'Tiếng Anh', 30, NULL);
+
+-- --------------------------------------------------------
 
 --
--- Table structure for table `doc_gia`
+-- Cấu trúc bảng cho bảng `doc_gia`
 --
 
-DROP TABLE IF EXISTS `doc_gia`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `doc_gia` (
-  `MADG` int NOT NULL,
-  `TENDG` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
-  `SDT` varchar(15) COLLATE utf8mb4_general_ci NOT NULL,
-  `DIACHI` varchar(150) COLLATE utf8mb4_general_ci NOT NULL,
-  `TRANGTHAI` int NOT NULL,
-  PRIMARY KEY (`MADG`)
+  `MADG` int(11) NOT NULL,
+  `TENDG` varchar(100) NOT NULL,
+  `SDT` varchar(15) NOT NULL,
+  `DIACHI` varchar(150) NOT NULL,
+  `TRANGTHAI` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `doc_gia`
+-- Đang đổ dữ liệu cho bảng `doc_gia`
 --
 
-LOCK TABLES `doc_gia` WRITE;
-/*!40000 ALTER TABLE `doc_gia` DISABLE KEYS */;
-/*!40000 ALTER TABLE `doc_gia` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `doc_gia` (`MADG`, `TENDG`, `SDT`, `DIACHI`, `TRANGTHAI`) VALUES
+(1, 'Nguyễn Văn An', '0912345678', 'Quận 1, TP. HCM', 1),
+(2, 'Trần Thị Bình', '0987654321', 'Quận Bình Thạnh, TP. HCM', 1),
+(3, 'Lê Hoàng Minh', '0901122334', 'Quận 3, TP. HCM', 1),
+(4, 'Phạm Ngọc Hân', '0933445566', 'Quận 7, TP. HCM', 1),
+(5, 'Đỗ Thanh Tú', '0967788990', 'Quận 5, TP. HCM', 1),
+(6, 'Võ Thị Lan', '0978899001', 'Quận Tân Bình, TP. HCM', 1),
+(7, 'Huỳnh Đức Thịnh', '0922334455', 'Quận 10, TP. HCM', 1),
+(8, 'Bùi Gia Huy', '0945566778', 'Quận Phú Nhuận, TP. HCM', 1),
+(9, 'Phan Minh Nhật', '0956677889', 'TP. Thủ Đức, TP. HCM', 1),
+(10, 'Tạ Thu Trang', '0933221100', 'Quận Gò Vấp, TP. HCM', 1);
+
+-- --------------------------------------------------------
 
 --
--- Table structure for table `nha_cung_cap`
+-- Cấu trúc bảng cho bảng `nhan_vien`
 --
 
-DROP TABLE IF EXISTS `nha_cung_cap`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `nha_cung_cap` (
-  `MANCC` int NOT NULL,
-  `TENCC` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
-  `DIACHI` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
-  `EMAIL` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
-  `SDT` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
-  PRIMARY KEY (`MANCC`),
-  UNIQUE KEY `EMAIL` (`EMAIL`),
-  UNIQUE KEY `SDT` (`SDT`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `nha_cung_cap`
---
-
-LOCK TABLES `nha_cung_cap` WRITE;
-/*!40000 ALTER TABLE `nha_cung_cap` DISABLE KEYS */;
-/*!40000 ALTER TABLE `nha_cung_cap` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `nhan_vien`
---
-
-DROP TABLE IF EXISTS `nhan_vien`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `nhan_vien` (
-  `MANV` int NOT NULL,
-  `TENNV` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `MANV` int(11) NOT NULL,
+  `TENNV` varchar(100) NOT NULL,
   `GIOITINH` tinyint(1) NOT NULL,
   `NGAYSINH` date NOT NULL,
-  `SDT` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
-  `TenDangNhap` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
-  `MatKhau` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
-  `TrangThai` int NOT NULL,
-  `Email` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `MaNhomQuyen` int DEFAULT NULL,
-  PRIMARY KEY (`MANV`),
-  UNIQUE KEY `SDT` (`SDT`),
-  UNIQUE KEY `TenDangNhap_UNIQUE` (`TenDangNhap`),
-  KEY `abc_idx` (`MaNhomQuyen`),
-  CONSTRAINT `fk_maNhomQuyen` FOREIGN KEY (`MaNhomQuyen`) REFERENCES `nhom_quyen` (`MANQ`)
+  `SDT` varchar(100) NOT NULL,
+  `TenDangNhap` varchar(100) NOT NULL,
+  `MatKhau` varchar(100) NOT NULL,
+  `TrangThai` int(11) NOT NULL,
+  `Email` varchar(100) DEFAULT NULL,
+  `MaNhomQuyen` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `nhan_vien`
+-- Đang đổ dữ liệu cho bảng `nhan_vien`
 --
 
-LOCK TABLES `nhan_vien` WRITE;
-/*!40000 ALTER TABLE `nhan_vien` DISABLE KEYS */;
-INSERT INTO `nhan_vien` VALUES (0,'admin',0,'2000-10-10','0987654321','ad','1',1,'abc@gmail.com',0);
-/*!40000 ALTER TABLE `nhan_vien` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `nhan_vien` (`MANV`, `TENNV`, `GIOITINH`, `NGAYSINH`, `SDT`, `TenDangNhap`, `MatKhau`, `TrangThai`, `Email`, `MaNhomQuyen`) VALUES
+(1, 'Lê Quang Hoàng', 1, '2005-08-23', '0364722740', 'ad', '1', 1, 'admin@library.com', 1),
+(2, 'Trần Thị B', 0, '1995-09-20', '0987654321', 'thuthu', 'thuthu123', 1, 'thuthu@library.com', 2),
+(3, 'Phạm Hữu C', 1, '1990-02-15', '0909123123', 'qlkho', 'qlkho123', 1, 'quanlykho@library.com', 3);
+
+-- --------------------------------------------------------
 
 --
--- Table structure for table `nhom_quyen`
+-- Cấu trúc bảng cho bảng `nha_cung_cap`
 --
 
-DROP TABLE IF EXISTS `nhom_quyen`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `nha_cung_cap` (
+  `MANCC` int(11) NOT NULL,
+  `TENCC` varchar(100) NOT NULL,
+  `DIACHI` varchar(100) NOT NULL,
+  `EMAIL` varchar(100) NOT NULL,
+  `SDT` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `nha_cung_cap`
+--
+
+INSERT INTO `nha_cung_cap` (`MANCC`, `TENCC`, `DIACHI`, `EMAIL`, `SDT`) VALUES
+(1, 'Công ty Sách Việt', 'Quận 1, TP. HCM', 'contact@sachviet.com', '0901112233'),
+(2, 'Nhà Xuất Bản Trẻ', 'Quận 3, TP. HCM', 'info@nxbtre.vn', '0902223344'),
+(3, 'Công ty Phát Hành Sách Minh Long', 'Quận Bình Thạnh, TP. HCM', 'minhlong@sach.com', '0903334455'),
+(4, 'Nhà Sách Fahasa', 'Quận 5, TP. HCM', 'support@fahasa.vn', '0904445566'),
+(5, 'Nhà Sách Phương Nam', 'Quận 10, TP. HCM', 'pnbook@pncom.vn', '0905556677'),
+(6, 'Công ty Sách Alpha', 'TP. Thủ Đức, TP. HCM', 'alpha@alphabooks.vn', '0906667788'),
+(7, 'Công ty Văn Hóa Đông A', 'Quận Tân Bình, TP. HCM', 'dongA@vanhoa.vn', '0907778899'),
+(8, 'Nhà Sách Tiến Thọ', 'Quận Gò Vấp, TP. HCM', 'tientho@bookstore.vn', '0908889900'),
+(9, 'Công ty Sách Nhã Nam', 'Quận Phú Nhuận, TP. HCM', 'info@nhanam.vn', '0909990011'),
+(10, 'Công ty Kim Đồng', 'Quận 4, TP. HCM', 'kimdong@kimdong.vn', '0901234567');
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `nhomquyen_chucnang`
+--
+-- Error reading structure for table quanlythuvien.nhomquyen_chucnang: #1932 - Table &#039;quanlythuvien.nhomquyen_chucnang&#039; doesn&#039;t exist in engine
+-- Error reading data for table quanlythuvien.nhomquyen_chucnang: #1064 - You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near &#039;FROM `quanlythuvien`.`nhomquyen_chucnang`&#039; at line 1
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `nhom_quyen`
+--
+
 CREATE TABLE `nhom_quyen` (
-  `MANQ` int NOT NULL,
-  `TENNQ` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
-  PRIMARY KEY (`MANQ`)
+  `MANQ` int(11) NOT NULL,
+  `TENNQ` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `nhom_quyen`
+-- Đang đổ dữ liệu cho bảng `nhom_quyen`
 --
 
-LOCK TABLES `nhom_quyen` WRITE;
-/*!40000 ALTER TABLE `nhom_quyen` DISABLE KEYS */;
-INSERT INTO `nhom_quyen` VALUES (0,'Admin');
-/*!40000 ALTER TABLE `nhom_quyen` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `nhom_quyen` (`MANQ`, `TENNQ`) VALUES
+(0, 'Admin'),
+(1, 'Admin'),
+(2, 'Thủ thư'),
+(3, 'Quản lý kho');
+
+-- --------------------------------------------------------
 
 --
--- Table structure for table `nhomquyen_chucnang`
+-- Cấu trúc bảng cho bảng `phieu_muon`
 --
 
-DROP TABLE IF EXISTS `nhomquyen_chucnang`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `nhomquyen_chucnang` (
-  `MaChucNang` int NOT NULL,
-  `MaNhomQuyen` int NOT NULL,
-  `HanhDong` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
-  PRIMARY KEY (`MaChucNang`,`MaNhomQuyen`),
-  KEY `MaNhomQuyen` (`MaNhomQuyen`),
-  CONSTRAINT `nhomquyen_chucnang_ibfk_1` FOREIGN KEY (`MaChucNang`) REFERENCES `chuc_nang` (`MACN`),
-  CONSTRAINT `nhomquyen_chucnang_ibfk_2` FOREIGN KEY (`MaNhomQuyen`) REFERENCES `nhom_quyen` (`MANQ`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `nhomquyen_chucnang`
---
-
-LOCK TABLES `nhomquyen_chucnang` WRITE;
-/*!40000 ALTER TABLE `nhomquyen_chucnang` DISABLE KEYS */;
-INSERT INTO `nhomquyen_chucnang` VALUES (1,0,'abc');
-/*!40000 ALTER TABLE `nhomquyen_chucnang` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `phieu_muon`
---
-
-DROP TABLE IF EXISTS `phieu_muon`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `phieu_muon` (
-  `MaPhieuMuon` int NOT NULL,
+  `MaPhieuMuon` int(11) NOT NULL,
   `NgayMuon` date NOT NULL,
   `NgayTraDuKien` date NOT NULL,
-  `trangthai` int NOT NULL,
-  `MaDocGia` int NOT NULL,
-  `MaNhanVien` int NOT NULL,
-  PRIMARY KEY (`MaPhieuMuon`),
-  KEY `MaNhanVien` (`MaNhanVien`),
-  KEY `MaDocGia` (`MaDocGia`),
-  CONSTRAINT `phieu_muon_ibfk_1` FOREIGN KEY (`MaNhanVien`) REFERENCES `nhan_vien` (`MANV`),
-  CONSTRAINT `phieu_muon_ibfk_2` FOREIGN KEY (`MaDocGia`) REFERENCES `doc_gia` (`MADG`)
+  `trangthai` int(11) NOT NULL,
+  `MaDocGia` int(11) NOT NULL,
+  `MaNhanVien` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `phieu_muon`
+-- Đang đổ dữ liệu cho bảng `phieu_muon`
 --
 
-LOCK TABLES `phieu_muon` WRITE;
-/*!40000 ALTER TABLE `phieu_muon` DISABLE KEYS */;
-/*!40000 ALTER TABLE `phieu_muon` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `phieu_muon` (`MaPhieuMuon`, `NgayMuon`, `NgayTraDuKien`, `trangthai`, `MaDocGia`, `MaNhanVien`) VALUES
+(1, '2025-01-05', '2025-01-12', 1, 1, 2),
+(2, '2025-01-07', '2025-01-14', 1, 2, 2),
+(3, '2025-01-08', '2025-01-15', 2, 3, 2),
+(4, '2025-01-10', '2025-01-17', 1, 4, 2),
+(5, '2025-01-11', '2025-01-18', 3, 5, 2),
+(6, '2025-01-12', '2025-01-19', 1, 6, 2),
+(7, '2025-01-14', '2025-01-21', 2, 7, 2),
+(8, '2025-01-15', '2025-01-22', 1, 8, 2),
+(9, '2025-01-16', '2025-01-23', 3, 9, 2),
+(10, '2025-01-17', '2025-01-24', 1, 10, 2);
+
+-- --------------------------------------------------------
 
 --
--- Table structure for table `phieu_nhap`
+-- Cấu trúc bảng cho bảng `phieu_nhap`
 --
 
-DROP TABLE IF EXISTS `phieu_nhap`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `phieu_nhap` (
-  `MaPhieuNhap` int NOT NULL,
+  `MaPhieuNhap` int(11) NOT NULL,
   `ThoiGian` date NOT NULL,
-  `MaNV` int NOT NULL,
-  `MaNCC` int NOT NULL,
-  PRIMARY KEY (`MaPhieuNhap`),
-  KEY `MaNCC` (`MaNCC`),
-  KEY `MaNV` (`MaNV`),
-  CONSTRAINT `phieu_nhap_ibfk_1` FOREIGN KEY (`MaNCC`) REFERENCES `nha_cung_cap` (`MANCC`),
-  CONSTRAINT `phieu_nhap_ibfk_2` FOREIGN KEY (`MaNV`) REFERENCES `nhan_vien` (`MANV`)
+  `MaNV` int(11) NOT NULL,
+  `MaNCC` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+
+-- --------------------------------------------------------
 
 --
--- Dumping data for table `phieu_nhap`
+-- Cấu trúc bảng cho bảng `phieu_phat`
 --
 
-LOCK TABLES `phieu_nhap` WRITE;
-/*!40000 ALTER TABLE `phieu_nhap` DISABLE KEYS */;
-/*!40000 ALTER TABLE `phieu_nhap` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `phieu_phat`
---
-
-DROP TABLE IF EXISTS `phieu_phat`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `phieu_phat` (
-  `MaPhieuPhat` int NOT NULL,
-  `TienPhat` int NOT NULL,
+  `MaPhieuPhat` int(11) NOT NULL,
   `NgayPhat` date NOT NULL,
-  `TrangThai` int NOT NULL,
-  `MaCTPhieuTra` int NOT NULL,
-  PRIMARY KEY (`MaPhieuPhat`),
-  KEY `MaCTPhieuTra` (`MaCTPhieuTra`),
-  CONSTRAINT `phieu_phat_ibfk_2` FOREIGN KEY (`MaCTPhieuTra`) REFERENCES `ctphieu_tra` (`MaCTPhieuTra`)
+  `TrangThai` int(11) NOT NULL,
+  `MaCTPhieuTra` int(11) NOT NULL,
+  `Ngaytra` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `phieu_phat`
+-- Đang đổ dữ liệu cho bảng `phieu_phat`
 --
 
-LOCK TABLES `phieu_phat` WRITE;
-/*!40000 ALTER TABLE `phieu_phat` DISABLE KEYS */;
-/*!40000 ALTER TABLE `phieu_phat` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `phieu_phat` (`MaPhieuPhat`, `NgayPhat`, `TrangThai`, `MaCTPhieuTra`, `Ngaytra`) VALUES
+(1, '2025-01-12', 1, 1, '2025-01-12'),
+(2, '2025-01-15', 1, 2, '2025-01-16'),
+(3, '2025-01-16', 1, 3, '2025-01-16'),
+(4, '2025-01-19', 0, 4, NULL),
+(5, '2025-01-20', 0, 5, NULL),
+(6, '2025-01-19', 1, 6, '2025-01-19'),
+(7, '2025-01-22', 1, 7, '2025-01-22'),
+(8, '2025-01-23', 1, 8, '2025-01-24'),
+(9, '2025-01-25', 0, 9, NULL),
+(10, '2025-01-26', 0, 10, NULL);
+
+-- --------------------------------------------------------
 
 --
--- Table structure for table `phieu_tra`
+-- Cấu trúc bảng cho bảng `phieu_tra`
 --
 
-DROP TABLE IF EXISTS `phieu_tra`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `phieu_tra` (
-  `MaPhieuTra` int NOT NULL,
+  `MaPhieuTra` int(11) NOT NULL,
   `NgayTra` date NOT NULL,
-  `MaNV` int NOT NULL,
-  `MaPhieuMuon` int NOT NULL,
-  PRIMARY KEY (`MaPhieuTra`),
-  KEY `MaNV` (`MaNV`),
-  KEY `MaPhieuMuon` (`MaPhieuMuon`),
-  CONSTRAINT `phieu_tra_ibfk_1` FOREIGN KEY (`MaNV`) REFERENCES `nhan_vien` (`MANV`),
-  CONSTRAINT `phieu_tra_ibfk_3` FOREIGN KEY (`MaPhieuMuon`) REFERENCES `phieu_muon` (`MaPhieuMuon`)
+  `MaNV` int(11) NOT NULL,
+  `MaPhieuMuon` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `phieu_tra`
+-- Đang đổ dữ liệu cho bảng `phieu_tra`
 --
 
-LOCK TABLES `phieu_tra` WRITE;
-/*!40000 ALTER TABLE `phieu_tra` DISABLE KEYS */;
-/*!40000 ALTER TABLE `phieu_tra` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `phieu_tra` (`MaPhieuTra`, `NgayTra`, `MaNV`, `MaPhieuMuon`) VALUES
+(1, '2025-01-12', 1, 1),
+(2, '2025-01-15', 2, 2),
+(3, '2025-01-16', 1, 3),
+(4, '2025-01-19', 3, 4),
+(5, '2025-01-20', 2, 5),
+(6, '2025-01-19', 1, 6),
+(7, '2025-01-22', 3, 7),
+(8, '2025-01-23', 1, 8),
+(9, '2025-01-25', 2, 9),
+(10, '2025-01-26', 3, 10);
+
+-- --------------------------------------------------------
 
 --
--- Table structure for table `sach`
+-- Cấu trúc bảng cho bảng `sach`
 --
 
-DROP TABLE IF EXISTS `sach`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `sach` (
-  `MaSach` int NOT NULL,
-  `trangthai` int NOT NULL,
-  `MaDauSach` int NOT NULL,
-  PRIMARY KEY (`MaSach`),
-  KEY `MaDauSach` (`MaDauSach`),
-  CONSTRAINT `sach_ibfk_1` FOREIGN KEY (`MaDauSach`) REFERENCES `dau_sach` (`MaDauSach`)
+  `MaSach` int(11) NOT NULL,
+  `trangthai` int(11) NOT NULL,
+  `MaDauSach` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `sach`
+-- Đang đổ dữ liệu cho bảng `sach`
 --
 
-LOCK TABLES `sach` WRITE;
-/*!40000 ALTER TABLE `sach` DISABLE KEYS */;
-/*!40000 ALTER TABLE `sach` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `sach` (`MaSach`, `trangthai`, `MaDauSach`) VALUES
+(1, 1, 1),
+(2, 1, 2),
+(3, 1, 3),
+(4, 1, 4),
+(5, 1, 5),
+(6, 1, 6),
+(7, 1, 7),
+(8, 1, 8),
+(9, 1, 9),
+(10, 1, 10);
+
+-- --------------------------------------------------------
 
 --
--- Table structure for table `tac_gia`
+-- Cấu trúc bảng cho bảng `tacgia_dausach`
 --
 
-DROP TABLE IF EXISTS `tac_gia`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `tac_gia` (
-  `MaTacGia` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
-  `TenTacGia` int NOT NULL,
-  `NamSinh` date NOT NULL,
-  `QuocTich` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
-  PRIMARY KEY (`MaTacGia`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `tac_gia`
---
-
-LOCK TABLES `tac_gia` WRITE;
-/*!40000 ALTER TABLE `tac_gia` DISABLE KEYS */;
-/*!40000 ALTER TABLE `tac_gia` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `tacgia_dausach`
---
-
-DROP TABLE IF EXISTS `tacgia_dausach`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `tacgia_dausach` (
-  `MaTacGia` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
-  `MaDauSach` int NOT NULL,
-  PRIMARY KEY (`MaTacGia`,`MaDauSach`),
-  KEY `MaDauSach` (`MaDauSach`),
-  CONSTRAINT `tacgia_dausach_ibfk_1` FOREIGN KEY (`MaDauSach`) REFERENCES `dau_sach` (`MaDauSach`),
-  CONSTRAINT `tacgia_dausach_ibfk_2` FOREIGN KEY (`MaTacGia`) REFERENCES `tac_gia` (`MaTacGia`)
+  `MaTacGia` int(11) NOT NULL,
+  `MaDauSach` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+
+-- --------------------------------------------------------
 
 --
--- Dumping data for table `tacgia_dausach`
+-- Cấu trúc bảng cho bảng `tac_gia`
 --
 
-LOCK TABLES `tacgia_dausach` WRITE;
-/*!40000 ALTER TABLE `tacgia_dausach` DISABLE KEYS */;
-/*!40000 ALTER TABLE `tacgia_dausach` ENABLE KEYS */;
-UNLOCK TABLES;
+CREATE TABLE `tac_gia` (
+  `MaTacGia` int(11) NOT NULL,
+  `TenTacGia` varchar(100) NOT NULL,
+  `NamSinh` date NOT NULL,
+  `QuocTich` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Table structure for table `the_loai`
+-- Đang đổ dữ liệu cho bảng `tac_gia`
 --
 
-DROP TABLE IF EXISTS `the_loai`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+INSERT INTO `tac_gia` (`MaTacGia`, `TenTacGia`, `NamSinh`, `QuocTich`) VALUES
+(1, 'Nguyễn Nhật Ánh', '1955-05-07', 'Việt Nam'),
+(2, 'Tô Hoài', '1920-09-27', 'Việt Nam'),
+(3, 'Nam Cao', '1915-10-29', 'Việt Nam'),
+(4, 'Victor Hugo', '1802-02-26', 'Pháp'),
+(5, 'J.K. Rowling', '1965-07-31', 'Anh'),
+(6, 'Haruki Murakami', '1949-01-12', 'Nhật Bản'),
+(7, 'George Orwell', '1903-06-25', 'Anh'),
+(8, 'Ernest Hemingway', '1899-07-21', 'Mỹ'),
+(9, 'Paulo Coelho', '1947-08-24', 'Brazil'),
+(10, 'Lev Tolstoy', '1828-09-09', 'Nga');
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `the_loai`
+--
+
 CREATE TABLE `the_loai` (
-  `MaDauSach` int NOT NULL,
-  `MaTheLoai` int NOT NULL,
-  PRIMARY KEY (`MaDauSach`,`MaTheLoai`),
-  KEY `MaTheLoai` (`MaTheLoai`),
-  CONSTRAINT `the_loai_ibfk_1` FOREIGN KEY (`MaDauSach`) REFERENCES `dau_sach` (`MaDauSach`),
-  CONSTRAINT `the_loai_ibfk_2` FOREIGN KEY (`MaTheLoai`) REFERENCES `ctthe_loai` (`MaTheLoai`)
+  `MaDauSach` int(11) NOT NULL,
+  `MaTheLoai` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `the_loai`
+-- Đang đổ dữ liệu cho bảng `the_loai`
 --
 
-LOCK TABLES `the_loai` WRITE;
-/*!40000 ALTER TABLE `the_loai` DISABLE KEYS */;
-/*!40000 ALTER TABLE `the_loai` ENABLE KEYS */;
-UNLOCK TABLES;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+INSERT INTO `the_loai` (`MaDauSach`, `MaTheLoai`) VALUES
+(1, 1),
+(1, 4),
+(2, 3),
+(2, 4),
+(3, 2),
+(3, 14),
+(4, 1),
+(4, 2),
+(5, 7),
+(5, 8),
+(6, 1),
+(7, 1),
+(7, 2),
+(8, 1),
+(8, 4),
+(9, 3),
+(10, 1),
+(10, 12);
 
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+--
+-- Chỉ mục cho các bảng đã đổ
+--
+
+--
+-- Chỉ mục cho bảng `chuc_nang`
+--
+ALTER TABLE `chuc_nang`
+  ADD PRIMARY KEY (`MACN`);
+
+--
+-- Chỉ mục cho bảng `ctphieu_muon`
+--
+ALTER TABLE `ctphieu_muon`
+  ADD PRIMARY KEY (`MaPhieuMuon`,`MaSach`),
+  ADD KEY `MaSach` (`MaSach`);
+
+--
+-- Chỉ mục cho bảng `ctphieu_nhap`
+--
+ALTER TABLE `ctphieu_nhap`
+  ADD PRIMARY KEY (`MaPhieuNhap`,`MaDauSach`),
+  ADD KEY `MaDauSach` (`MaDauSach`);
+
+--
+-- Chỉ mục cho bảng `ctphieu_phat`
+--
+ALTER TABLE `ctphieu_phat`
+  ADD PRIMARY KEY (`MaCTPhieuPhat`),
+  ADD KEY `MaPhieuPhat` (`MaPhieuPhat`);
+
+--
+-- Chỉ mục cho bảng `ctphieu_tra`
+--
+ALTER TABLE `ctphieu_tra`
+  ADD PRIMARY KEY (`MaCTPhieuTra`),
+  ADD KEY `fk_maPhieuTra_idx` (`MaPhieuTra`);
+
+--
+-- Chỉ mục cho bảng `ctthe_loai`
+--
+ALTER TABLE `ctthe_loai`
+  ADD PRIMARY KEY (`MaTheLoai`);
+
+--
+-- Chỉ mục cho bảng `dau_sach`
+--
+ALTER TABLE `dau_sach`
+  ADD PRIMARY KEY (`MaDauSach`);
+
+--
+-- Chỉ mục cho bảng `doc_gia`
+--
+ALTER TABLE `doc_gia`
+  ADD PRIMARY KEY (`MADG`);
+
+--
+-- Chỉ mục cho bảng `nhan_vien`
+--
+ALTER TABLE `nhan_vien`
+  ADD PRIMARY KEY (`MANV`),
+  ADD UNIQUE KEY `SDT` (`SDT`),
+  ADD UNIQUE KEY `TenDangNhap_UNIQUE` (`TenDangNhap`),
+  ADD KEY `abc_idx` (`MaNhomQuyen`);
+
+--
+-- Chỉ mục cho bảng `nha_cung_cap`
+--
+ALTER TABLE `nha_cung_cap`
+  ADD PRIMARY KEY (`MANCC`),
+  ADD UNIQUE KEY `EMAIL` (`EMAIL`),
+  ADD UNIQUE KEY `SDT` (`SDT`);
+
+--
+-- Chỉ mục cho bảng `nhom_quyen`
+--
+ALTER TABLE `nhom_quyen`
+  ADD PRIMARY KEY (`MANQ`);
+
+--
+-- Chỉ mục cho bảng `phieu_muon`
+--
+ALTER TABLE `phieu_muon`
+  ADD PRIMARY KEY (`MaPhieuMuon`),
+  ADD KEY `MaNhanVien` (`MaNhanVien`),
+  ADD KEY `MaDocGia` (`MaDocGia`);
+
+--
+-- Chỉ mục cho bảng `phieu_nhap`
+--
+ALTER TABLE `phieu_nhap`
+  ADD PRIMARY KEY (`MaPhieuNhap`),
+  ADD KEY `MaNCC` (`MaNCC`),
+  ADD KEY `MaNV` (`MaNV`);
+
+--
+-- Chỉ mục cho bảng `phieu_phat`
+--
+ALTER TABLE `phieu_phat`
+  ADD PRIMARY KEY (`MaPhieuPhat`),
+  ADD KEY `MaCTPhieuTra` (`MaCTPhieuTra`);
+
+--
+-- Chỉ mục cho bảng `phieu_tra`
+--
+ALTER TABLE `phieu_tra`
+  ADD PRIMARY KEY (`MaPhieuTra`),
+  ADD KEY `MaNV` (`MaNV`),
+  ADD KEY `MaPhieuMuon` (`MaPhieuMuon`);
+
+--
+-- Chỉ mục cho bảng `sach`
+--
+ALTER TABLE `sach`
+  ADD PRIMARY KEY (`MaSach`),
+  ADD KEY `MaDauSach` (`MaDauSach`);
+
+--
+-- Chỉ mục cho bảng `tacgia_dausach`
+--
+ALTER TABLE `tacgia_dausach`
+  ADD PRIMARY KEY (`MaTacGia`,`MaDauSach`),
+  ADD KEY `MaDauSach` (`MaDauSach`);
+
+--
+-- Chỉ mục cho bảng `tac_gia`
+--
+ALTER TABLE `tac_gia`
+  ADD PRIMARY KEY (`MaTacGia`);
+
+--
+-- Chỉ mục cho bảng `the_loai`
+--
+ALTER TABLE `the_loai`
+  ADD PRIMARY KEY (`MaDauSach`,`MaTheLoai`),
+  ADD KEY `MaTheLoai` (`MaTheLoai`);
+
+--
+-- AUTO_INCREMENT cho các bảng đã đổ
+--
+
+--
+-- AUTO_INCREMENT cho bảng `chuc_nang`
+--
+ALTER TABLE `chuc_nang`
+  MODIFY `MACN` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT cho bảng `ctphieu_muon`
+--
+ALTER TABLE `ctphieu_muon`
+  MODIFY `MaPhieuMuon` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT cho bảng `ctphieu_phat`
+--
+ALTER TABLE `ctphieu_phat`
+  MODIFY `MaCTPhieuPhat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT cho bảng `ctphieu_tra`
+--
+ALTER TABLE `ctphieu_tra`
+  MODIFY `MaCTPhieuTra` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT cho bảng `ctthe_loai`
+--
+ALTER TABLE `ctthe_loai`
+  MODIFY `MaTheLoai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
+--
+-- AUTO_INCREMENT cho bảng `dau_sach`
+--
+ALTER TABLE `dau_sach`
+  MODIFY `MaDauSach` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT cho bảng `doc_gia`
+--
+ALTER TABLE `doc_gia`
+  MODIFY `MADG` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT cho bảng `nha_cung_cap`
+--
+ALTER TABLE `nha_cung_cap`
+  MODIFY `MANCC` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT cho bảng `phieu_muon`
+--
+ALTER TABLE `phieu_muon`
+  MODIFY `MaPhieuMuon` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+
+--
+-- AUTO_INCREMENT cho bảng `phieu_phat`
+--
+ALTER TABLE `phieu_phat`
+  MODIFY `MaPhieuPhat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT cho bảng `phieu_tra`
+--
+ALTER TABLE `phieu_tra`
+  MODIFY `MaPhieuTra` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT cho bảng `sach`
+--
+ALTER TABLE `sach`
+  MODIFY `MaSach` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT cho bảng `tac_gia`
+--
+ALTER TABLE `tac_gia`
+  MODIFY `MaTacGia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- Các ràng buộc cho các bảng đã đổ
+--
+
+--
+-- Các ràng buộc cho bảng `chucnang_nhomquyen`
+--
+ALTER TABLE `chucnang_nhomquyen`
+  ADD CONSTRAINT `chucnang_nhomquyen_ibfk_1` FOREIGN KEY (`MaChucNang`) REFERENCES `chuc_nang` (`MACN`),
+  ADD CONSTRAINT `chucnang_nhomquyen_ibfk_2` FOREIGN KEY (`MaNhomQuyen`) REFERENCES `nhom_quyen` (`MANQ`);
+
+--
+-- Các ràng buộc cho bảng `ctphieu_muon`
+--
+ALTER TABLE `ctphieu_muon`
+  ADD CONSTRAINT `ctphieu_muon_ibfk_1` FOREIGN KEY (`MaPhieuMuon`) REFERENCES `phieu_muon` (`MaPhieuMuon`),
+  ADD CONSTRAINT `ctphieu_muon_ibfk_2` FOREIGN KEY (`MaSach`) REFERENCES `sach` (`MaSach`);
+
+--
+-- Các ràng buộc cho bảng `ctphieu_nhap`
+--
+ALTER TABLE `ctphieu_nhap`
+  ADD CONSTRAINT `ctphieu_nhap_ibfk_1` FOREIGN KEY (`MaDauSach`) REFERENCES `dau_sach` (`MaDauSach`),
+  ADD CONSTRAINT `ctphieu_nhap_ibfk_2` FOREIGN KEY (`MaPhieuNhap`) REFERENCES `phieu_nhap` (`MaPhieuNhap`);
+
+--
+-- Các ràng buộc cho bảng `ctphieu_phat`
+--
+ALTER TABLE `ctphieu_phat`
+  ADD CONSTRAINT `ctphieu_phat_ibfk_1` FOREIGN KEY (`MaPhieuPhat`) REFERENCES `phieu_phat` (`MaPhieuPhat`);
+
+--
+-- Các ràng buộc cho bảng `ctphieu_tra`
+--
+ALTER TABLE `ctphieu_tra`
+  ADD CONSTRAINT `fk_maPhieuTra` FOREIGN KEY (`MaPhieuTra`) REFERENCES `phieu_tra` (`MaPhieuTra`);
+
+--
+-- Các ràng buộc cho bảng `nhan_vien`
+--
+ALTER TABLE `nhan_vien`
+  ADD CONSTRAINT `fk_maNhomQuyen` FOREIGN KEY (`MaNhomQuyen`) REFERENCES `nhom_quyen` (`MANQ`);
+
+--
+-- Các ràng buộc cho bảng `phieu_muon`
+--
+ALTER TABLE `phieu_muon`
+  ADD CONSTRAINT `phieu_muon_ibfk_1` FOREIGN KEY (`MaNhanVien`) REFERENCES `nhan_vien` (`MANV`),
+  ADD CONSTRAINT `phieu_muon_ibfk_2` FOREIGN KEY (`MaDocGia`) REFERENCES `doc_gia` (`MADG`);
+
+--
+-- Các ràng buộc cho bảng `phieu_nhap`
+--
+ALTER TABLE `phieu_nhap`
+  ADD CONSTRAINT `phieu_nhap_ibfk_1` FOREIGN KEY (`MaNCC`) REFERENCES `nha_cung_cap` (`MANCC`),
+  ADD CONSTRAINT `phieu_nhap_ibfk_2` FOREIGN KEY (`MaNV`) REFERENCES `nhan_vien` (`MANV`);
+
+--
+-- Các ràng buộc cho bảng `phieu_phat`
+--
+ALTER TABLE `phieu_phat`
+  ADD CONSTRAINT `phieu_phat_ibfk_2` FOREIGN KEY (`MaCTPhieuTra`) REFERENCES `ctphieu_tra` (`MaCTPhieuTra`);
+
+--
+-- Các ràng buộc cho bảng `phieu_tra`
+--
+ALTER TABLE `phieu_tra`
+  ADD CONSTRAINT `phieu_tra_ibfk_1` FOREIGN KEY (`MaNV`) REFERENCES `nhan_vien` (`MANV`),
+  ADD CONSTRAINT `phieu_tra_ibfk_3` FOREIGN KEY (`MaPhieuMuon`) REFERENCES `phieu_muon` (`MaPhieuMuon`);
+
+--
+-- Các ràng buộc cho bảng `sach`
+--
+ALTER TABLE `sach`
+  ADD CONSTRAINT `sach_ibfk_1` FOREIGN KEY (`MaDauSach`) REFERENCES `dau_sach` (`MaDauSach`);
+
+--
+-- Các ràng buộc cho bảng `tacgia_dausach`
+--
+ALTER TABLE `tacgia_dausach`
+  ADD CONSTRAINT `tacgia_dausach_ibfk_1` FOREIGN KEY (`MaDauSach`) REFERENCES `dau_sach` (`MaDauSach`),
+  ADD CONSTRAINT `tacgia_dausach_ibfk_2` FOREIGN KEY (`MaTacGia`) REFERENCES `tac_gia` (`MaTacGia`);
+
+--
+-- Các ràng buộc cho bảng `the_loai`
+--
+ALTER TABLE `the_loai`
+  ADD CONSTRAINT `the_loai_ibfk_1` FOREIGN KEY (`MaDauSach`) REFERENCES `dau_sach` (`MaDauSach`),
+  ADD CONSTRAINT `the_loai_ibfk_2` FOREIGN KEY (`MaTheLoai`) REFERENCES `ctthe_loai` (`MaTheLoai`);
+COMMIT;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2025-10-17 16:27:15
