@@ -24,6 +24,9 @@ namespace QuanLyThuVien.GUI.ThongKeGUI
 
         }
 
-      
+        private void tabPageTK_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
