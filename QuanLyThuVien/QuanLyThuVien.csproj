@@ -242,8 +242,6 @@
     <EmbeddedResource Include="GUI\PhieuNhapGUI.resx">
       <DependentUpon>PhieuNhapGUI.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GUI\ThongKeGUI\UCHeaderThongKe.resx">
-      <DependentUpon>UCHeaderThongKe.cs</DependentUpon>
     <EmbeddedResource Include="GUI\PhieuPhat.resx">
       <DependentUpon>PhieuPhat.cs</DependentUpon>
     </EmbeddedResource>

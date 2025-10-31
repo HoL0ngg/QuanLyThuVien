@@ -225,14 +225,9 @@ namespace QuanLyThuVien.GUI
             // flowLayoutPanel2
             // 
             this.flowLayoutPanel2.BackColor = System.Drawing.SystemColors.Info;
-            this.flowLayoutPanel2.Controls.Add(this.panel2);
-            this.flowLayoutPanel2.Controls.Add(this.panel4);
-            this.flowLayoutPanel2.Controls.Add(this.panel5);
             this.flowLayoutPanel2.Controls.Add(this.panelPhieuPhat);
             this.flowLayoutPanel2.Controls.Add(this.panelDauSach);
             this.flowLayoutPanel2.Controls.Add(this.panel8);
-            this.flowLayoutPanel2.Controls.Add(this.panel13);
-            this.flowLayoutPanel2.Controls.Add(this.panel14);
             this.flowLayoutPanel2.Location = new System.Drawing.Point(15, 113);
             this.flowLayoutPanel2.Controls.Add(this.panelPhieuNhap);
             this.flowLayoutPanel2.Controls.Add(this.panelPhieuMuon);
@@ -426,7 +421,6 @@ namespace QuanLyThuVien.GUI
             this.panelDauSach.Name = "panelDauSach";
             this.panelDauSach.Size = new System.Drawing.Size(350, 85);
             this.panelDauSach.TabIndex = 1;
-            this.panelDauSach.Click += new System.EventHandler(this.panelDauSach_Click);
             this.panelDauSach.Paint += new System.Windows.Forms.PaintEventHandler(this.panel3_Paint);
             // 
             // pictureBox5
@@ -647,7 +641,6 @@ namespace QuanLyThuVien.GUI
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Panel panelDauSach;
         private System.Windows.Forms.Panel panelDocGia;
-        private System.Windows.Forms.Panel panelDauSach;
         private System.Windows.Forms.Panel panel8;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label7;

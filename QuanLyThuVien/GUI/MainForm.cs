@@ -238,11 +238,6 @@ namespace QuanLyThuVien.GUI
             }
         }
 
-        private void panel3_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
         private void panel11_Paint(object sender, PaintEventArgs e)
         {
 
