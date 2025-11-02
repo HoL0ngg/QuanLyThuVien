@@ -35,6 +35,18 @@ namespace QuanLyThuVien.BUS
             return DauSachDAO.Instance.SearchDauSach(keyword);
         }
 
+        public bool DeleteDauSach(int dauSachID)
+        {
+            try
+            {
+                return DauSachDAO.Instance.DeleteDauSach(dauSachID);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public DataTable GetAllDauSach()
         {
             // Gọi thẳng xuống DAO

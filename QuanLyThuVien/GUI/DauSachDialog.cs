@@ -25,6 +25,25 @@ namespace QuanLyThuVien.GUI
             InitializeComponent();
             this.mode = mode;
             this.dauSachID = dauSachID;
+
+            dgvTacGiaChon.AutoGenerateColumns = false; // Tắt tự động tạo cột
+            dgvTacGiaChon.Columns.Clear();
+
+            DataGridViewTextBoxColumn colMa = new DataGridViewTextBoxColumn();
+            colMa.Name = "MaTacGia";           // Tên nội bộ
+            colMa.HeaderText = "Mã";            // Chữ hiển thị
+            colMa.DataPropertyName = "MaTacGia"; // Map với thuộc tính MaTacGia của DTO
+            colMa.AutoSizeMode = DataGridViewAutoSizeColumnMode.None; // Tắt tự động size
+            colMa.Width = 50;                   // Đặt độ rộng cố định
+
+            DataGridViewTextBoxColumn colTen = new DataGridViewTextBoxColumn();
+            colTen.Name = "TenTacGia";
+            colTen.HeaderText = "Tên Tác Giả";
+            colTen.DataPropertyName = "TenTacGia"; // Map với thuộc tính TenTacGia của DTO
+            colTen.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill; // Tự lấp đầy
+
+            dgvTacGiaChon.Columns.Add(colMa);
+            dgvTacGiaChon.Columns.Add(colTen);
         }
 
         private void DauSachDialog_Load(object sender, EventArgs e)
@@ -104,10 +123,11 @@ namespace QuanLyThuVien.GUI
             dgvTacGiaChon.DataSource = null; // Phải reset
             dgvTacGiaChon.DataSource = danhSachTacGiaChon; // Bind vào List DTO
 
-            // Cấu hình cột sau khi bind
+            //Cấu hình cột sau khi bind
             if (dgvTacGiaChon.Columns.Count > 0)
             {
                 dgvTacGiaChon.Columns["MaTacGia"].HeaderText = "Mã";
+                dgvTacGiaChon.Columns["MaTacGia"].Width = 50;
                 dgvTacGiaChon.Columns["TenTacGia"].HeaderText = "Tên Tác Giả";
                 dgvTacGiaChon.Columns["TenTacGia"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             }
@@ -157,28 +177,34 @@ namespace QuanLyThuVien.GUI
             }
 
             List<int> maTacGiaList = danhSachTacGiaChon.Select(tacgia => tacgia.maTacGia).ToList();
-
-            // 3. Gọi BUS để thêm
-            bool result = DauSachBUS.Instance.AddDauSach(tenSach, maNXB, this.newImagePath, namXuatBan, ngonNgu, maTacGiaList);
-            try
+            if (mode == "ADD")
             {
 
-                if (result)
+                // 3. Gọi BUS để thêm
+                bool result = DauSachBUS.Instance.AddDauSach(tenSach, maNXB, this.newImagePath, namXuatBan, ngonNgu, maTacGiaList);
+                try
                 {
-                    MessageBox.Show("Thêm đầu sách thành công!");
-                    this.DialogResult = DialogResult.OK;
-                    this.Close();
+
+                    if (result)
+                    {
+                        MessageBox.Show("Thêm đầu sách thành công!");
+                        this.DialogResult = DialogResult.OK;
+                        this.Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Thêm đầu sách thất bại!");
+                    }
                 }
-                else
+                catch (Exception ex)
                 {
-                    MessageBox.Show("Thêm đầu sách thất bại!");
+                    MessageBox.Show("Lỗi khi thêm: " + ex.Message);
                 }
-            }
-            catch (Exception ex)
+            } else if (mode == "EDIT")
             {
-                MessageBox.Show("Lỗi khi thêm: " + ex.Message);
+                // Chưa làm được phần sửa
+                MessageBox.Show("Chức năng sửa chưa được hỗ trợ trong phiên bản này.");
             }
-        }
 
         private void button4_Click(object sender, EventArgs e)
         {
@@ -199,10 +225,33 @@ namespace QuanLyThuVien.GUI
                             danhSachTacGiaChon.Add(author);
                         }
                     }
-
                     // Cập nhật lại DataGridView
                     RefreshTacGiaGrid();
                 }
+            }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            this.DialogResult = DialogResult.Cancel;
+            this.Close();
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            if (dgvTacGiaChon.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Vui lòng chọn tác giả để xóa!");
+                return;
+            }
+
+            int selectedMaTacGia = Convert.ToInt32(dgvTacGiaChon.SelectedRows[0].Cells["MaTacGia"].Value);
+            var authorToRemove = danhSachTacGiaChon.FirstOrDefault(a => a.maTacGia == selectedMaTacGia);
+
+            if (authorToRemove != null)
+            {
+                danhSachTacGiaChon.Remove(authorToRemove);
+                RefreshTacGiaGrid();
             }
         }
     }

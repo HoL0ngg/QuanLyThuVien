@@ -38,14 +38,28 @@ namespace QuanLyThuVien.DAO // Hoặc QuanLyNhanSu.DAO
                     dau_sach ds
                 JOIN 
                     nha_xuat_ban nxb ON ds.NhaXuatBan = nxb.MaNXB
+                WHERE
+                    ds.TrangThai = 1
                 ORDER BY 
                     ds.MaDauSach ASC";
-
-            // THAY ĐỔI 1: Gọi trực tiếp DataProvider.ExecuteQuery
-            // vì hàm của bạn là static, không dùng Instance
             DataTable data = DataProvider.ExecuteQuery(query);
 
             return data;
+        }
+
+        public bool DeleteDauSach(int dauSachID)
+        {
+            string query = @"
+                UPDATE 
+                    dau_sach
+                SET 
+                    TrangThai = 0
+                WHERE 
+                    MaDauSach = @dauSachID";
+            var parameters = new Dictionary<string, object>();
+            parameters.Add("@dauSachID", dauSachID);
+            int result = DataProvider.ExecuteNonQuery(query, parameters);
+            return result > 0;
         }
 
         public DataTable SearchDauSach(string keyword)
@@ -64,6 +78,7 @@ namespace QuanLyThuVien.DAO // Hoặc QuanLyNhanSu.DAO
                 FROM 
                     dau_sach ds
                 WHERE 
+                        ds.TrangThai = 1 AND
                         ds.TenDauSach LIKE @keyword OR 
                         ds.TenTacGia LIKE @keyword OR 
                         ds.NhaXuatBan LIKE @keyword

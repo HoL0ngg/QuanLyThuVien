@@ -52,8 +52,25 @@ namespace QuanLyThuVien.GUI
 
         public override void OnDelete()
         {
-            // Lấy ID, hỏi xác nhận xóa
-            // ...
+            if (dgvDauSach.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Vui lòng chọn đầu sách để xóa!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            int selectedDauSachID = Convert.ToInt32(dgvDauSach.SelectedRows[0].Cells["Mã đầu sách"].Value);
+            var confirmResult = MessageBox.Show("Bạn có chắc chắn muốn xóa đầu sách này?", "Xác nhận xóa", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (confirmResult == DialogResult.Yes)
+            {
+                bool success = DauSachBUS.Instance.DeleteDauSach(selectedDauSachID);
+                if (success)
+                {
+                    MessageBox.Show("Xóa đầu sách thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("Xóa đầu sách thất bại!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
             LoadData(); // Tải lại
         }
 

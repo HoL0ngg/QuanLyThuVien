@@ -43,6 +43,12 @@ namespace QuanLyThuVien.GUI
             this.panel11 = new System.Windows.Forms.Panel();
             this.label11 = new System.Windows.Forms.Label();
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
+            this.panelPhieuPhat = new System.Windows.Forms.Panel();
+            this.pictureBox4 = new System.Windows.Forms.PictureBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.panelDauSach = new System.Windows.Forms.Panel();
+            this.pictureBox5 = new System.Windows.Forms.PictureBox();
+            this.label7 = new System.Windows.Forms.Label();
             this.panelPhieuNhap = new System.Windows.Forms.Panel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -52,12 +58,6 @@ namespace QuanLyThuVien.GUI
             this.panelPhieuTra = new System.Windows.Forms.Panel();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.panelPhieuPhat = new System.Windows.Forms.Panel();
-            this.pictureBox4 = new System.Windows.Forms.PictureBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.panelDauSach = new System.Windows.Forms.Panel();
-            this.pictureBox5 = new System.Windows.Forms.PictureBox();
-            this.label7 = new System.Windows.Forms.Label();
             this.panelDocGia = new System.Windows.Forms.Panel();
             this.pictureBox6 = new System.Windows.Forms.PictureBox();
             this.label8 = new System.Windows.Forms.Label();
@@ -75,16 +75,16 @@ namespace QuanLyThuVien.GUI
             this.panel12.SuspendLayout();
             this.panel11.SuspendLayout();
             this.flowLayoutPanel2.SuspendLayout();
+            this.panelPhieuPhat.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
+            this.panelDauSach.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
             this.panelPhieuNhap.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panelPhieuMuon.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.panelPhieuTra.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
-            this.panelPhieuPhat.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
-            this.panelDauSach.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
             this.panelDocGia.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
             this.panelThongKe.SuspendLayout();
@@ -225,10 +225,6 @@ namespace QuanLyThuVien.GUI
             // flowLayoutPanel2
             // 
             this.flowLayoutPanel2.BackColor = System.Drawing.SystemColors.Info;
-            this.flowLayoutPanel2.Controls.Add(this.panelPhieuPhat);
-            this.flowLayoutPanel2.Controls.Add(this.panelDauSach);
-            this.flowLayoutPanel2.Controls.Add(this.panel8);
-            this.flowLayoutPanel2.Location = new System.Drawing.Point(15, 113);
             this.flowLayoutPanel2.Controls.Add(this.panelPhieuNhap);
             this.flowLayoutPanel2.Controls.Add(this.panelPhieuMuon);
             this.flowLayoutPanel2.Controls.Add(this.panelPhieuTra);
@@ -242,6 +238,84 @@ namespace QuanLyThuVien.GUI
             this.flowLayoutPanel2.Name = "flowLayoutPanel2";
             this.flowLayoutPanel2.Size = new System.Drawing.Size(359, 728);
             this.flowLayoutPanel2.TabIndex = 4;
+            // 
+            // panelPhieuPhat
+            // 
+            this.panelPhieuPhat.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.panelPhieuPhat.Controls.Add(this.pictureBox4);
+            this.panelPhieuPhat.Controls.Add(this.label6);
+            this.panelPhieuPhat.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.panelPhieuPhat.Location = new System.Drawing.Point(0, 273);
+            this.panelPhieuPhat.Margin = new System.Windows.Forms.Padding(0);
+            this.panelPhieuPhat.Name = "panelPhieuPhat";
+            this.panelPhieuPhat.Size = new System.Drawing.Size(359, 85);
+            this.panelPhieuPhat.TabIndex = 1;
+            this.panelPhieuPhat.Click += new System.EventHandler(this.panelPhieuPhat_Click);
+            this.panelPhieuPhat.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
+            this.panelPhieuPhat.MouseEnter += new System.EventHandler(this.panelMenu_MouseEnter);
+            this.panelPhieuPhat.MouseLeave += new System.EventHandler(this.panelMenu_MouseLeave);
+            // 
+            // pictureBox4
+            // 
+            this.pictureBox4.Image = global::QuanLyThuVien.Properties.Resources.penaltyIcon;
+            this.pictureBox4.Location = new System.Drawing.Point(17, 3);
+            this.pictureBox4.Name = "pictureBox4";
+            this.pictureBox4.Size = new System.Drawing.Size(87, 82);
+            this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox4.TabIndex = 4;
+            this.pictureBox4.TabStop = false;
+            this.pictureBox4.Click += new System.EventHandler(this.panelPhieuPhat_Click);
+            this.pictureBox4.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panelPhieuPhat_MouseDown);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(123, 23);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(172, 38);
+            this.label6.TabIndex = 0;
+            this.label6.Text = "Phiếu phạt";
+            this.label6.Click += new System.EventHandler(this.panelPhieuPhat_Click);
+            this.label6.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panelPhieuPhat_MouseDown);
+            // 
+            // panelDauSach
+            // 
+            this.panelDauSach.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.panelDauSach.Controls.Add(this.pictureBox5);
+            this.panelDauSach.Controls.Add(this.label7);
+            this.panelDauSach.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.panelDauSach.Location = new System.Drawing.Point(0, 358);
+            this.panelDauSach.Margin = new System.Windows.Forms.Padding(0);
+            this.panelDauSach.Name = "panelDauSach";
+            this.panelDauSach.Size = new System.Drawing.Size(359, 85);
+            this.panelDauSach.TabIndex = 1;
+            this.panelDauSach.Click += new System.EventHandler(this.panelMenu_Click);
+            this.panelDauSach.Paint += new System.Windows.Forms.PaintEventHandler(this.panel3_Paint);
+            this.panelDauSach.MouseEnter += new System.EventHandler(this.panelMenu_MouseEnter);
+            this.panelDauSach.MouseLeave += new System.EventHandler(this.panelMenu_MouseLeave);
+            // 
+            // pictureBox5
+            // 
+            this.pictureBox5.Image = global::QuanLyThuVien.Properties.Resources.booksIcon;
+            this.pictureBox5.Location = new System.Drawing.Point(17, 3);
+            this.pictureBox5.Name = "pictureBox5";
+            this.pictureBox5.Size = new System.Drawing.Size(87, 79);
+            this.pictureBox5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox5.TabIndex = 5;
+            this.pictureBox5.TabStop = false;
+            this.pictureBox5.Click += new System.EventHandler(this.pictureBox5_Click);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(124, 22);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(156, 38);
+            this.label7.TabIndex = 0;
+            this.label7.Text = "Đầu sách";
+            this.label7.Click += new System.EventHandler(this.label7_Click);
             // 
             // panelPhieuNhap
             // 
@@ -350,108 +424,13 @@ namespace QuanLyThuVien.GUI
             this.label5.TabIndex = 0;
             this.label5.Text = "Phiếu trả";
             // 
-            // panelPhieuPhat
-            // 
-            this.panelPhieuPhat.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.panelPhieuPhat.Controls.Add(this.pictureBox4);
-            this.panelPhieuPhat.Controls.Add(this.label6);
-            this.panelPhieuPhat.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.panelPhieuPhat.Location = new System.Drawing.Point(0, 273);
-            this.panelPhieuPhat.Margin = new System.Windows.Forms.Padding(0);
-            this.panelPhieuPhat.Name = "panelPhieuPhat";
-            this.panelPhieuPhat.Size = new System.Drawing.Size(359, 91);
-            this.panelPhieuPhat.TabIndex = 1;
-            this.panelPhieuPhat.Click += new System.EventHandler(this.panelMenu_Click);
-            this.panelPhieuPhat.MouseEnter += new System.EventHandler(this.panelMenu_MouseEnter);
-            this.panelPhieuPhat.MouseLeave += new System.EventHandler(this.panelMenu_MouseLeave);
-            this.panelPhieuPhat.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.panelPhieuPhat.Controls.Add(this.pictureBox4);
-            this.panelPhieuPhat.Controls.Add(this.label6);
-            this.panelPhieuPhat.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.panelPhieuPhat.Location = new System.Drawing.Point(3, 279);
-            this.panelPhieuPhat.Name = "panelPhieuPhat";
-            this.panelPhieuPhat.Size = new System.Drawing.Size(350, 85);
-            this.panelPhieuPhat.TabIndex = 1;
-            this.panelPhieuPhat.Click += new System.EventHandler(this.panelPhieuPhat_Click);
-            this.panelPhieuPhat.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
-            // 
-            // pictureBox4
-            // 
-            this.pictureBox4.Image = global::QuanLyThuVien.Properties.Resources.penaltyIcon;
-            this.pictureBox4.Location = new System.Drawing.Point(17, 3);
-            this.pictureBox4.Name = "pictureBox4";
-            this.pictureBox4.Size = new System.Drawing.Size(87, 82);
-            this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox4.TabIndex = 4;
-            this.pictureBox4.TabStop = false;
-            this.pictureBox4.Click += new System.EventHandler(this.panelPhieuPhat_Click);
-            this.pictureBox4.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panelPhieuPhat_MouseDown);
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(123, 23);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(172, 38);
-            this.label6.TabIndex = 0;
-            this.label6.Text = "Phiếu phạt";
-            this.label6.Click += new System.EventHandler(this.panelPhieuPhat_Click);
-            this.label6.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panelPhieuPhat_MouseDown);
-            // 
-            // panelDauSach
-            // 
-            this.panelDauSach.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.panelDauSach.Controls.Add(this.pictureBox5);
-            this.panelDauSach.Controls.Add(this.label7);
-            this.panelDauSach.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.panelDauSach.Location = new System.Drawing.Point(0, 364);
-            this.panelDauSach.Margin = new System.Windows.Forms.Padding(0);
-            this.panelDauSach.Name = "panelDauSach";
-            this.panelDauSach.Size = new System.Drawing.Size(359, 91);
-            this.panelDauSach.TabIndex = 1;
-            this.panelDauSach.Click += new System.EventHandler(this.panelMenu_Click);
-            this.panelDauSach.MouseEnter += new System.EventHandler(this.panelMenu_MouseEnter);
-            this.panelDauSach.MouseLeave += new System.EventHandler(this.panelMenu_MouseLeave);
-            this.panelDauSach.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.panelDauSach.Controls.Add(this.pictureBox5);
-            this.panelDauSach.Controls.Add(this.label7);
-            this.panelDauSach.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.panelDauSach.Location = new System.Drawing.Point(3, 370);
-            this.panelDauSach.Name = "panelDauSach";
-            this.panelDauSach.Size = new System.Drawing.Size(350, 85);
-            this.panelDauSach.TabIndex = 1;
-            this.panelDauSach.Paint += new System.Windows.Forms.PaintEventHandler(this.panel3_Paint);
-            // 
-            // pictureBox5
-            // 
-            this.pictureBox5.Image = global::QuanLyThuVien.Properties.Resources.booksIcon;
-            this.pictureBox5.Location = new System.Drawing.Point(17, 3);
-            this.pictureBox5.Name = "pictureBox5";
-            this.pictureBox5.Size = new System.Drawing.Size(87, 79);
-            this.pictureBox5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox5.TabIndex = 5;
-            this.pictureBox5.TabStop = false;
-            this.pictureBox5.Click += new System.EventHandler(this.pictureBox5_Click);
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(124, 22);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(156, 38);
-            this.label7.TabIndex = 0;
-            this.label7.Text = "Đầu sách";
-            this.label7.Click += new System.EventHandler(this.label7_Click);
-            // 
             // panelDocGia
             // 
             this.panelDocGia.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.panelDocGia.Controls.Add(this.pictureBox6);
             this.panelDocGia.Controls.Add(this.label8);
             this.panelDocGia.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.panelDocGia.Location = new System.Drawing.Point(0, 455);
+            this.panelDocGia.Location = new System.Drawing.Point(0, 443);
             this.panelDocGia.Margin = new System.Windows.Forms.Padding(0);
             this.panelDocGia.Name = "panelDocGia";
             this.panelDocGia.Size = new System.Drawing.Size(359, 91);
@@ -487,7 +466,7 @@ namespace QuanLyThuVien.GUI
             this.panelThongKe.Controls.Add(this.pictureBox7);
             this.panelThongKe.Controls.Add(this.label13);
             this.panelThongKe.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.panelThongKe.Location = new System.Drawing.Point(0, 546);
+            this.panelThongKe.Location = new System.Drawing.Point(0, 534);
             this.panelThongKe.Margin = new System.Windows.Forms.Padding(0);
             this.panelThongKe.Name = "panelThongKe";
             this.panelThongKe.Size = new System.Drawing.Size(359, 91);
@@ -522,7 +501,7 @@ namespace QuanLyThuVien.GUI
             this.panelDangXuat.Controls.Add(this.pictureBox8);
             this.panelDangXuat.Controls.Add(this.label14);
             this.panelDangXuat.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.panelDangXuat.Location = new System.Drawing.Point(0, 637);
+            this.panelDangXuat.Location = new System.Drawing.Point(0, 625);
             this.panelDangXuat.Margin = new System.Windows.Forms.Padding(0);
             this.panelDangXuat.Name = "panelDangXuat";
             this.panelDangXuat.Size = new System.Drawing.Size(359, 91);
@@ -587,6 +566,12 @@ namespace QuanLyThuVien.GUI
             this.panel11.ResumeLayout(false);
             this.panel11.PerformLayout();
             this.flowLayoutPanel2.ResumeLayout(false);
+            this.panelPhieuPhat.ResumeLayout(false);
+            this.panelPhieuPhat.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
+            this.panelDauSach.ResumeLayout(false);
+            this.panelDauSach.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
             this.panelPhieuNhap.ResumeLayout(false);
             this.panelPhieuNhap.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
@@ -596,12 +581,6 @@ namespace QuanLyThuVien.GUI
             this.panelPhieuTra.ResumeLayout(false);
             this.panelPhieuTra.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
-            this.panelPhieuPhat.ResumeLayout(false);
-            this.panelPhieuPhat.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
-            this.panelDauSach.ResumeLayout(false);
-            this.panelDauSach.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
             this.panelDocGia.ResumeLayout(false);
             this.panelDocGia.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).EndInit();
