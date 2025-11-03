@@ -212,7 +212,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\img\" />
-    <Folder Include="Resources\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="GUI\ChonTacGiaDialog.resx">
@@ -255,6 +254,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="database\quanlythuvien.sql" />
+    <None Include="Resources\info.png" />
+    <None Include="Resources\remove.png" />
+    <None Include="Resources\pen.png" />
+    <None Include="Resources\plus.png" />
+    <None Include="Resources\addIcon.bmp" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
