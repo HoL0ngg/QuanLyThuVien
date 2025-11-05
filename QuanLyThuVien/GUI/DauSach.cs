@@ -74,6 +74,18 @@ namespace QuanLyThuVien.GUI
             LoadData(); // Tải lại
         }
 
+        public override void OnDetails()
+        {
+            if (dgvDauSach.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Vui lòng chọn đầu sách để xem chi tiết!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            int selectedDauSachID = Convert.ToInt32(dgvDauSach.SelectedRows[0].Cells["Mã đầu sách"].Value);
+            DauSachDialog dialog = new DauSachDialog("DETAILS", selectedDauSachID);
+            dialog.ShowDialog();
+        }
+
         public override void LoadData()
         {
             string searchTerm = txtSearch.Text.Trim();
