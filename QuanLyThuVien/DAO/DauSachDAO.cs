@@ -47,6 +47,65 @@ namespace QuanLyThuVien.DAO // Hoặc QuanLyNhanSu.DAO
             return data;
         }
 
+        public bool UpdateDauSach(int dauSachID, string tenDauSach, int maNXB, string hinhAnhPath, string namXuatBan, string ngonNgu, List<int> maTacGiaList)
+        {
+            using (MySqlConnection connection = DataProvider.GetConnection())
+            {
+                connection.Open();
+                MySqlTransaction transaction = connection.BeginTransaction();
+                MySqlCommand command = connection.CreateCommand();
+                command.Transaction = transaction;
+                try
+                {
+                    string queryDauSach = @"
+                        UPDATE dau_sach 
+                        SET TenDauSach = @tenDauSach, NhaXuatBan = @maNXB, HinhAnh = @hinhAnhPath, NamXuatBan = @namXuatBan, NgonNgu = @ngonNgu
+                        WHERE MaDauSach = @dauSachID";
+                    command.CommandText = queryDauSach;
+                    command.Parameters.AddWithValue("@tenDauSach", tenDauSach);
+                    command.Parameters.AddWithValue("@maNXB", maNXB);
+                    command.Parameters.AddWithValue("@hinhAnhPath", hinhAnhPath);
+                    command.Parameters.AddWithValue("@namXuatBan", namXuatBan);
+                    command.Parameters.AddWithValue("@ngonNgu", ngonNgu);
+                    command.Parameters.AddWithValue("@dauSachID", dauSachID);
+                    command.ExecuteNonQuery();
+                    // Xóa các tham số cũ
+                    command.Parameters.Clear();
+                    // Xóa các tác giả cũ
+                    string deleteQuery = "DELETE FROM tacgia_dausach WHERE MaDauSach = @dauSachID";
+                    command.CommandText = deleteQuery;
+                    command.Parameters.AddWithValue("@dauSachID", dauSachID);
+                    command.ExecuteNonQuery();
+                    // Thêm lại các tác giả mới
+                    var queryTacGia = new StringBuilder();
+                    queryTacGia.Append("INSERT INTO tacgia_dausach (MaDauSach, MaTacGia) VALUES ");
+                    for (int i = 0; i < maTacGiaList.Count; i++)
+                    {
+                        string maDSParam = "@MaDS" + i;
+                        string maTGParam = "@MaTG" + i;
+                        queryTacGia.AppendFormat("({0}, {1})", maDSParam, maTGParam);
+                        if (i < maTacGiaList.Count - 1)
+                        {   queryTacGia.Append(", ");
+                        }
+                        // Thêm tham số cho vòng lặp
+                        command.Parameters.AddWithValue(maDSParam, dauSachID);
+                        command.Parameters.AddWithValue(maTGParam, maTacGiaList[i]);
+                    }
+                    // Chạy câu query thêm tác giả
+                    command.CommandText = queryTacGia.ToString();
+                    command.ExecuteNonQuery();
+                    // BƯỚC 3: Nếu mọi thứ OK, commit transaction
+                    transaction.Commit();
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    throw new Exception("Lỗi CSDL khi cập nhật đầu sách: " + ex.Message);
+                }
+            }
+        }
+
         public bool DeleteDauSach(int dauSachID)
         {
             string query = @"

@@ -92,6 +92,7 @@
             this.dgvDauSach.ReadOnly = true;
             this.dgvDauSach.RowHeadersWidth = 51;
             this.dgvDauSach.RowTemplate.Height = 24;
+            this.dgvDauSach.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvDauSach.Size = new System.Drawing.Size(1043, 628);
             this.dgvDauSach.TabIndex = 1;
             // 

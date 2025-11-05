@@ -200,11 +200,29 @@ namespace QuanLyThuVien.GUI
                 {
                     MessageBox.Show("Lỗi khi thêm: " + ex.Message);
                 }
-            } else if (mode == "EDIT")
-            {
-                // Chưa làm được phần sửa
-                MessageBox.Show("Chức năng sửa chưa được hỗ trợ trong phiên bản này.");
             }
+            else if (mode == "EDIT")
+            {
+                bool result = DauSachBUS.Instance.UpdateDauSach(dauSachID, tenSach, maNXB, this.newImagePath, namXuatBan, ngonNgu, maTacGiaList);
+                try
+                {
+                    if (result)
+                    {
+                        MessageBox.Show("Cập nhật đầu sách thành công!");
+                        this.DialogResult = DialogResult.OK;
+                        this.Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Cập nhật đầu sách thất bại!");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Lỗi khi cập nhật: " + ex.Message);
+                }
+            }
+        }
 
         private void button4_Click(object sender, EventArgs e)
         {
