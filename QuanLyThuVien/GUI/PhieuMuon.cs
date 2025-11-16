@@ -2,6 +2,7 @@
 using QuanLyThuVien.DAO;
 using QuanLyThuVien.DTO;
 using System;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace QuanLyThuVien.GUI
@@ -11,6 +12,7 @@ namespace QuanLyThuVien.GUI
         private PhieuMuonBUS bus = new PhieuMuonBUS();
         private CTPhieuMuonDAO ctDao = new CTPhieuMuonDAO();
         private FormThemPhieuMuon ucThemPhieu;
+        private const string DeleteColumnName = "colDelete";
 
         public PhieuMuon()
         {
@@ -18,7 +20,6 @@ namespace QuanLyThuVien.GUI
             bangPhieuMuon.CellClick += BangPhieuMuon_CellClick;
             btnClearFilters.Click += BtnClearFilters_Click;
 
-            // Khởi tạo sẵn UC thêm phiếu mượn và thêm vào control tree
             ucThemPhieu = new FormThemPhieuMuon();
             ucThemPhieu.Dock = DockStyle.Fill;
             ucThemPhieu.Visible = false;
@@ -49,12 +50,34 @@ namespace QuanLyThuVien.GUI
             {
                 bangPhieuMuon.AutoGenerateColumns = true;
                 bangPhieuMuon.DataSource = bus.GetAll();
+                EnsureDeleteColumn();
                 bangCTPhieuMuon.DataSource = null; // clear chi tiết khi reload
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Lỗi khi tải dữ liệu phiếu mượn: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void EnsureDeleteColumn()
+        {
+            if (bangPhieuMuon.Columns[DeleteColumnName] == null)
+            {
+                var btnCol = new DataGridViewButtonColumn();
+                btnCol.Name = DeleteColumnName;
+                btnCol.HeaderText = "Xóa";
+                btnCol.Text = "X";
+                btnCol.UseColumnTextForButtonValue = true;
+                btnCol.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                var style = new DataGridViewCellStyle();
+                style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                style.ForeColor = Color.Red;
+                style.SelectionForeColor = Color.Red;
+                btnCol.DefaultCellStyle = style;
+                bangPhieuMuon.Columns.Add(btnCol);
+            }
+            // Đặt cột Xóa ở ngoài cùng bên phải
+            bangPhieuMuon.Columns[DeleteColumnName].DisplayIndex = bangPhieuMuon.Columns.Count - 1;
         }
 
         private void ToggleView(bool showThem)
@@ -106,6 +129,43 @@ namespace QuanLyThuVien.GUI
             }
         }
 
+        private void BangPhieuMuon_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0) return;
+            var grid = (DataGridView)sender;
+            if (grid.Columns[e.ColumnIndex].Name != DeleteColumnName) return;
+
+            var idCell = grid.Rows[e.RowIndex].Cells["MaPhieuMuon"];
+            if (idCell == null || idCell.Value == null) return;
+            int id;
+            if (!int.TryParse(idCell.Value.ToString(), out id)) return;
+
+            var confirm = MessageBox.Show(
+                $"Bạn có chắc muốn xóa phiếu mượn có ID {id} không?",
+                "Xác nhận xóa",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question);
+
+            if (confirm == DialogResult.Yes)
+            {
+                try
+                {
+                    if (bus.Delete(id))
+                    {
+                        LoadData();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Xóa không thành công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Lỗi khi xóa: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
         private void BtnClearFilters_Click(object sender, EventArgs e)
         {
             txtMaPhieuMuon.Text = string.Empty;
@@ -114,11 +174,6 @@ namespace QuanLyThuVien.GUI
             cmbTrangThai.SelectedIndex = 0;
             txtMaDocGia.Text = string.Empty;
             txtMaNhanVien.Text = string.Empty;
-        }
-
-        private void BangPhieuMuon_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
         }
     }
 }

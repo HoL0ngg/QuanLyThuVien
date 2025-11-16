@@ -25,7 +25,6 @@ namespace QuanLyThuVien.GUI
 
         private void BtnThem_Click(object sender, EventArgs e)
         {
-            // Chưa thêm logic lưu DB theo yêu cầu. Chỉ yêu cầu quay lại trang trước.
             CloseRequested?.Invoke();
         }
 
