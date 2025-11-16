@@ -153,6 +153,12 @@
     <Compile Include="GUI\DauSachDialog.Designer.cs">
       <DependentUpon>DauSachDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="GUI\FormThemPhieuMuon.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\FormThemPhieuMuon.Designer.cs">
+      <DependentUpon>FormThemPhieuMuon.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI\FormThemPhieuNhap.cs">
       <SubType>UserControl</SubType>
     </Compile>
