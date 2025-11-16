@@ -43,7 +43,7 @@ namespace QuanLyThuVien.DAO // Hoặc QuanLyNhanSu.DAO
                 ORDER BY 
                     ds.MaDauSach ASC";
             DataTable data = DataProvider.ExecuteQuery(query);
-
+            Console.WriteLine("DataTable rows count: " + data.Rows.Count);
             return data;
         }
 

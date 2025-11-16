@@ -31,6 +31,7 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.button1 = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.button5 = new System.Windows.Forms.Button();
             this.txtNgonNgu = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.button4 = new System.Windows.Forms.Button();
@@ -45,7 +46,6 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.button5 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -105,6 +105,16 @@
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
+            // 
+            // button5
+            // 
+            this.button5.Location = new System.Drawing.Point(193, 127);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(108, 26);
+            this.button5.TabIndex = 14;
+            this.button5.Text = "Xóa tác giả";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
             // txtNgonNgu
             // 
@@ -195,7 +205,7 @@
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(125, 30);
             this.button2.TabIndex = 4;
-            this.button2.Text = "Hoàn thành";
+            this.button2.Text = "Lưu";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
@@ -233,16 +243,6 @@
             this.label1.Size = new System.Drawing.Size(89, 16);
             this.label1.TabIndex = 0;
             this.label1.Text = "Tên đầu sách";
-            // 
-            // button5
-            // 
-            this.button5.Location = new System.Drawing.Point(193, 127);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(108, 26);
-            this.button5.TabIndex = 14;
-            this.button5.Text = "Xóa tác giả";
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
             // DauSachDialog
             // 

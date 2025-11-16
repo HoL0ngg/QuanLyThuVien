@@ -29,6 +29,22 @@ namespace QuanLyThuVien.GUI
             dgvTacGiaChon.AutoGenerateColumns = false; // Tắt tự động tạo cột
             dgvTacGiaChon.Columns.Clear();
 
+            if (mode == "DETAILS")
+            {
+                // Vô hiệu hóa tất cả các điều khiển nhập liệu
+                foreach (Control ctrl in this.Controls)
+                {
+                    if (ctrl is TextBox || ctrl is ComboBox || ctrl is Button)
+                    {
+                        ctrl.Enabled = false;
+                    }
+                }
+                button1.Enabled = false; // Vô hiệu hóa nút chọn ảnh
+                button2.Enabled = false; // Vô hiệu hóa nút Lưu
+                button4.Enabled = false; // Vô hiệu hóa nút Thêm tác giả
+                button5.Enabled = false; // Vô hiệu hóa nút Xóa tác giả
+            }
+
             DataGridViewTextBoxColumn colMa = new DataGridViewTextBoxColumn();
             colMa.Name = "MaTacGia";           // Tên nội bộ
             colMa.HeaderText = "Mã";            // Chữ hiển thị
@@ -78,6 +94,11 @@ namespace QuanLyThuVien.GUI
 
         private void button1_Click(object sender, EventArgs e)
         {
+            if (mode == "DETAILS")
+            {
+                MessageBox.Show("Chế độ xem chi tiết, không thể thay đổi ảnh bìa!");
+                return;
+            }
             OpenFileDialog openFile = new OpenFileDialog();
             // Lọc chỉ file ảnh
             openFile.Filter = "Image Files (*.jpg; *.jpeg; *.png; *.bmp)|*.jpg; *.jpeg; *.png; *.bmp";
@@ -226,6 +247,11 @@ namespace QuanLyThuVien.GUI
 
         private void button4_Click(object sender, EventArgs e)
         {
+            if (mode == "DETAILS")
+            {
+                MessageBox.Show("Chế độ xem chi tiết, không thể thêm tác giả!");
+                return;
+            }
             using (ChonTacGiaDialog dialog = new ChonTacGiaDialog())
             {
                 // Mở dialog
@@ -257,6 +283,11 @@ namespace QuanLyThuVien.GUI
 
         private void button5_Click(object sender, EventArgs e)
         {
+            if (mode == "DETAILS")
+            {
+                MessageBox.Show("Chế độ xem chi tiết, không thể xóa tác giả!");
+                return;
+            }
             if (dgvTacGiaChon.SelectedRows.Count == 0)
             {
                 MessageBox.Show("Vui lòng chọn tác giả để xóa!");
