@@ -310,7 +310,18 @@ CREATE TABLE `dau_sach` (
   `NamXuatBan` varchar(100) NOT NULL,
   `NgonNgu` varchar(100) NOT NULL,
   `SoLuong` int(11) NOT NULL,
-  `Gia` int(11) DEFAULT NULL
+  `Gia` int(11) DEFAULT NULL,
+  `TrangThai` tinyint(1) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+DROP TABLE IF EXISTS `nha_xuat_ban`;
+
+-- Tạo lại bảng mới chuẩn hơn
+CREATE TABLE `nha_xuat_ban` (
+  `MaNXB` int(11) NOT NULL AUTO_INCREMENT,
+  `TenNXB` varchar(100) NOT NULL,
+  `Status` int(11) NOT NULL DEFAULT 1, -- 1: Hoạt động, 0: Bị ẩn
+  PRIMARY KEY (`MaNXB`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -318,16 +329,18 @@ CREATE TABLE `dau_sach` (
 --
 
 INSERT INTO `dau_sach` (`MaDauSach`, `TenDauSach`, `HinhAnh`, `NhaXuatBan`, `NamXuatBan`, `NgonNgu`, `SoLuong`, `Gia`) VALUES
-(1, 'Tuổi Thơ Dữ Dội', 'tuoithodu_doi.jpg', 'Kim Đồng', '1988', 'Tiếng Việt', 50, NULL),
-(2, 'Doraemon - Tập 1', 'doraemon_tap1.jpg', 'Kim Đồng', '1992', 'Tiếng Việt', 120, NULL),
-(3, 'Harry Potter và Hòn Đá Phù Thủy', 'hp1.jpg', 'Trẻ', '1997', 'Tiếng Anh', 80, NULL),
-(4, 'Nhà Giả Kim', 'nha_gia_kim.jpg', 'NXB Văn Học', '1988', 'Tiếng Việt', 60, NULL),
-(5, 'Đắc Nhân Tâm', 'dac_nhan_tam.jpg', 'NXB Tổng Hợp', '1936', 'Tiếng Việt', 100, NULL),
-(6, 'Chí Phèo', 'chi_pheo.jpg', 'NXB Văn Học', '1941', 'Tiếng Việt', 40, NULL),
-(7, 'Sherlock Holmes - Tập 1', 'sherlock1.jpg', 'NXB Thế Giới', '1892', 'Tiếng Anh', 55, NULL),
-(8, 'Không Gia Đình', 'khong_gia_dinh.jpg', 'Kim Đồng', '1878', 'Tiếng Việt', 70, NULL),
-(9, 'One Piece - Tập 1', 'onepiece_tap1.jpg', 'Kim Đồng', '1997', 'Tiếng Việt', 150, NULL),
-(10, 'Around the World in 80 Days', 'around80days.jpg', 'Macmillan', '1873', 'Tiếng Anh', 30, NULL);
+(1, 'Tuổi Thơ Dữ Dội', 'tuoithodu_doi.jpg', '1', '1988', 'Tiếng Việt', 50, NULL),
+(2, 'Doraemon - Tập 1', 'doraemon_tap1.jpg', '1', '1992', 'Tiếng Việt', 120, NULL),
+(3, 'Harry Potter và Hòn Đá Phù Thủy', 'hp1.jpg', '2', '1997', 'Tiếng Anh', 80, NULL),
+(4, 'Nhà Giả Kim', 'nha_gia_kim.jpg', '3', '1988', 'Tiếng Việt', 60, NULL),
+(5, 'Đắc Nhân Tâm', 'dac_nhan_tam.jpg', '4', '1936', 'Tiếng Việt', 100, NULL),
+(6, 'Chí Phèo', 'chi_pheo.jpg', '3', '1941', 'Tiếng Việt', 40, NULL),
+(7, 'Sherlock Holmes - Tập 1', 'sherlock1.jpg', '5', '1892', 'Tiếng Anh', 55, NULL),
+(8, 'Không Gia Đình', 'khong_gia_dinh.jpg', '1', '1878', 'Tiếng Việt', 70, NULL),
+(9, 'One Piece - Tập 1', 'onepiece_tap1.jpg', '1', '1997', 'Tiếng Việt', 150, NULL),
+(10, 'Around the World in 80 Days', 'around80days.jpg', '6', '1873', 'Tiếng Anh', 30, NULL);
+
+INSERT INTO `nha_xuat_ban` VALUES ( 1, 'Nhà Xuất Bản Trẻ', 1),(2, 'Bloomsbury Publishing', 1),(3, 'Nhà Xuất Bản Văn Học', 1),(4, 'Nhà Xuất Bản Đắc Nhân Tâm', 1),(5, 'Penguin Random House', 1),(6, 'Nhà Xuất Bản Kim Đồng', 1);
 
 -- --------------------------------------------------------
 
