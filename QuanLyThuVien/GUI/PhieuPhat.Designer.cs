@@ -33,9 +33,10 @@
             this.lb_dateEnd = new System.Windows.Forms.Label();
             this.DTP_begin = new System.Windows.Forms.DateTimePicker();
             this.lb_datebegin = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.tb_search = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.cbbPhieuPhat = new System.Windows.Forms.ComboBox();
+            this.btn_resest = new System.Windows.Forms.Button();
             this.panelContentPhieuPhat = new System.Windows.Forms.Panel();
             this.dgvPhieuPhat = new System.Windows.Forms.DataGridView();
             this.colID = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -45,6 +46,7 @@
             this.colDG = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colTrangThai = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.baseModuleUC1 = new QuanLyThuVien.GUI.BaseModuleUC();
+            this.label1 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panelContentPhieuPhat.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPhieuPhat)).BeginInit();
@@ -63,7 +65,7 @@
             // 
             // DTP_end
             // 
-            this.DTP_end.Location = new System.Drawing.Point(671, 23);
+            this.DTP_end.Location = new System.Drawing.Point(667, 23);
             this.DTP_end.Margin = new System.Windows.Forms.Padding(10, 15, 0, 10);
             this.DTP_end.Name = "DTP_end";
             this.DTP_end.Size = new System.Drawing.Size(200, 22);
@@ -72,49 +74,54 @@
             // lb_dateEnd
             // 
             this.lb_dateEnd.AutoSize = true;
-            this.lb_dateEnd.Location = new System.Drawing.Point(602, 26);
+            this.lb_dateEnd.Location = new System.Drawing.Point(611, 26);
             this.lb_dateEnd.Margin = new System.Windows.Forms.Padding(10, 15, 0, 10);
             this.lb_dateEnd.Name = "lb_dateEnd";
             this.lb_dateEnd.Size = new System.Drawing.Size(59, 16);
             this.lb_dateEnd.TabIndex = 5;
-            this.lb_dateEnd.Text = "ThúcKết ";
+            this.lb_dateEnd.Text = "Kết Thúc";
+            this.lb_dateEnd.Click += new System.EventHandler(this.lb_dateEnd_Click);
             // 
             // DTP_begin
             // 
-            this.DTP_begin.Location = new System.Drawing.Point(392, 21);
+            this.DTP_begin.Location = new System.Drawing.Point(398, 21);
             this.DTP_begin.Margin = new System.Windows.Forms.Padding(10, 15, 0, 10);
             this.DTP_begin.Name = "DTP_begin";
             this.DTP_begin.Size = new System.Drawing.Size(200, 22);
             this.DTP_begin.TabIndex = 2;
+            this.DTP_begin.ValueChanged += new System.EventHandler(this.DTP_begin_ValueChanged);
             // 
             // lb_datebegin
             // 
             this.lb_datebegin.AutoSize = true;
-            this.lb_datebegin.Location = new System.Drawing.Point(328, 23);
+            this.lb_datebegin.Location = new System.Drawing.Point(339, 23);
             this.lb_datebegin.Margin = new System.Windows.Forms.Padding(10, 15, 0, 10);
             this.lb_datebegin.Name = "lb_datebegin";
             this.lb_datebegin.Size = new System.Drawing.Size(54, 16);
             this.lb_datebegin.TabIndex = 4;
             this.lb_datebegin.Text = "Bắt Đầu";
             // 
-            // textBox1
+            // tb_search
             // 
-            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox1.Location = new System.Drawing.Point(15, 20);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(15);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(290, 22);
-            this.textBox1.TabIndex = 0;
-            this.textBox1.Text = "Tìm Kiếm..";
+            this.tb_search.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.tb_search.Location = new System.Drawing.Point(100, 20);
+            this.tb_search.Margin = new System.Windows.Forms.Padding(15);
+            this.tb_search.Name = "tb_search";
+            this.tb_search.Size = new System.Drawing.Size(290, 22);
+            this.tb_search.TabIndex = 0;
+            this.tb_search.Click += new System.EventHandler(this.btn);
+            this.tb_search.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // panel1
             // 
             this.panel1.Controls.Add(this.cbbPhieuPhat);
-            this.panel1.Controls.Add(this.textBox1);
+            this.panel1.Controls.Add(this.tb_search);
             this.panel1.Controls.Add(this.DTP_begin);
+            this.panel1.Controls.Add(this.btn_resest);
             this.panel1.Controls.Add(this.lb_datebegin);
             this.panel1.Controls.Add(this.btn_search);
             this.panel1.Controls.Add(this.DTP_end);
+            this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.lb_dateEnd);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
@@ -130,12 +137,23 @@
             "Tất cả",
             "Chưa đóng",
             "Đã đóng"});
-            this.cbbPhieuPhat.Location = new System.Drawing.Point(914, 20);
+            this.cbbPhieuPhat.Location = new System.Drawing.Point(888, 20);
             this.cbbPhieuPhat.Name = "cbbPhieuPhat";
             this.cbbPhieuPhat.Size = new System.Drawing.Size(121, 24);
             this.cbbPhieuPhat.TabIndex = 6;
             this.cbbPhieuPhat.Text = "Tất cả";
             this.cbbPhieuPhat.SelectedIndexChanged += new System.EventHandler(this.cbbPhieuPhat_SelectedIndexChanged);
+            // 
+            // btn_resest
+            // 
+            this.btn_resest.Location = new System.Drawing.Point(102, 68);
+            this.btn_resest.Margin = new System.Windows.Forms.Padding(0, 15, 0, 10);
+            this.btn_resest.Name = "btn_resest";
+            this.btn_resest.Size = new System.Drawing.Size(75, 23);
+            this.btn_resest.TabIndex = 1;
+            this.btn_resest.Text = "Làm Mới";
+            this.btn_resest.UseVisualStyleBackColor = true;
+            this.btn_resest.Click += new System.EventHandler(this.btn_resest_Click);
             // 
             // panelContentPhieuPhat
             // 
@@ -216,6 +234,17 @@
             this.baseModuleUC1.Size = new System.Drawing.Size(150, 150);
             this.baseModuleUC1.TabIndex = 0;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(23, 23);
+            this.label1.Margin = new System.Windows.Forms.Padding(10, 15, 0, 10);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(63, 16);
+            this.label1.TabIndex = 5;
+            this.label1.Text = "Tìm Kiếm";
+            this.label1.Click += new System.EventHandler(this.lb_dateEnd_Click);
+            // 
             // PhieuPhat
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -242,9 +271,8 @@
         private System.Windows.Forms.Label lb_dateEnd;
         private System.Windows.Forms.DateTimePicker DTP_begin;
         private System.Windows.Forms.Label lb_datebegin;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox tb_search;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.ComboBox cbbPhieuPhat;
         private System.Windows.Forms.Panel panelContentPhieuPhat;
         private System.Windows.Forms.DataGridView dgvPhieuPhat;
         private System.Windows.Forms.DataGridViewTextBoxColumn colID;
@@ -253,5 +281,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn colNgayPhat;
         private System.Windows.Forms.DataGridViewTextBoxColumn colDG;
         private System.Windows.Forms.DataGridViewTextBoxColumn colTrangThai;
+        private System.Windows.Forms.Button btn_resest;
+        private System.Windows.Forms.ComboBox cbbPhieuPhat;
+        private System.Windows.Forms.Label label1;
     }
 }

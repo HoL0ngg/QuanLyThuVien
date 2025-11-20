@@ -34,6 +34,15 @@ namespace QuanLyThuVien.BUS
             else
                 return PhieuPhatDAO.Instance.GetAll();
         }
-
+        public List<PhieuPhatDTO> GetByDateRange(DateTime starDate, DateTime endDate)
+        {
+            return PhieuPhatDAO.Instance.GetByDateRange(starDate, endDate);
+        }
+        public List<PhieuPhatDTO> GetByKeyword(string keyword)
+        {
+            if (string.IsNullOrWhiteSpace(keyword))
+                return GetAllPhieuPhat();
+            return PhieuPhatDAO.Instance.GetByKeyword(keyword.Trim());
+        }
     }
 }

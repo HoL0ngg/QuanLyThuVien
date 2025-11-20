@@ -107,8 +107,105 @@ namespace QuanLyThuVien.DAO
             }
             return list;
         }
+        public List<PhieuPhatDTO> GetByDateRange(DateTime begin, DateTime end)
+        {
+            const string sql = @"
+                SELECT
+                    pp.MaPhieuPhat,
+                    pp.NgayPhat,
+                    pp.TrangThai,
+                    ct.MaCTPhieuPhat,
+                    pp.Ngaytra AS NgayTra,
+                    ct.TienPhat,
+                    ds.TenDauSach AS TenSach,
+                    dg.TenDG
+                FROM phieu_phat pp
+                JOIN ctphieu_phat ct ON ct.MaPhieuPhat = pp.MaPhieuPhat
+                JOIN sach s           ON s.MaSach       = ct.MaSach
+                JOIN dau_sach ds      ON ds.MaDauSach   = s.MaDauSach
+                JOIN doc_gia dg       ON pp.MaDG = dg.MaDG
+                WHERE pp.NgayPhat BETWEEN @Begin AND @End
+                ORDER BY pp.MaPhieuPhat DESC, ct.MaCTPhieuPhat DESC;";
+
+            var parameters = new Dictionary<string, object>
+            {
+                { "@Begin", begin.Date },
+                { "@End", end.Date }
+            };
+
+            DataTable dt = DataProvider.ExecuteQuery(sql, parameters);
+            var list = new List<PhieuPhatDTO>();
+
+            foreach (DataRow r in dt.Rows)
+            {
+                list.Add(new PhieuPhatDTO
+                {
+                    MaPhieuPhat = Convert.ToInt32(r["MaPhieuPhat"]),
+                    NgayPhat = Convert.ToDateTime(r["NgayPhat"]),
+                    TrangThai = Convert.ToInt32(r["TrangThai"]),
+                    MaCTPhieuPhat = Convert.ToInt32(r["MaCTPhieuPhat"]),
+                    NgayTra = r["NgayTra"] == DBNull.Value ? DateTime.MinValue : Convert.ToDateTime(r["NgayTra"]),
+                    tienPhat = Convert.ToInt32(r["TienPhat"]),
+                    TenSach = r["TenSach"]?.ToString(),
+                    TenDG = r["TenDG"]?.ToString(),
+                });
+            }
+            return list;
+        }
+        public List<PhieuPhatDTO> GetByKeyword(string keyword)
+        {
+            const string sql = @"
+                SELECT
+                    pp.MaPhieuPhat,
+                    pp.NgayPhat,
+                    pp.TrangThai,
+                    ct.MaCTPhieuPhat,
+                    pp.Ngaytra AS NgayTra,
+                    ct.TienPhat,
+                    ds.TenDauSach AS TenSach,
+                    dg.TenDG
+                FROM phieu_phat pp
+                JOIN ctphieu_phat ct ON ct.MaPhieuPhat = pp.MaPhieuPhat
+                JOIN sach s           ON s.MaSach       = ct.MaSach
+                JOIN dau_sach ds      ON ds.MaDauSach   = s.MaDauSach
+                JOIN doc_gia dg       ON pp.MaDG = dg.MaDG
+                WHERE ds.TenDauSach LIKE @kw OR dg.TenDG LIKE @kw OR pp.MaPhieuPhat = @Id
+                ORDER BY pp.MaPhieuPhat DESC, ct.MaCTPhieuPhat DESC;";
+
+            int id = -1;
+            if (!int.TryParse(keyword, out id))
+            {
+                id = -1; // sẽ không khớp
+            }
+
+            var parameters = new Dictionary<string, object>
+            {
+                { "@kw", "%" + keyword + "%" },
+                { "@Id", id }
+            };
+
+            DataTable dt = DataProvider.ExecuteQuery(sql, parameters);
+            var list = new List<PhieuPhatDTO>();
+
+            foreach (DataRow r in dt.Rows)
+            {
+                list.Add(new PhieuPhatDTO
+                {
+                    MaPhieuPhat = Convert.ToInt32(r["MaPhieuPhat"]),
+                    NgayPhat = Convert.ToDateTime(r["NgayPhat"]),
+                    TrangThai = Convert.ToInt32(r["TrangThai"]),
+                    MaCTPhieuPhat = Convert.ToInt32(r["MaCTPhieuPhat"]),
+                    NgayTra = r["NgayTra"] == DBNull.Value ? DateTime.MinValue : Convert.ToDateTime(r["NgayTra"]),
+                    tienPhat = Convert.ToInt32(r["TienPhat"]),
+                    TenSach = r["TenSach"]?.ToString(),
+                    TenDG = r["TenDG"]?.ToString(),
+                });
+            }
+            return list;
+        }
 
     }
+
 
 }
 

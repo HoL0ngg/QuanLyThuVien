@@ -11,6 +11,8 @@ namespace QuanLyThuVien.DAO
         private static string connectionString =
             "server=localhost;user=root;password=;database=quanlythuvien;SslMode=none;";
 
+        public static object Instance { get; internal set; }
+
         // Kết nối MySQL
         public static MySqlConnection GetConnection()
         {
