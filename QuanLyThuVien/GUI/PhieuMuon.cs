@@ -10,15 +10,17 @@ namespace QuanLyThuVien.GUI
     public partial class PhieuMuon : BaseModuleUC
     {
         private PhieuMuonBUS bus = new PhieuMuonBUS();
-        private CTPhieuMuonDAO ctDao = new CTPhieuMuonDAO();
+        private CTPhieuMuonDAO ctDAO = new CTPhieuMuonDAO();
         private FormThemPhieuMuon ucThemPhieu;
         private const string DeleteColumnName = "colDelete";
+        private static readonly DateTime NgayMuonMacDinh = new DateTime(2000, 1, 1);
 
         public PhieuMuon()
         {
             InitializeComponent();
             bangPhieuMuon.CellClick += BangPhieuMuon_CellClick;
             btnClearFilters.Click += BtnClearFilters_Click;
+            btnTimKiem.Click += BtnTimKiem_Click;
 
             ucThemPhieu = new FormThemPhieuMuon();
             ucThemPhieu.Dock = DockStyle.Fill;
@@ -26,6 +28,23 @@ namespace QuanLyThuVien.GUI
             ucThemPhieu.CloseRequested += UcThemPhieu_CloseRequested;
             this.Controls.Add(ucThemPhieu);
             ucThemPhieu.BringToFront();
+        }
+
+        private void ConfigureGrid()
+        {
+            bangPhieuMuon.RowHeadersVisible = false;
+            bangPhieuMuon.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            foreach (DataGridViewColumn c in bangPhieuMuon.Columns)
+            {
+                if (c.Name == DeleteColumnName)
+                {
+                    c.FillWeight = 30; 
+                }
+                else
+                {
+                    c.FillWeight = 100;
+                }
+            }
         }
 
         private void UcThemPhieu_CloseRequested()
@@ -51,6 +70,7 @@ namespace QuanLyThuVien.GUI
                 bangPhieuMuon.AutoGenerateColumns = true;
                 bangPhieuMuon.DataSource = bus.GetAll();
                 EnsureDeleteColumn();
+                ConfigureGrid();
                 bangCTPhieuMuon.DataSource = null; // clear chi tiết khi reload
             }
             catch (Exception ex)
@@ -100,7 +120,9 @@ namespace QuanLyThuVien.GUI
         private void PhieuMuon_Load(object sender, EventArgs e)
         {
             if (cmbTrangThai != null && cmbTrangThai.Items.Count > 0)
-                cmbTrangThai.SelectedIndex = 0; // "Tất cả"
+                cmbTrangThai.SelectedIndex = 0; 
+            dtpNgayMuon.Value = NgayMuonMacDinh; 
+            dtpNgayTraDuKien.Value = DateTime.Today; 
             LoadData();
         }
 
@@ -119,7 +141,7 @@ namespace QuanLyThuVien.GUI
                 var row = bangPhieuMuon.Rows[e.RowIndex];
                 if (row.Cells["MaPhieuMuon"].Value == null) return;
                 int ma = Convert.ToInt32(row.Cells["MaPhieuMuon"].Value);
-                var ctList = ctDao.GetByPhieuMuon(ma);
+                var ctList = ctDAO.GetByPhieuMuon(ma);
                 bangCTPhieuMuon.AutoGenerateColumns = true;
                 bangCTPhieuMuon.DataSource = ctList;
             }
@@ -169,11 +191,45 @@ namespace QuanLyThuVien.GUI
         private void BtnClearFilters_Click(object sender, EventArgs e)
         {
             txtMaPhieuMuon.Text = string.Empty;
-            dtpNgayMuon.Value = DateTime.Today;
+            dtpNgayMuon.Value = NgayMuonMacDinh; // reset về 01/01/2000
             dtpNgayTraDuKien.Value = DateTime.Today;
             cmbTrangThai.SelectedIndex = 0;
             txtMaDocGia.Text = string.Empty;
             txtMaNhanVien.Text = string.Empty;
+            LoadData();
+        }
+
+        private void BtnTimKiem_Click(object sender, EventArgs e)
+        {
+            int? maPhieu = null; if (int.TryParse(txtMaPhieuMuon.Text.Trim(), out var mp)) maPhieu = mp;
+            DateTime? ngayFrom = dtpNgayMuon.Value.Date;
+            DateTime? ngayTo = dtpNgayTraDuKien.Value.Date;
+            if (ngayFrom > ngayTo) { var tmp = ngayFrom; ngayFrom = ngayTo; ngayTo = tmp; }
+            int? trangThai = null;
+            if (cmbTrangThai.SelectedItem != null && cmbTrangThai.SelectedItem.ToString() != "Tất cả")
+            {
+                switch (cmbTrangThai.SelectedItem.ToString())
+                {
+                    case "Chưa trả": trangThai = 0; break;
+                    case "Đã trả": trangThai = 1; break;
+                    case "Trả muộn": trangThai = 2; break;
+                }
+            }
+            int? maDocGia = null; if (int.TryParse(txtMaDocGia.Text.Trim(), out var mdg)) maDocGia = mdg;
+            int? maNhanVien = null; if (int.TryParse(txtMaNhanVien.Text.Trim(), out var mnv)) maNhanVien = mnv;
+            try
+            {
+                var data = bus.Search(maPhieu, ngayFrom, ngayTo, trangThai, maDocGia, maNhanVien);
+                bangPhieuMuon.AutoGenerateColumns = true;
+                bangPhieuMuon.DataSource = data;
+                EnsureDeleteColumn();
+                ConfigureGrid();
+                bangCTPhieuMuon.DataSource = null;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi tìm kiếm: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

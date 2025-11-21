@@ -20,7 +20,6 @@
 
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
             this.groupThongTin = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.lblNgayMuon = new System.Windows.Forms.Label();
@@ -33,11 +32,6 @@
             this.txtTuKhoaSach = new System.Windows.Forms.TextBox();
             this.lblTuKhoa = new System.Windows.Forms.Label();
             this.groupChiTiet = new System.Windows.Forms.GroupBox();
-            this.panelCTControls = new System.Windows.Forms.Panel();
-            this.btnXoaSach = new System.Windows.Forms.Button();
-            this.btnThemSach = new System.Windows.Forms.Button();
-            this.txtMaSach = new System.Windows.Forms.TextBox();
-            this.lblMaSach = new System.Windows.Forms.Label();
             this.dgvCT = new System.Windows.Forms.DataGridView();
             this.panelBottom = new System.Windows.Forms.Panel();
             this.btnHuy = new System.Windows.Forms.Button();
@@ -47,7 +41,6 @@
             this.groupTimSach.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvKetQuaSach)).BeginInit();
             this.groupChiTiet.SuspendLayout();
-            this.panelCTControls.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCT)).BeginInit();
             this.panelBottom.SuspendLayout();
             this.SuspendLayout();
@@ -88,15 +81,15 @@
             // lblNgayMuon
             // 
             this.lblNgayMuon.AutoSize = true;
-            this.lblNgayMuon.Location = new System.Drawing.Point(3, 16);
+            this.lblNgayMuon.Location = new System.Drawing.Point(3, 0);
             this.lblNgayMuon.Name = "lblNgayMuon";
-            this.lblNgayMuon.Size = new System.Drawing.Size(60, 13);
+            this.lblNgayMuon.Size = new System.Drawing.Size(61, 13);
             this.lblNgayMuon.TabIndex = 0;
             this.lblNgayMuon.Text = "Ngày mượn";
             // 
             // txtNgayMuon
             // 
-            this.txtNgayMuon.Location = new System.Drawing.Point(93, 13);
+            this.txtNgayMuon.Location = new System.Drawing.Point(93, 3);
             this.txtNgayMuon.Name = "txtNgayMuon";
             this.txtNgayMuon.ReadOnly = true;
             this.txtNgayMuon.Size = new System.Drawing.Size(283, 20);
@@ -105,43 +98,43 @@
             // lblNgayTra
             // 
             this.lblNgayTra.AutoSize = true;
-            this.lblNgayTra.Location = new System.Drawing.Point(382, 16);
+            this.lblNgayTra.Location = new System.Drawing.Point(383, 0);
             this.lblNgayTra.Name = "lblNgayTra";
-            this.lblNgayTra.Size = new System.Drawing.Size(86, 13);
+            this.lblNgayTra.Size = new System.Drawing.Size(65, 26);
             this.lblNgayTra.TabIndex = 2;
             this.lblNgayTra.Text = "Ngày trả dự kiến";
             // 
             // dtpNgayTraDuKien
             // 
             this.dtpNgayTraDuKien.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpNgayTraDuKien.Location = new System.Drawing.Point(472, 13);
+            this.dtpNgayTraDuKien.Location = new System.Drawing.Point(473, 3);
             this.dtpNgayTraDuKien.Name = "dtpNgayTraDuKien";
-            this.dtpNgayTraDuKien.Size = new System.Drawing.Size(286, 20);
+            this.dtpNgayTraDuKien.Size = new System.Drawing.Size(285, 20);
             this.dtpNgayTraDuKien.TabIndex = 3;
             // 
             // groupTimSach
             // 
-            this.groupTimSach.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right))));
+            this.groupTimSach.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupTimSach.Controls.Add(this.dgvKetQuaSach);
             this.groupTimSach.Controls.Add(this.btnTimSach);
             this.groupTimSach.Controls.Add(this.txtTuKhoaSach);
             this.groupTimSach.Controls.Add(this.lblTuKhoa);
             this.groupTimSach.Location = new System.Drawing.Point(3, 79);
             this.groupTimSach.Name = "groupTimSach";
-            this.groupTimSach.Size = new System.Drawing.Size(776, 150);
+            this.groupTimSach.Size = new System.Drawing.Size(776, 180);
             this.groupTimSach.TabIndex = 1;
             this.groupTimSach.TabStop = false;
             this.groupTimSach.Text = "Tìm kiếm sách";
             // 
             // dgvKetQuaSach
             // 
-            this.dgvKetQuaSach.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right))));
+            this.dgvKetQuaSach.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvKetQuaSach.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvKetQuaSach.Location = new System.Drawing.Point(9, 52);
             this.dgvKetQuaSach.Name = "dgvKetQuaSach";
-            this.dgvKetQuaSach.Size = new System.Drawing.Size(758, 88);
+            this.dgvKetQuaSach.Size = new System.Drawing.Size(758, 120);
             this.dgvKetQuaSach.TabIndex = 3;
             // 
             // btnTimSach
@@ -153,6 +146,7 @@
             this.btnTimSach.TabIndex = 2;
             this.btnTimSach.Text = "Tìm";
             this.btnTimSach.UseVisualStyleBackColor = true;
+            this.btnTimSach.Click += new System.EventHandler(this.btnTimSach_Click_1);
             // 
             // txtTuKhoaSach
             // 
@@ -177,63 +171,13 @@
             this.groupChiTiet.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupChiTiet.Controls.Add(this.panelCTControls);
             this.groupChiTiet.Controls.Add(this.dgvCT);
-            this.groupChiTiet.Location = new System.Drawing.Point(3, 235);
+            this.groupChiTiet.Location = new System.Drawing.Point(3, 265);
             this.groupChiTiet.Name = "groupChiTiet";
-            this.groupChiTiet.Size = new System.Drawing.Size(776, 287);
+            this.groupChiTiet.Size = new System.Drawing.Size(776, 257);
             this.groupChiTiet.TabIndex = 2;
             this.groupChiTiet.TabStop = false;
             this.groupChiTiet.Text = "Chi tiết sách mượn";
-            // 
-            // panelCTControls
-            // 
-            this.panelCTControls.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelCTControls.Controls.Add(this.btnXoaSach);
-            this.panelCTControls.Controls.Add(this.btnThemSach);
-            this.panelCTControls.Controls.Add(this.txtMaSach);
-            this.panelCTControls.Controls.Add(this.lblMaSach);
-            this.panelCTControls.Location = new System.Drawing.Point(6, 19);
-            this.panelCTControls.Name = "panelCTControls";
-            this.panelCTControls.Size = new System.Drawing.Size(764, 36);
-            this.panelCTControls.TabIndex = 1;
-            // 
-            // btnXoaSach
-            // 
-            this.btnXoaSach.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnXoaSach.Location = new System.Drawing.Point(681, 6);
-            this.btnXoaSach.Name = "btnXoaSach";
-            this.btnXoaSach.Size = new System.Drawing.Size(80, 25);
-            this.btnXoaSach.TabIndex = 3;
-            this.btnXoaSach.Text = "Xóa sách";
-            this.btnXoaSach.UseVisualStyleBackColor = true;
-            // 
-            // btnThemSach
-            // 
-            this.btnThemSach.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnThemSach.Location = new System.Drawing.Point(595, 6);
-            this.btnThemSach.Name = "btnThemSach";
-            this.btnThemSach.Size = new System.Drawing.Size(80, 25);
-            this.btnThemSach.TabIndex = 2;
-            this.btnThemSach.Text = "Thêm sách";
-            this.btnThemSach.UseVisualStyleBackColor = true;
-            // 
-            // txtMaSach
-            // 
-            this.txtMaSach.Location = new System.Drawing.Point(76, 9);
-            this.txtMaSach.Name = "txtMaSach";
-            this.txtMaSach.Size = new System.Drawing.Size(180, 20);
-            this.txtMaSach.TabIndex = 1;
-            // 
-            // lblMaSach
-            // 
-            this.lblMaSach.AutoSize = true;
-            this.lblMaSach.Location = new System.Drawing.Point(3, 12);
-            this.lblMaSach.Name = "lblMaSach";
-            this.lblMaSach.Size = new System.Drawing.Size(47, 13);
-            this.lblMaSach.TabIndex = 0;
-            this.lblMaSach.Text = "Mã sách";
             // 
             // dgvCT
             // 
@@ -241,9 +185,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvCT.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvCT.Location = new System.Drawing.Point(6, 61);
+            this.dgvCT.Location = new System.Drawing.Point(6, 19);
             this.dgvCT.Name = "dgvCT";
-            this.dgvCT.Size = new System.Drawing.Size(764, 220);
+            this.dgvCT.Size = new System.Drawing.Size(764, 232);
             this.dgvCT.TabIndex = 0;
             // 
             // panelBottom
@@ -294,8 +238,6 @@
             this.groupTimSach.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvKetQuaSach)).EndInit();
             this.groupChiTiet.ResumeLayout(false);
-            this.panelCTControls.ResumeLayout(false);
-            this.panelCTControls.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCT)).EndInit();
             this.panelBottom.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -316,11 +258,6 @@
         private System.Windows.Forms.Button btnTimSach;
         private System.Windows.Forms.DataGridView dgvKetQuaSach;
         private System.Windows.Forms.GroupBox groupChiTiet;
-        private System.Windows.Forms.Panel panelCTControls;
-        private System.Windows.Forms.Button btnXoaSach;
-        private System.Windows.Forms.Button btnThemSach;
-        private System.Windows.Forms.TextBox txtMaSach;
-        private System.Windows.Forms.Label lblMaSach;
         private System.Windows.Forms.DataGridView dgvCT;
         private System.Windows.Forms.Panel panelBottom;
         private System.Windows.Forms.Button btnHuy;
