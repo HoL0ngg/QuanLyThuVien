@@ -133,13 +133,18 @@ namespace QuanLyThuVien.DAO // Hoặc QuanLyNhanSu.DAO
                     ds.NhaXuatBan, 
                     ds.NamXuatBan,
                     ds.NgonNgu,
-                    ds.SoLuon
+                    ds.SoLuong,
+                    tg.TenTacGia
                 FROM 
                     dau_sach ds
+                JOIN
+                    tacgia_dausach tgds ON ds.MaDauSach = tgds.MaDauSach
+                JOIN
+                    tac_gia tg ON tgds.MaTacGia = tg.MaTacGia
                 WHERE 
                         ds.TrangThai = 1 AND
-                        ds.TenDauSach LIKE @keyword OR 
-                        ds.TenTacGia LIKE @keyword OR 
+                        ds.TenDauSach LIKE @keyword OR
+                        tg.TenTacGia LIKE @keyword OR
                         ds.NhaXuatBan LIKE @keyword
                 ORDER BY 
                     ds.MaDauSach ASC";

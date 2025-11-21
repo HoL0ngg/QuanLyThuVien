@@ -630,6 +630,16 @@ INSERT INTO `tac_gia` (`MaTacGia`, `TenTacGia`, `NamSinh`, `QuocTich`) VALUES
 (9, 'Paulo Coelho', '1947-08-24', 'Brazil'),
 (10, 'Lev Tolstoy', '1828-09-09', 'Nga');
 
+INSERT INTO `tacgia_dausach` (`MaTacGia`, `MaDauSach`) VALUES
+(1, 1),
+(2, 2),
+(5, 3),
+(2, 1),
+(3, 6),
+(4, 8),
+(7, 7),
+(10, 10);
+
 -- --------------------------------------------------------
 
 --
