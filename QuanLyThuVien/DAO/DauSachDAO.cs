@@ -60,7 +60,8 @@ namespace QuanLyThuVien.DAO // Hoặc QuanLyNhanSu.DAO
                     ds.NhaXuatBan, 
                     ds.NamXuatBan,
                     ds.NgonNgu,
-                    ds.SoLuong
+                    ds.SoLuong,
+                    tg.TenTacGia
                 FROM 
                     dau_sach ds
                 WHERE 
