@@ -127,14 +127,13 @@ namespace QuanLyThuVien.DAO // Hoặc QuanLyNhanSu.DAO
 
             string query = @"
                 SELECT 
-                    ds.MaDauSach, 
-                    ds.TenDauSach,
-                    ds.HinhAnh,
-                    ds.NhaXuatBan, 
-                    ds.NamXuatBan,
-                    ds.NgonNgu,
-                    ds.SoLuong,
-                    tg.TenTacGia
+                    ds.MaDauSach as 'Mã đầu sách', 
+                    ds.TenDauSach as 'Tên đầu sách',
+                    ds.NhaXuatBan as 'Nhà xuất bản', 
+                    ds.NamXuatBan as 'Năm xuất bản',
+                    ds.NgonNgu as 'Ngôn ngữ',
+                    ds.SoLuong as 'Số lượng',
+                    tg.TenTacGia as 'Tên tác giả'
                 FROM 
                     dau_sach ds
                 JOIN

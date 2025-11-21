@@ -67,5 +67,28 @@ namespace QuanLyThuVien.DAO
             return result; // Trả về số dòng bị ảnh hưởng
         }
 
+        // Hàm lấy giá trị đơn (LAST_INSERT_ID, COUNT, SUM, etc.)
+        public static object ExecuteScalar(string query, Dictionary<string, object> parameters = null)
+        {
+            object result = null;
+
+            using (MySqlConnection connection = GetConnection())
+            {
+                connection.Open();
+                MySqlCommand command = new MySqlCommand(query, connection);
+
+                if (parameters != null)
+                {
+                    foreach (var param in parameters)
+                    {
+                        command.Parameters.AddWithValue(param.Key, param.Value);
+                    }
+                }
+
+                result = command.ExecuteScalar();
+            }
+
+            return result;
+        }
     }
 }

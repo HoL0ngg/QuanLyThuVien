@@ -106,6 +106,7 @@
     <Compile Include="BUS\NxbBUS.cs" />
     <Compile Include="BUS\PhieuNhapBUS.cs" />
     <Compile Include="BUS\DauSachBUS.cs" />
+    <Compile Include="BUS\PhieuTraBUS.cs" />
     <Compile Include="BUS\TacGiaBUS.cs" />
     <Compile Include="BUS\TaiKhoanBUS.cs" />
     <Compile Include="DAO\CTPhieuMuonDAO.cs" />
@@ -116,14 +117,17 @@
     <Compile Include="DAO\NxbDAO.cs" />
     <Compile Include="DAO\PhieuNhapDAO.cs" />
     <Compile Include="DAO\DauSachDAO.cs" />
+    <Compile Include="DAO\PhieuTraDAO.cs" />
     <Compile Include="DAO\TacGiaDAO.cs" />
     <Compile Include="DAO\TaiKhoanDAO.cs" />
+    <Compile Include="DTO\CTPhieuTraDTO.cs" />
     <Compile Include="DTO\PhieuPhatDTO.cs" />
     <Compile Include="DTO\CTPhieuMuonDTO.cs" />
     <Compile Include="DTO\PhieuMuonDTO.cs" />
     <Compile Include="DTO\CTPhieuNhapDTO.cs" />
     <Compile Include="DTO\DauSachDTO.cs" />
     <Compile Include="DTO\PhieuNhapDTO.cs" />
+    <Compile Include="DTO\PhieuTraDTO.cs" />
     <Compile Include="DTO\TacGiaDTO.cs" />
     <Compile Include="DTO\TaiKhoanDTO.cs" />
     <Compile Include="GUI\BaseModuleUC.cs">
@@ -179,6 +183,12 @@
     </Compile>
     <Compile Include="GUI\PhieuNhapGUI.Designer.cs">
       <DependentUpon>PhieuNhapGUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\PhieuTraGUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\PhieuTraGUI.Designer.cs">
+      <DependentUpon>PhieuTraGUI.cs</DependentUpon>
     </Compile>
     <Compile Include="GUI\ThongKeGUI\UCMain.cs">
       <SubType>UserControl</SubType>
@@ -243,6 +253,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\PhieuPhat.resx">
       <DependentUpon>PhieuPhat.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\PhieuTraGUI.resx">
+      <DependentUpon>PhieuTraGUI.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\ThongKeGUI\UCMain.resx">
       <DependentUpon>UCMain.cs</DependentUpon>
