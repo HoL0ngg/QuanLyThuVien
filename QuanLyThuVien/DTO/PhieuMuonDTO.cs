@@ -14,6 +14,8 @@ namespace QuanLyThuVien.DTO
         public int TrangThai { get; set; }
         public int MaDocGia { get; set; }
         public int MaNhanVien { get; set; }
+        public string TenDocGia { get; set; } // thêm tên độc giả
+        public string TenNhanVien { get; set; } // thêm tên nhân viên
         public List<CTPhieuMuonDTO> CTPM { get; set; }
         public PhieuMuonDTO() 
         {   

@@ -108,6 +108,7 @@
     <Compile Include="BUS\DauSachBUS.cs" />
     <Compile Include="BUS\TacGiaBUS.cs" />
     <Compile Include="BUS\TaiKhoanBUS.cs" />
+    <Compile Include="DAO\DocGiaDAO.cs" />
     <Compile Include="DAO\CTPhieuMuonDAO.cs" />
     <Compile Include="DAO\PhieuMuonDAO.cs" />
     <Compile Include="DAO\PhieuPhatDAO.cs" />
@@ -118,6 +119,7 @@
     <Compile Include="DAO\DauSachDAO.cs" />
     <Compile Include="DAO\TacGiaDAO.cs" />
     <Compile Include="DAO\TaiKhoanDAO.cs" />
+    <Compile Include="DTO\DocGiaDTO.cs" />
     <Compile Include="DTO\PhieuPhatDTO.cs" />
     <Compile Include="DTO\CTPhieuMuonDTO.cs" />
     <Compile Include="DTO\PhieuMuonDTO.cs" />

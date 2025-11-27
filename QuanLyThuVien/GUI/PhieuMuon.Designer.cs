@@ -99,7 +99,6 @@
             this.bangPhieuMuon.Name = "bangPhieuMuon";
             this.bangPhieuMuon.Size = new System.Drawing.Size(764, 191);
             this.bangPhieuMuon.TabIndex = 0;
-            this.bangPhieuMuon.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.BangPhieuMuon_CellContentClick);
             // 
             // groupBoxDetails
             // 

@@ -21,6 +21,8 @@
         private void InitializeComponent()
         {
             this.groupThongTin = new System.Windows.Forms.GroupBox();
+            this.txtMaDocGia = new System.Windows.Forms.TextBox();
+            this.lblMaDocGia = new System.Windows.Forms.Label();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.lblNgayMuon = new System.Windows.Forms.Label();
             this.txtNgayMuon = new System.Windows.Forms.TextBox();
@@ -49,10 +51,12 @@
             // 
             this.groupThongTin.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupThongTin.Controls.Add(this.txtMaDocGia);
+            this.groupThongTin.Controls.Add(this.lblMaDocGia);
             this.groupThongTin.Controls.Add(this.tableLayoutPanel1);
             this.groupThongTin.Location = new System.Drawing.Point(3, 3);
             this.groupThongTin.Name = "groupThongTin";
-            this.groupThongTin.Size = new System.Drawing.Size(776, 70);
+            this.groupThongTin.Size = new System.Drawing.Size(776, 110); // tăng chiều cao để chứa mã độc giả
             this.groupThongTin.TabIndex = 0;
             this.groupThongTin.TabStop = false;
             this.groupThongTin.Text = "Thông tin phiếu mượn";
@@ -112,6 +116,22 @@
             this.dtpNgayTraDuKien.Size = new System.Drawing.Size(285, 20);
             this.dtpNgayTraDuKien.TabIndex = 3;
             // 
+            // lblMaDocGia
+            // 
+            this.lblMaDocGia.AutoSize = true;
+            this.lblMaDocGia.Location = new System.Drawing.Point(12, 77);
+            this.lblMaDocGia.Name = "lblMaDocGia";
+            this.lblMaDocGia.Size = new System.Drawing.Size(63, 13);
+            this.lblMaDocGia.TabIndex = 4;
+            this.lblMaDocGia.Text = "Mã độc giả";
+            // 
+            // txtMaDocGia
+            // 
+            this.txtMaDocGia.Location = new System.Drawing.Point(93, 74);
+            this.txtMaDocGia.Name = "txtMaDocGia";
+            this.txtMaDocGia.Size = new System.Drawing.Size(283, 20);
+            this.txtMaDocGia.TabIndex = 5;
+            // 
             // groupTimSach
             // 
             this.groupTimSach.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -120,7 +140,7 @@
             this.groupTimSach.Controls.Add(this.btnTimSach);
             this.groupTimSach.Controls.Add(this.txtTuKhoaSach);
             this.groupTimSach.Controls.Add(this.lblTuKhoa);
-            this.groupTimSach.Location = new System.Drawing.Point(3, 79);
+            this.groupTimSach.Location = new System.Drawing.Point(3, 119); // đẩy xuống dưới theo groupThongTin mới
             this.groupTimSach.Name = "groupTimSach";
             this.groupTimSach.Size = new System.Drawing.Size(776, 180);
             this.groupTimSach.TabIndex = 1;
@@ -146,7 +166,7 @@
             this.btnTimSach.TabIndex = 2;
             this.btnTimSach.Text = "Tìm";
             this.btnTimSach.UseVisualStyleBackColor = true;
-            this.btnTimSach.Click += new System.EventHandler(this.btnTimSach_Click_1);
+            this.btnTimSach.Click += new System.EventHandler(this.BtnTimSach_Click);
             // 
             // txtTuKhoaSach
             // 
@@ -172,9 +192,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupChiTiet.Controls.Add(this.dgvCT);
-            this.groupChiTiet.Location = new System.Drawing.Point(3, 265);
+            this.groupChiTiet.Location = new System.Drawing.Point(3, 305); // đẩy xuống dưới theo groupTimSach mới
             this.groupChiTiet.Name = "groupChiTiet";
-            this.groupChiTiet.Size = new System.Drawing.Size(776, 257);
+            this.groupChiTiet.Size = new System.Drawing.Size(776, 217);
             this.groupChiTiet.TabIndex = 2;
             this.groupChiTiet.TabStop = false;
             this.groupChiTiet.Text = "Chi tiết sách mượn";
@@ -187,7 +207,7 @@
             this.dgvCT.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvCT.Location = new System.Drawing.Point(6, 19);
             this.dgvCT.Name = "dgvCT";
-            this.dgvCT.Size = new System.Drawing.Size(764, 232);
+            this.dgvCT.Size = new System.Drawing.Size(764, 192);
             this.dgvCT.TabIndex = 0;
             // 
             // panelBottom
@@ -232,6 +252,7 @@
             this.Name = "FormThemPhieuMuon";
             this.Size = new System.Drawing.Size(782, 571);
             this.groupThongTin.ResumeLayout(false);
+            this.groupThongTin.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.groupTimSach.ResumeLayout(false);
@@ -262,5 +283,7 @@
         private System.Windows.Forms.Panel panelBottom;
         private System.Windows.Forms.Button btnHuy;
         private System.Windows.Forms.Button btnThem;
+        private System.Windows.Forms.Label lblMaDocGia;
+        private System.Windows.Forms.TextBox txtMaDocGia;
     }
 }

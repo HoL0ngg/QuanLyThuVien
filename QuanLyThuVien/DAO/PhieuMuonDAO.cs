@@ -2,9 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace QuanLyThuVien.DAO
 {
@@ -13,7 +10,10 @@ namespace QuanLyThuVien.DAO
         public List<PhieuMuonDTO> GetAll()
         {
             List<PhieuMuonDTO> list = new List<PhieuMuonDTO>();
-            string query = "SELECT * FROM phieu_muon";
+            string query = @"SELECT pm.*, dg.TenDG, nv.TenNV
+                              FROM phieu_muon pm
+                              LEFT JOIN doc_gia dg ON pm.MaDocGia = dg.MaDG
+                              LEFT JOIN nhan_vien nv ON pm.MaNhanVien = nv.MaNV";
             DataTable dt = DataProvider.ExecuteQuery(query);
             foreach (DataRow row in dt.Rows)
             {
@@ -24,7 +24,9 @@ namespace QuanLyThuVien.DAO
                     NgayTraDuKien = Convert.ToDateTime(row["NgayTraDuKien"]),
                     TrangThai = Convert.ToInt32(row["TrangThai"]),
                     MaDocGia = Convert.ToInt32(row["MaDocGia"]),
-                    MaNhanVien = Convert.ToInt32(row["MaNhanVien"])
+                    MaNhanVien = Convert.ToInt32(row["MaNhanVien"]),
+                    TenDocGia = row["TenDG"]?.ToString(),
+                    TenNhanVien = row["TenNV"]?.ToString()
                 };
                 list.Add(phieuMuon);
             }
@@ -33,36 +35,40 @@ namespace QuanLyThuVien.DAO
 
         public List<PhieuMuonDTO> Search(int? maPhieu, DateTime? ngayMuonFrom, DateTime? ngayMuonTo, int? trangThai, int? maDocGia, int? maNhanVien)
         {
-            var sql = "SELECT * FROM phieu_muon WHERE 1=1";
+            var sql = @"SELECT pm.*, dg.TenDG, nv.TenNV
+                         FROM phieu_muon pm
+                         LEFT JOIN doc_gia dg ON pm.MaDocGia = dg.MaDG
+                         LEFT JOIN nhan_vien nv ON pm.MaNhanVien = nv.MaNV
+                         WHERE 1=1";
             var param = new Dictionary<string, object>();
             if (maPhieu.HasValue)
             {
-                sql += " AND MaPhieuMuon = @MaPhieuMuon";
+                sql += " AND pm.MaPhieuMuon = @MaPhieuMuon";
                 param.Add("@MaPhieuMuon", maPhieu.Value);
             }
             if (ngayMuonFrom.HasValue)
             {
-                sql += " AND NgayMuon >= @NgayMuonFrom";
+                sql += " AND pm.NgayMuon >= @NgayMuonFrom";
                 param.Add("@NgayMuonFrom", ngayMuonFrom.Value);
             }
             if (ngayMuonTo.HasValue)
             {
-                sql += " AND NgayMuon <= @NgayMuonTo";
+                sql += " AND pm.NgayMuon <= @NgayMuonTo";
                 param.Add("@NgayMuonTo", ngayMuonTo.Value);
             }
             if (trangThai.HasValue)
             {
-                sql += " AND TrangThai = @TrangThai";
+                sql += " AND pm.TrangThai = @TrangThai";
                 param.Add("@TrangThai", trangThai.Value);
             }
             if (maDocGia.HasValue)
             {
-                sql += " AND MaDocGia = @MaDocGia";
+                sql += " AND pm.MaDocGia = @MaDocGia";
                 param.Add("@MaDocGia", maDocGia.Value);
             }
             if (maNhanVien.HasValue)
             {
-                sql += " AND MaNhanVien = @MaNhanVien";
+                sql += " AND pm.MaNhanVien = @MaNhanVien";
                 param.Add("@MaNhanVien", maNhanVien.Value);
             }
             var dt = DataProvider.ExecuteQuery(sql, param);
@@ -76,7 +82,9 @@ namespace QuanLyThuVien.DAO
                     NgayTraDuKien = Convert.ToDateTime(row["NgayTraDuKien"]),
                     TrangThai = Convert.ToInt32(row["TrangThai"]),
                     MaDocGia = Convert.ToInt32(row["MaDocGia"]),
-                    MaNhanVien = Convert.ToInt32(row["MaNhanVien"])
+                    MaNhanVien = Convert.ToInt32(row["MaNhanVien"]),
+                    TenDocGia = row["TenDG"]?.ToString(),
+                    TenNhanVien = row["TenNV"]?.ToString()
                 });
             }
             return list;
@@ -120,7 +128,11 @@ namespace QuanLyThuVien.DAO
 
         public PhieuMuonDTO GetById(int maPhieuMuon)
         {
-            string query = "SELECT * FROM phieu_muon WHERE MaPhieuMuon = @MaPhieuMuon";
+            string query = @"SELECT pm.*, dg.TenDG, nv.TenNV
+                              FROM phieu_muon pm
+                              LEFT JOIN doc_gia dg ON pm.MaDocGia = dg.MaDG
+                              LEFT JOIN nhan_vien nv ON pm.MaNhanVien = nv.MaNV
+                              WHERE pm.MaPhieuMuon = @MaPhieuMuon";
             var parameters = new Dictionary<string, object>
             {
                 { "@MaPhieuMuon", maPhieuMuon }
@@ -140,7 +152,9 @@ namespace QuanLyThuVien.DAO
                 NgayTraDuKien = Convert.ToDateTime(row["NgayTraDuKien"]),
                 TrangThai = Convert.ToInt32(row["TrangThai"]),
                 MaDocGia = Convert.ToInt32(row["MaDocGia"]),
-                MaNhanVien = Convert.ToInt32(row["MaNhanVien"])
+                MaNhanVien = Convert.ToInt32(row["MaNhanVien"]),
+                TenDocGia = row["TenDG"]?.ToString(),
+                TenNhanVien = row["TenNV"]?.ToString()
             };
             CTPhieuMuonDAO ctpmDAO = new CTPhieuMuonDAO();
             phieuMuon.CTPM = ctpmDAO.GetByPhieuMuon(phieuMuon.MaPhieuMuon);
