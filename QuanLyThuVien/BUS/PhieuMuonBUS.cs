@@ -20,7 +20,10 @@ namespace QuanLyThuVien.BUS
         {
             return pmDAO.GetById(maPhieuMuon);
         }
-
+        public List<PhieuMuonDTO> Search(int? maPhieu, DateTime? ngayMuonFrom, DateTime? ngayMuonTo, int? trangThai, int? maDocGia, int? maNhanVien)
+        {
+            return pmDAO.Search(maPhieu, ngayMuonFrom, ngayMuonTo, trangThai, maDocGia, maNhanVien);
+        }
         public bool Create(PhieuMuonDTO pm)
         {
             if (pm == null)

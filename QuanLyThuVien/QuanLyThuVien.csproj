@@ -109,6 +109,7 @@
     <Compile Include="BUS\PhieuTraBUS.cs" />
     <Compile Include="BUS\TacGiaBUS.cs" />
     <Compile Include="BUS\TaiKhoanBUS.cs" />
+    <Compile Include="DAO\DocGiaDAO.cs" />
     <Compile Include="DAO\CTPhieuMuonDAO.cs" />
     <Compile Include="DAO\PhieuMuonDAO.cs" />
     <Compile Include="DAO\PhieuPhatDAO.cs" />
@@ -121,6 +122,7 @@
     <Compile Include="DAO\TacGiaDAO.cs" />
     <Compile Include="DAO\TaiKhoanDAO.cs" />
     <Compile Include="DTO\CTPhieuTraDTO.cs" />
+    <Compile Include="DTO\DocGiaDTO.cs" />
     <Compile Include="DTO\PhieuPhatDTO.cs" />
     <Compile Include="DTO\CTPhieuMuonDTO.cs" />
     <Compile Include="DTO\PhieuMuonDTO.cs" />
@@ -159,6 +161,12 @@
     </Compile>
     <Compile Include="GUI\DauSachDialog.Designer.cs">
       <DependentUpon>DauSachDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\FormThemPhieuMuon.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\FormThemPhieuMuon.Designer.cs">
+      <DependentUpon>FormThemPhieuMuon.cs</DependentUpon>
     </Compile>
     <Compile Include="GUI\FormThemPhieuNhap.cs">
       <SubType>UserControl</SubType>
@@ -235,6 +243,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\DauSachDialog.resx">
       <DependentUpon>DauSachDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\FormThemPhieuMuon.resx">
+      <DependentUpon>FormThemPhieuMuon.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\FormThemPhieuNhap.resx">
       <DependentUpon>FormThemPhieuNhap.cs</DependentUpon>

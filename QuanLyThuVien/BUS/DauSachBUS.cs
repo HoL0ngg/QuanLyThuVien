@@ -47,7 +47,7 @@ namespace QuanLyThuVien.BUS
             }
         }
 
-        public bool UpdateDauSach(int dauSachID, string tenDauSach, int maNXB, string hinhAnhPath, string namXuatBan, string ngonNgu,  List<int> maTacGiaList)
+        public bool UpdateDauSach(int dauSachID, string tenDauSach, int maNXB, string hinhAnhPath, string namXuatBan, string ngonNgu, List<int> maTacGiaList)
         {
             // 1. Kiểm tra nghiệp vụ (Validation)
             if (string.IsNullOrWhiteSpace(tenDauSach))
@@ -82,7 +82,8 @@ namespace QuanLyThuVien.BUS
             try
             {
                 return DauSachDAO.Instance.GetDauSachByID(dauSach);
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 throw ex;
             }
@@ -118,7 +119,8 @@ namespace QuanLyThuVien.BUS
             try
             {
                 return DauSachDAO.Instance.AddDauSach(tenDauSach, maNXB, hinhAnhPath, namXuatBan, ngonNgu, maTacGiaList);
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 throw ex;
             }
