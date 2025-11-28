@@ -26,14 +26,14 @@ namespace QuanLyThuVien.DAO // Hoặc QuanLyNhanSu.DAO
 
         public DataTable GetAllDauSach()
         {
-                string query = @"
+            string query = @"
                 SELECT 
-                    ds.MaDauSach as 'Mã đầu sách',
-                    ds.TenDauSach as 'Tên đầu sách',
-                    nxb.tenNXB as 'Nhà xuất bản', 
-                    ds.NamXuatBan as 'Năm xuất bản',
-                    ds.NgonNgu as 'Ngôn ngữ',
-                    ds.SoLuong as 'Số lượng'
+                    ds.MaDauSach as 'MaDauSach',
+                    ds.TenDauSach as 'TenDauSach',
+                    nxb.tenNXB as 'NhaXuatBan',
+                    ds.NamXuatBan as 'NamXuatBan',
+                    ds.NgonNgu as 'NgonNgu',
+                    ds.SoLuong as 'SoLuong'
                 FROM 
                     dau_sach ds
                 JOIN 
@@ -85,7 +85,8 @@ namespace QuanLyThuVien.DAO // Hoặc QuanLyNhanSu.DAO
                         string maTGParam = "@MaTG" + i;
                         queryTacGia.AppendFormat("({0}, {1})", maDSParam, maTGParam);
                         if (i < maTacGiaList.Count - 1)
-                        {   queryTacGia.Append(", ");
+                        {
+                            queryTacGia.Append(", ");
                         }
                         // Thêm tham số cho vòng lặp
                         command.Parameters.AddWithValue(maDSParam, dauSachID);
@@ -134,7 +135,7 @@ namespace QuanLyThuVien.DAO // Hoặc QuanLyNhanSu.DAO
                     ds.NamXuatBan,
                     ds.NgonNgu,
                     ds.SoLuong,
-                    tg.TenTacGia
+                    GROUP_CONCAT(tg.TenTacGia SEPARATOR ', ') AS TenTacGia
                 FROM 
                     dau_sach ds
                 JOIN
@@ -146,7 +147,9 @@ namespace QuanLyThuVien.DAO // Hoặc QuanLyNhanSu.DAO
                         ds.TenDauSach LIKE @keyword OR
                         tg.TenTacGia LIKE @keyword OR
                         ds.NhaXuatBan LIKE @keyword
-                ORDER BY 
+                GROUP BY
+                    ds.MaDauSach
+                ORDER BY
                     ds.MaDauSach ASC";
 
             var parameters = new Dictionary<string, object>();
