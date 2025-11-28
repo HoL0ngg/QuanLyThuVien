@@ -100,6 +100,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BUS\CTPhieuMuonBUS.cs" />
+    <Compile Include="BUS\DocGiaBUS.cs" />
     <Compile Include="BUS\PhieuMuonBUS.cs" />
     <Compile Include="BUS\PhieuPhatBUS.cs" />
     <Compile Include="BUS\CTPhieuNhapBUS.cs" />

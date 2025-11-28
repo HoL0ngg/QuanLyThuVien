@@ -134,7 +134,7 @@ namespace QuanLyThuVien.GUI
             }
             else if (clickedPanel.Name == "panelPhieuMuon")
             {
-                LoadModule(new PhieuMuon());
+                LoadModule(new PhieuMuon(currentUser));
             }
             // else if (clickedPanel.Name == "panelPhieuTra")
             // {

@@ -47,7 +47,7 @@ namespace QuanLyThuVien.DAO
             return docGia;
         }
 
-        public bool Insert(DocGiaDTO dg)
+        public bool Create(DocGiaDTO dg)
         {
             string query = @"INSERT INTO doc_gia (TenDG, SDT, DiaChi, TrangThai)
                            VALUES (@TenDG, @SDT, @DiaChi, @TrangThai)";

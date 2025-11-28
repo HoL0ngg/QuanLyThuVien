@@ -10,19 +10,20 @@ namespace QuanLyThuVien.GUI
     public partial class PhieuMuon : BaseModuleUC
     {
         private PhieuMuonBUS bus = new PhieuMuonBUS();
+        private TaiKhoanDTO tk = new TaiKhoanDTO();
         private CTPhieuMuonDAO ctDAO = new CTPhieuMuonDAO();
         private FormThemPhieuMuon ucThemPhieu;
         private static readonly DateTime NgayMuonMacDinh = new DateTime(2000, 1, 1);
 
-        public PhieuMuon()
+        public PhieuMuon(TaiKhoanDTO taikhoan)
         {
             InitializeComponent();
             bangPhieuMuon.CellClick += BangPhieuMuon_CellClick;
             bangPhieuMuon.CellFormatting += BangPhieuMuon_CellFormatting; 
             btnClearFilters.Click += BtnClearFilters_Click;
             btnTimKiem.Click += BtnTimKiem_Click;
-
-            ucThemPhieu = new FormThemPhieuMuon
+            tk = taikhoan;
+            ucThemPhieu = new FormThemPhieuMuon(tk)
             {
                 Dock = DockStyle.Fill,
                 Visible = false
@@ -60,7 +61,7 @@ namespace QuanLyThuVien.GUI
             var colMaSach = new DataGridViewTextBoxColumn { Name = "MaSach", HeaderText = "Mã sách", DataPropertyName = "MaSach", FillWeight = 40 };
             var colMaDauSach = new DataGridViewTextBoxColumn { Name = "MaDauSach", HeaderText = "Mã đầu sách", DataPropertyName = "MaDauSach", FillWeight = 50 };
             var colTenDauSach = new DataGridViewTextBoxColumn { Name = "TenDauSach", HeaderText = "Tên đầu sách", DataPropertyName = "TenDauSach" };
-            var colNXB = new DataGridViewTextBoxColumn { Name = "TenNXB", HeaderText = "Nhà xuất bản", DataPropertyName = "TenNXB", FillWeight = 80 };
+            var colNXB = new DataGridViewTextBoxColumn { Name = "TenNXB", HeaderText = "Nhà xuất bản", DataPropertyName = "NhaXuatBan", FillWeight = 80 };
             var colNamXB = new DataGridViewTextBoxColumn { Name = "NamXuatBan", HeaderText = "Năm xuất bản", DataPropertyName = "NamXuatBan", FillWeight = 60 };
             var colNgonNgu = new DataGridViewTextBoxColumn { Name = "NgonNgu", HeaderText = "Ngôn ngữ", DataPropertyName = "NgonNgu", FillWeight = 60 };
 
@@ -214,7 +215,7 @@ namespace QuanLyThuVien.GUI
                 var row = bangPhieuMuon.Rows[e.RowIndex];
                 if (row.Cells["MaPhieuMuon"].Value == null) return;
                 int ma = Convert.ToInt32(row.Cells["MaPhieuMuon"].Value);
-                var ctList = ctDAO.GetByPhieuMuon(ma);
+                var ctList = ctDAO.GetByMaPhieuMuon(ma);
                 InitializeChiTietGrid();
                 bangCTPhieuMuon.DataSource = ctList;
             }
