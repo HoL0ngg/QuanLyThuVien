@@ -148,6 +148,10 @@ namespace QuanLyThuVien.GUI
             {
                 LoadModule(new DauSach());
             }
+            else if (clickedPanel.Name == "panelDocGia")
+            {
+                LoadModule(new DocGia());
+            }
             // ... Thêm các else if cho các nút khác ...
         }
 

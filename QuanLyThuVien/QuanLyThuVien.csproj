@@ -160,6 +160,12 @@
     <Compile Include="GUI\DauSachDialog.Designer.cs">
       <DependentUpon>DauSachDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="GUI\DocGia.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\DocGia.Designer.cs">
+      <DependentUpon>DocGia.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI\FormThemPhieuMuon.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -235,6 +241,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\DauSachDialog.resx">
       <DependentUpon>DauSachDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\DocGia.resx">
+      <DependentUpon>DocGia.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\FormThemPhieuMuon.resx">
       <DependentUpon>FormThemPhieuMuon.cs</DependentUpon>
