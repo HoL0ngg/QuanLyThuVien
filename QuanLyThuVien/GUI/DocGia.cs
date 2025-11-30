@@ -70,5 +70,16 @@ namespace QuanLyThuVien.GUI
         }
 
         private void grpTimKiem_Enter(object sender, EventArgs e) { }
+
+        public override void OnAdd()
+        {
+            ThemDocGiaDialog dialog = new ThemDocGiaDialog();
+            var result = dialog.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                MessageBox.Show("Thêm độc giả thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                LoadData(); // Tải lại dữ liệu sau khi thêm
+            }
+        }
     }
 }
