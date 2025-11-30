@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using QuanLyThuVien.GUI.ThongKeGUI;
 
 namespace QuanLyThuVien.GUI
 {
@@ -148,6 +149,15 @@ namespace QuanLyThuVien.GUI
             {
                 LoadModule(new DauSach());
             }
+            else if (clickedPanel.Name == "panelPhieuPhat")
+            {
+                LoadModule(new PhieuPhat()); // Gọi form PhieuPhat mới của bạn
+            }
+            else if (clickedPanel.Name == "panelThongKe")
+            {
+                // Load thống kê
+                LoadModule(new UCMain());
+            }
             // ... Thêm các else if cho các nút khác ...
         }
 
@@ -178,28 +188,29 @@ namespace QuanLyThuVien.GUI
 
         }
 
-        private void panelPhieuPhat_Click(object sender, EventArgs e)
-        {
-           
-            var uc = new PhieuPhat();
-            uc.Dock = DockStyle.Fill;
-            panel3.Controls.Clear();
-            panel3.Controls.Add(uc);
-            uc.BringToFront();
-        }
+        //private void panelPhieuPhat_Click(object sender, EventArgs e)
+        //{
+
+        //    //var uc = new PhieuPhat();
+        //    //uc.Dock = DockStyle.Fill;
+        //    //panel3.Controls.Clear();
+        //    //panel3.Controls.Add(uc);
+        //    //uc.BringToFront();
+        //    LoadModule(new PhieuPhat());
+        //}
 
         private void panel3_Paint(object sender, PaintEventArgs e)
         {
 
         }
 
-        private void panelPhieuPhat_DoubleClick(object sender, EventArgs e)
-        {
-            PhieuPhat phieuphat = new PhieuPhat();
-            phieuphat.Dock = DockStyle.Fill;
-            this.panel3.Controls.Clear();
-            this.panel3.Controls.Add(phieuphat);
-        }
+        //private void panelPhieuPhat_DoubleClick(object sender, EventArgs e)
+        //{
+        //    PhieuPhat phieuphat = new PhieuPhat();
+        //    phieuphat.Dock = DockStyle.Fill;
+        //    this.panel3.Controls.Clear();
+        //    this.panel3.Controls.Add(phieuphat);
+        //}
 
         private void panelPhieuPhat_MouseDown(object sender, MouseEventArgs e)
         {
@@ -241,6 +252,12 @@ namespace QuanLyThuVien.GUI
         private void panel11_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void panelPhieuPhat_Click(object sender, EventArgs e)
+        {
+            // Delegate to the shared menu click handler so Designer event hookups work.
+            panelMenu_Click(panelPhieuPhat, EventArgs.Empty);
         }
     }
 }

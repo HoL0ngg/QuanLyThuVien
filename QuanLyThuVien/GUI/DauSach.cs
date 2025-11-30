@@ -130,5 +130,10 @@ namespace QuanLyThuVien.GUI
         {
 
         }
+
+        private void dgvDauSach_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
     }
 }

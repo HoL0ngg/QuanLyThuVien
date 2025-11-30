@@ -37,6 +37,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.cbbPhieuPhat = new System.Windows.Forms.ComboBox();
             this.btn_resest = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             this.panelContentPhieuPhat = new System.Windows.Forms.Panel();
             this.dgvPhieuPhat = new System.Windows.Forms.DataGridView();
             this.colID = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -46,7 +47,6 @@
             this.colDG = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colTrangThai = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.baseModuleUC1 = new QuanLyThuVien.GUI.BaseModuleUC();
-            this.label1 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panelContentPhieuPhat.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPhieuPhat)).BeginInit();
@@ -155,6 +155,17 @@
             this.btn_resest.UseVisualStyleBackColor = true;
             this.btn_resest.Click += new System.EventHandler(this.btn_resest_Click);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(23, 23);
+            this.label1.Margin = new System.Windows.Forms.Padding(10, 15, 0, 10);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(63, 16);
+            this.label1.TabIndex = 5;
+            this.label1.Text = "Tìm Kiếm";
+            this.label1.Click += new System.EventHandler(this.lb_dateEnd_Click);
+            // 
             // panelContentPhieuPhat
             // 
             this.panelContentPhieuPhat.Controls.Add(this.dgvPhieuPhat);
@@ -233,17 +244,6 @@
             this.baseModuleUC1.Name = "baseModuleUC1";
             this.baseModuleUC1.Size = new System.Drawing.Size(150, 150);
             this.baseModuleUC1.TabIndex = 0;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(23, 23);
-            this.label1.Margin = new System.Windows.Forms.Padding(10, 15, 0, 10);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(63, 16);
-            this.label1.TabIndex = 5;
-            this.label1.Text = "Tìm Kiếm";
-            this.label1.Click += new System.EventHandler(this.lb_dateEnd_Click);
             // 
             // PhieuPhat
             // 

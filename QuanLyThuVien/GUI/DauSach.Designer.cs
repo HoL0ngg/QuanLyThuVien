@@ -95,6 +95,7 @@
             this.dgvDauSach.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvDauSach.Size = new System.Drawing.Size(1043, 628);
             this.dgvDauSach.TabIndex = 1;
+            this.dgvDauSach.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDauSach_CellContentClick);
             // 
             // DauSach
             // 

@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{E26CC213-131B-4FB9-AC89-C5028FBE0ADC}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Exe</OutputType>
     <RootNamespace>QuanLyThuVien</RootNamespace>
     <AssemblyName>QuanLyThuVien</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
@@ -118,6 +118,7 @@
     <Compile Include="DAO\DauSachDAO.cs" />
     <Compile Include="DAO\TacGiaDAO.cs" />
     <Compile Include="DAO\TaiKhoanDAO.cs" />
+    <Compile Include="DTO\PhieuTraViPhamDTO.cs" />
     <Compile Include="DTO\PhieuPhatDTO.cs" />
     <Compile Include="DTO\CTPhieuMuonDTO.cs" />
     <Compile Include="DTO\PhieuMuonDTO.cs" />
@@ -156,6 +157,12 @@
     <Compile Include="GUI\DauSachDialog.Designer.cs">
       <DependentUpon>DauSachDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="GUI\phieuphat\FormAddPhieuPhat.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\phieuphat\FormAddPhieuPhat.Designer.cs">
+      <DependentUpon>FormAddPhieuPhat.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI\FormThemPhieuNhap.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -180,6 +187,12 @@
     <Compile Include="GUI\PhieuNhapGUI.Designer.cs">
       <DependentUpon>PhieuNhapGUI.cs</DependentUpon>
     </Compile>
+    <Compile Include="GUI\phieuphat\FormChiTietPhieuPhat.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\phieuphat\FormChiTietPhieuPhat.Designer.cs">
+      <DependentUpon>FormChiTietPhieuPhat.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI\ThongKeGUI\UCMain.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -192,10 +205,10 @@
     <Compile Include="GUI\PhieuMuon.Designer.cs">
       <DependentUpon>PhieuMuon.cs</DependentUpon>
     </Compile>
-    <Compile Include="GUI\PhieuPhat.cs">
+    <Compile Include="GUI\phieuphat\PhieuPhat.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="GUI\PhieuPhat.Designer.cs">
+    <Compile Include="GUI\phieuphat\PhieuPhat.Designer.cs">
       <DependentUpon>PhieuPhat.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
@@ -214,6 +227,9 @@
     <Folder Include="assets\img\" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="GUI\BaseModuleUC.resx">
+      <DependentUpon>BaseModuleUC.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GUI\ChonTacGiaDialog.resx">
       <DependentUpon>ChonTacGiaDialog.cs</DependentUpon>
     </EmbeddedResource>
@@ -225,6 +241,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\DauSachDialog.resx">
       <DependentUpon>DauSachDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\phieuphat\FormAddPhieuPhat.resx">
+      <DependentUpon>FormAddPhieuPhat.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\FormThemPhieuNhap.resx">
       <DependentUpon>FormThemPhieuNhap.cs</DependentUpon>
@@ -241,7 +260,7 @@
     <EmbeddedResource Include="GUI\PhieuNhapGUI.resx">
       <DependentUpon>PhieuNhapGUI.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GUI\PhieuPhat.resx">
+    <EmbeddedResource Include="GUI\phieuphat\PhieuPhat.resx">
       <DependentUpon>PhieuPhat.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\ThongKeGUI\UCMain.resx">

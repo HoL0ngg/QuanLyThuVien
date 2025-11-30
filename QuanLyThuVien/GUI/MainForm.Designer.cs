@@ -1,5 +1,4 @@
-﻿
-using System.Windows.Forms.PropertyGridInternal;
+﻿using System.Windows.Forms.PropertyGridInternal;
 
 namespace QuanLyThuVien.GUI
 {
@@ -45,13 +44,10 @@ namespace QuanLyThuVien.GUI
             this.label11 = new System.Windows.Forms.Label();
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
             this.panelPhieuNhap = new System.Windows.Forms.Panel();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label3 = new System.Windows.Forms.Label();
             this.panelPhieuMuon = new System.Windows.Forms.Panel();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.label4 = new System.Windows.Forms.Label();
             this.panelPhieuTra = new System.Windows.Forms.Panel();
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.label5 = new System.Windows.Forms.Label();
             this.panelPhieuPhat = new System.Windows.Forms.Panel();
             this.label6 = new System.Windows.Forms.Label();
@@ -341,75 +337,14 @@ namespace QuanLyThuVien.GUI
             this.panelPhieuPhat.Location = new System.Drawing.Point(0, 273);
             this.panelPhieuPhat.Margin = new System.Windows.Forms.Padding(0);
             this.panelPhieuPhat.Name = "panelPhieuPhat";
-            this.panelPhieuPhat.Size = new System.Drawing.Size(359, 91);
+            this.panelPhieuPhat.Size = new System.Drawing.Size(359, 85);
             this.panelPhieuPhat.TabIndex = 1;
             this.panelPhieuPhat.Click += new System.EventHandler(this.panelPhieuPhat_Click);
             this.panelPhieuPhat.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
             this.panelPhieuPhat.MouseEnter += new System.EventHandler(this.panelMenu_MouseEnter);
             this.panelPhieuPhat.MouseLeave += new System.EventHandler(this.panelMenu_MouseLeave);
-            this.panelPhieuPhat.Controls.Add(this.pictureBox4);
-            this.panelPhieuPhat.Controls.Add(this.label6);
-            this.panelPhieuPhat.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.panelPhieuPhat.Location = new System.Drawing.Point(3, 279);
-            this.panelPhieuPhat.Name = "panelPhieuPhat";
-            this.panelPhieuPhat.Size = new System.Drawing.Size(350, 85);
-            this.panelPhieuPhat.TabIndex = 1;
-            this.panelPhieuPhat.Click += new System.EventHandler(this.panelPhieuPhat_Click);
-            this.panelPhieuPhat.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
-            this.panelPhieuPhat.Controls.Add(this.pictureBox4);
-            this.panelPhieuPhat.Controls.Add(this.label6);
-            this.panelPhieuPhat.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.panelPhieuPhat.Location = new System.Drawing.Point(3, 279);
-            this.panelPhieuPhat.Name = "panelPhieuPhat";
-            this.panelPhieuPhat.Size = new System.Drawing.Size(350, 85);
-            this.panelPhieuPhat.TabIndex = 1;
-            this.panelPhieuPhat.Click += new System.EventHandler(this.panelPhieuPhat_Click);
-            this.panelPhieuPhat.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
-            this.panelPhieuPhat.Controls.Add(this.pictureBox4);
-            this.panelPhieuPhat.Controls.Add(this.label6);
-            this.panelPhieuPhat.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.panelPhieuPhat.Location = new System.Drawing.Point(3, 279);
-            this.panelPhieuPhat.Name = "panelPhieuPhat";
-            this.panelPhieuPhat.Size = new System.Drawing.Size(350, 85);
-            this.panelPhieuPhat.TabIndex = 1;
-            this.panelPhieuPhat.Click += new System.EventHandler(this.panelPhieuPhat_Click);
-            this.panelPhieuPhat.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
-            this.panelPhieuPhat.Controls.Add(this.pictureBox4);
-            this.panelPhieuPhat.Controls.Add(this.label6);
-            this.panelPhieuPhat.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.panelPhieuPhat.Location = new System.Drawing.Point(3, 279);
-            this.panelPhieuPhat.Name = "panelPhieuPhat";
-            this.panelPhieuPhat.Size = new System.Drawing.Size(350, 85);
-            this.panelPhieuPhat.TabIndex = 1;
-            this.panelPhieuPhat.Click += new System.EventHandler(this.panelPhieuPhat_Click);
-            this.panelPhieuPhat.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
-            this.panelPhieuPhat.Controls.Add(this.pictureBox4);
-            this.panelDauSach.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.panelDauSach.Controls.Add(this.pictureBox5);
-            this.panelDauSach.Controls.Add(this.label7);
-            this.panelDauSach.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.panelDauSach.Location = new System.Drawing.Point(3, 370);
-            this.panelDauSach.Name = "panelDauSach";
-            this.panelDauSach.Size = new System.Drawing.Size(350, 85);
-            this.panelDauSach.TabIndex = 1;
-            this.panelDauSach.Paint += new System.Windows.Forms.PaintEventHandler(this.panel3_Paint);
-            this.panelPhieuPhat.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.panelPhieuPhat.Location = new System.Drawing.Point(3, 279);
-            this.panelPhieuPhat.Name = "panelPhieuPhat";
-            this.panelPhieuPhat.Size = new System.Drawing.Size(350, 85);
-            this.panelPhieuPhat.TabIndex = 1;
-            this.panelPhieuPhat.Click += new System.EventHandler(this.panelPhieuPhat_Click);
-            this.panelPhieuPhat.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
             // 
-            this.panelDauSach.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.panelDauSach.Controls.Add(this.pictureBox5);
-            this.panelDauSach.Controls.Add(this.label7);
-            this.panelDauSach.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.panelDauSach.Location = new System.Drawing.Point(3, 370);
-            this.panelDauSach.Name = "panelDauSach";
-            this.panelDauSach.Size = new System.Drawing.Size(350, 85);
-            this.panelDauSach.TabIndex = 1;
-            this.panelDauSach.Paint += new System.Windows.Forms.PaintEventHandler(this.panel3_Paint);
+            // label6
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -418,31 +353,7 @@ namespace QuanLyThuVien.GUI
             this.label6.Size = new System.Drawing.Size(172, 38);
             this.label6.TabIndex = 0;
             this.label6.Text = "Phiếu phạt";
-            this.panelDauSach.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.panelDauSach.Controls.Add(this.pictureBox5);
-            this.panelDauSach.Controls.Add(this.label7);
-            this.panelDauSach.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.panelDauSach.Location = new System.Drawing.Point(3, 370);
-            this.panelDauSach.Name = "panelDauSach";
-            this.panelDauSach.Size = new System.Drawing.Size(350, 85);
-            this.panelDauSach.TabIndex = 1;
-            this.panelDauSach.Paint += new System.Windows.Forms.PaintEventHandler(this.panel3_Paint);
-            this.panelDauSach.Controls.Add(this.pictureBox5);
-            this.panelDauSach.Controls.Add(this.label7);
-            this.panelDauSach.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.panelDauSach.Location = new System.Drawing.Point(3, 370);
-            this.panelDauSach.Name = "panelDauSach";
-            this.panelDauSach.Size = new System.Drawing.Size(350, 85);
-            this.panelDauSach.TabIndex = 1;
-            this.panelDauSach.Paint += new System.Windows.Forms.PaintEventHandler(this.panel3_Paint);
-            this.panelDauSach.Controls.Add(this.pictureBox5);
-            this.panelDauSach.Controls.Add(this.label7);
-            this.panelDauSach.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.panelDauSach.Location = new System.Drawing.Point(3, 370);
-            this.panelDauSach.Name = "panelDauSach";
-            this.panelDauSach.Size = new System.Drawing.Size(350, 85);
-            this.panelDauSach.TabIndex = 1;
-            this.panelDauSach.Paint += new System.Windows.Forms.PaintEventHandler(this.panel3_Paint);
+            this.label6.Click += new System.EventHandler(this.panelPhieuPhat_Click);
             this.label6.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panelPhieuPhat_MouseDown);
             // 
             // panelDauSach
@@ -451,15 +362,7 @@ namespace QuanLyThuVien.GUI
             this.panelDauSach.Controls.Add(this.pictureBox5);
             this.panelDauSach.Controls.Add(this.label7);
             this.panelDauSach.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.panelDauSach.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.panelDauSach.Controls.Add(this.pictureBox5);
-            this.panelDauSach.Controls.Add(this.label7);
-            this.panelDauSach.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.panelDauSach.Location = new System.Drawing.Point(3, 370);
-            this.panelDauSach.Name = "panelDauSach";
-            this.panelDauSach.Size = new System.Drawing.Size(350, 85);
-            this.panelDauSach.TabIndex = 1;
-            this.panelDauSach.Paint += new System.Windows.Forms.PaintEventHandler(this.panel3_Paint);
+            this.panelDauSach.Location = new System.Drawing.Point(0, 358);
             this.panelDauSach.Margin = new System.Windows.Forms.Padding(0);
             this.panelDauSach.Name = "panelDauSach";
             this.panelDauSach.Size = new System.Drawing.Size(359, 85);
@@ -468,39 +371,6 @@ namespace QuanLyThuVien.GUI
             this.panelDauSach.Paint += new System.Windows.Forms.PaintEventHandler(this.panel3_Paint);
             this.panelDauSach.MouseEnter += new System.EventHandler(this.panelMenu_MouseEnter);
             this.panelDauSach.MouseLeave += new System.EventHandler(this.panelMenu_MouseLeave);
-            this.panelDauSach.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.panelDauSach.Controls.Add(this.pictureBox5);
-            this.panelDauSach.Controls.Add(this.label7);
-            this.panelDauSach.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.panelDauSach.Location = new System.Drawing.Point(3, 370);
-            this.panelDauSach.Name = "panelDauSach";
-            this.panelDauSach.Size = new System.Drawing.Size(350, 85);
-            this.panelDauSach.TabIndex = 1;
-            this.panelDauSach.Paint += new System.Windows.Forms.PaintEventHandler(this.panel3_Paint);
-            this.panelDauSach.Controls.Add(this.pictureBox5);
-            this.panelDauSach.Controls.Add(this.label7);
-            this.panelDauSach.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.panelDauSach.Location = new System.Drawing.Point(3, 370);
-            this.panelDauSach.Name = "panelDauSach";
-            this.panelDauSach.Size = new System.Drawing.Size(350, 85);
-            this.panelDauSach.TabIndex = 1;
-            this.panelDauSach.Paint += new System.Windows.Forms.PaintEventHandler(this.panel3_Paint);
-            this.panelDauSach.Controls.Add(this.pictureBox5);
-            this.panelDauSach.Controls.Add(this.label7);
-            this.panelDauSach.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.panelDauSach.Location = new System.Drawing.Point(3, 370);
-            this.panelDauSach.Name = "panelDauSach";
-            this.panelDauSach.Size = new System.Drawing.Size(350, 85);
-            this.panelDauSach.TabIndex = 1;
-            this.panelDauSach.Paint += new System.Windows.Forms.PaintEventHandler(this.panel3_Paint);
-            this.panelDauSach.Controls.Add(this.pictureBox5);
-            this.panelDauSach.Controls.Add(this.label7);
-            this.panelDauSach.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.panelDauSach.Location = new System.Drawing.Point(3, 370);
-            this.panelDauSach.Name = "panelDauSach";
-            this.panelDauSach.Size = new System.Drawing.Size(350, 85);
-            this.panelDauSach.TabIndex = 1;
-            this.panelDauSach.Paint += new System.Windows.Forms.PaintEventHandler(this.panel3_Paint);
             // 
             // label7
             // 
@@ -806,6 +676,7 @@ namespace QuanLyThuVien.GUI
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Panel panelDauSach;
         private System.Windows.Forms.Panel panelDocGia;
+        private System.Windows.Forms.Panel panel8;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Panel panelThongKe;
@@ -825,4 +696,5 @@ namespace QuanLyThuVien.GUI
         private System.Windows.Forms.PictureBox pictureBox11;
         private System.Windows.Forms.PictureBox pictureBox12;
     }
+
 }
