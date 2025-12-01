@@ -106,6 +106,7 @@
     <Compile Include="BUS\NxbBUS.cs" />
     <Compile Include="BUS\PhieuNhapBUS.cs" />
     <Compile Include="BUS\DauSachBUS.cs" />
+    <Compile Include="BUS\PhieuTraBUS.cs" />
     <Compile Include="BUS\TacGiaBUS.cs" />
     <Compile Include="BUS\TaiKhoanBUS.cs" />
     <Compile Include="DAO\DocGiaDAO.cs" />
@@ -117,8 +118,10 @@
     <Compile Include="DAO\NxbDAO.cs" />
     <Compile Include="DAO\PhieuNhapDAO.cs" />
     <Compile Include="DAO\DauSachDAO.cs" />
+    <Compile Include="DAO\PhieuTraDAO.cs" />
     <Compile Include="DAO\TacGiaDAO.cs" />
     <Compile Include="DAO\TaiKhoanDAO.cs" />
+    <Compile Include="DTO\CTPhieuTraDTO.cs" />
     <Compile Include="DTO\PhieuTraViPhamDTO.cs" />
     <Compile Include="DTO\DocGiaDTO.cs" />
     <Compile Include="DTO\PhieuPhatDTO.cs" />
@@ -127,6 +130,7 @@
     <Compile Include="DTO\CTPhieuNhapDTO.cs" />
     <Compile Include="DTO\DauSachDTO.cs" />
     <Compile Include="DTO\PhieuNhapDTO.cs" />
+    <Compile Include="DTO\PhieuTraDTO.cs" />
     <Compile Include="DTO\TacGiaDTO.cs" />
     <Compile Include="DTO\TaiKhoanDTO.cs" />
     <Compile Include="GUI\BaseModuleUC.cs">
@@ -146,6 +150,12 @@
     </Compile>
     <Compile Include="GUI\CTPhieuNhapGUI.Designer.cs">
       <DependentUpon>CTPhieuNhapGUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\DanhSachSachDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\DanhSachSachDialog.Designer.cs">
+      <DependentUpon>DanhSachSachDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="GUI\DauSach.cs">
       <SubType>UserControl</SubType>
@@ -195,6 +205,12 @@
     <Compile Include="GUI\PhieuNhapGUI.Designer.cs">
       <DependentUpon>PhieuNhapGUI.cs</DependentUpon>
     </Compile>
+    <Compile Include="GUI\PhieuTraGUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\PhieuTraGUI.Designer.cs">
+      <DependentUpon>PhieuTraGUI.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI\phieuphat\FormChiTietPhieuPhat.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -219,6 +235,13 @@
     <Compile Include="GUI\phieuphat\PhieuPhat.Designer.cs">
       <DependentUpon>PhieuPhat.cs</DependentUpon>
     </Compile>
+    <Compile Include="GUI\WelcomeScreen.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\WelcomeScreen.Designer.cs">
+      <DependentUpon>WelcomeScreen.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\FontManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -233,6 +256,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\img\" />
+    <Folder Include="Fonts\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="GUI\BaseModuleUC.resx">
@@ -273,6 +297,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\phieuphat\PhieuPhat.resx">
       <DependentUpon>PhieuPhat.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\PhieuTraGUI.resx">
+      <DependentUpon>PhieuTraGUI.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\ThongKeGUI\UCMain.resx">
       <DependentUpon>UCMain.cs</DependentUpon>

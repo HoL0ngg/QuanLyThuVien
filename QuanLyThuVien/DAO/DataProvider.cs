@@ -9,7 +9,7 @@ namespace QuanLyThuVien.DAO
     public class DataProvider
     {
         private static string connectionString =
-            "server=localhost;user=root;password=Quocdai@210;database=quanlythuvien;SslMode=none;";
+            "server=localhost;user=root;password=;database=quanlythuvien;SslMode=none;";
 
         // Kết nối MySQL
         public static MySqlConnection GetConnection()
@@ -30,7 +30,7 @@ namespace QuanLyThuVien.DAO
                 if (parameters != null)
                 {
                     foreach (var param in parameters)
-                    {
+                    {   
                         command.Parameters.AddWithValue(param.Key, param.Value);
                     }
                 }
@@ -67,5 +67,28 @@ namespace QuanLyThuVien.DAO
             return result; // Trả về số dòng bị ảnh hưởng
         }
 
+        // Hàm lấy giá trị đơn (LAST_INSERT_ID, COUNT, SUM, etc.)
+        public static object ExecuteScalar(string query, Dictionary<string, object> parameters = null)
+        {
+            object result = null;
+
+            using (MySqlConnection connection = GetConnection())
+            {
+                connection.Open();
+                MySqlCommand command = new MySqlCommand(query, connection);
+
+                if (parameters != null)
+                {
+                    foreach (var param in parameters)
+                    {
+                        command.Parameters.AddWithValue(param.Key, param.Value);
+                    }
+                }
+
+                result = command.ExecuteScalar();
+            }
+
+            return result;
+        }
     }
 }
