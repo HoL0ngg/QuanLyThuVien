@@ -150,6 +150,12 @@
     <Compile Include="GUI\CTPhieuNhapGUI.Designer.cs">
       <DependentUpon>CTPhieuNhapGUI.cs</DependentUpon>
     </Compile>
+    <Compile Include="GUI\DanhSachSachDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\DanhSachSachDialog.Designer.cs">
+      <DependentUpon>DanhSachSachDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI\DauSach.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -216,6 +222,13 @@
     <Compile Include="GUI\PhieuPhat.Designer.cs">
       <DependentUpon>PhieuPhat.cs</DependentUpon>
     </Compile>
+    <Compile Include="GUI\WelcomeScreen.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\WelcomeScreen.Designer.cs">
+      <DependentUpon>WelcomeScreen.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\FontManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -230,6 +243,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\img\" />
+    <Folder Include="Fonts\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="GUI\ChonTacGiaDialog.resx">

@@ -30,7 +30,7 @@ namespace QuanLyThuVien.DAO // Hoặc QuanLyNhanSu.DAO
                 SELECT 
                     ds.MaDauSach as 'MaDauSach',
                     ds.TenDauSach as 'TenDauSach',
-                    nxb.tenNXB as 'NhaXuatBan',
+                    nxb.tenNXB as 'NhaXuatBan', 
                     ds.NamXuatBan as 'NamXuatBan',
                     ds.NgonNgu as 'NgonNgu',
                     ds.SoLuong as 'SoLuong'

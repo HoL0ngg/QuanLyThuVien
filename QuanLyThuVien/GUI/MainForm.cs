@@ -19,110 +19,131 @@ namespace QuanLyThuVien.GUI
 
         private Panel activeMenuPanel = null;
         
-        // Màu sắc hiện đại và bắt mắt hơn
-        private Color defaultColor = Color.FromArgb(52, 73, 94);        // Xám xanh đậm
-        private Color activeColor = Color.FromArgb(41, 128, 185);       // Xanh dương sáng
-        private Color hoverColor = Color.FromArgb(52, 152, 219);         // Xanh dương hover
-        private Color menuBgColor = Color.FromArgb(44, 62, 80);         // Nền menu tối
-        private Color topBarColor = Color.FromArgb(41, 128, 185);       // Thanh trên xanh
+        // Material Design Color Palette
+        private Color primaryColor = Color.FromArgb(33, 150, 243);      // Blue 500
+        private Color primaryDark = Color.FromArgb(25, 118, 210);       // Blue 700
+        private Color primaryLight = Color.FromArgb(100, 181, 246);     // Blue 300
+        private Color accentColor = Color.FromArgb(255, 64, 129);       // Pink A200
+        
+        private Color defaultColor = Color.FromArgb(66, 66, 66);        // Dark Grey
+        private Color activeColor = Color.FromArgb(33, 150, 243);       // Blue 500
+        private Color hoverColor = Color.FromArgb(97, 97, 97);          // Medium Grey
+        private Color menuBgColor = Color.FromArgb(250, 250, 250);      // Light Grey
+        private Color cardBgColor = Color.White;                        // White
+        
+        // Action button colors
+        private Color successColor = Color.FromArgb(76, 175, 80);       // Green 500
+        private Color infoColor = Color.FromArgb(33, 150, 243);         // Blue 500
+        private Color dangerColor = Color.FromArgb(244, 67, 54);        // Red 500
+        private Color warningColor = Color.FromArgb(156, 39, 176);      // Purple 500
         
         public MainForm(TaiKhoanDTO taiKhoan)
         {
             InitializeComponent();
             this.currentUser = taiKhoan;
             this.DoubleBuffered = true;
-            ApplyModernStyling();
+            this.SetStyle(ControlStyles.OptimizedDoubleBuffer | 
+                         ControlStyles.AllPaintingInWmPaint | 
+                         ControlStyles.UserPaint, true);
+            ApplyMaterialDesign();
         }
 
-        private void ApplyModernStyling()
+        private void ApplyMaterialDesign()
         {
-            // Cải thiện panel top (header)
-            panel1.BackColor = topBarColor;
+            // Form background
+            this.BackColor = Color.FromArgb(250, 250, 250);
+            
+            // Header panel với Material Design
+            panel1.BackColor = primaryColor;
             panel1.Paint += Panel1_Paint;
             
-            // Cải thiện flowLayoutPanel2 (menu)
+            // Menu background
             flowLayoutPanel2.BackColor = menuBgColor;
             
-            // Styling cho tất cả menu panels
+            // Styling cho menu panels
             foreach (Control ctrl in flowLayoutPanel2.Controls)
             {
                 if (ctrl is Panel panel)
                 {
-                    panel.BackColor = defaultColor;
+                    panel.BackColor = cardBgColor;
                     panel.Paint += MenuPanel_Paint;
                     panel.MouseEnter += MenuPanel_MouseEnter;
                     panel.MouseLeave += MenuPanel_MouseLeave;
+                    panel.MouseDown += MenuPanel_MouseDown;
+                    panel.MouseUp += MenuPanel_MouseUp;
                     
-                    // Styling cho labels trong menu
                     foreach (Control labelCtrl in panel.Controls)
                     {
                         if (labelCtrl is Label lbl)
                         {
-                            lbl.ForeColor = Color.White;
-                            lbl.Font = new Font("Segoe UI", 13F, FontStyle.Bold);
+                            lbl.ForeColor = Color.FromArgb(66, 66, 66);
+                            lbl.Font = GetSafeFont("Segoe UI", 13F, FontStyle.Regular);
                         }
                     }
                 }
             }
             
-            // Styling cho action buttons
-            panel9.BackColor = Color.FromArgb(46, 204, 113);  // Thêm - Xanh lá
-            panel10.BackColor = Color.FromArgb(52, 152, 219); // Sửa - Xanh dương
-            panel12.BackColor = Color.FromArgb(231, 76, 60);  // Xóa - Đỏ
-            panel11.BackColor = Color.FromArgb(155, 89, 182); // Chi tiết - Tím
+            // Action buttons với Material Design
+            SetupActionButton(panel9, successColor, "Segoe UI", 11F);
+            SetupActionButton(panel10, infoColor, "Segoe UI", 11F);
+            SetupActionButton(panel12, dangerColor, "Segoe UI", 11F);
+            SetupActionButton(panel11, warningColor, "Segoe UI", 11F);
             
-            foreach (Panel actionPanel in new[] { panel9, panel10, panel11, panel12 })
-            {
-                actionPanel.Paint += ActionPanel_Paint;
-                actionPanel.MouseEnter += ActionPanel_MouseEnter;
-                actionPanel.MouseLeave += ActionPanel_MouseLeave;
-                
-                foreach (Control labelCtrl in actionPanel.Controls)
-                {
-                    if (labelCtrl is Label lbl)
-                    {
-                        lbl.ForeColor = Color.White;
-                        lbl.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-                    }
-                }
-            }
-            
-            // Styling cho labels trong panel1
+            // Header labels
             label1.ForeColor = Color.White;
-            label1.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
-            label2.ForeColor = Color.FromArgb(236, 240, 241);
-            label2.Font = new Font("Segoe UI", 10F, FontStyle.Regular);
+            label1.Font = GetSafeFont("Segoe UI", 18F, FontStyle.Bold);
+            label2.ForeColor = Color.FromArgb(230, 230, 230);
+            label2.Font = GetSafeFont("Segoe UI", 10F, FontStyle.Regular);
         }
         
-        // Vẽ bo góc và đổ bóng cho panel header
+        private Font GetSafeFont(string fontName, float size, FontStyle style)
+        {
+            return Helpers.FontManager.GetSafeFont(fontName, size, style);
+        }
+        
+        private void SetupActionButton(Panel panel, Color baseColor, string fontName, float fontSize)
+        {
+            panel.BackColor = baseColor;
+            panel.Paint += ActionButton_Paint;
+            panel.MouseEnter += ActionButton_MouseEnter;
+            panel.MouseLeave += ActionButton_MouseLeave;
+            panel.MouseDown += ActionButton_MouseDown;
+            panel.MouseUp += ActionButton_MouseUp;
+            panel.Tag = baseColor; // Store original color
+            
+            foreach (Control ctrl in panel.Controls)
+            {
+                if (ctrl is Label lbl)
+                {
+                    lbl.ForeColor = Color.White;
+                    lbl.Font = GetSafeFont(fontName, fontSize, FontStyle.Bold);
+                }
+            }
+        }
+        
+        // Vẽ Material shadow cho header
         private void Panel1_Paint(object sender, PaintEventArgs e)
         {
             Panel panel = sender as Panel;
             e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
             
-            Rectangle rect = new Rectangle(0, 0, panel.Width, panel.Height);
+            Rectangle rect = panel.ClientRectangle;
             
-            using (GraphicsPath path = GetRoundedRectanglePath(rect, 20))
+            // Draw shadow
+            DrawShadow(e.Graphics, rect, 8);
+            
+            // Draw gradient background
+            using (LinearGradientBrush brush = new LinearGradientBrush(
+                rect, primaryColor, primaryDark, LinearGradientMode.Horizontal))
             {
-                // Gradient background
-                using (LinearGradientBrush brush = new LinearGradientBrush(
-                    rect,
-                    Color.FromArgb(52, 152, 219),
-                    Color.FromArgb(41, 128, 185),
-                    LinearGradientMode.Horizontal))
+                using (GraphicsPath path = GetRoundedRectPath(rect, 0))
                 {
                     e.Graphics.FillPath(brush, path);
-                }
-                
-                // Border sáng
-                using (Pen pen = new Pen(Color.FromArgb(100, 255, 255, 255), 2))
-                {
-                    e.Graphics.DrawPath(pen, path);
                 }
             }
         }
         
-        // Vẽ bo góc cho menu panels
+        // Vẽ Material card cho menu
         private void MenuPanel_Paint(object sender, PaintEventArgs e)
         {
             Panel panel = sender as Panel;
@@ -130,84 +151,121 @@ namespace QuanLyThuVien.GUI
             
             Rectangle rect = new Rectangle(0, 0, panel.Width - 1, panel.Height - 1);
             
-            using (GraphicsPath path = GetRoundedRectanglePath(rect, 15))
+            // Draw shadow
+            DrawShadow(e.Graphics, rect, panel == activeMenuPanel ? 6 : 2);
+            
+            // Draw card
+            using (SolidBrush brush = new SolidBrush(panel.BackColor))
             {
-                // Fill với màu hiện tại
-                using (SolidBrush brush = new SolidBrush(panel.BackColor))
+                using (GraphicsPath path = GetRoundedRectPath(rect, 8))
                 {
                     e.Graphics.FillPath(brush, path);
                 }
-                
-                // Border nhẹ
-                Color borderColor = panel == activeMenuPanel 
-                    ? Color.FromArgb(150, 255, 255, 255) 
-                    : Color.FromArgb(80, 255, 255, 255);
-                    
-                using (Pen pen = new Pen(borderColor, 2))
+            }
+            
+            // Draw active indicator
+            if (panel == activeMenuPanel)
+            {
+                using (SolidBrush indicatorBrush = new SolidBrush(primaryColor))
                 {
-                    e.Graphics.DrawPath(pen, path);
-                }
-                
-                // Hiệu ứng sáng bên trái khi active
-                if (panel == activeMenuPanel)
-                {
-                    using (Pen highlightPen = new Pen(Color.FromArgb(52, 152, 219), 4))
-                    {
-                        e.Graphics.DrawLine(highlightPen, 0, 5, 0, panel.Height - 5);
-                    }
+                    Rectangle indicator = new Rectangle(0, rect.Height / 2 - 20, 4, 40);
+                    e.Graphics.FillRectangle(indicatorBrush, indicator);
                 }
             }
         }
         
-        // Vẽ bo góc và gradient cho action panels
-        private void ActionPanel_Paint(object sender, PaintEventArgs e)
+        // Vẽ Material button
+        private void ActionButton_Paint(object sender, PaintEventArgs e)
         {
             Panel panel = sender as Panel;
             e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
             
             Rectangle rect = new Rectangle(0, 0, panel.Width - 1, panel.Height - 1);
             
-            using (GraphicsPath path = GetRoundedRectanglePath(rect, 15))
+            // Draw shadow
+            DrawShadow(e.Graphics, rect, 4);
+            
+            // Draw button
+            using (SolidBrush brush = new SolidBrush(panel.BackColor))
             {
-                // Gradient background
-                Color color1 = panel.BackColor;
-                Color color2 = ControlPaint.Dark(panel.BackColor, 0.15f);
-                
-                using (LinearGradientBrush brush = new LinearGradientBrush(
-                    rect, color1, color2, LinearGradientMode.Vertical))
+                using (GraphicsPath path = GetRoundedRectPath(rect, 8))
                 {
                     e.Graphics.FillPath(brush, path);
                 }
-                
-                // Border sáng
-                using (Pen pen = new Pen(Color.FromArgb(150, 255, 255, 255), 2))
+            }
+            
+            // Draw highlight
+            Rectangle highlightRect = new Rectangle(rect.X + 2, rect.Y + 2, rect.Width - 4, rect.Height / 2);
+            using (LinearGradientBrush highlightBrush = new LinearGradientBrush(
+                highlightRect,
+                Color.FromArgb(40, 255, 255, 255),
+                Color.FromArgb(0, 255, 255, 255),
+                LinearGradientMode.Vertical))
+            {
+                using (GraphicsPath highlightPath = GetRoundedRectPath(highlightRect, 6))
                 {
-                    e.Graphics.DrawPath(pen, path);
+                    e.Graphics.FillPath(highlightBrush, highlightPath);
                 }
+            }
+        }
+        
+        // Material shadow drawing
+        private void DrawShadow(Graphics g, Rectangle rect, int depth)
+        {
+            for (int i = 0; i < depth; i++)
+            {
+                int alpha = 20 - (i * 2);
+                if (alpha < 0) alpha = 0;
                 
-                // Hiệu ứng sáng phía trên
-                Rectangle glowRect = new Rectangle(rect.X + 5, rect.Y + 2, rect.Width - 10, rect.Height / 3);
-                using (LinearGradientBrush glowBrush = new LinearGradientBrush(
-                    glowRect,
-                    Color.FromArgb(60, 255, 255, 255),
-                    Color.FromArgb(0, 255, 255, 255),
-                    LinearGradientMode.Vertical))
+                Rectangle shadowRect = new Rectangle(
+                    rect.X + i, 
+                    rect.Y + i, 
+                    rect.Width - (i * 2), 
+                    rect.Height - (i * 2)
+                );
+                
+                using (Pen shadowPen = new Pen(Color.FromArgb(alpha, 0, 0, 0)))
                 {
-                    using (GraphicsPath glowPath = GetRoundedRectanglePath(glowRect, 10))
+                    using (GraphicsPath shadowPath = GetRoundedRectPath(shadowRect, 8))
                     {
-                        e.Graphics.FillPath(glowBrush, glowPath);
+                        g.DrawPath(shadowPen, shadowPath);
                     }
                 }
             }
         }
         
-        // Hiệu ứng hover cho menu panel
+        // Rounded rectangle path
+        private GraphicsPath GetRoundedRectPath(Rectangle rect, int radius)
+        {
+            GraphicsPath path = new GraphicsPath();
+            if (radius <= 0)
+            {
+                path.AddRectangle(rect);
+                return path;
+            }
+            
+            int diameter = radius * 2;
+            Rectangle arc = new Rectangle(rect.Location, new Size(diameter, diameter));
+            
+            path.AddArc(arc, 180, 90);
+            arc.X = rect.Right - diameter;
+            path.AddArc(arc, 270, 90);
+            arc.Y = rect.Bottom - diameter;
+            path.AddArc(arc, 0, 90);
+            arc.X = rect.Left;
+            path.AddArc(arc, 90, 90);
+            path.CloseFigure();
+            
+            return path;
+        }
+        
+        // Menu panel hover effects
         private void MenuPanel_MouseEnter(object sender, EventArgs e)
         {
             Panel panel = sender as Panel;
             if (panel != activeMenuPanel)
             {
-                panel.BackColor = hoverColor;
+                panel.BackColor = Color.FromArgb(245, 245, 245);
                 panel.Cursor = Cursors.Hand;
             }
         }
@@ -217,94 +275,93 @@ namespace QuanLyThuVien.GUI
             Panel panel = sender as Panel;
             if (panel != activeMenuPanel)
             {
-                panel.BackColor = defaultColor;
+                panel.BackColor = cardBgColor;
             }
         }
         
-        // Hiệu ứng hover cho action panel
-        private void ActionPanel_MouseEnter(object sender, EventArgs e)
+        private void MenuPanel_MouseDown(object sender, MouseEventArgs e)
+        {
+            Panel panel = sender as Panel;
+            panel.BackColor = Color.FromArgb(238, 238, 238);
+        }
+        
+        private void MenuPanel_MouseUp(object sender, MouseEventArgs e)
+        {
+            Panel panel = sender as Panel;
+            if (panel == activeMenuPanel)
+            {
+                panel.BackColor = Color.FromArgb(227, 242, 253);
+            }
+            else
+            {
+                panel.BackColor = Color.FromArgb(245, 245, 245);
+            }
+        }
+        
+        // Action button hover effects
+        private void ActionButton_MouseEnter(object sender, EventArgs e)
         {
             Panel panel = sender as Panel;
             panel.Cursor = Cursors.Hand;
-            // Làm sáng lên một chút
-            Color brightColor = ControlPaint.Light(panel.BackColor, 0.1f);
-            panel.BackColor = brightColor;
+            Color baseColor = (Color)panel.Tag;
+            panel.BackColor = LightenColor(baseColor, 20);
         }
         
-        private void ActionPanel_MouseLeave(object sender, EventArgs e)
+        private void ActionButton_MouseLeave(object sender, EventArgs e)
         {
             Panel panel = sender as Panel;
-            // Trả về màu gốc
-            if (panel == panel9)
-                panel.BackColor = Color.FromArgb(46, 204, 113);
-            else if (panel == panel10)
-                panel.BackColor = Color.FromArgb(52, 152, 219);
-            else if (panel == panel12)
-                panel.BackColor = Color.FromArgb(231, 76, 60);
-            else if (panel == panel11)
-                panel.BackColor = Color.FromArgb(155, 89, 182);
+            panel.BackColor = (Color)panel.Tag;
         }
         
-        // Hàm tạo path bo góc
-        private GraphicsPath GetRoundedRectanglePath(Rectangle rect, int radius)
+        private void ActionButton_MouseDown(object sender, MouseEventArgs e)
         {
-            GraphicsPath path = new GraphicsPath();
-            int diameter = radius * 2;
-            
-            // Đảm bảo radius không quá lớn
-            if (diameter > rect.Height)
-                diameter = rect.Height;
-            if (diameter > rect.Width)
-                diameter = rect.Width;
-            
-            Rectangle arc = new Rectangle(rect.Location, new Size(diameter, diameter));
-            
-            // Top left
-            path.AddArc(arc, 180, 90);
-            
-            // Top right
-            arc.X = rect.Right - diameter;
-            path.AddArc(arc, 270, 90);
-            
-            // Bottom right
-            arc.Y = rect.Bottom - diameter;
-            path.AddArc(arc, 0, 90);
-            
-            // Bottom left
-            arc.X = rect.Left;
-            path.AddArc(arc, 90, 90);
-            
-            path.CloseFigure();
-            return path;
+            Panel panel = sender as Panel;
+            Color baseColor = (Color)panel.Tag;
+            panel.BackColor = DarkenColor(baseColor, 20);
+        }
+        
+        private void ActionButton_MouseUp(object sender, MouseEventArgs e)
+        {
+            Panel panel = sender as Panel;
+            Color baseColor = (Color)panel.Tag;
+            panel.BackColor = LightenColor(baseColor, 20);
+        }
+        
+        // Color helpers
+        private Color LightenColor(Color color, int amount)
+        {
+            return Color.FromArgb(
+                Math.Min(color.R + amount, 255),
+                Math.Min(color.G + amount, 255),
+                Math.Min(color.B + amount, 255)
+            );
+        }
+        
+        private Color DarkenColor(Color color, int amount)
+        {
+            return Color.FromArgb(
+                Math.Max(color.R - amount, 0),
+                Math.Max(color.G - amount, 0),
+                Math.Max(color.B - amount, 0)
+            );
         }
 
         private void LoadModule(BaseModuleUC module)
         {
-            // Nếu có module cũ thì xóa đi
             if (this.currentModule != null)
             {
                 this.panel3.Controls.Remove(this.currentModule);
                 this.currentModule.Dispose();
             }
 
-            // Gán module mới
             this.currentModule = module;
             this.currentModule.Dock = DockStyle.Fill;
-
-            // Thêm vào panel
             this.panel3.Controls.Add(this.currentModule);
             this.currentModule.BringToFront();
         }
 
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
+        private void label1_Click(object sender, EventArgs e) { }
+        private void label2_Click(object sender, EventArgs e) { }
 
         private void MainForm_Load(object sender, EventArgs e)
         {
@@ -312,38 +369,25 @@ namespace QuanLyThuVien.GUI
             {
                 return; // Nếu đang ở chế độ Design, không làm gì cả
             }
+            
+            // Hiển thị màn hình chào mừng khi mới mở app
+            LoadModule(new WelcomeScreen());
+            
             //label1.Text = currentUser.TenDangNhap;
             //label2.Text = currentUser.ChucVu;
         }
 
-        private void label3_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label8_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label9_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void panel2_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
+        private void label3_Click(object sender, EventArgs e) { }
+        private void label8_Click(object sender, EventArgs e) { }
+        private void label9_Click(object sender, EventArgs e) { }
+        private void panel2_Paint(object sender, PaintEventArgs e) { }
         
         private void panelMenu_MouseEnter(object sender, EventArgs e)
         {
             Panel hoveredPanel = sender as Panel;
-
-            // Chỉ đổi màu hover nếu nó KHÔNG PHẢI là panel đang active
             if (hoveredPanel != activeMenuPanel)
             {
-                hoveredPanel.BackColor = hoverColor;
+                hoveredPanel.BackColor = Color.FromArgb(245, 245, 245);
                 hoveredPanel.Cursor = Cursors.Hand;
             }
         }
@@ -351,90 +395,54 @@ namespace QuanLyThuVien.GUI
         private void panelMenu_MouseLeave(object sender, EventArgs e)
         {
             Panel hoveredPanel = sender as Panel;
-
-            // Chỉ trả lại màu cũ nếu nó KHÔNG PHẢI là panel đang active
             if (hoveredPanel != activeMenuPanel)
             {
-                hoveredPanel.BackColor = defaultColor;
+                hoveredPanel.BackColor = cardBgColor;
             }
         }
 
         private void panelMenu_Click(object sender, EventArgs e)
         {
-            // Lấy panel vừa được click
             Panel clickedPanel = sender as Panel;
+            if (clickedPanel == activeMenuPanel) return;
 
-            // Nếu click vào panel đang active rồi thì không làm gì cả
-            if (clickedPanel == activeMenuPanel)
-            {
-                return;
-            }
-
-            // 1. Tắt sáng panel CŨ (nếu có)
             if (activeMenuPanel != null)
             {
-                activeMenuPanel.BackColor = defaultColor;
+                activeMenuPanel.BackColor = cardBgColor;
+                foreach (Control ctrl in activeMenuPanel.Controls)
+                {
+                    if (ctrl is Label lbl)
+                        lbl.ForeColor = Color.FromArgb(66, 66, 66);
+                }
             }
 
-            // 2. Làm sáng panel MỚI
-            clickedPanel.BackColor = activeColor;
-            activeMenuPanel = clickedPanel; // "Nhớ" panel mới này
+            clickedPanel.BackColor = Color.FromArgb(227, 242, 253);
+            activeMenuPanel = clickedPanel;
+            
+            foreach (Control ctrl in clickedPanel.Controls)
+            {
+                if (ctrl is Label lbl)
+                    lbl.ForeColor = primaryColor;
+            }
 
-            // 3. Tải User Control tương ứng (Quan trọng!)
-            // (Hãy đảm bảo tên panel của bạn khớp, ví dụ: panelDauSach, panelPhieuMuon)
             if (clickedPanel.Name == "panelPhieuNhap")
-            {
-                 LoadModule(new PhieuNhapGUI());
-            }
+                LoadModule(new PhieuNhapGUI());
             else if (clickedPanel.Name == "panelPhieuMuon")
-            {
                 LoadModule(new PhieuMuon());
-            }
             else if (clickedPanel.Name == "panelPhieuTra")
-            {
-                 LoadModule(new PhieuTraGUI());
-            }
-            // else if (clickedPanel.Name == "panelPhieuPhat")
-            // {
-            //     // LoadModule(new PhieuPhat());
-            // }
+                LoadModule(new PhieuTraGUI());
             else if (clickedPanel.Name == "panelDauSach")
-            {
                 LoadModule(new DauSach());
-            }
-            // ... Thêm các else if cho các nút khác ...
         }
 
-        private void panel9_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void label6_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label7_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pictureBox5_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        
-
-        private void panel6_Paint_1(object sender, PaintEventArgs e)
-        {
-
-        }
+        private void panel9_Paint(object sender, PaintEventArgs e) { }
+        private void label6_Click(object sender, EventArgs e) { }
+        private void label7_Click(object sender, EventArgs e) { }
+        private void pictureBox5_Click(object sender, EventArgs e) { }
+        private void panel6_Paint_1(object sender, PaintEventArgs e) { }
 
         private void panelPhieuPhat_Click(object sender, EventArgs e)
         {
-           
             var uc = new PhieuPhat();
             uc.Dock = DockStyle.Fill;
             panel3.Controls.Clear();
@@ -442,11 +450,7 @@ namespace QuanLyThuVien.GUI
             uc.BringToFront();
         }
 
-        private void panel3_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
+        private void panel3_Paint(object sender, PaintEventArgs e) { }
         private void panelPhieuPhat_DoubleClick(object sender, EventArgs e)
         {
             PhieuPhat phieuphat = new PhieuPhat();
@@ -455,48 +459,32 @@ namespace QuanLyThuVien.GUI
             this.panel3.Controls.Add(phieuphat);
         }
 
-        private void panelPhieuPhat_MouseDown(object sender, MouseEventArgs e)
-        {
-            
-        }
+        private void panelPhieuPhat_MouseDown(object sender, MouseEventArgs e) { }
 
         private void btnThem_Click(object sender, EventArgs e)
         {
-            // 1. Kiểm tra xem có module nào đang chạy không
             if (currentModule != null)
-            {
-                // 2. Ra lệnh cho module đó thực hiện hành vi "OnAdd"
                 currentModule.OnAdd();
-            }
         }
 
         private void btnSua_Click(object sender, EventArgs e)
         {
             if (currentModule != null)
-            {
                 currentModule.OnEdit();
-            }
         }
         
         private void btnXoa_Click(object sender, EventArgs e)
         {
             if (currentModule != null)
-            {
                 currentModule.OnDelete();
-            }
         }
         
         private void btnChiTiet_Click(object sender, EventArgs e)
         {
             if (currentModule != null)
-            {
                 currentModule.OnDetails();
-            }
         }
 
-        private void panel11_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
+        private void panel11_Paint(object sender, PaintEventArgs e) { }
     }
 }
