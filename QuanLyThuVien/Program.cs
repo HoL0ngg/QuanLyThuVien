@@ -1,4 +1,5 @@
 ﻿using QuanLyThuVien.GUI;
+using QuanLyThuVien.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +16,14 @@ namespace QuanLyThuVien
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            
+            // Khởi tạo custom fonts (Roboto)
+            FontManager.Initialize();
+            
             Application.Run(new LoginForm());
+            
+            // Cleanup fonts khi thoát
+            FontManager.Dispose();
         }
     }
 }
