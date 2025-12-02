@@ -34,8 +34,8 @@ namespace QuanLyThuVien.GUI
         {
             this.MaPhieuHienTai = maPhieuChon;
 
+            ResetInput();
             LoadSach();
-
             LoadDanhSach();
         }
 
@@ -119,6 +119,12 @@ namespace QuanLyThuVien.GUI
             btnSua.Click += new EventHandler(sua);
             btnHuy.Click += new EventHandler(Cancel);
 
+        }
+        private void ResetInput()
+        {
+            cbTenSach.SelectedIndex = -1;
+            txtSoLuong.Clear();
+            txtDonGia.Clear();
         }
 
         private void them(object sender, EventArgs e)
@@ -246,6 +252,23 @@ namespace QuanLyThuVien.GUI
                 MessageBox.Show("Lỗi khi sửa: " + ex.Message, "Lỗi");
             }
         }
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            string tensach = txtSearch.Text.Trim();
+            var result = bus.Search(MaPhieuHienTai,tensach);
+            if (result == null || result.Count == 0)
+            {
+                MessageBox.Show("Không tìm thấy phiếu nhập nào phù hợp với từ khóa",
+                                "Thông báo",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Information);
+
+                dataGridView1.DataSource = null;
+                ResetInput();
+                return;
+            }
+            dataGridView1.DataSource = result;
+        }
         private void Cancel(object sender, EventArgs e)
         {
             this.Visible = false;
@@ -263,6 +286,11 @@ namespace QuanLyThuVien.GUI
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
+        }
+
+        private void btnSearch_Click_1(object sender, EventArgs e)
+        {
+            btnSearch_Click(this, EventArgs.Empty);
         }
     }
 }

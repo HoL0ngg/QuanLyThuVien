@@ -47,5 +47,13 @@ namespace QuanLyThuVien.BUS
         {
             return dao.GetById(maPhieuNhap);
         }
+        public List<PhieuNhapDTO> Search(string keyword)
+        {
+            if (string.IsNullOrWhiteSpace(keyword))
+            {
+                return dao.GetAll();
+            }
+            return dao.Search(keyword);
+        }
     }
 }
