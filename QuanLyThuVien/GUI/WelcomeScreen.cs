@@ -1,4 +1,4 @@
-using QuanLyThuVien.DAO;
+﻿using QuanLyThuVien.DAO;
 using System;
 using System.Data;
 using System.Drawing;
@@ -43,25 +43,25 @@ namespace QuanLyThuVien.GUI
         {
             try
             {
-                // Th?ng k� t?ng s? s�ch
+                // Th?ng kê t?ng s? sách
                 string querySach = "SELECT COUNT(*) FROM sach WHERE trangthai = 1";
                 object resultSach = DataProvider.ExecuteScalar(querySach);
                 int tongSach = resultSach != null ? Convert.ToInt32(resultSach) : 0;
                 lblTongSach.Text = tongSach.ToString();
 
-                // Th?ng k� t?ng ??u s�ch
+                // Th?ng kê t?ng ??u sách
                 string queryDauSach = "SELECT COUNT(*) FROM dau_sach WHERE TrangThai = 1";
                 object resultDauSach = DataProvider.ExecuteScalar(queryDauSach);
                 int tongDauSach = resultDauSach != null ? Convert.ToInt32(resultDauSach) : 0;
                 lblTongDauSach.Text = tongDauSach.ToString();
 
-                // Th?ng k� ??c gi?
+                // Th?ng kê ??c gi?
                 string queryDocGia = "SELECT COUNT(*) FROM doc_gia WHERE TrangThai = 1";
                 object resultDocGia = DataProvider.ExecuteScalar(queryDocGia);
                 int tongDocGia = resultDocGia != null ? Convert.ToInt32(resultDocGia) : 0;
                 lblTongDocGia.Text = tongDocGia.ToString();
 
-                // Th?ng k� s�ch ?ang m??n
+                // Th?ng kê sách ?ang m??n
                 string querySachMuon = @"
                     SELECT COUNT(DISTINCT pm.MaPhieuMuon) 
                     FROM phieu_muon pm 
@@ -70,12 +70,12 @@ namespace QuanLyThuVien.GUI
                 int sachDangMuon = resultSachMuon != null ? Convert.ToInt32(resultSachMuon) : 0;
                 lblSachDangMuon.Text = sachDangMuon.ToString();
 
-                // Load ho?t ??ng g?n ?�y
+                // Load ho?t ??ng g?n ?ây
                 LoadRecentActivities();
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"L?i t?i th?ng k�: {ex.Message}", "L?i", 
+                MessageBox.Show($"L?i t?i th?ng kê: {ex.Message}", "L?i", 
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -87,15 +87,15 @@ namespace QuanLyThuVien.GUI
                 string query = @"
                     (SELECT 
                         pm.NgayMuon as NgayThucHien,
-                        dg.TenDocGia as NguoiThucHien,
+                        dg.TENDG as NguoiThucHien,
                         ds.TenDauSach as NoiDung,
-                        'M??n s�ch' as LoaiHoatDong
+                        'Mượn sách' as LoaiHoatDong
                     FROM phieu_muon pm
-                    JOIN doc_gia dg ON pm.MaDocGia = dg.MaDocGia
-                    JOIN chi_tiet_phieu_muon ct ON pm.MaPhieuMuon = ct.MaPhieuMuon
+                    JOIN doc_gia dg ON pm.MaDocGia = dg.MADG
+                    JOIN ctphieu_muon ct ON pm.MaPhieuMuon = ct.MaPhieuMuon
                     JOIN sach s ON ct.MaSach = s.MaSach
                     JOIN dau_sach ds ON s.MaDauSach = ds.MaDauSach
-                    WHERE pm.TrangThai = 1
+                    WHERE pm.trangthai = 1
                     ORDER BY pm.NgayMuon DESC
                     LIMIT 3)
 
@@ -103,13 +103,13 @@ namespace QuanLyThuVien.GUI
 
                     (SELECT 
                         pt.NgayTra as NgayThucHien,
-                        dg.TenDocGia as NguoiThucHien,
+                        dg.TENDG as NguoiThucHien,
                         ds.TenDauSach as NoiDung,
-                        'Tr? s�ch' as LoaiHoatDong
+                        'Trả sách' as LoaiHoatDong
                     FROM phieu_tra pt
+                    JOIN doc_gia dg ON pt.MaDG = dg.MADG
                     JOIN phieu_muon pm ON pt.MaPhieuMuon = pm.MaPhieuMuon
-                    JOIN doc_gia dg ON pm.MaDocGia = dg.MaDocGia
-                    JOIN chi_tiet_phieu_muon ct ON pm.MaPhieuMuon = ct.MaPhieuMuon
+                    JOIN ctphieu_muon ct ON pm.MaPhieuMuon = ct.MaPhieuMuon
                     JOIN sach s ON ct.MaSach = s.MaSach
                     JOIN dau_sach ds ON s.MaDauSach = ds.MaDauSach
                     ORDER BY pt.NgayTra DESC
@@ -118,13 +118,14 @@ namespace QuanLyThuVien.GUI
                     UNION ALL
 
                     (SELECT 
-                        pp.NgayLap as NgayThucHien,
-                        dg.TenDocGia as NguoiThucHien,
-                        CONCAT('Ph?t ', FORMAT(pp.TienPhat, 0), ' VN?') as NoiDung,
-                        'Ph?t' as LoaiHoatDong
+                        pp.NgayPhat as NgayThucHien,
+                        dg.TENDG as NguoiThucHien,
+                        CONCAT('Phạt ', FORMAT(ct.TienPhat, 0), ' VNĐ') as NoiDung,
+                        'Phạt' as LoaiHoatDong
                     FROM phieu_phat pp
-                    JOIN doc_gia dg ON pp.MaDocGia = dg.MaDocGia
-                    ORDER BY pp.NgayLap DESC
+                    JOIN ctphieu_phat ct ON pp.MaPhieuPhat = ct.MaPhieuPhat
+                    JOIN doc_gia dg ON pp.MaDG = dg.MADG
+                    ORDER BY pp.NgayPhat DESC
                     LIMIT 2)
 
                     UNION ALL
@@ -132,8 +133,8 @@ namespace QuanLyThuVien.GUI
                     (SELECT 
                         pn.ThoiGian as NgayThucHien,
                         nv.TENNV as NguoiThucHien,
-                        CONCAT('Nh?p t? ', ncc.TENNCC) as NoiDung,
-                        'Nh?p s�ch' as LoaiHoatDong
+                        CONCAT('Nhập từ ', ncc.TENCC) as NoiDung,
+                        'Nhập sách' as LoaiHoatDong
                     FROM phieu_nhap pn
                     JOIN nhan_vien nv ON pn.MaNV = nv.MANV
                     JOIN nha_cung_cap ncc ON pn.MaNCC = ncc.MANCC
@@ -143,13 +144,13 @@ namespace QuanLyThuVien.GUI
                     UNION ALL
 
                     (SELECT 
-                        dg.NgayLapThe as NgayThucHien,
-                        dg.TenDocGia as NguoiThucHien,
-                        '??ng k� th�nh vi�n' as NoiDung,
-                        '??ng k�' as LoaiHoatDong
+                        NOW() as NgayThucHien,
+                        dg.TENDG as NguoiThucHien,
+                        'Đăng ký thành viên' as NoiDung,
+                        'Đăng ký' as LoaiHoatDong
                     FROM doc_gia dg
-                    WHERE dg.TrangThai = 1
-                    ORDER BY dg.NgayLapThe DESC
+                    WHERE dg.TRANGTHAI = 1
+                    ORDER BY dg.MADG DESC
                     LIMIT 1)
 
                     ORDER BY NgayThucHien DESC
@@ -158,35 +159,35 @@ namespace QuanLyThuVien.GUI
                 DataTable dt = DataProvider.ExecuteQuery(query);
                 dgvRecentActivity.DataSource = dt;
 
-                // T�y ch?nh hi?n th?
+                // Tùy chỉnh hiển thị
                 if (dgvRecentActivity.Columns.Contains("NgayThucHien"))
                 {
-                    dgvRecentActivity.Columns["NgayThucHien"].HeaderText = "Ng�y";
+                    dgvRecentActivity.Columns["NgayThucHien"].HeaderText = "Ngày";
                     dgvRecentActivity.Columns["NgayThucHien"].Width = 120;
                     dgvRecentActivity.Columns["NgayThucHien"].DefaultCellStyle.Format = "dd/MM/yyyy HH:mm";
                 }
                 if (dgvRecentActivity.Columns.Contains("NguoiThucHien"))
                 {
-                    dgvRecentActivity.Columns["NguoiThucHien"].HeaderText = "Ng??i th?c hi?n";
+                    dgvRecentActivity.Columns["NguoiThucHien"].HeaderText = "Người thực hiện";
                     dgvRecentActivity.Columns["NguoiThucHien"].Width = 150;
                 }
                 if (dgvRecentActivity.Columns.Contains("NoiDung"))
                 {
-                    dgvRecentActivity.Columns["NoiDung"].HeaderText = "N?i dung";
+                    dgvRecentActivity.Columns["NoiDung"].HeaderText = "Nội dung";
                     dgvRecentActivity.Columns["NoiDung"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                 }
                 if (dgvRecentActivity.Columns.Contains("LoaiHoatDong"))
                 {
-                    dgvRecentActivity.Columns["LoaiHoatDong"].HeaderText = "Lo?i";
+                    dgvRecentActivity.Columns["LoaiHoatDong"].HeaderText = "Loại";
                     dgvRecentActivity.Columns["LoaiHoatDong"].Width = 100;
                 }
 
-                // T� m�u theo lo?i ho?t ??ng
+                // Tô màu theo loại hoạt động
                 ColorizeActivityRows();
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"L?i t?i ho?t ??ng: {ex.Message}");
+                Console.WriteLine($"Lỗi tải hoạt động: {ex.Message}");
             }
         }
 
@@ -200,23 +201,23 @@ namespace QuanLyThuVien.GUI
 
                 switch (loaiHoatDong)
                 {
-                    case "M??n s�ch":
+                    case "Mượn sách":
                         row.DefaultCellStyle.BackColor = Color.FromArgb(227, 242, 253); // Light Blue
                         row.DefaultCellStyle.ForeColor = Color.FromArgb(13, 71, 161);
                         break;
-                    case "Tr? s�ch":
+                    case "Trả sách":
                         row.DefaultCellStyle.BackColor = Color.FromArgb(200, 230, 201); // Light Green
                         row.DefaultCellStyle.ForeColor = Color.FromArgb(27, 94, 32);
                         break;
-                    case "Ph?t":
+                    case "Phạt":
                         row.DefaultCellStyle.BackColor = Color.FromArgb(255, 205, 210); // Light Red
                         row.DefaultCellStyle.ForeColor = Color.FromArgb(183, 28, 28);
                         break;
-                    case "Nh?p s�ch":
+                    case "Nhập sách":
                         row.DefaultCellStyle.BackColor = Color.FromArgb(255, 224, 178); // Light Orange
                         row.DefaultCellStyle.ForeColor = Color.FromArgb(230, 81, 0);
                         break;
-                    case "??ng k�":
+                    case "Đăng ký":
                         row.DefaultCellStyle.BackColor = Color.FromArgb(225, 190, 231); // Light Purple
                         row.DefaultCellStyle.ForeColor = Color.FromArgb(74, 20, 140);
                         break;
@@ -229,7 +230,6 @@ namespace QuanLyThuVien.GUI
             LoadStatistics();
         }
 
-        // Override methods (kh�ng c?n thi?t cho Welcome Screen nh?ng ph?i c� v� k? th?a BaseModuleUC)
         public override void OnAdd() { }
         public override void OnEdit() { }
         public override void OnDelete() { }
