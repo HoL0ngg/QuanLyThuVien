@@ -1,4 +1,4 @@
-namespace QuanLyThuVien.GUI
+﻿namespace QuanLyThuVien.GUI
 {
     partial class WelcomeScreen
     {
@@ -90,7 +90,7 @@ namespace QuanLyThuVien.GUI
             this.lblWelcome.Name = "lblWelcome";
             this.lblWelcome.Size = new System.Drawing.Size(564, 46);
             this.lblWelcome.TabIndex = 0;
-            this.lblWelcome.Text = "?? Ch�o m?ng ??n Th? vi?n";
+            this.lblWelcome.Text = "📚 Chào mừng đến Thư viện";
             // 
             // lblSubtitle
             // 
@@ -101,7 +101,7 @@ namespace QuanLyThuVien.GUI
             this.lblSubtitle.Name = "lblSubtitle";
             this.lblSubtitle.Size = new System.Drawing.Size(388, 25);
             this.lblSubtitle.TabIndex = 1;
-            this.lblSubtitle.Text = "H? th?ng qu?n l� th? vi?n hi?n ??i v� ti?n l?i";
+            this.lblSubtitle.Text = "Hệ thống quản lý thư viện hiện đại và tiện lợi";
             // 
             // panelStats
             // 
@@ -157,7 +157,7 @@ namespace QuanLyThuVien.GUI
             this.lblTongSachTitle.Name = "lblTongSachTitle";
             this.lblTongSachTitle.Size = new System.Drawing.Size(101, 24);
             this.lblTongSachTitle.TabIndex = 2;
-            this.lblTongSachTitle.Text = "T?ng s�ch";
+            this.lblTongSachTitle.Text = "Tổng sách";
             // 
             // cardTongDauSach
             // 
@@ -179,7 +179,7 @@ namespace QuanLyThuVien.GUI
             this.iconTongDauSach.Name = "iconTongDauSach";
             this.iconTongDauSach.Size = new System.Drawing.Size(71, 54);
             this.iconTongDauSach.TabIndex = 0;
-            this.iconTongDauSach.Text = "??";
+            this.iconTongDauSach.Text = "📚";
             // 
             // lblTongDauSach
             // 
@@ -201,7 +201,7 @@ namespace QuanLyThuVien.GUI
             this.lblTongDauSachTitle.Name = "lblTongDauSachTitle";
             this.lblTongDauSachTitle.Size = new System.Drawing.Size(135, 24);
             this.lblTongDauSachTitle.TabIndex = 2;
-            this.lblTongDauSachTitle.Text = "T?ng ??u s�ch";
+            this.lblTongDauSachTitle.Text = "Tổng đầu sách";
             // 
             // cardTongDocGia
             // 
@@ -223,7 +223,7 @@ namespace QuanLyThuVien.GUI
             this.iconTongDocGia.Name = "iconTongDocGia";
             this.iconTongDocGia.Size = new System.Drawing.Size(71, 54);
             this.iconTongDocGia.TabIndex = 0;
-            this.iconTongDocGia.Text = "??";
+            this.iconTongDocGia.Text = "👥";
             // 
             // lblTongDocGia
             // 
@@ -245,7 +245,7 @@ namespace QuanLyThuVien.GUI
             this.lblTongDocGiaTitle.Name = "lblTongDocGiaTitle";
             this.lblTongDocGiaTitle.Size = new System.Drawing.Size(113, 24);
             this.lblTongDocGiaTitle.TabIndex = 2;
-            this.lblTongDocGiaTitle.Text = "T?ng ??c gi?";
+            this.lblTongDocGiaTitle.Text = "Tổng độc giả";
             // 
             // cardSachDangMuon
             // 
@@ -267,7 +267,7 @@ namespace QuanLyThuVien.GUI
             this.iconSachDangMuon.Name = "iconSachDangMuon";
             this.iconSachDangMuon.Size = new System.Drawing.Size(71, 54);
             this.iconSachDangMuon.TabIndex = 0;
-            this.iconSachDangMuon.Text = "??";
+            this.iconSachDangMuon.Text = "📤";
             // 
             // lblSachDangMuon
             // 
@@ -289,7 +289,7 @@ namespace QuanLyThuVien.GUI
             this.lblSachDangMuonTitle.Name = "lblSachDangMuonTitle";
             this.lblSachDangMuonTitle.Size = new System.Drawing.Size(155, 24);
             this.lblSachDangMuonTitle.TabIndex = 2;
-            this.lblSachDangMuonTitle.Text = "S�ch ?ang m??n";
+            this.lblSachDangMuonTitle.Text = "Sách đang mượn";
             // 
             // panelInfo
             // 
@@ -314,7 +314,7 @@ namespace QuanLyThuVien.GUI
             this.lblInfoTitle.Name = "lblInfoTitle";
             this.lblInfoTitle.Size = new System.Drawing.Size(304, 31);
             this.lblInfoTitle.TabIndex = 0;
-            this.lblInfoTitle.Text = "?? Gi?i thi?u Th? vi?n";
+            this.lblInfoTitle.Text = "ℹ️ Giới thiệu Thư viện";
             // 
             // lblInfo1
             // 
@@ -324,7 +324,7 @@ namespace QuanLyThuVien.GUI
             this.lblInfo1.Name = "lblInfo1";
             this.lblInfo1.Size = new System.Drawing.Size(430, 80);
             this.lblInfo1.TabIndex = 1;
-            this.lblInfo1.Text = "? Th? vi?n c?a ch�ng t�i cung c?p h?n 10,000 ??u s�ch ?a d?ng t? v?n h?c, khoa h?c, c�ng ngh? ??n ngh? thu?t v� nhi?u l?nh v?c kh�c.";
+            this.lblInfo1.Text = "✨ Thư viện của chúng tôi cung cấp hơn 10,000 đầu sách đa dạng từ văn học, khoa học, công nghệ đến nghệ thuật và nhiều lĩnh vực khác.";
             // 
             // lblInfo2
             // 
@@ -334,7 +334,7 @@ namespace QuanLyThuVien.GUI
             this.lblInfo2.Name = "lblInfo2";
             this.lblInfo2.Size = new System.Drawing.Size(430, 60);
             this.lblInfo2.TabIndex = 2;
-            this.lblInfo2.Text = "?? H? th?ng qu?n l� hi?n ??i, d? s? d?ng, gi�p vi?c m??n tr? s�ch tr? n�n nhanh ch�ng v� thu?n ti?n.";
+            this.lblInfo2.Text = "📱 Hệ thống quản lý hiện đại, dễ sử dụng, giúp việc mượn trả sách trở nên nhanh chóng và thuận tiện.";
             // 
             // lblInfo3
             // 
@@ -344,7 +344,7 @@ namespace QuanLyThuVien.GUI
             this.lblInfo3.Name = "lblInfo3";
             this.lblInfo3.Size = new System.Drawing.Size(430, 60);
             this.lblInfo3.TabIndex = 3;
-            this.lblInfo3.Text = "?? Gi? m? c?a: Th? 2 - Th? 6: 8:00 - 20:00 | Th? 7 - CN: 9:00 - 17:00";
+            this.lblInfo3.Text = "🕐 Giờ mở cửa: Thứ 2 - Thứ 6: 8:00 - 20:00 | Thứ 7 - CN: 9:00 - 17:00";
             // 
             // lblInfo4
             // 
@@ -354,7 +354,7 @@ namespace QuanLyThuVien.GUI
             this.lblInfo4.Name = "lblInfo4";
             this.lblInfo4.Size = new System.Drawing.Size(430, 40);
             this.lblInfo4.TabIndex = 4;
-            this.lblInfo4.Text = "?? Li�n h?: library@example.com | ?? Hotline: 1900-xxxx";
+            this.lblInfo4.Text = "📧 Liên hệ: library@example.com | ☎️ Hotline: 1900-xxxx";
             // 
             // btnRefresh
             // 
@@ -367,7 +367,7 @@ namespace QuanLyThuVien.GUI
             this.btnRefresh.Name = "btnRefresh";
             this.btnRefresh.Size = new System.Drawing.Size(180, 40);
             this.btnRefresh.TabIndex = 5;
-            this.btnRefresh.Text = "?? L�m m?i d? li?u";
+            this.btnRefresh.Text = "🔄 Làm mới dữ liệu";
             this.btnRefresh.UseVisualStyleBackColor = false;
             this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
@@ -390,7 +390,7 @@ namespace QuanLyThuVien.GUI
             this.lblActivityTitle.Name = "lblActivityTitle";
             this.lblActivityTitle.Size = new System.Drawing.Size(314, 31);
             this.lblActivityTitle.TabIndex = 0;
-            this.lblActivityTitle.Text = "?? Ho?t ??ng g?n ?�y";
+            this.lblActivityTitle.Text = "📋 Hoạt động gần đây";
             // 
             // dgvRecentActivity
             // 

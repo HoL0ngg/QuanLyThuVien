@@ -39,6 +39,8 @@ namespace QuanLyThuVien.GUI
         {
             this.panel3 = new System.Windows.Forms.Panel();
             this.panel9 = new System.Windows.Forms.Panel();
+            this.cbMaNCC = new System.Windows.Forms.ComboBox();
+            this.cbMaNV = new System.Windows.Forms.ComboBox();
             this.label11 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.dtpDate = new System.Windows.Forms.DateTimePicker();
@@ -47,10 +49,13 @@ namespace QuanLyThuVien.GUI
             this.colMaPhieuNhap = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colMaNV = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colTenNhanVien = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colMaNCC = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colTenNCC = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.txtSearch = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.btnSearch = new System.Windows.Forms.Button();
             this.formThemPhieuNhap2 = new QuanLyThuVien.GUI.FormThemPhieuNhap();
-            this.cbMaNV = new System.Windows.Forms.ComboBox();
-            this.cbMaNCC = new System.Windows.Forms.ComboBox();
             this.panel3.SuspendLayout();
             this.panel9.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -68,7 +73,10 @@ namespace QuanLyThuVien.GUI
             // 
             // panel9
             // 
+            this.panel9.Controls.Add(this.btnSearch);
             this.panel9.Controls.Add(this.cbMaNCC);
+            this.panel9.Controls.Add(this.label1);
+            this.panel9.Controls.Add(this.txtSearch);
             this.panel9.Controls.Add(this.cbMaNV);
             this.panel9.Controls.Add(this.label11);
             this.panel9.Controls.Add(this.label10);
@@ -79,10 +87,26 @@ namespace QuanLyThuVien.GUI
             this.panel9.Size = new System.Drawing.Size(1024, 197);
             this.panel9.TabIndex = 1;
             // 
+            // cbMaNCC
+            // 
+            this.cbMaNCC.FormattingEnabled = true;
+            this.cbMaNCC.Location = new System.Drawing.Point(746, 150);
+            this.cbMaNCC.Name = "cbMaNCC";
+            this.cbMaNCC.Size = new System.Drawing.Size(195, 24);
+            this.cbMaNCC.TabIndex = 6;
+            // 
+            // cbMaNV
+            // 
+            this.cbMaNV.FormattingEnabled = true;
+            this.cbMaNV.Location = new System.Drawing.Point(422, 150);
+            this.cbMaNV.Name = "cbMaNV";
+            this.cbMaNV.Size = new System.Drawing.Size(195, 24);
+            this.cbMaNV.TabIndex = 5;
+            // 
             // label11
             // 
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.label11.Location = new System.Drawing.Point(741, 62);
+            this.label11.Location = new System.Drawing.Point(742, 113);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(181, 23);
             this.label11.TabIndex = 4;
@@ -91,7 +115,7 @@ namespace QuanLyThuVien.GUI
             // label10
             // 
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.label10.Location = new System.Drawing.Point(417, 62);
+            this.label10.Location = new System.Drawing.Point(418, 113);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(136, 23);
             this.label10.TabIndex = 2;
@@ -99,7 +123,7 @@ namespace QuanLyThuVien.GUI
             // 
             // dtpDate
             // 
-            this.dtpDate.Location = new System.Drawing.Point(15, 97);
+            this.dtpDate.Location = new System.Drawing.Point(16, 148);
             this.dtpDate.Name = "dtpDate";
             this.dtpDate.Size = new System.Drawing.Size(246, 22);
             this.dtpDate.TabIndex = 1;
@@ -108,7 +132,7 @@ namespace QuanLyThuVien.GUI
             // label9
             // 
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.label9.Location = new System.Drawing.Point(11, 62);
+            this.label9.Location = new System.Drawing.Point(12, 113);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(154, 23);
             this.label9.TabIndex = 0;
@@ -123,7 +147,9 @@ namespace QuanLyThuVien.GUI
             this.colMaPhieuNhap,
             this.colDate,
             this.colMaNV,
-            this.colMaNCC});
+            this.colTenNhanVien,
+            this.colMaNCC,
+            this.colTenNCC});
             this.dataGridView1.Location = new System.Drawing.Point(0, 0);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 51;
@@ -150,11 +176,50 @@ namespace QuanLyThuVien.GUI
             this.colMaNV.MinimumWidth = 6;
             this.colMaNV.Name = "colMaNV";
             // 
+            // colTenNhanVien
+            // 
+            this.colTenNhanVien.HeaderText = "Tên nhân viên";
+            this.colTenNhanVien.MinimumWidth = 6;
+            this.colTenNhanVien.Name = "colTenNhanVien";
+            // 
             // colMaNCC
             // 
             this.colMaNCC.HeaderText = "Mã nhà cung cấp";
             this.colMaNCC.MinimumWidth = 6;
             this.colMaNCC.Name = "colMaNCC";
+            // 
+            // colTenNCC
+            // 
+            this.colTenNCC.HeaderText = "Tên nhà cung cấp";
+            this.colTenNCC.MinimumWidth = 6;
+            this.colTenNCC.Name = "colTenNCC";
+            // 
+            // txtSearch
+            // 
+            this.txtSearch.Location = new System.Drawing.Point(426, 40);
+            this.txtSearch.Name = "txtSearch";
+            this.txtSearch.Size = new System.Drawing.Size(199, 22);
+            this.txtSearch.TabIndex = 7;
+            this.txtSearch.TextChanged += new System.EventHandler(this.txtSearch_TextChanged);
+            // 
+            // label1
+            // 
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.label1.Location = new System.Drawing.Point(236, 40);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(184, 22);
+            this.label1.TabIndex = 8;
+            this.label1.Text = "Nhập từ khóa tìm kiếm";
+            // 
+            // btnSearch
+            // 
+            this.btnSearch.Location = new System.Drawing.Point(649, 38);
+            this.btnSearch.Name = "btnSearch";
+            this.btnSearch.Size = new System.Drawing.Size(93, 24);
+            this.btnSearch.TabIndex = 9;
+            this.btnSearch.Text = "Tìm kiếm";
+            this.btnSearch.UseVisualStyleBackColor = true;
+            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click_1);
             // 
             // formThemPhieuNhap2
             // 
@@ -164,22 +229,6 @@ namespace QuanLyThuVien.GUI
             this.formThemPhieuNhap2.TabIndex = 2;
             this.formThemPhieuNhap2.Visible = false;
             this.formThemPhieuNhap2.Load += new System.EventHandler(this.formThemPhieuNhap2_Load);
-            // 
-            // cbMaNV
-            // 
-            this.cbMaNV.FormattingEnabled = true;
-            this.cbMaNV.Location = new System.Drawing.Point(421, 99);
-            this.cbMaNV.Name = "cbMaNV";
-            this.cbMaNV.Size = new System.Drawing.Size(195, 24);
-            this.cbMaNV.TabIndex = 5;
-            // 
-            // cbMaNCC
-            // 
-            this.cbMaNCC.FormattingEnabled = true;
-            this.cbMaNCC.Location = new System.Drawing.Point(745, 99);
-            this.cbMaNCC.Name = "cbMaNCC";
-            this.cbMaNCC.Size = new System.Drawing.Size(195, 24);
-            this.cbMaNCC.TabIndex = 6;
             // 
             // PhieuNhapGUI
             // 
@@ -192,6 +241,7 @@ namespace QuanLyThuVien.GUI
             this.Load += new System.EventHandler(this.PhieuNhapGUI_Load);
             this.panel3.ResumeLayout(false);
             this.panel9.ResumeLayout(false);
+            this.panel9.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
 
@@ -200,18 +250,23 @@ namespace QuanLyThuVien.GUI
         #endregion
 
         private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colMaPhieuNhap;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colDate;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colMaNV;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colMaNCC;
         private System.Windows.Forms.Panel panel9;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.DateTimePicker dtpDate;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label10;
-        private FormThemPhieuNhap formThemPhieuNhap2;
         private ComboBox cbMaNCC;
         private ComboBox cbMaNV;
+        private FormThemPhieuNhap formThemPhieuNhap2;
+        private DataGridView dataGridView1;
+        private DataGridViewTextBoxColumn colMaPhieuNhap;
+        private DataGridViewTextBoxColumn colDate;
+        private DataGridViewTextBoxColumn colMaNV;
+        private DataGridViewTextBoxColumn colTenNhanVien;
+        private DataGridViewTextBoxColumn colMaNCC;
+        private DataGridViewTextBoxColumn colTenNCC;
+        private Button btnSearch;
+        private Label label1;
+        private TextBox txtSearch;
     }
 }

@@ -96,5 +96,38 @@ namespace QuanLyThuVien.DAO
             };
             return DataProvider.ExecuteNonQuery(query,param) > 0;
         }
+        // lay ct phieu nhap theo ten sach
+        // trong CTPhieuNhapDAO
+        public List<CTPhieuNhapDTO> Search(int maPhieuNhap, string tensach)
+        {
+            List<CTPhieuNhapDTO> ls = new List<CTPhieuNhapDTO>();
+                string query = @"
+                                SELECT ct.MaPhieuNhap, ct.MaDauSach, ct.SoLuong, ct.DonGia, ds.TenDauSach
+                                FROM ctphieu_nhap ct
+                                JOIN dau_sach ds ON ct.MaDauSach = ds.MaDauSach
+                                WHERE ct.MaPhieuNhap = @MaPhieuNhap AND ds.TenDauSach LIKE @TenDauSach";
+
+                var param = new Dictionary<string, object>
+                                {
+                                    { "@MaPhieuNhap", maPhieuNhap },
+                                    { "@TenDauSach", "%" + tensach + "%" }
+                                };
+
+            DataTable dt = DataProvider.ExecuteQuery(query, param);
+            foreach (DataRow row in dt.Rows)
+            {
+                CTPhieuNhapDTO ct = new CTPhieuNhapDTO
+                {
+                    MaPhieuNhap = Convert.ToInt32(row["MaPhieuNhap"]),
+                    MaDauSach = Convert.ToInt32(row["MaDauSach"]),
+                    SoLuong = Convert.ToInt32(row["SoLuong"]),
+                    DonGia = Convert.ToDouble(row["DonGia"]),
+                    TenSach = row["TenDauSach"].ToString()
+                };
+                ls.Add(ct);
+            }
+            return ls;
+        }
+
     }
 }

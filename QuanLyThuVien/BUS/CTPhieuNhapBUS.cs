@@ -25,6 +25,10 @@ namespace QuanLyThuVien.BUS
                 throw new Exception("Mã phiếu nhập không hợp lệ");
             return dao.GetByPhieuNhap(maPhieuNhap);
         }
+        public List<CTPhieuNhapDTO> Search(int maPhieuNhap,string tensach)
+        {
+            return dao.Search(maPhieuNhap, tensach);
+        }
 
         // them chi tiet phieu nhap
         public bool Insert(CTPhieuNhapDTO ct)
