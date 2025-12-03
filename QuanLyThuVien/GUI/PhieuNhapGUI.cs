@@ -40,6 +40,8 @@ namespace QuanLyThuVien.GUI
             colDate.DataPropertyName = "ThoiGian";
             colMaNV.DataPropertyName = "MaNV";
             colMaNCC.DataPropertyName = "MaNCC";
+            colTenNhanVien.DataPropertyName = "TENNV";
+            colTenNCC.DataPropertyName = "TENNCC";
             dataGridView1.DataSource = bus.GetALL();
         }
 
@@ -140,6 +142,22 @@ namespace QuanLyThuVien.GUI
                 MessageBox.Show("Cập nhật thất bại. Vui lòng thử lại.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            string keyword = txtSearch.Text.Trim();
+            var result = bus.Search(keyword);
+            if (result == null || result.Count == 0)
+            {
+                MessageBox.Show("Không tìm thấy phiếu nhập nào phù hợp với từ khóa",
+                                "Thông báo",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Information);
+
+                dataGridView1.DataSource = null;
+                return;
+            }
+            dataGridView1.DataSource = result;
+        }
         private void LoadNhanVien()
         {
             string query = "SELECT MANV, TENNV FROM nhan_vien";
@@ -223,6 +241,16 @@ namespace QuanLyThuVien.GUI
         }
 
         private void formThemPhieuNhap2_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnSearch_Click_1(object sender, EventArgs e)
+        {
+            btnSearch_Click(this, EventArgs.Empty);
+        }
+
+        private void txtSearch_TextChanged(object sender, EventArgs e)
         {
 
         }
