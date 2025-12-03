@@ -100,6 +100,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BUS\NhanVienBUS.cs" />
     <Compile Include="BUS\PhieuMuonBUS.cs" />
     <Compile Include="BUS\PhieuPhatBUS.cs" />
     <Compile Include="BUS\CTPhieuNhapBUS.cs" />
@@ -111,6 +112,7 @@
     <Compile Include="BUS\TaiKhoanBUS.cs" />
     <Compile Include="DAO\DocGiaDAO.cs" />
     <Compile Include="DAO\CTPhieuMuonDAO.cs" />
+    <Compile Include="DAO\NhanVienDAO.cs" />
     <Compile Include="DAO\PhieuMuonDAO.cs" />
     <Compile Include="DAO\PhieuPhatDAO.cs" />
     <Compile Include="DAO\CTPhieuNhapDAO.cs" />
@@ -122,6 +124,7 @@
     <Compile Include="DAO\TacGiaDAO.cs" />
     <Compile Include="DAO\TaiKhoanDAO.cs" />
     <Compile Include="DTO\CTPhieuTraDTO.cs" />
+    <Compile Include="DTO\NhanVienDTO.cs" />
     <Compile Include="DTO\PhieuTraViPhamDTO.cs" />
     <Compile Include="DTO\DocGiaDTO.cs" />
     <Compile Include="DTO\PhieuPhatDTO.cs" />
@@ -168,6 +171,18 @@
     </Compile>
     <Compile Include="GUI\DauSachDialog.Designer.cs">
       <DependentUpon>DauSachDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\FormNhanVien.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\FormNhanVien.Designer.cs">
+      <DependentUpon>FormNhanVien.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\NhanVienGUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\NhanVienGUI.Designer.cs">
+      <DependentUpon>NhanVienGUI.cs</DependentUpon>
     </Compile>
     <Compile Include="GUI\phieuphat\FormAddPhieuPhat.cs">
       <SubType>Form</SubType>
@@ -274,6 +289,12 @@
     <EmbeddedResource Include="GUI\DauSachDialog.resx">
       <DependentUpon>DauSachDialog.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="GUI\FormNhanVien.resx">
+      <DependentUpon>FormNhanVien.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\NhanVienGUI.resx">
+      <DependentUpon>NhanVienGUI.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GUI\phieuphat\FormAddPhieuPhat.resx">
       <DependentUpon>FormAddPhieuPhat.cs</DependentUpon>
     </EmbeddedResource>
@@ -311,6 +332,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="database\quanlythuvien.sql" />
+    <None Include="Resources\nhanvien.png" />
+    <None Include="Resources\phanquyen.png" />
     <None Include="Resources\info.png" />
     <None Include="Resources\remove.png" />
     <None Include="Resources\pen.png" />

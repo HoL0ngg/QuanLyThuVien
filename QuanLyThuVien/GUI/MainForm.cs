@@ -434,6 +434,8 @@ namespace QuanLyThuVien.GUI
                 LoadModule(new PhieuTraGUI());
             else if (clickedPanel.Name == "panelDauSach")
                 LoadModule(new DauSach());
+            else if (clickedPanel.Name == "panelNhanVien") 
+                LoadModule(new NhanVienGUI());
         }
 
         private void panel9_Paint(object sender, PaintEventArgs e) { }
