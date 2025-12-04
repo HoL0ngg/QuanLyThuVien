@@ -19,7 +19,7 @@ namespace QuanLyThuVien.GUI
         {
             InitializeComponent();
             bangPhieuMuon.CellClick += BangPhieuMuon_CellClick;
-            bangPhieuMuon.CellFormatting += BangPhieuMuon_CellFormatting; 
+            bangPhieuMuon.CellFormatting += BangPhieuMuon_CellFormatting;
             btnClearFilters.Click += BtnClearFilters_Click;
             btnTimKiem.Click += BtnTimKiem_Click;
             tk = taikhoan;
@@ -123,7 +123,57 @@ namespace QuanLyThuVien.GUI
             // Ẩn giao diện danh sách, hiển thị UC thêm
             ToggleView(true);
         }
-        public override void OnEdit() { }
+        public override void OnEdit()
+        {
+            if (bangPhieuMuon.CurrentRow == null)
+            {
+                MessageBox.Show("Vui lòng chọn một phiếu mượn để cập nhật.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            var idCell = bangPhieuMuon.CurrentRow.Cells["MaPhieuMuon"];
+            if (idCell?.Value == null || !int.TryParse(idCell.Value.ToString(), out int id)) return;
+
+            DateTime ngayTraDuKien = DateTime.MinValue;
+            var ngayTraCell = bangPhieuMuon.CurrentRow.Cells["NgayTraDuKien"];
+            if (ngayTraCell?.Value != null)
+            {
+                DateTime.TryParse(ngayTraCell.Value.ToString(), out ngayTraDuKien);
+            }
+
+            int currentStatus = 0;
+            var trangThaiCell = bangPhieuMuon.CurrentRow.Cells["TrangThai"];
+            if (trangThaiCell?.Value != null)
+            {
+                int.TryParse(trangThaiCell.Value.ToString(), out currentStatus);
+            }
+            if (currentStatus == 2 || currentStatus == 3)
+            {
+                MessageBox.Show("Phiếu mượn này đã được trả.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            var confirm = MessageBox.Show("Bạn có muốn cập nhật trạng thái trả không?", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (confirm != DialogResult.Yes) return;
+
+            try
+            {
+                var today = DateTime.Today;
+                int newStatus = today > ngayTraDuKien.Date ? 3 : 2; 
+                var pm = new PhieuMuonDTO { MaPhieuMuon = id, TrangThai = newStatus };
+                if (bus.Update(pm))
+                {
+                    LoadData();
+                }
+                else
+                {
+                    MessageBox.Show("Cập nhật trạng thái không thành công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi cập nhật trạng thái: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
 
         public override void OnDelete()
         {

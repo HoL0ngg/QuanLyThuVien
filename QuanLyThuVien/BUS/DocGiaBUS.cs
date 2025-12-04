@@ -21,6 +21,11 @@ namespace QuanLyThuVien.BUS
             return dgDAO.GetById(maDG);
         }
 
+        public DocGiaDTO GetByPhone(string sdt)
+        {
+            return dgDAO.GetByPhone(sdt);
+        }
+
         public bool Create(DocGiaDTO dg)
         {
             if (dg == null)

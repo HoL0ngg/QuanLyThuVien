@@ -196,6 +196,12 @@
     <Compile Include="GUI\PhieuNhapGUI.Designer.cs">
       <DependentUpon>PhieuNhapGUI.cs</DependentUpon>
     </Compile>
+    <Compile Include="GUI\SuaDocGiaDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\SuaDocGiaDialog.Designer.cs">
+      <DependentUpon>SuaDocGiaDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI\ThemDocGiaDialog.cs">
       <SubType>Form</SubType>
     </Compile>

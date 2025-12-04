@@ -10,7 +10,7 @@ namespace QuanLyThuVien.DAO
         public List<DocGiaDTO> GetAll()
         {
             List<DocGiaDTO> list = new List<DocGiaDTO>();
-            string query = "SELECT * FROM doc_gia";
+            string query = "SELECT * FROM doc_gia WHERE TRANGTHAI != 0";
             DataTable dt = DataProvider.ExecuteQuery(query);
             foreach (DataRow row in dt.Rows)
             {
@@ -31,6 +31,27 @@ namespace QuanLyThuVien.DAO
         {
             string query = "SELECT * FROM doc_gia WHERE MaDG=@MaDG";
             var parameters = new Dictionary<string, object> { { "@MaDG", maDG } };
+            DataTable dt = DataProvider.ExecuteQuery(query, parameters);
+
+            if (dt.Rows.Count == 0)
+                return null;
+            DataRow row = dt.Rows[0];
+            DocGiaDTO docGia = new DocGiaDTO
+            {
+                MaDG = Convert.ToInt32(row["MaDG"]),
+                TenDG = row["TenDG"]?.ToString(),
+                SDT = row["SDT"]?.ToString(),
+                DiaChi = row["DiaChi"]?.ToString(),
+                TrangThai = Convert.ToInt32(row["TrangThai"])
+            };
+            return docGia;
+        }
+
+
+        public DocGiaDTO GetByPhone(string sdt)
+        {
+            string query = "SELECT * FROM doc_gia WHERE SDT=@SDT";
+            var parameters = new Dictionary<string, object> { { "@SDT", sdt } };
             DataTable dt = DataProvider.ExecuteQuery(query, parameters);
 
             if (dt.Rows.Count == 0)
@@ -79,7 +100,7 @@ namespace QuanLyThuVien.DAO
 
         public bool Delete(int maDG)
         {
-            string query = "DELETE FROM doc_gia WHERE MaDG=@MaDG";
+            string query = "UPDATE doc_gia SET TrangThai=0 WHERE MaDG=@MaDG";
             var parameters = new Dictionary<string, object> { { "@MaDG", maDG } };
             return DataProvider.ExecuteNonQuery(query, parameters) > 0;
         }

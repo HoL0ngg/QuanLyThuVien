@@ -1,10 +1,7 @@
 ﻿namespace QuanLyThuVien.GUI
 {
-    partial class ThemDocGiaDialog
+    partial class SuaDocGiaDialog
     {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
         private System.ComponentModel.IContainer components = null;
         private System.Windows.Forms.TableLayoutPanel tblMain;
         private System.Windows.Forms.Label lblTenDG;
@@ -14,13 +11,9 @@
         private System.Windows.Forms.TextBox txtSDT;
         private System.Windows.Forms.TextBox txtDiaChi;
         private System.Windows.Forms.Panel panelBottom;
-        private System.Windows.Forms.Button btnThem;
+        private System.Windows.Forms.Button btnLuu;
         private System.Windows.Forms.Button btnHuy;
 
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -30,12 +23,6 @@
             base.Dispose(disposing);
         }
 
-        #region Windows Form Designer generated code
-
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
         private void InitializeComponent()
         {
             this.tblMain = new System.Windows.Forms.TableLayoutPanel();
@@ -46,7 +33,7 @@
             this.lblDiaChi = new System.Windows.Forms.Label();
             this.txtDiaChi = new System.Windows.Forms.TextBox();
             this.panelBottom = new System.Windows.Forms.Panel();
-            this.btnThem = new System.Windows.Forms.Button();
+            this.btnLuu = new System.Windows.Forms.Button();
             this.btnHuy = new System.Windows.Forms.Button();
             this.tblMain.SuspendLayout();
             this.panelBottom.SuspendLayout();
@@ -72,7 +59,7 @@
             this.tblMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tblMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tblMain.Size = new System.Drawing.Size(321, 136);
-            this.tblMain.TabIndex = 1;
+            this.tblMain.TabIndex = 0;
             // 
             // lblTenDG
             // 
@@ -127,39 +114,38 @@
             // 
             // panelBottom
             // 
-            this.panelBottom.Controls.Add(this.btnThem);
+            this.panelBottom.Controls.Add(this.btnLuu);
             this.panelBottom.Controls.Add(this.btnHuy);
             this.panelBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panelBottom.Location = new System.Drawing.Point(0, 155);
             this.panelBottom.Name = "panelBottom";
             this.panelBottom.Padding = new System.Windows.Forms.Padding(10);
             this.panelBottom.Size = new System.Drawing.Size(321, 50);
-            this.panelBottom.TabIndex = 0;
+            this.panelBottom.TabIndex = 1;
             // 
-            // btnThem
+            // btnLuu
             // 
-            this.btnThem.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.btnThem.Location = new System.Drawing.Point(166, 10);
-            this.btnThem.Name = "btnThem";
-            this.btnThem.Size = new System.Drawing.Size(80, 30);
-            this.btnThem.TabIndex = 0;
-            this.btnThem.Text = "Thêm";
-            this.btnThem.UseVisualStyleBackColor = true;
+            this.btnLuu.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.btnLuu.Location = new System.Drawing.Point(166, 10);
+            this.btnLuu.Name = "btnLuu";
+            this.btnLuu.Size = new System.Drawing.Size(80, 30);
+            this.btnLuu.TabIndex = 6;
+            this.btnLuu.Text = "Lưu";
+            this.btnLuu.UseVisualStyleBackColor = true;
             // 
             // btnHuy
             // 
             this.btnHuy.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.btnHuy.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnHuy.Location = new System.Drawing.Point(74, 10);
             this.btnHuy.Name = "btnHuy";
             this.btnHuy.Size = new System.Drawing.Size(80, 30);
-            this.btnHuy.TabIndex = 1;
+            this.btnHuy.TabIndex = 7;
             this.btnHuy.Text = "Hủy";
             this.btnHuy.UseVisualStyleBackColor = true;
             // 
-            // ThemDocGiaDialog
+            // SuaDocGiaDialog
             // 
-            this.AcceptButton = this.btnThem;
+            this.AcceptButton = this.btnLuu;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(321, 205);
@@ -168,17 +154,15 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "ThemDocGiaDialog";
+            this.Name = "SuaDocGiaDialog";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Thêm độc giả";
+            this.Text = "Sửa độc giả";
             this.tblMain.ResumeLayout(false);
             this.tblMain.PerformLayout();
             this.panelBottom.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
-
-        #endregion
     }
 }

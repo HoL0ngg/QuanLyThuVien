@@ -16,12 +16,12 @@ namespace QuanLyThuVien.GUI
         {
             InitializeComponent();
             if (LicenseManager.UsageMode == LicenseUsageMode.Designtime) return;
-            this.Load += DocGia_Load;
+            LoadData();
             btnTimKiem.Click += BtnTimKiem_Click;
             btnClearFilters.Click += BtnClearFilters_Click;
         }
 
-        private void DocGia_Load(object sender, EventArgs e)
+        public override void LoadData()
         {
             dgList = new BindingList<DocGiaDTO>(dgBUS.GetAll());
             dgvDocGia.DataSource = dgList;
@@ -78,7 +78,72 @@ namespace QuanLyThuVien.GUI
             if (result == DialogResult.OK)
             {
                 MessageBox.Show("Thêm độc giả thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                LoadData(); // Tải lại dữ liệu sau khi thêm
+                LoadData(); 
+            }
+        }
+
+        public override void OnEdit()
+        {
+            if (dgvDocGia.CurrentRow == null)
+            {
+                MessageBox.Show("Vui lòng chọn một độc giả để sửa.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            DocGiaDTO selected = null;
+
+            var idCell = dgvDocGia.CurrentRow.Cells["MaDG"];
+            var tenCell = dgvDocGia.CurrentRow.Cells["TenDG"];
+            var sdtCell = dgvDocGia.CurrentRow.Cells["SDT"];
+            var dcCell = dgvDocGia.CurrentRow.Cells["DiaChi"];
+            int id = 0; int.TryParse(idCell?.Value?.ToString(), out id);
+            selected = new DocGiaDTO
+            {
+                MaDG = id,
+                TenDG = tenCell?.Value?.ToString(),
+                SDT = sdtCell?.Value?.ToString(),
+                DiaChi = dcCell?.Value?.ToString(),
+                TrangThai = 1
+            };
+
+            using (var dlg = new SuaDocGiaDialog(selected))
+            {
+                var result = dlg.ShowDialog(this);
+                if (result == DialogResult.OK)
+                {
+                    MessageBox.Show("Cập nhật độc giả thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    LoadData();
+                }
+            }
+        }
+
+        public override void OnDelete()
+        {
+            if (dgvDocGia.CurrentRow == null)
+            {
+                MessageBox.Show("Vui lòng chọn một độc giả.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            var idCell = dgvDocGia.CurrentRow.Cells["MaDG"];
+            if (idCell?.Value == null || !int.TryParse(idCell.Value.ToString(), out int id)) return;
+
+            var confirm = MessageBox.Show($"Bạn có chắc muốn xóa độc giả {id} không?", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (confirm != DialogResult.Yes) return;
+            try
+            {
+                if (dgBUS.Delete(id))
+                {
+                    MessageBox.Show("Xóa thành công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    LoadData();
+                }
+                else
+                {
+                    MessageBox.Show("Xóa không thành công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi xóa: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

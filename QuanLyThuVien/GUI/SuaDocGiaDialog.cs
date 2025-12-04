@@ -1,22 +1,33 @@
 ﻿using System;
 using System.Windows.Forms;
+using Org.BouncyCastle.Math.Field;
 using QuanLyThuVien.BUS;
 using QuanLyThuVien.DTO;
 
 namespace QuanLyThuVien.GUI
 {
-    public partial class ThemDocGiaDialog : Form
+    public partial class SuaDocGiaDialog : Form
     {
         private readonly DocGiaBUS dgBUS = new DocGiaBUS();
+        private readonly DocGiaDTO current;
+
         public string TenDocGia => txtTenDG.Text.Trim();
         public string SoDienThoai => txtSDT.Text.Trim();
         public string DiaChi => txtDiaChi.Text.Trim();
 
-        public ThemDocGiaDialog()
+        public SuaDocGiaDialog()
         {
             InitializeComponent();
-            btnThem.Click += BtnThem_Click;
-            btnHuy.Click += BtnHuy_Click;
+        }
+
+        public SuaDocGiaDialog(DocGiaDTO docGia) : this()
+        {
+            current = docGia ?? new DocGiaDTO();
+            txtTenDG.Text = current.TenDG;
+            txtSDT.Text = current.SDT;
+            txtDiaChi.Text = current.DiaChi;
+            this.btnLuu.Click += btnLuu_Click;
+            this.btnHuy.Click += btnHuy_Click;
         }
 
         private void FocusAndSelect(TextBox tb)
@@ -26,7 +37,7 @@ namespace QuanLyThuVien.GUI
             tb.SelectAll();
         }
 
-        private void BtnThem_Click(object sender, EventArgs e)
+        private void btnLuu_Click(object sender, EventArgs e)
         {
             try
             {
@@ -50,36 +61,38 @@ namespace QuanLyThuVien.GUI
                 }
                 var existed = dgBUS.GetByPhone(SoDienThoai);
                 if (existed != null)
-                {
-                    MessageBox.Show("Số điện thoại đã tồn tại.", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    FocusAndSelect(txtSDT);
-                    return;
-                }
+                    if (existed.MaDG != current.MaDG)
+                    {
+                        MessageBox.Show("Số điện thoại đã tồn tại.", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        FocusAndSelect(txtSDT);
+                        return;
+                    }
 
                 var dg = new DocGiaDTO
                 {
+                    MaDG = current.MaDG,
                     TenDG = TenDocGia,
                     SDT = SoDienThoai,
                     DiaChi = DiaChi,
                     TrangThai = 1
                 };
-                if (dgBUS.Create(dg))
+                if (dgBUS.Update(dg))
                 {
                     DialogResult = DialogResult.OK;
                     Close();
                 }
                 else
                 {
-                    MessageBox.Show("Không thể thêm độc giả.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Không thể cập nhật độc giả.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Lỗi khi thêm độc giả: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Lỗi khi cập nhật độc giả: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        private void BtnHuy_Click(object sender, EventArgs e)
+        private void btnHuy_Click(object sender, EventArgs e)
         {
             DialogResult = DialogResult.Cancel;
             Close();
