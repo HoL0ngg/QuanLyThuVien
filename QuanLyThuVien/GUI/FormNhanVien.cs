@@ -53,7 +53,6 @@ namespace QuanLyThuVien.GUI
             txtTenNV.Text = nhanVien.TenNV;
             dtpNgaySinh.Value = nhanVien.NgaySinh;
             cboGioiTinh.Text = nhanVien.GioiTinh;
-            txtDiaChi.Text = nhanVien.DiaChi;
             txtSDT.Text = nhanVien.SDT;
             txtEmail.Text = nhanVien.Email;
             cboTrangThai.SelectedIndex = nhanVien.TrangThai;
@@ -64,7 +63,6 @@ namespace QuanLyThuVien.GUI
             txtTenNV.ReadOnly = true;
             dtpNgaySinh.Enabled = false;
             cboGioiTinh.Enabled = false;
-            txtDiaChi.ReadOnly = true;
             txtSDT.ReadOnly = true;
             txtEmail.ReadOnly = true;
             cboTrangThai.Enabled = false;
@@ -79,10 +77,19 @@ namespace QuanLyThuVien.GUI
                 nhanVien.TenNV = txtTenNV.Text.Trim();
                 nhanVien.NgaySinh = dtpNgaySinh.Value;
                 nhanVien.GioiTinh = cboGioiTinh.Text;
-                nhanVien.DiaChi = txtDiaChi.Text.Trim();
                 nhanVien.SDT = txtSDT.Text.Trim();
                 nhanVien.Email = txtEmail.Text.Trim();
-                nhanVien.TrangThai = cboTrangThai.SelectedIndex;
+                nhanVien.TrangThai = (cboTrangThai.SelectedIndex + 1) % 2;
+
+                // Nếu là thêm mới, tạo TenDangNhap tự động từ tên
+                if (nhanVien.MaNV == 0)
+                {
+                    // Tạo username từ tên: Nguyễn Văn A -> nguyenvana
+                    string tenDangNhap = ConvertToUsername(nhanVien.TenNV);
+                    nhanVien.TenDangNhap = tenDangNhap;
+                    nhanVien.MatKhau = "123456"; // Mật khẩu mặc định
+                    nhanVien.MaNhomQuyen = 2; // Nhóm quyền mặc định (Thủ thư)
+                }
 
                 bool result = nhanVien.MaNV == 0
                     ? NhanVienBUS.Instance.ThemNhanVien(nhanVien)
@@ -102,6 +109,55 @@ namespace QuanLyThuVien.GUI
             {
                 MessageBox.Show(ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private string ConvertToUsername(string tenNV)
+        {
+            if (string.IsNullOrWhiteSpace(tenNV))
+                return "";
+
+            // Loại bỏ dấu tiếng Việt
+            string result = RemoveVietnameseTone(tenNV);
+            
+            // Chuyển về chữ thường, loại bỏ khoảng trắng
+            result = result.ToLower().Replace(" ", "");
+
+            // Thêm ngày sinh để đảm bảo unique
+            result += dtpNgaySinh.Value.ToString("ddMMyy");
+
+            return result;
+        }
+
+        private string RemoveVietnameseTone(string text)
+        {
+            string[] vietnameseChars = new string[]
+            {
+                "aAeEoOuUiIdDyY",
+                "áàạảãâấầậẩẫăắằặẳẵ",
+                "ÁÀẠẢÃÂẤẦẬẨẪĂẮẰẶẲẴ",
+                "éèẹẻẽêếềệểễ",
+                "ÉÈẸẺẼÊẾỀỆỂỄ",
+                "óòọỏõôốồộổỗơớờợởỡ",
+                "ÓÒỌỎÕÔỐỒỘỔỖƠỚỜỢỞỠ",
+                "úù ụủũưứừựửữ",
+                "ÚÙỤỦŨƯỨỪỰỬỮ",
+                "íìịỉĩ",
+                "ÍÌỊỈĨ",
+                "đ",
+                "Đ",
+                "ýỳỵỷỹ",
+                "ÝỲỴỶỸ"
+            };
+
+            for (int i = 1; i < vietnameseChars.Length; i++)
+            {
+                for (int j = 0; j < vietnameseChars[i].Length; j++)
+                {
+                    text = text.Replace(vietnameseChars[i][j], vietnameseChars[0][i - 1]);
+                }
+            }
+
+            return text;
         }
 
         private void btnHuy_Click(object sender, EventArgs e)

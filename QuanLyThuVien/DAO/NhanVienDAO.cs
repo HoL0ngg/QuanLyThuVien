@@ -44,8 +44,8 @@ namespace QuanLyThuVien.DAO
         public NhanVienDTO GetNhanVienById(int maNV)
         {
             string query = @"
-                SELECT MaNV, TenNV, NgaySinh, GioiTinh, DiaChi,
-                       SDT, Email, TrangThai
+                SELECT MaNV, TenNV, NgaySinh, GioiTinh,
+                       SDT, Email, TenDangNhap, MatKhau, MaNhomQuyen, TrangThai
                 FROM nhan_vien
                 WHERE MaNV = @MaNV";
 
@@ -66,9 +66,11 @@ namespace QuanLyThuVien.DAO
                 TenNV = row["TenNV"]?.ToString(),
                 NgaySinh = Convert.ToDateTime(row["NgaySinh"]),
                 GioiTinh = row["GioiTinh"]?.ToString(),
-                DiaChi = row["DiaChi"]?.ToString(),
                 SDT = row["SDT"]?.ToString(),
                 Email = row["Email"]?.ToString(),
+                TenDangNhap = row["TenDangNhap"]?.ToString(),
+                MatKhau = row["MatKhau"]?.ToString(),
+                MaNhomQuyen = row["MaNhomQuyen"] == DBNull.Value ? (int?)null : Convert.ToInt32(row["MaNhomQuyen"]),
                 TrangThai = Convert.ToInt32(row["TrangThai"])
             };
         }
@@ -77,18 +79,20 @@ namespace QuanLyThuVien.DAO
         {
             string query = @"
                 INSERT INTO nhan_vien 
-                (TenNV, NgaySinh, GioiTinh, DiaChi, SDT, Email, TrangThai)
+                (TenNV, NgaySinh, GioiTinh, SDT, Email, TenDangNhap, MatKhau, MaNhomQuyen, TrangThai)
                 VALUES 
-                (@TenNV, @NgaySinh, @GioiTinh, @DiaChi, @SDT, @Email, @TrangThai)";
+                (@TenNV, @NgaySinh, @GioiTinh, @SDT, @Email, @TenDangNhap, @MatKhau, @MaNhomQuyen, @TrangThai)";
 
             var parameters = new Dictionary<string, object>
             {
                 { "@TenNV", nv.TenNV },
                 { "@NgaySinh", nv.NgaySinh },
                 { "@GioiTinh", nv.GioiTinh },
-                { "@DiaChi", nv.DiaChi ?? "" },
                 { "@SDT", nv.SDT ?? "" },
                 { "@Email", nv.Email ?? "" },
+                { "@TenDangNhap", nv.TenDangNhap ?? "" },
+                { "@MatKhau", nv.MatKhau ?? "123456" }, // Mật khẩu mặc định
+                { "@MaNhomQuyen", nv.MaNhomQuyen ?? (object)DBNull.Value },
                 { "@TrangThai", nv.TrangThai }
             };
 
@@ -102,7 +106,6 @@ namespace QuanLyThuVien.DAO
                 SET TenNV = @TenNV,
                     NgaySinh = @NgaySinh,
                     GioiTinh = @GioiTinh,
-                    DiaChi = @DiaChi,
                     SDT = @SDT,
                     Email = @Email,
                     TrangThai = @TrangThai
@@ -114,7 +117,6 @@ namespace QuanLyThuVien.DAO
                 { "@TenNV", nv.TenNV },
                 { "@NgaySinh", nv.NgaySinh },
                 { "@GioiTinh", nv.GioiTinh },
-                { "@DiaChi", nv.DiaChi ?? "" },
                 { "@SDT", nv.SDT ?? "" },
                 { "@Email", nv.Email ?? "" },
                 { "@TrangThai", nv.TrangThai }

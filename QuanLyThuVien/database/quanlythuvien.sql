@@ -738,7 +738,8 @@ ALTER TABLE `nhan_vien`
   ADD PRIMARY KEY (`MANV`),
   ADD UNIQUE KEY `SDT` (`SDT`),
   ADD UNIQUE KEY `TenDangNhap_UNIQUE` (`TenDangNhap`),
-  ADD KEY `abc_idx` (`MaNhomQuyen`);
+  ADD KEY `abc_idx` (`MaNhomQuyen`),
+  MODIFY `MANV` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Chỉ mục cho bảng `nha_cung_cap`
@@ -957,14 +958,14 @@ ALTER TABLE `phieu_nhap`
 --
 -- Các ràng buộc cho bảng `phieu_phat`
 --
-LTER TABLE `phieu_phat`
+ALTER TABLE `phieu_phat`
   ADD CONSTRAINT `phieu_phat_ibfk_2` FOREIGN KEY (`MaCTPhieuTra`) REFERENCES `ctphieu_tra` (`MaCTPhieuTra`),
   ADD CONSTRAINT `phieu_phat_ibfk_3` FOREIGN KEY (`MaDG`) REFERENCES `doc_gia` (`MADG`);
 
 --
 -- Các ràng buộc cho bảng `phieu_tra`
 --
-AALTER TABLE `phieu_tra`
+ALTER TABLE `phieu_tra`
   ADD CONSTRAINT `phieu_tra_ibfk_1` FOREIGN KEY (`MaNV`) REFERENCES `nhan_vien` (`MANV`),
   ADD CONSTRAINT `phieu_tra_ibfk_3` FOREIGN KEY (`MaPhieuMuon`) REFERENCES `phieu_muon` (`MaPhieuMuon`),
   ADD CONSTRAINT `phieu_tra_ibfk_4` FOREIGN KEY (`MaDG`) REFERENCES `doc_gia` (`MADG`);

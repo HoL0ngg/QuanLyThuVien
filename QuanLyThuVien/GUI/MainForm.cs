@@ -46,9 +46,38 @@ namespace QuanLyThuVien.GUI
             this.SetStyle(ControlStyles.OptimizedDoubleBuffer | 
                          ControlStyles.AllPaintingInWmPaint | 
                          ControlStyles.UserPaint, true);
+            
+            // Đóng form khi đóng
+            this.FormClosing += MainForm_FormClosing;
+            
             ApplyMaterialDesign();
         }
 
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            // Giải phóng tài nguyên
+            if (currentModule != null)
+            {
+                currentModule.Dispose();
+            }
+        }
+
+        // Phương thức đăng xuất
+        public void DangXuat()
+        {
+            DialogResult result = MessageBox.Show(
+                "Bạn có chắc chắn muốn đăng xuất?",
+                "Xác nhận đăng xuất",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question);
+
+            if (result == DialogResult.Yes)
+            {
+                this.DialogResult = DialogResult.OK;
+                this.Close();
+            }
+        }
+        
         private void ApplyMaterialDesign()
         {
             // Form background
@@ -93,8 +122,29 @@ namespace QuanLyThuVien.GUI
             // Header labels
             label1.ForeColor = Color.White;
             label1.Font = GetSafeFont("Segoe UI", 18F, FontStyle.Bold);
+            
+            // Label2 làm nút đăng xuất
             label2.ForeColor = Color.FromArgb(230, 230, 230);
-            label2.Font = GetSafeFont("Segoe UI", 10F, FontStyle.Regular);
+            label2.Font = GetSafeFont("Segoe UI", 11F, FontStyle.Bold);
+            label2.Text = "🚪 Đăng xuất";
+            label2.Cursor = Cursors.Hand;
+            label2.Click -= label2_Click; // Xóa event cũ nếu có
+            label2.Click += Label2_DangXuat_Click; // Thêm event mới
+            
+            // Thêm hover effect cho label2
+            label2.MouseEnter += (s, e) => {
+                label2.ForeColor = Color.White;
+                label2.Font = GetSafeFont("Segoe UI", 11F, FontStyle.Bold | FontStyle.Underline);
+            };
+            label2.MouseLeave += (s, e) => {
+                label2.ForeColor = Color.FromArgb(230, 230, 230);
+                label2.Font = GetSafeFont("Segoe UI", 11F, FontStyle.Bold);
+            };
+        }
+        
+        private void Label2_DangXuat_Click(object sender, EventArgs e)
+        {
+            DangXuat();
         }
         
         private Font GetSafeFont(string fontName, float size, FontStyle style)
@@ -434,8 +484,10 @@ namespace QuanLyThuVien.GUI
                 LoadModule(new PhieuTraGUI());
             else if (clickedPanel.Name == "panelDauSach")
                 LoadModule(new DauSach());
-            else if (clickedPanel.Name == "panelNhanVien") 
+            else if (clickedPanel.Name == "panelNhanVien")
                 LoadModule(new NhanVienGUI());
+            else if (clickedPanel.Name == "panelDangXuat")
+                DangXuat();
         }
 
         private void panel9_Paint(object sender, PaintEventArgs e) { }

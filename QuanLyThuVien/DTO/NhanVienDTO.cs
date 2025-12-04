@@ -8,21 +8,22 @@ namespace QuanLyThuVien.DTO
         public string TenNV { get; set; }
         public DateTime NgaySinh { get; set; }
         public string GioiTinh { get; set; }
-        public string DiaChi { get; set; }
         public string SDT { get; set; }
         public string Email { get; set; }
+        public string TenDangNhap { get; set; }
+        public string MatKhau { get; set; }
+        public int? MaNhomQuyen { get; set; }
         public int TrangThai { get; set; } // 0: Ngh? vi?c, 1: ?ang làm
 
         public NhanVienDTO() { }
 
         public NhanVienDTO(int maNV, string tenNV, DateTime ngaySinh, string gioiTinh, 
-            string diaChi, string sdt, string email, int trangThai)
+            string sdt, string email, int trangThai)
         {
             MaNV = maNV;
             TenNV = tenNV;
             NgaySinh = ngaySinh;
             GioiTinh = gioiTinh;
-            DiaChi = diaChi;
             SDT = sdt;
             Email = email;
             TrangThai = trangThai;

@@ -96,7 +96,7 @@
             this.dgvNhanVien.Name = "dgvNhanVien";
             this.dgvNhanVien.RowHeadersWidth = 51;
             this.dgvNhanVien.RowTemplate.Height = 24;
-            this.dgvNhanVien.Size = new System.Drawing.Size(1040, 743);
+            this.dgvNhanVien.Size = new System.Drawing.Size(1040, 648);
             this.dgvNhanVien.TabIndex = 1;
             this.dgvNhanVien.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvNhanVien_CellClick);
             // 
@@ -105,7 +105,7 @@
             this.panelBottom.BackColor = System.Drawing.SystemColors.Window;
             this.panelBottom.Controls.Add(this.lblTongSo);
             this.panelBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelBottom.Location = new System.Drawing.Point(0, 723);
+            this.panelBottom.Location = new System.Drawing.Point(0, 628);
             this.panelBottom.Name = "panelBottom";
             this.panelBottom.Size = new System.Drawing.Size(1040, 100);
             this.panelBottom.TabIndex = 2;
@@ -130,7 +130,7 @@
             this.Controls.Add(this.dgvNhanVien);
             this.Controls.Add(this.panelTop);
             this.Name = "NhanVienGUI";
-            this.Size = new System.Drawing.Size(1040, 823);
+            this.Size = new System.Drawing.Size(1040, 728);
             this.panelTop.ResumeLayout(false);
             this.panelTop.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvNhanVien)).EndInit();

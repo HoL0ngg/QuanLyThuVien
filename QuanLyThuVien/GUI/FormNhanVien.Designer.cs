@@ -38,8 +38,6 @@
             this.label6 = new System.Windows.Forms.Label();
             this.txtSDT = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.txtDiaChi = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
             this.cboGioiTinh = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.dtpNgaySinh = new System.Windows.Forms.DateTimePicker();
@@ -86,7 +84,7 @@
             this.panelBody.Location = new System.Drawing.Point(0, 60);
             this.panelBody.Name = "panelBody";
             this.panelBody.Padding = new System.Windows.Forms.Padding(20);
-            this.panelBody.Size = new System.Drawing.Size(700, 390);
+            this.panelBody.Size = new System.Drawing.Size(700, 340);
             this.panelBody.TabIndex = 1;
             // 
             // groupBox1
@@ -97,8 +95,6 @@
             this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Controls.Add(this.txtSDT);
             this.groupBox1.Controls.Add(this.label5);
-            this.groupBox1.Controls.Add(this.txtDiaChi);
-            this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.cboGioiTinh);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.dtpNgaySinh);
@@ -111,7 +107,7 @@
             this.groupBox1.Location = new System.Drawing.Point(20, 20);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(15);
-            this.groupBox1.Size = new System.Drawing.Size(660, 350);
+            this.groupBox1.Size = new System.Drawing.Size(660, 300);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Thông tin nhân viên";
@@ -121,7 +117,7 @@
             this.cboTrangThai.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboTrangThai.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.cboTrangThai.FormattingEnabled = true;
-            this.cboTrangThai.Location = new System.Drawing.Point(470, 270);
+            this.cboTrangThai.Location = new System.Drawing.Point(470, 230);
             this.cboTrangThai.Name = "cboTrangThai";
             this.cboTrangThai.Size = new System.Drawing.Size(170, 25);
             this.cboTrangThai.TabIndex = 13;
@@ -131,7 +127,7 @@
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             this.label10.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(66)))), ((int)(((byte)(66)))));
-            this.label10.Location = new System.Drawing.Point(370, 273);
+            this.label10.Location = new System.Drawing.Point(370, 233);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(73, 17);
             this.label10.TabIndex = 12;
@@ -140,7 +136,7 @@
             // txtEmail
             // 
             this.txtEmail.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.txtEmail.Location = new System.Drawing.Point(140, 230);
+            this.txtEmail.Location = new System.Drawing.Point(140, 190);
             this.txtEmail.Name = "txtEmail";
             this.txtEmail.Size = new System.Drawing.Size(500, 25);
             this.txtEmail.TabIndex = 11;
@@ -150,7 +146,7 @@
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             this.label6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(66)))), ((int)(((byte)(66)))));
-            this.label6.Location = new System.Drawing.Point(20, 233);
+            this.label6.Location = new System.Drawing.Point(20, 193);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(42, 17);
             this.label6.TabIndex = 10;
@@ -159,7 +155,7 @@
             // txtSDT
             // 
             this.txtSDT.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.txtSDT.Location = new System.Drawing.Point(140, 190);
+            this.txtSDT.Location = new System.Drawing.Point(140, 150);
             this.txtSDT.MaxLength = 11;
             this.txtSDT.Name = "txtSDT";
             this.txtSDT.Size = new System.Drawing.Size(200, 25);
@@ -170,30 +166,11 @@
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(66)))), ((int)(((byte)(66)))));
-            this.label5.Location = new System.Drawing.Point(20, 193);
+            this.label5.Location = new System.Drawing.Point(20, 153);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(91, 17);
             this.label5.TabIndex = 8;
             this.label5.Text = "Số điện thoại:";
-            // 
-            // txtDiaChi
-            // 
-            this.txtDiaChi.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.txtDiaChi.Location = new System.Drawing.Point(140, 150);
-            this.txtDiaChi.Name = "txtDiaChi";
-            this.txtDiaChi.Size = new System.Drawing.Size(500, 25);
-            this.txtDiaChi.TabIndex = 7;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(66)))), ((int)(((byte)(66)))));
-            this.label4.Location = new System.Drawing.Point(20, 153);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(51, 17);
-            this.label4.TabIndex = 6;
-            this.label4.Text = "Địa chỉ:";
             // 
             // cboGioiTinh
             // 
@@ -262,7 +239,7 @@
             this.panelFooter.Controls.Add(this.btnHuy);
             this.panelFooter.Controls.Add(this.btnLuu);
             this.panelFooter.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelFooter.Location = new System.Drawing.Point(0, 450);
+            this.panelFooter.Location = new System.Drawing.Point(0, 400);
             this.panelFooter.Name = "panelFooter";
             this.panelFooter.Padding = new System.Windows.Forms.Padding(20);
             this.panelFooter.Size = new System.Drawing.Size(700, 70);
@@ -304,7 +281,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(700, 520);
+            this.ClientSize = new System.Drawing.Size(700, 470);
             this.Controls.Add(this.panelBody);
             this.Controls.Add(this.panelFooter);
             this.Controls.Add(this.panelHeader);
@@ -336,8 +313,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox cboGioiTinh;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox txtDiaChi;
-        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox txtSDT;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox txtEmail;
