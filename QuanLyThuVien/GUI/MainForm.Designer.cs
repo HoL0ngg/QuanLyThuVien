@@ -525,14 +525,14 @@ namespace QuanLyThuVien.GUI
             // 
             // panelThongKe
             // 
-            this.panelThongKe.BackColor = System.Drawing.Color.White;
+            this.panelThongKe.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.panelThongKe.Controls.Add(this.pictureBox7);
             this.panelThongKe.Controls.Add(this.label13);
             this.panelThongKe.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.panelThongKe.Location = new System.Drawing.Point(8, 501);
-            this.panelThongKe.Margin = new System.Windows.Forms.Padding(0, 3, 0, 10);
+            this.panelThongKe.Location = new System.Drawing.Point(0, 534);
+            this.panelThongKe.Margin = new System.Windows.Forms.Padding(0);
             this.panelThongKe.Name = "panelThongKe";
-            this.panelThongKe.Size = new System.Drawing.Size(320, 68);
+            this.panelThongKe.Size = new System.Drawing.Size(359, 91);
             this.panelThongKe.TabIndex = 1;
             this.panelThongKe.Click += new System.EventHandler(this.panelMenu_Click);
             this.panelThongKe.MouseEnter += new System.EventHandler(this.panelMenu_MouseEnter);
@@ -547,6 +547,7 @@ namespace QuanLyThuVien.GUI
             this.pictureBox7.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox7.TabIndex = 7;
             this.pictureBox7.TabStop = false;
+            this.pictureBox7.Click += new System.EventHandler(this.pictureBox7_Click);
             // 
             // label13
             // 
@@ -558,6 +559,7 @@ namespace QuanLyThuVien.GUI
             this.label13.Size = new System.Drawing.Size(108, 26);
             this.label13.TabIndex = 0;
             this.label13.Text = "Thống kê";
+            this.label13.Click += new System.EventHandler(this.label13_Click);
             // 
             // panelDangXuat
             // 
@@ -565,7 +567,7 @@ namespace QuanLyThuVien.GUI
             this.panelDangXuat.Controls.Add(this.pictureBox8);
             this.panelDangXuat.Controls.Add(this.label14);
             this.panelDangXuat.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.panelDangXuat.Location = new System.Drawing.Point(8, 582);
+            this.panelDangXuat.Location = new System.Drawing.Point(8, 682);
             this.panelDangXuat.Margin = new System.Windows.Forms.Padding(0, 3, 0, 10);
             this.panelDangXuat.Name = "panelDangXuat";
             this.panelDangXuat.Size = new System.Drawing.Size(320, 68);
@@ -668,6 +670,7 @@ namespace QuanLyThuVien.GUI
             this.pictureBox7.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox7.TabIndex = 7;
             this.pictureBox7.TabStop = false;
+            this.pictureBox7.Click += new System.EventHandler(this.pictureBox7_Click);
             // 
             // pictureBox8
             // 

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th10 28, 2025 lúc 09:30 PM
+-- Thời gian đã tạo: Th12 04, 2025 lúc 07:32 AM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.2.12
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Cơ sở dữ liệu: `quanlythuvien`
+-- Cơ sở dữ liệu: `qltv`
 --
 
 -- --------------------------------------------------------
@@ -310,36 +310,24 @@ CREATE TABLE `dau_sach` (
   `NgonNgu` varchar(100) NOT NULL,
   `SoLuong` int(11) NOT NULL,
   `Gia` int(11) DEFAULT NULL,
-  `TrangThai` tinyint(1) NOT NULL DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
-DROP TABLE IF EXISTS `nha_xuat_ban`;
-
--- Tạo lại bảng mới chuẩn hơn
-CREATE TABLE `nha_xuat_ban` (
-  `MaNXB` int(11) NOT NULL AUTO_INCREMENT,
-  `TenNXB` varchar(100) NOT NULL,
-  `Status` int(11) NOT NULL DEFAULT 1, -- 1: Hoạt động, 0: Bị ẩn
-  PRIMARY KEY (`MaNXB`)
+  `TrangThai` tinyint(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `dau_sach`
 --
 
-INSERT INTO `dau_sach` (`MaDauSach`, `TenDauSach`, `HinhAnh`, `NhaXuatBan`, `NamXuatBan`, `NgonNgu`, `SoLuong`, `Gia`) VALUES
-(1, 'Tuổi Thơ Dữ Dội', 'tuoithodu_doi.jpg', '1', '1988', 'Tiếng Việt', 50, NULL),
-(2, 'Doraemon - Tập 1', 'doraemon_tap1.jpg', '1', '1992', 'Tiếng Việt', 120, NULL),
-(3, 'Harry Potter và Hòn Đá Phù Thủy', 'hp1.jpg', '2', '1997', 'Tiếng Anh', 80, NULL),
-(4, 'Nhà Giả Kim', 'nha_gia_kim.jpg', '3', '1988', 'Tiếng Việt', 60, NULL),
-(5, 'Đắc Nhân Tâm', 'dac_nhan_tam.jpg', '4', '1936', 'Tiếng Việt', 100, NULL),
-(6, 'Chí Phèo', 'chi_pheo.jpg', '3', '1941', 'Tiếng Việt', 40, NULL),
-(7, 'Sherlock Holmes - Tập 1', 'sherlock1.jpg', '5', '1892', 'Tiếng Anh', 55, NULL),
-(8, 'Không Gia Đình', 'khong_gia_dinh.jpg', '1', '1878', 'Tiếng Việt', 70, NULL),
-(9, 'One Piece - Tập 1', 'onepiece_tap1.jpg', '1', '1997', 'Tiếng Việt', 150, NULL),
-(10, 'Around the World in 80 Days', 'around80days.jpg', '6', '1873', 'Tiếng Anh', 30, NULL);
-
-INSERT INTO `nha_xuat_ban` VALUES ( 1, 'Nhà Xuất Bản Trẻ', 1),(2, 'Bloomsbury Publishing', 1),(3, 'Nhà Xuất Bản Văn Học', 1),(4, 'Nhà Xuất Bản Đắc Nhân Tâm', 1),(5, 'Penguin Random House', 1),(6, 'Nhà Xuất Bản Kim Đồng', 1);
+INSERT INTO `dau_sach` (`MaDauSach`, `TenDauSach`, `HinhAnh`, `NhaXuatBan`, `NamXuatBan`, `NgonNgu`, `SoLuong`, `Gia`, `TrangThai`) VALUES
+(1, 'Tuổi Thơ Dữ Dội', 'tuoithodu_doi.jpg', '1', '1988', 'Tiếng Việt', 50, NULL, 1),
+(2, 'Doraemon - Tập 1', 'doraemon_tap1.jpg', '1', '1992', 'Tiếng Việt', 120, NULL, 1),
+(3, 'Harry Potter và Hòn Đá Phù Thủy', 'hp1.jpg', '2', '1997', 'Tiếng Anh', 80, NULL, 1),
+(4, 'Nhà Giả Kim', 'nha_gia_kim.jpg', '3', '1988', 'Tiếng Việt', 60, NULL, 1),
+(5, 'Đắc Nhân Tâm', 'dac_nhan_tam.jpg', '4', '1936', 'Tiếng Việt', 100, NULL, 1),
+(6, 'Chí Phèo', 'chi_pheo.jpg', '3', '1941', 'Tiếng Việt', 40, NULL, 1),
+(7, 'Sherlock Holmes - Tập 1', 'sherlock1.jpg', '5', '1892', 'Tiếng Anh', 55, NULL, 1),
+(8, 'Không Gia Đình', 'khong_gia_dinh.jpg', '1', '1878', 'Tiếng Việt', 70, NULL, 1),
+(9, 'One Piece - Tập 1', 'onepiece_tap1.jpg', '1', '1997', 'Tiếng Việt', 150, NULL, 1),
+(10, 'Around the World in 80 Days', 'around80days.jpg', '6', '1873', 'Tiếng Anh', 30, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -432,10 +420,26 @@ INSERT INTO `nha_cung_cap` (`MANCC`, `TENCC`, `DIACHI`, `EMAIL`, `SDT`) VALUES
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `nhomquyen_chucnang`
+-- Cấu trúc bảng cho bảng `nha_xuat_ban`
 --
--- Error reading structure for table quanlythuvien.nhomquyen_chucnang: #1932 - Table &#039;quanlythuvien.nhomquyen_chucnang&#039; doesn&#039;t exist in engine
--- Error reading data for table quanlythuvien.nhomquyen_chucnang: #1064 - You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near &#039;FROM `quanlythuvien`.`nhomquyen_chucnang`&#039; at line 1
+
+CREATE TABLE `nha_xuat_ban` (
+  `MaNXB` int(11) NOT NULL,
+  `TenNXB` varchar(100) NOT NULL,
+  `Status` int(11) NOT NULL DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `nha_xuat_ban`
+--
+
+INSERT INTO `nha_xuat_ban` (`MaNXB`, `TenNXB`, `Status`) VALUES
+(1, 'Nhà Xuất Bản Trẻ', 1),
+(2, 'Bloomsbury Publishing', 1),
+(3, 'Nhà Xuất Bản Văn Học', 1),
+(4, 'Nhà Xuất Bản Đắc Nhân Tâm', 1),
+(5, 'Penguin Random House', 1),
+(6, 'Nhà Xuất Bản Kim Đồng', 1);
 
 -- --------------------------------------------------------
 
@@ -529,14 +533,15 @@ INSERT INTO `phieu_phat` (`MaPhieuPhat`, `NgayPhat`, `TrangThai`, `MaCTPhieuTra`
 (8, '2025-01-23', 1, 8, '2025-01-24', 8),
 (29, '2025-11-28', 1, 10, '2025-01-26', 10),
 (30, '2025-11-28', 1, 9, '2025-01-25', 9),
-(31, '2025-11-28', 1, 5, '2025-01-20', 5),
-(32, '2025-11-28', 1, 4, '2025-01-19', 4);
+(31, '2025-11-28', 0, 5, '2025-01-20', 5),
+(32, '2025-11-28', 0, 4, '2025-01-19', 4);
 
 -- --------------------------------------------------------
 
 --
 -- Cấu trúc bảng cho bảng `phieu_tra`
 --
+
 CREATE TABLE `phieu_tra` (
   `MaPhieuTra` int(11) NOT NULL,
   `NgayTra` date NOT NULL,
@@ -600,6 +605,20 @@ CREATE TABLE `tacgia_dausach` (
   `MaDauSach` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Đang đổ dữ liệu cho bảng `tacgia_dausach`
+--
+
+INSERT INTO `tacgia_dausach` (`MaTacGia`, `MaDauSach`) VALUES
+(1, 1),
+(2, 1),
+(2, 2),
+(3, 6),
+(4, 8),
+(5, 3),
+(7, 7),
+(10, 10);
+
 -- --------------------------------------------------------
 
 --
@@ -628,16 +647,6 @@ INSERT INTO `tac_gia` (`MaTacGia`, `TenTacGia`, `NamSinh`, `QuocTich`) VALUES
 (8, 'Ernest Hemingway', '1899-07-21', 'Mỹ'),
 (9, 'Paulo Coelho', '1947-08-24', 'Brazil'),
 (10, 'Lev Tolstoy', '1828-09-09', 'Nga');
-
-INSERT INTO `tacgia_dausach` (`MaTacGia`, `MaDauSach`) VALUES
-(1, 1),
-(2, 2),
-(5, 3),
-(2, 1),
-(3, 6),
-(4, 8),
-(7, 7),
-(10, 10);
 
 -- --------------------------------------------------------
 
@@ -677,6 +686,13 @@ INSERT INTO `the_loai` (`MaDauSach`, `MaTheLoai`) VALUES
 --
 -- Chỉ mục cho các bảng đã đổ
 --
+
+--
+-- Chỉ mục cho bảng `chucnang_nhomquyen`
+--
+ALTER TABLE `chucnang_nhomquyen`
+  ADD KEY `chucnang_nhomquyen_ibfk_1` (`MaChucNang`),
+  ADD KEY `chucnang_nhomquyen_ibfk_2` (`MaNhomQuyen`);
 
 --
 -- Chỉ mục cho bảng `chuc_nang`
@@ -749,6 +765,12 @@ ALTER TABLE `nha_cung_cap`
   ADD UNIQUE KEY `SDT` (`SDT`);
 
 --
+-- Chỉ mục cho bảng `nha_xuat_ban`
+--
+ALTER TABLE `nha_xuat_ban`
+  ADD PRIMARY KEY (`MaNXB`);
+
+--
 -- Chỉ mục cho bảng `nhom_quyen`
 --
 ALTER TABLE `nhom_quyen`
@@ -778,7 +800,6 @@ ALTER TABLE `phieu_phat`
   ADD KEY `MaCTPhieuTra` (`MaCTPhieuTra`),
   ADD KEY `MaDG` (`MaDG`);
 
-
 --
 -- Chỉ mục cho bảng `phieu_tra`
 --
@@ -788,6 +809,7 @@ ALTER TABLE `phieu_tra`
   ADD KEY `MaPhieuMuon` (`MaPhieuMuon`),
   ADD KEY `MaDG` (`MaDG`);
 
+--
 -- Chỉ mục cho bảng `sach`
 --
 ALTER TABLE `sach`
@@ -834,7 +856,7 @@ ALTER TABLE `ctphieu_muon`
 -- AUTO_INCREMENT cho bảng `ctphieu_phat`
 --
 ALTER TABLE `ctphieu_phat`
-  MODIFY `MaCTPhieuPhat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `MaCTPhieuPhat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT cho bảng `ctphieu_tra`
@@ -867,6 +889,12 @@ ALTER TABLE `nha_cung_cap`
   MODIFY `MANCC` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
+-- AUTO_INCREMENT cho bảng `nha_xuat_ban`
+--
+ALTER TABLE `nha_xuat_ban`
+  MODIFY `MaNXB` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
 -- AUTO_INCREMENT cho bảng `phieu_muon`
 --
 ALTER TABLE `phieu_muon`
@@ -876,7 +904,7 @@ ALTER TABLE `phieu_muon`
 -- AUTO_INCREMENT cho bảng `phieu_phat`
 --
 ALTER TABLE `phieu_phat`
-  MODIFY `MaPhieuPhat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `MaPhieuPhat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT cho bảng `phieu_tra`
@@ -957,37 +985,9 @@ ALTER TABLE `phieu_nhap`
 --
 -- Các ràng buộc cho bảng `phieu_phat`
 --
-LTER TABLE `phieu_phat`
-  ADD CONSTRAINT `phieu_phat_ibfk_2` FOREIGN KEY (`MaCTPhieuTra`) REFERENCES `ctphieu_tra` (`MaCTPhieuTra`),
-  ADD CONSTRAINT `phieu_phat_ibfk_3` FOREIGN KEY (`MaDG`) REFERENCES `doc_gia` (`MADG`);
-
---
--- Các ràng buộc cho bảng `phieu_tra`
---
-AALTER TABLE `phieu_tra`
-  ADD CONSTRAINT `phieu_tra_ibfk_1` FOREIGN KEY (`MaNV`) REFERENCES `nhan_vien` (`MANV`),
-  ADD CONSTRAINT `phieu_tra_ibfk_3` FOREIGN KEY (`MaPhieuMuon`) REFERENCES `phieu_muon` (`MaPhieuMuon`),
-  ADD CONSTRAINT `phieu_tra_ibfk_4` FOREIGN KEY (`MaDG`) REFERENCES `doc_gia` (`MADG`);
-
---
--- Các ràng buộc cho bảng `sach`
---
-ALTER TABLE `sach`
-  ADD CONSTRAINT `sach_ibfk_1` FOREIGN KEY (`MaDauSach`) REFERENCES `dau_sach` (`MaDauSach`);
-
---
--- Các ràng buộc cho bảng `tacgia_dausach`
---
-ALTER TABLE `tacgia_dausach`
-  ADD CONSTRAINT `tacgia_dausach_ibfk_1` FOREIGN KEY (`MaDauSach`) REFERENCES `dau_sach` (`MaDauSach`),
-  ADD CONSTRAINT `tacgia_dausach_ibfk_2` FOREIGN KEY (`MaTacGia`) REFERENCES `tac_gia` (`MaTacGia`);
-
---
--- Các ràng buộc cho bảng `the_loai`
---
-ALTER TABLE `the_loai`
-  ADD CONSTRAINT `the_loai_ibfk_1` FOREIGN KEY (`MaDauSach`) REFERENCES `dau_sach` (`MaDauSach`),
-  ADD CONSTRAINT `the_loai_ibfk_2` FOREIGN KEY (`MaTheLoai`) REFERENCES `ctthe_loai` (`MaTheLoai`);
+ALTER TABLE `phieu_phat`
+  ADD CONSTRAINT `phieu_phat_ibfk_1` FOREIGN KEY (`MaPhieuPhat`) REFERENCES `ctphieu_phat` (`MaPhieuPhat`),
+  ADD CONSTRAINT `phieu_phat_ibfk_2` FOREIGN KEY (`MaDG`) REFERENCES `doc_gia` (`MADG`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

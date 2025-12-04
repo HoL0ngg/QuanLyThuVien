@@ -100,6 +100,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BUS\ThongKeBUS.cs" />
     <Compile Include="BUS\PhieuMuonBUS.cs" />
     <Compile Include="BUS\PhieuPhatBUS.cs" />
     <Compile Include="BUS\CTPhieuNhapBUS.cs" />
@@ -109,6 +110,7 @@
     <Compile Include="BUS\PhieuTraBUS.cs" />
     <Compile Include="BUS\TacGiaBUS.cs" />
     <Compile Include="BUS\TaiKhoanBUS.cs" />
+    <Compile Include="DAO\ThongKeDAO.cs" />
     <Compile Include="DAO\DocGiaDAO.cs" />
     <Compile Include="DAO\CTPhieuMuonDAO.cs" />
     <Compile Include="DAO\PhieuMuonDAO.cs" />
@@ -133,6 +135,8 @@
     <Compile Include="DTO\PhieuTraDTO.cs" />
     <Compile Include="DTO\TacGiaDTO.cs" />
     <Compile Include="DTO\TaiKhoanDTO.cs" />
+    <Compile Include="DTO\ThongKeOverviewDTO.cs" />
+    <Compile Include="DTO\ThongKeSachDTO.cs" />
     <Compile Include="GUI\BaseModuleUC.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -235,6 +239,30 @@
     <Compile Include="GUI\phieuphat\PhieuPhat.Designer.cs">
       <DependentUpon>PhieuPhat.cs</DependentUpon>
     </Compile>
+    <Compile Include="GUI\ThongKeGUI\UCThongKeSach.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\ThongKeGUI\UCThongKeSach.Designer.cs">
+      <DependentUpon>UCThongKeSach.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\ThongKeGUI\UCThongKePhieuPhat.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\ThongKeGUI\UCThongKePhieuPhat.Designer.cs">
+      <DependentUpon>UCThongKePhieuPhat.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\ThongKeGUI\UCThongKePhieuMuon.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\ThongKeGUI\UCThongKePhieuMuon.Designer.cs">
+      <DependentUpon>UCThongKePhieuMuon.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\ThongKeGUI\UCThongKeDocGia.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\ThongKeGUI\UCThongKeDocGia.Designer.cs">
+      <DependentUpon>UCThongKeDocGia.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI\WelcomeScreen.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -303,6 +331,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\ThongKeGUI\UCMain.resx">
       <DependentUpon>UCMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\ThongKeGUI\UCThongKeSach.resx">
+      <DependentUpon>UCThongKeSach.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
