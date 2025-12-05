@@ -42,5 +42,10 @@ namespace QuanLyThuVien.GUI
         {
             // Mặc định không làm gì
         }
+
+        private void BaseModuleUC_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

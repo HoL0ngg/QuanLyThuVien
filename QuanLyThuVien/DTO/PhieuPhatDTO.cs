@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace QuanLyThuVien.DTO
 {
-    internal class PhieuPhatDTO
+    public class PhieuPhatDTO
     {
         public int MaPhieuPhat { get; set; }
         public DateTime NgayPhat { get; set; }
@@ -15,7 +15,18 @@ namespace QuanLyThuVien.DTO
         public int MaCTPhieuPhat { get; set; }
         public DateTime NgayTra { get; set; }
         public int tienPhat { get; set; }
-        public String TenSach { get; set; }
-        public String TenDG { get; set; }
+        public string TenSach { get; set; }
+        public string TenDG { get; set; }
+        public int MaDG { get; set; }
+        public int MaCTPhieuTra { get; set; }
+        public string TrangThaiText
+        {
+            get
+            {
+                return TrangThai == 1 ? "Đã đóng" : "Chưa đóng";
+            }
+        }
+
+
     }
 }

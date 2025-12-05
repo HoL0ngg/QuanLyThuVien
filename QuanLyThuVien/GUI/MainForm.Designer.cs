@@ -65,6 +65,9 @@ namespace QuanLyThuVien.GUI
             this.panelDocGia = new System.Windows.Forms.Panel();
             this.pictureBox6 = new System.Windows.Forms.PictureBox();
             this.label8 = new System.Windows.Forms.Label();
+            this.panelNhanVien = new System.Windows.Forms.Panel();
+            this.pictureBox13 = new System.Windows.Forms.PictureBox();
+            this.label15 = new System.Windows.Forms.Label();
             this.panelThongKe = new System.Windows.Forms.Panel();
             this.pictureBox7 = new System.Windows.Forms.PictureBox();
             this.label13 = new System.Windows.Forms.Label();
@@ -95,6 +98,8 @@ namespace QuanLyThuVien.GUI
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
             this.panelDocGia.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
+            this.panelNhanVien.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox13)).BeginInit();
             this.panelThongKe.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).BeginInit();
             this.panelDangXuat.SuspendLayout();
@@ -103,61 +108,60 @@ namespace QuanLyThuVien.GUI
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.label1);
-            this.panel1.Location = new System.Drawing.Point(9, 10);
-            this.panel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panel1.Location = new System.Drawing.Point(16, 16);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(269, 76);
+            this.panel1.Size = new System.Drawing.Size(340, 90);
             this.panel1.TabIndex = 0;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(62, 46);
-            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
+            this.label2.Location = new System.Drawing.Point(24, 55);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(57, 17);
+            this.label2.Size = new System.Drawing.Size(65, 20);
             this.label2.TabIndex = 1;
-            this.label2.Text = "chức vụ";
+            this.label2.Text = "Thủ thư";
             this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(62, 15);
-            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold);
+            this.label1.ForeColor = System.Drawing.Color.White;
+            this.label1.Location = new System.Drawing.Point(20, 18);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(86, 24);
+            this.label1.Size = new System.Drawing.Size(174, 36);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Tên user";
+            this.label1.Text = "Nguyễn An";
             this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // flowLayoutPanel1
             // 
+            this.flowLayoutPanel1.BackColor = System.Drawing.Color.Transparent;
             this.flowLayoutPanel1.Controls.Add(this.panel9);
             this.flowLayoutPanel1.Controls.Add(this.panel10);
             this.flowLayoutPanel1.Controls.Add(this.panel12);
             this.flowLayoutPanel1.Controls.Add(this.panel11);
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(283, 11);
-            this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(374, 16);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(782, 76);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(1040, 90);
             this.flowLayoutPanel1.TabIndex = 2;
             // 
             // panel9
             // 
-            this.panel9.BackColor = System.Drawing.SystemColors.GrayText;
+            this.panel9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(175)))), ((int)(((byte)(80)))));
             this.panel9.Controls.Add(this.pictureBox9);
             this.panel9.Controls.Add(this.label9);
             this.panel9.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.panel9.Location = new System.Drawing.Point(2, 2);
-            this.panel9.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panel9.Location = new System.Drawing.Point(0, 3);
+            this.panel9.Margin = new System.Windows.Forms.Padding(0, 3, 12, 0);
             this.panel9.Name = "panel9";
-            this.panel9.Size = new System.Drawing.Size(210, 81);
+            this.panel9.Size = new System.Drawing.Size(248, 84);
             this.panel9.TabIndex = 0;
             this.panel9.Click += new System.EventHandler(this.btnThem_Click);
             this.panel9.Paint += new System.Windows.Forms.PaintEventHandler(this.panel9_Paint);
@@ -165,10 +169,9 @@ namespace QuanLyThuVien.GUI
             // pictureBox9
             // 
             this.pictureBox9.Image = global::QuanLyThuVien.Properties.Resources.addIcon;
-            this.pictureBox9.Location = new System.Drawing.Point(26, 6);
-            this.pictureBox9.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pictureBox9.Location = new System.Drawing.Point(22, 18);
             this.pictureBox9.Name = "pictureBox9";
-            this.pictureBox9.Size = new System.Drawing.Size(60, 59);
+            this.pictureBox9.Size = new System.Drawing.Size(52, 52);
             this.pictureBox9.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox9.TabIndex = 1;
             this.pictureBox9.TabStop = false;
@@ -176,35 +179,34 @@ namespace QuanLyThuVien.GUI
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(105, 29);
-            this.label9.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold);
+            this.label9.ForeColor = System.Drawing.Color.White;
+            this.label9.Location = new System.Drawing.Point(100, 30);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(49, 20);
+            this.label9.Size = new System.Drawing.Size(69, 24);
             this.label9.TabIndex = 0;
-            this.label9.Text = "Thêm";
+            this.label9.Text = "THÊM";
             this.label9.Click += new System.EventHandler(this.label9_Click);
             // 
             // panel10
             // 
-            this.panel10.BackColor = System.Drawing.SystemColors.GrayText;
+            this.panel10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
             this.panel10.Controls.Add(this.pictureBox10);
             this.panel10.Controls.Add(this.label10);
             this.panel10.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.panel10.Location = new System.Drawing.Point(216, 2);
-            this.panel10.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panel10.Location = new System.Drawing.Point(260, 3);
+            this.panel10.Margin = new System.Windows.Forms.Padding(0, 3, 12, 0);
             this.panel10.Name = "panel10";
-            this.panel10.Size = new System.Drawing.Size(178, 81);
+            this.panel10.Size = new System.Drawing.Size(248, 84);
             this.panel10.TabIndex = 1;
             this.panel10.Click += new System.EventHandler(this.btnSua_Click);
             // 
             // pictureBox10
             // 
             this.pictureBox10.Image = global::QuanLyThuVien.Properties.Resources.editIcon;
-            this.pictureBox10.Location = new System.Drawing.Point(16, 6);
-            this.pictureBox10.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pictureBox10.Location = new System.Drawing.Point(22, 18);
             this.pictureBox10.Name = "pictureBox10";
-            this.pictureBox10.Size = new System.Drawing.Size(60, 59);
+            this.pictureBox10.Size = new System.Drawing.Size(52, 52);
             this.pictureBox10.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox10.TabIndex = 2;
             this.pictureBox10.TabStop = false;
@@ -212,33 +214,33 @@ namespace QuanLyThuVien.GUI
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(89, 29);
-            this.label10.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold);
+            this.label10.ForeColor = System.Drawing.Color.White;
+            this.label10.Location = new System.Drawing.Point(100, 30);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(38, 20);
+            this.label10.Size = new System.Drawing.Size(51, 24);
             this.label10.TabIndex = 1;
-            this.label10.Text = "Sửa";
+            this.label10.Text = "SỬA";
             // 
             // panel12
             // 
-            this.panel12.BackColor = System.Drawing.SystemColors.GrayText;
+            this.panel12.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(67)))), ((int)(((byte)(54)))));
             this.panel12.Controls.Add(this.pictureBox11);
             this.panel12.Controls.Add(this.label12);
-            this.panel12.Location = new System.Drawing.Point(398, 2);
-            this.panel12.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panel12.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.panel12.Location = new System.Drawing.Point(520, 3);
+            this.panel12.Margin = new System.Windows.Forms.Padding(0, 3, 12, 0);
             this.panel12.Name = "panel12";
-            this.panel12.Size = new System.Drawing.Size(191, 81);
+            this.panel12.Size = new System.Drawing.Size(248, 84);
             this.panel12.TabIndex = 3;
             this.panel12.Click += new System.EventHandler(this.btnXoa_Click);
             // 
             // pictureBox11
             // 
             this.pictureBox11.Image = global::QuanLyThuVien.Properties.Resources.removeIcon;
-            this.pictureBox11.Location = new System.Drawing.Point(15, 6);
-            this.pictureBox11.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pictureBox11.Location = new System.Drawing.Point(22, 18);
             this.pictureBox11.Name = "pictureBox11";
-            this.pictureBox11.Size = new System.Drawing.Size(60, 59);
+            this.pictureBox11.Size = new System.Drawing.Size(52, 52);
             this.pictureBox11.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox11.TabIndex = 4;
             this.pictureBox11.TabStop = false;
@@ -246,24 +248,25 @@ namespace QuanLyThuVien.GUI
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(94, 29);
-            this.label12.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold);
+            this.label12.ForeColor = System.Drawing.Color.White;
+            this.label12.Location = new System.Drawing.Point(100, 30);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(38, 20);
+            this.label12.Size = new System.Drawing.Size(55, 24);
             this.label12.TabIndex = 3;
-            this.label12.Text = "Xóa";
+            this.label12.Text = "XÓA";
             this.label12.Click += new System.EventHandler(this.btnXoa_Click);
             // 
             // panel11
             // 
-            this.panel11.BackColor = System.Drawing.SystemColors.GrayText;
+            this.panel11.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(156)))), ((int)(((byte)(39)))), ((int)(((byte)(176)))));
             this.panel11.Controls.Add(this.pictureBox12);
             this.panel11.Controls.Add(this.label11);
-            this.panel11.Location = new System.Drawing.Point(593, 2);
-            this.panel11.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panel11.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.panel11.Location = new System.Drawing.Point(780, 3);
+            this.panel11.Margin = new System.Windows.Forms.Padding(0, 3, 0, 0);
             this.panel11.Name = "panel11";
-            this.panel11.Size = new System.Drawing.Size(185, 81);
+            this.panel11.Size = new System.Drawing.Size(248, 84);
             this.panel11.TabIndex = 2;
             this.panel11.Click += new System.EventHandler(this.btnChiTiet_Click);
             this.panel11.Paint += new System.Windows.Forms.PaintEventHandler(this.panel11_Paint);
@@ -271,10 +274,9 @@ namespace QuanLyThuVien.GUI
             // pictureBox12
             // 
             this.pictureBox12.Image = global::QuanLyThuVien.Properties.Resources.detailIcon;
-            this.pictureBox12.Location = new System.Drawing.Point(21, 6);
-            this.pictureBox12.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pictureBox12.Location = new System.Drawing.Point(22, 18);
             this.pictureBox12.Name = "pictureBox12";
-            this.pictureBox12.Size = new System.Drawing.Size(60, 59);
+            this.pictureBox12.Size = new System.Drawing.Size(52, 52);
             this.pictureBox12.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox12.TabIndex = 5;
             this.pictureBox12.TabStop = false;
@@ -282,41 +284,43 @@ namespace QuanLyThuVien.GUI
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(106, 29);
-            this.label11.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold);
+            this.label11.ForeColor = System.Drawing.Color.White;
+            this.label11.Location = new System.Drawing.Point(100, 30);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(58, 20);
+            this.label11.Size = new System.Drawing.Size(95, 24);
             this.label11.TabIndex = 2;
-            this.label11.Text = "Chi tiết";
+            this.label11.Text = "CHI TIẾT";
             // 
             // flowLayoutPanel2
             // 
-            this.flowLayoutPanel2.BackColor = System.Drawing.SystemColors.Info;
+            this.flowLayoutPanel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
             this.flowLayoutPanel2.Controls.Add(this.panelPhieuNhap);
             this.flowLayoutPanel2.Controls.Add(this.panelPhieuMuon);
             this.flowLayoutPanel2.Controls.Add(this.panelPhieuTra);
             this.flowLayoutPanel2.Controls.Add(this.panelPhieuPhat);
             this.flowLayoutPanel2.Controls.Add(this.panelDauSach);
             this.flowLayoutPanel2.Controls.Add(this.panelDocGia);
+            this.flowLayoutPanel2.Controls.Add(this.panelNhanVien);
             this.flowLayoutPanel2.Controls.Add(this.panelThongKe);
             this.flowLayoutPanel2.Controls.Add(this.panelDangXuat);
-            this.flowLayoutPanel2.Location = new System.Drawing.Point(9, 92);
+            this.flowLayoutPanel2.Location = new System.Drawing.Point(16, 118);
             this.flowLayoutPanel2.Margin = new System.Windows.Forms.Padding(0);
             this.flowLayoutPanel2.Name = "flowLayoutPanel2";
-            this.flowLayoutPanel2.Size = new System.Drawing.Size(269, 592);
+            this.flowLayoutPanel2.Padding = new System.Windows.Forms.Padding(8, 12, 8, 12);
+            this.flowLayoutPanel2.Size = new System.Drawing.Size(340, 740);
             this.flowLayoutPanel2.TabIndex = 4;
             // 
             // panelPhieuNhap
             // 
-            this.panelPhieuNhap.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.panelPhieuNhap.BackColor = System.Drawing.Color.White;
             this.panelPhieuNhap.Controls.Add(this.pictureBox1);
             this.panelPhieuNhap.Controls.Add(this.label3);
             this.panelPhieuNhap.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.panelPhieuNhap.Location = new System.Drawing.Point(0, 0);
-            this.panelPhieuNhap.Margin = new System.Windows.Forms.Padding(0);
+            this.panelPhieuNhap.Location = new System.Drawing.Point(8, 15);
+            this.panelPhieuNhap.Margin = new System.Windows.Forms.Padding(0, 3, 0, 10);
             this.panelPhieuNhap.Name = "panelPhieuNhap";
-            this.panelPhieuNhap.Size = new System.Drawing.Size(269, 74);
+            this.panelPhieuNhap.Size = new System.Drawing.Size(320, 68);
             this.panelPhieuNhap.TabIndex = 0;
             this.panelPhieuNhap.Click += new System.EventHandler(this.panelMenu_Click);
             this.panelPhieuNhap.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
@@ -326,10 +330,9 @@ namespace QuanLyThuVien.GUI
             // pictureBox1
             // 
             this.pictureBox1.Image = global::QuanLyThuVien.Properties.Resources.importIcon;
-            this.pictureBox1.Location = new System.Drawing.Point(13, 5);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pictureBox1.Location = new System.Drawing.Point(16, 12);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(55, 64);
+            this.pictureBox1.Size = new System.Drawing.Size(48, 48);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
@@ -337,25 +340,25 @@ namespace QuanLyThuVien.GUI
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(92, 17);
-            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F);
+            this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(66)))), ((int)(((byte)(66)))));
+            this.label3.Location = new System.Drawing.Point(88, 20);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(150, 31);
+            this.label3.Size = new System.Drawing.Size(122, 26);
             this.label3.TabIndex = 0;
             this.label3.Text = "Phiếu nhập";
             this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // panelPhieuMuon
             // 
-            this.panelPhieuMuon.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.panelPhieuMuon.BackColor = System.Drawing.Color.White;
             this.panelPhieuMuon.Controls.Add(this.pictureBox2);
             this.panelPhieuMuon.Controls.Add(this.label4);
             this.panelPhieuMuon.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.panelPhieuMuon.Location = new System.Drawing.Point(0, 74);
-            this.panelPhieuMuon.Margin = new System.Windows.Forms.Padding(0);
+            this.panelPhieuMuon.Location = new System.Drawing.Point(8, 96);
+            this.panelPhieuMuon.Margin = new System.Windows.Forms.Padding(0, 3, 0, 10);
             this.panelPhieuMuon.Name = "panelPhieuMuon";
-            this.panelPhieuMuon.Size = new System.Drawing.Size(269, 74);
+            this.panelPhieuMuon.Size = new System.Drawing.Size(320, 68);
             this.panelPhieuMuon.TabIndex = 1;
             this.panelPhieuMuon.Click += new System.EventHandler(this.panelMenu_Click);
             this.panelPhieuMuon.MouseEnter += new System.EventHandler(this.panelMenu_MouseEnter);
@@ -364,10 +367,9 @@ namespace QuanLyThuVien.GUI
             // pictureBox2
             // 
             this.pictureBox2.Image = global::QuanLyThuVien.Properties.Resources.loanIcon;
-            this.pictureBox2.Location = new System.Drawing.Point(13, 2);
-            this.pictureBox2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pictureBox2.Location = new System.Drawing.Point(16, 12);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(55, 67);
+            this.pictureBox2.Size = new System.Drawing.Size(48, 48);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox2.TabIndex = 2;
             this.pictureBox2.TabStop = false;
@@ -375,24 +377,24 @@ namespace QuanLyThuVien.GUI
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(92, 23);
-            this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F);
+            this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(66)))), ((int)(((byte)(66)))));
+            this.label4.Location = new System.Drawing.Point(88, 20);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(157, 31);
+            this.label4.Size = new System.Drawing.Size(129, 26);
             this.label4.TabIndex = 0;
             this.label4.Text = "Phiếu mượn";
             // 
             // panelPhieuTra
             // 
-            this.panelPhieuTra.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.panelPhieuTra.BackColor = System.Drawing.Color.White;
             this.panelPhieuTra.Controls.Add(this.pictureBox3);
             this.panelPhieuTra.Controls.Add(this.label5);
             this.panelPhieuTra.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.panelPhieuTra.Location = new System.Drawing.Point(0, 148);
-            this.panelPhieuTra.Margin = new System.Windows.Forms.Padding(0);
+            this.panelPhieuTra.Location = new System.Drawing.Point(8, 177);
+            this.panelPhieuTra.Margin = new System.Windows.Forms.Padding(0, 3, 0, 10);
             this.panelPhieuTra.Name = "panelPhieuTra";
-            this.panelPhieuTra.Size = new System.Drawing.Size(269, 74);
+            this.panelPhieuTra.Size = new System.Drawing.Size(320, 68);
             this.panelPhieuTra.TabIndex = 1;
             this.panelPhieuTra.Click += new System.EventHandler(this.panelMenu_Click);
             this.panelPhieuTra.MouseEnter += new System.EventHandler(this.panelMenu_MouseEnter);
@@ -401,10 +403,9 @@ namespace QuanLyThuVien.GUI
             // pictureBox3
             // 
             this.pictureBox3.Image = global::QuanLyThuVien.Properties.Resources.returnIcon;
-            this.pictureBox3.Location = new System.Drawing.Point(13, 2);
-            this.pictureBox3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pictureBox3.Location = new System.Drawing.Point(16, 12);
             this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(65, 67);
+            this.pictureBox3.Size = new System.Drawing.Size(48, 48);
             this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox3.TabIndex = 3;
             this.pictureBox3.TabStop = false;
@@ -412,24 +413,24 @@ namespace QuanLyThuVien.GUI
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(93, 23);
-            this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F);
+            this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(66)))), ((int)(((byte)(66)))));
+            this.label5.Location = new System.Drawing.Point(88, 20);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(122, 31);
+            this.label5.Size = new System.Drawing.Size(99, 26);
             this.label5.TabIndex = 0;
             this.label5.Text = "Phiếu trả";
             // 
             // panelPhieuPhat
             // 
-            this.panelPhieuPhat.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.panelPhieuPhat.BackColor = System.Drawing.Color.White;
             this.panelPhieuPhat.Controls.Add(this.pictureBox4);
             this.panelPhieuPhat.Controls.Add(this.label6);
             this.panelPhieuPhat.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.panelPhieuPhat.Location = new System.Drawing.Point(0, 222);
-            this.panelPhieuPhat.Margin = new System.Windows.Forms.Padding(0);
+            this.panelPhieuPhat.Location = new System.Drawing.Point(8, 258);
+            this.panelPhieuPhat.Margin = new System.Windows.Forms.Padding(0, 3, 0, 10);
             this.panelPhieuPhat.Name = "panelPhieuPhat";
-            this.panelPhieuPhat.Size = new System.Drawing.Size(269, 69);
+            this.panelPhieuPhat.Size = new System.Drawing.Size(320, 68);
             this.panelPhieuPhat.TabIndex = 1;
             this.panelPhieuPhat.Click += new System.EventHandler(this.panelPhieuPhat_Click);
             this.panelPhieuPhat.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
@@ -439,10 +440,9 @@ namespace QuanLyThuVien.GUI
             // pictureBox4
             // 
             this.pictureBox4.Image = global::QuanLyThuVien.Properties.Resources.penaltyIcon;
-            this.pictureBox4.Location = new System.Drawing.Point(13, 2);
-            this.pictureBox4.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pictureBox4.Location = new System.Drawing.Point(16, 12);
             this.pictureBox4.Name = "pictureBox4";
-            this.pictureBox4.Size = new System.Drawing.Size(65, 67);
+            this.pictureBox4.Size = new System.Drawing.Size(48, 48);
             this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox4.TabIndex = 4;
             this.pictureBox4.TabStop = false;
@@ -452,11 +452,11 @@ namespace QuanLyThuVien.GUI
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(92, 19);
-            this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F);
+            this.label6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(66)))), ((int)(((byte)(66)))));
+            this.label6.Location = new System.Drawing.Point(88, 20);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(143, 31);
+            this.label6.Size = new System.Drawing.Size(116, 26);
             this.label6.TabIndex = 0;
             this.label6.Text = "Phiếu phạt";
             this.label6.Click += new System.EventHandler(this.panelPhieuPhat_Click);
@@ -464,14 +464,14 @@ namespace QuanLyThuVien.GUI
             // 
             // panelDauSach
             // 
-            this.panelDauSach.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.panelDauSach.BackColor = System.Drawing.Color.White;
             this.panelDauSach.Controls.Add(this.pictureBox5);
             this.panelDauSach.Controls.Add(this.label7);
             this.panelDauSach.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.panelDauSach.Location = new System.Drawing.Point(0, 291);
-            this.panelDauSach.Margin = new System.Windows.Forms.Padding(0);
+            this.panelDauSach.Location = new System.Drawing.Point(8, 339);
+            this.panelDauSach.Margin = new System.Windows.Forms.Padding(0, 3, 0, 10);
             this.panelDauSach.Name = "panelDauSach";
-            this.panelDauSach.Size = new System.Drawing.Size(269, 69);
+            this.panelDauSach.Size = new System.Drawing.Size(320, 68);
             this.panelDauSach.TabIndex = 1;
             this.panelDauSach.Click += new System.EventHandler(this.panelMenu_Click);
             this.panelDauSach.Paint += new System.Windows.Forms.PaintEventHandler(this.panel3_Paint);
@@ -481,10 +481,9 @@ namespace QuanLyThuVien.GUI
             // pictureBox5
             // 
             this.pictureBox5.Image = global::QuanLyThuVien.Properties.Resources.booksIcon;
-            this.pictureBox5.Location = new System.Drawing.Point(13, 2);
-            this.pictureBox5.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pictureBox5.Location = new System.Drawing.Point(16, 12);
             this.pictureBox5.Name = "pictureBox5";
-            this.pictureBox5.Size = new System.Drawing.Size(65, 64);
+            this.pictureBox5.Size = new System.Drawing.Size(48, 48);
             this.pictureBox5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox5.TabIndex = 5;
             this.pictureBox5.TabStop = false;
@@ -493,25 +492,25 @@ namespace QuanLyThuVien.GUI
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(93, 18);
-            this.label7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F);
+            this.label7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(66)))), ((int)(((byte)(66)))));
+            this.label7.Location = new System.Drawing.Point(88, 20);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(129, 31);
+            this.label7.Size = new System.Drawing.Size(104, 26);
             this.label7.TabIndex = 0;
             this.label7.Text = "Đầu sách";
             this.label7.Click += new System.EventHandler(this.label7_Click);
             // 
             // panelDocGia
             // 
-            this.panelDocGia.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.panelDocGia.BackColor = System.Drawing.Color.White;
             this.panelDocGia.Controls.Add(this.pictureBox6);
             this.panelDocGia.Controls.Add(this.label8);
             this.panelDocGia.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.panelDocGia.Location = new System.Drawing.Point(0, 360);
-            this.panelDocGia.Margin = new System.Windows.Forms.Padding(0);
+            this.panelDocGia.Location = new System.Drawing.Point(8, 420);
+            this.panelDocGia.Margin = new System.Windows.Forms.Padding(0, 3, 0, 10);
             this.panelDocGia.Name = "panelDocGia";
-            this.panelDocGia.Size = new System.Drawing.Size(269, 74);
+            this.panelDocGia.Size = new System.Drawing.Size(320, 68);
             this.panelDocGia.TabIndex = 1;
             this.panelDocGia.Click += new System.EventHandler(this.panelMenu_Click);
             this.panelDocGia.MouseEnter += new System.EventHandler(this.panelMenu_MouseEnter);
@@ -520,10 +519,9 @@ namespace QuanLyThuVien.GUI
             // pictureBox6
             // 
             this.pictureBox6.Image = global::QuanLyThuVien.Properties.Resources.readerIcon;
-            this.pictureBox6.Location = new System.Drawing.Point(13, 2);
-            this.pictureBox6.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pictureBox6.Location = new System.Drawing.Point(16, 12);
             this.pictureBox6.Name = "pictureBox6";
-            this.pictureBox6.Size = new System.Drawing.Size(65, 64);
+            this.pictureBox6.Size = new System.Drawing.Size(48, 48);
             this.pictureBox6.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox6.TabIndex = 6;
             this.pictureBox6.TabStop = false;
@@ -531,25 +529,61 @@ namespace QuanLyThuVien.GUI
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(93, 19);
-            this.label8.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F);
+            this.label8.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(66)))), ((int)(((byte)(66)))));
+            this.label8.Location = new System.Drawing.Point(88, 20);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(106, 31);
+            this.label8.Size = new System.Drawing.Size(86, 26);
             this.label8.TabIndex = 0;
             this.label8.Text = "Độc giả";
             this.label8.Click += new System.EventHandler(this.label8_Click);
             // 
+            // panelNhanVien
+            // 
+            this.panelNhanVien.BackColor = System.Drawing.Color.White;
+            this.panelNhanVien.Controls.Add(this.pictureBox13);
+            this.panelNhanVien.Controls.Add(this.label15);
+            this.panelNhanVien.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.panelNhanVien.Location = new System.Drawing.Point(8, 501);
+            this.panelNhanVien.Margin = new System.Windows.Forms.Padding(0, 3, 0, 10);
+            this.panelNhanVien.Name = "panelNhanVien";
+            this.panelNhanVien.Size = new System.Drawing.Size(320, 68);
+            this.panelNhanVien.TabIndex = 8;
+            this.panelNhanVien.Click += new System.EventHandler(this.panelMenu_Click);
+            this.panelNhanVien.MouseEnter += new System.EventHandler(this.panelMenu_MouseEnter);
+            this.panelNhanVien.MouseLeave += new System.EventHandler(this.panelMenu_MouseLeave);
+            // 
+            // pictureBox13
+            // 
+            this.pictureBox13.Image = global::QuanLyThuVien.Properties.Resources.nhanvien;
+            this.pictureBox13.Location = new System.Drawing.Point(16, 12);
+            this.pictureBox13.Name = "pictureBox13";
+            this.pictureBox13.Size = new System.Drawing.Size(48, 48);
+            this.pictureBox13.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox13.TabIndex = 7;
+            this.pictureBox13.TabStop = false;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F);
+            this.label15.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(66)))), ((int)(((byte)(66)))));
+            this.label15.Location = new System.Drawing.Point(88, 20);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(110, 26);
+            this.label15.TabIndex = 0;
+            this.label15.Text = "Nhân viên";
+            // 
             // panelThongKe
             // 
-            this.panelThongKe.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.panelThongKe.BackColor = System.Drawing.Color.White;
             this.panelThongKe.Controls.Add(this.pictureBox7);
             this.panelThongKe.Controls.Add(this.label13);
             this.panelThongKe.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.panelThongKe.Location = new System.Drawing.Point(0, 434);
-            this.panelThongKe.Margin = new System.Windows.Forms.Padding(0);
+            this.panelThongKe.Location = new System.Drawing.Point(8, 582);
+            this.panelThongKe.Margin = new System.Windows.Forms.Padding(0, 3, 0, 10);
             this.panelThongKe.Name = "panelThongKe";
-            this.panelThongKe.Size = new System.Drawing.Size(269, 74);
+            this.panelThongKe.Size = new System.Drawing.Size(320, 68);
             this.panelThongKe.TabIndex = 1;
             this.panelThongKe.Click += new System.EventHandler(this.panelMenu_Click);
             this.panelThongKe.MouseEnter += new System.EventHandler(this.panelMenu_MouseEnter);
@@ -558,10 +592,9 @@ namespace QuanLyThuVien.GUI
             // pictureBox7
             // 
             this.pictureBox7.Image = global::QuanLyThuVien.Properties.Resources.thongKeIcon;
-            this.pictureBox7.Location = new System.Drawing.Point(13, 2);
-            this.pictureBox7.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pictureBox7.Location = new System.Drawing.Point(16, 12);
             this.pictureBox7.Name = "pictureBox7";
-            this.pictureBox7.Size = new System.Drawing.Size(65, 64);
+            this.pictureBox7.Size = new System.Drawing.Size(48, 48);
             this.pictureBox7.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox7.TabIndex = 7;
             this.pictureBox7.TabStop = false;
@@ -569,24 +602,24 @@ namespace QuanLyThuVien.GUI
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(92, 19);
-            this.label13.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F);
+            this.label13.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(66)))), ((int)(((byte)(66)))));
+            this.label13.Location = new System.Drawing.Point(88, 20);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(127, 31);
+            this.label13.Size = new System.Drawing.Size(101, 26);
             this.label13.TabIndex = 0;
             this.label13.Text = "Thống kê";
             // 
             // panelDangXuat
             // 
-            this.panelDangXuat.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.panelDangXuat.BackColor = System.Drawing.Color.White;
             this.panelDangXuat.Controls.Add(this.pictureBox8);
             this.panelDangXuat.Controls.Add(this.label14);
             this.panelDangXuat.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.panelDangXuat.Location = new System.Drawing.Point(0, 508);
-            this.panelDangXuat.Margin = new System.Windows.Forms.Padding(0);
+            this.panelDangXuat.Location = new System.Drawing.Point(8, 663);
+            this.panelDangXuat.Margin = new System.Windows.Forms.Padding(0, 3, 0, 10);
             this.panelDangXuat.Name = "panelDangXuat";
-            this.panelDangXuat.Size = new System.Drawing.Size(269, 74);
+            this.panelDangXuat.Size = new System.Drawing.Size(320, 68);
             this.panelDangXuat.TabIndex = 8;
             this.panelDangXuat.Click += new System.EventHandler(this.panelMenu_Click);
             this.panelDangXuat.MouseEnter += new System.EventHandler(this.panelMenu_MouseEnter);
@@ -595,10 +628,9 @@ namespace QuanLyThuVien.GUI
             // pictureBox8
             // 
             this.pictureBox8.Image = global::QuanLyThuVien.Properties.Resources.backIcon;
-            this.pictureBox8.Location = new System.Drawing.Point(13, 2);
-            this.pictureBox8.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pictureBox8.Location = new System.Drawing.Point(16, 12);
             this.pictureBox8.Name = "pictureBox8";
-            this.pictureBox8.Size = new System.Drawing.Size(65, 64);
+            this.pictureBox8.Size = new System.Drawing.Size(48, 48);
             this.pictureBox8.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox8.TabIndex = 7;
             this.pictureBox8.TabStop = false;
@@ -606,22 +638,22 @@ namespace QuanLyThuVien.GUI
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.Location = new System.Drawing.Point(92, 20);
-            this.label14.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F);
+            this.label14.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(66)))), ((int)(((byte)(66)))));
+            this.label14.Location = new System.Drawing.Point(88, 20);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(137, 31);
+            this.label14.Size = new System.Drawing.Size(111, 26);
             this.label14.TabIndex = 0;
             this.label14.Text = "Đăng xuất";
             // 
             // panel3
             // 
             this.panel3.AutoScroll = true;
+            this.panel3.BackColor = System.Drawing.Color.White;
             this.panel3.Cursor = System.Windows.Forms.Cursors.Default;
-            this.panel3.Location = new System.Drawing.Point(283, 92);
-            this.panel3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panel3.Location = new System.Drawing.Point(374, 118);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(778, 592);
+            this.panel3.Size = new System.Drawing.Size(1040, 723);
             this.panel3.TabIndex = 5;
             this.panel3.Paint += new System.Windows.Forms.PaintEventHandler(this.panel3_Paint);
             // 
@@ -629,8 +661,8 @@ namespace QuanLyThuVien.GUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.ClientSize = new System.Drawing.Size(1065, 683);
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
+            this.ClientSize = new System.Drawing.Size(1430, 863);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.flowLayoutPanel2);
             this.Controls.Add(this.flowLayoutPanel1);
@@ -638,7 +670,7 @@ namespace QuanLyThuVien.GUI
             this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "MainForm";
+            this.Text = "Hệ thống quản lý thư viện";
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
@@ -674,6 +706,9 @@ namespace QuanLyThuVien.GUI
             this.panelDocGia.ResumeLayout(false);
             this.panelDocGia.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).EndInit();
+            this.panelNhanVien.ResumeLayout(false);
+            this.panelNhanVien.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox13)).EndInit();
             this.panelThongKe.ResumeLayout(false);
             this.panelThongKe.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).EndInit();
@@ -729,5 +764,9 @@ namespace QuanLyThuVien.GUI
         private System.Windows.Forms.PictureBox pictureBox10;
         private System.Windows.Forms.PictureBox pictureBox11;
         private System.Windows.Forms.PictureBox pictureBox12;
+        private System.Windows.Forms.Panel panelNhanVien;
+        private System.Windows.Forms.PictureBox pictureBox13;
+        private System.Windows.Forms.Label label15;
     }
+
 }

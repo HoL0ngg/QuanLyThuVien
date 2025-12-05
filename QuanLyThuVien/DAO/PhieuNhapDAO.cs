@@ -15,7 +15,12 @@ namespace QuanLyThuVien.DAO
         public List<PhieuNhapDTO> GetAll()
         {
             List<PhieuNhapDTO> list = new List<PhieuNhapDTO>();
-            string query = "SELECT * FROM phieu_nhap";
+            string query =
+                         "SELECT pn.MaPhieuNhap, pn.ThoiGian, pn.MaNV, pn.MaNCC, " +
+                         "nv.TENNV, ncc.TENNCC " +
+                         "FROM phieu_nhap pn " +
+                         "JOIN nhan_vien nv ON pn.MaNV = nv.MANV " +
+                         "JOIN nha_cung_cap ncc ON pn.MaNCC = ncc.MANCC";
             DataTable dt = DataProvider.ExecuteQuery(query);
             foreach (DataRow row in dt.Rows)
             {
@@ -25,6 +30,8 @@ namespace QuanLyThuVien.DAO
                     ThoiGian = Convert.ToDateTime(row["ThoiGian"]),
                     MaNV = Convert.ToInt32(row["MaNV"]),
                     MaNCC = Convert.ToInt32(row["MaNCC"]),
+                    TenNV = row["TENNV"].ToString(),
+                    TenNCC = row["TENNCC"].ToString()
                 };
                 list.Add(pn);
             }
@@ -75,7 +82,13 @@ namespace QuanLyThuVien.DAO
         }
         public PhieuNhapDTO GetById(int maPhieuNhap)
         {
-            string query = "SELECT * FROM phieu_nhap WHERE MaPhieuNhap = @MaPhieuNhap";
+            string query =
+                        "SELECT pn.MaPhieuNhap, pn.ThoiGian, pn.MaNV, pn.MaNCC, " +
+                        "nv.TENNV, ncc.TENNCC " +
+                        "FROM phieu_nhap pn " +
+                        "JOIN nhan_vien nv ON pn.MaNV = nv.MANV " +
+                        "JOIN nha_cung_cap ncc ON pn.MaNCC = ncc.MANCC " +
+                        "WHERE pn.MaPhieuNhap = @MaPhieuNhap";
             var param = new Dictionary<string, object> { { "@MaPhieuNhap", maPhieuNhap } };
 
             DataTable dt = DataProvider.ExecuteQuery(query, param);
@@ -90,12 +103,50 @@ namespace QuanLyThuVien.DAO
                 MaPhieuNhap = Convert.ToInt32(row["MaPhieuNhap"]),
                 ThoiGian = Convert.ToDateTime(row["ThoiGian"]),
                 MaNV = Convert.ToInt32(row["MaNV"]),
-                MaNCC = Convert.ToInt32(row["MaNCC"])
+                MaNCC = Convert.ToInt32(row["MaNCC"]),
+                TenNV = row["TENNV"].ToString(),
+                TenNCC = row["TENNCC"].ToString()
             };
             CTPhieuNhapDAO ctDAO = new CTPhieuNhapDAO();
             phieu.ct = ctDAO.GetByPhieuNhap(phieu.MaPhieuNhap);
 
             return phieu;
+        }
+        public List<PhieuNhapDTO> Search(string keyword)
+        {
+            List<PhieuNhapDTO> list = new List<PhieuNhapDTO>();
+
+            string query =
+                "SELECT pn.MaPhieuNhap, pn.ThoiGian, pn.MaNV, pn.MaNCC, " +
+                "nv.TENNV, ncc.TENNCC " +
+                "FROM phieu_nhap pn " +
+                "JOIN nhan_vien nv ON pn.MaNV = nv.MANV " +
+                "JOIN nha_cung_cap ncc ON pn.MaNCC = ncc.MANCC " +
+                "WHERE pn.MaPhieuNhap LIKE @kw " +
+                "OR nv.TENNV LIKE @kw " +
+                "OR ncc.TENNCC LIKE @kw";       
+
+                var param = new Dictionary<string, object>
+                {
+                    { "@kw", "%" + keyword + "%" }
+                };
+
+            DataTable dt = DataProvider.ExecuteQuery(query, param);
+            foreach (DataRow row in dt.Rows)
+            {
+                PhieuNhapDTO pn = new PhieuNhapDTO
+                {
+                    MaPhieuNhap = Convert.ToInt32(row["MaPhieuNhap"]),
+                    ThoiGian = Convert.ToDateTime(row["ThoiGian"]),
+                    MaNV = Convert.ToInt32(row["MaNV"]),
+                    MaNCC = Convert.ToInt32(row["MaNCC"]),
+                    TenNV = row["TENNV"].ToString(),
+                    TenNCC = row["TENNCC"].ToString()
+                };
+                list.Add(pn);
+            }
+
+            return list;
         }
 
     }

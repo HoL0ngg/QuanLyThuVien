@@ -16,6 +16,33 @@ namespace QuanLyThuVien.GUI
         public DauSach()
         {
             InitializeComponent();
+            CustomizeDataGridView();
+        }
+
+        private void CustomizeDataGridView()
+        {
+            // Tùy chỉnh header
+            dgvDauSach.EnableHeadersVisualStyles = false;
+            dgvDauSach.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(33, 150, 243);
+            dgvDauSach.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            dgvDauSach.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            dgvDauSach.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dgvDauSach.ColumnHeadersHeight = 40;
+            
+            // Tùy chỉnh rows
+            dgvDauSach.RowTemplate.Height = 35;
+            dgvDauSach.DefaultCellStyle.Font = new Font("Segoe UI", 9F);
+            dgvDauSach.DefaultCellStyle.SelectionBackColor = Color.FromArgb(100, 181, 246);
+            dgvDauSach.DefaultCellStyle.SelectionForeColor = Color.White;
+            dgvDauSach.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(250, 250, 250);
+            
+            // Border
+            dgvDauSach.BorderStyle = BorderStyle.None;
+            dgvDauSach.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
+            dgvDauSach.GridColor = Color.FromArgb(224, 224, 224);
+            
+            // Thêm tooltip
+            dgvDauSach.ShowCellToolTips = true;
         }
 
         // Ghi đè (override) lại các hành vi của lớp cha
@@ -39,7 +66,7 @@ namespace QuanLyThuVien.GUI
                 MessageBox.Show("Vui lòng chọn đầu sách để sửa!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            int selectedDauSachID = Convert.ToInt32(dgvDauSach.SelectedRows[0].Cells["Mã đầu sách"].Value);
+            int selectedDauSachID = Convert.ToInt32(dgvDauSach.SelectedRows[0].Cells["MaDauSach"].Value);
             DauSachDialog dialog = new DauSachDialog("EDIT", selectedDauSachID);
             
             var result = dialog.ShowDialog();
@@ -57,7 +84,7 @@ namespace QuanLyThuVien.GUI
                 MessageBox.Show("Vui lòng chọn đầu sách để xóa!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            int selectedDauSachID = Convert.ToInt32(dgvDauSach.SelectedRows[0].Cells["Mã đầu sách"].Value);
+            int selectedDauSachID = Convert.ToInt32(dgvDauSach.SelectedRows[0].Cells["MaDauSach"].Value);
             var confirmResult = MessageBox.Show("Bạn có chắc chắn muốn xóa đầu sách này?", "Xác nhận xóa", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (confirmResult == DialogResult.Yes)
             {
@@ -81,7 +108,7 @@ namespace QuanLyThuVien.GUI
                 MessageBox.Show("Vui lòng chọn đầu sách để xem chi tiết!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            int selectedDauSachID = Convert.ToInt32(dgvDauSach.SelectedRows[0].Cells["Mã đầu sách"].Value);
+            int selectedDauSachID = Convert.ToInt32(dgvDauSach.SelectedRows[0].Cells["MaDauSach"].Value);
             DauSachDialog dialog = new DauSachDialog("DETAILS", selectedDauSachID);
             dialog.ShowDialog();
         }
@@ -104,6 +131,47 @@ namespace QuanLyThuVien.GUI
 
             // Bind dữ liệu lên DataGridView
             dgvDauSach.DataSource = data;
+            
+            // Đổi tên cột hiển thị cho đẹp (nếu muốn)
+            if (dgvDauSach.Columns.Contains("MaDauSach"))
+            {
+                dgvDauSach.Columns["MaDauSach"].HeaderText = "Mã đầu sách";
+                dgvDauSach.Columns["MaDauSach"].Width = 100;
+            }
+            if (dgvDauSach.Columns.Contains("TenDauSach"))
+            {
+                dgvDauSach.Columns["TenDauSach"].HeaderText = "Tên đầu sách";
+                dgvDauSach.Columns["TenDauSach"].Width = 250;
+            }
+            if (dgvDauSach.Columns.Contains("NhaXuatBan"))
+            {
+                dgvDauSach.Columns["NhaXuatBan"].HeaderText = "Nhà xuất bản";
+                dgvDauSach.Columns["NhaXuatBan"].Width = 200;
+            }
+            if (dgvDauSach.Columns.Contains("NamXuatBan"))
+            {
+                dgvDauSach.Columns["NamXuatBan"].HeaderText = "Năm XB";
+                dgvDauSach.Columns["NamXuatBan"].Width = 80;
+            }
+            if (dgvDauSach.Columns.Contains("NgonNgu"))
+            {
+                dgvDauSach.Columns["NgonNgu"].HeaderText = "Ngôn ngữ";
+                dgvDauSach.Columns["NgonNgu"].Width = 120;
+            }
+            if (dgvDauSach.Columns.Contains("SoLuong"))
+            {
+                dgvDauSach.Columns["SoLuong"].HeaderText = "Số lượng";
+                dgvDauSach.Columns["SoLuong"].Width = 90;
+            }
+            
+            // Tùy chỉnh tooltip cho mỗi cell
+            foreach (DataGridViewRow row in dgvDauSach.Rows)
+            {
+                if (row.Cells["TenDauSach"] != null)
+                {
+                    row.Cells["TenDauSach"].ToolTipText = "Nhấn đúp để xem danh sách sách";
+                }
+            }
         }
 
         private void DauSach_Load_1(object sender, EventArgs e)
@@ -118,6 +186,7 @@ namespace QuanLyThuVien.GUI
             if (e.KeyCode == Keys.Enter)
             {
                 LoadData();
+                e.SuppressKeyPress = true; // Ngăn tiếng beep
             }
         }
 
@@ -129,6 +198,25 @@ namespace QuanLyThuVien.GUI
         private void flowLayoutPanel1_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+        
+        private void dgvDauSach_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                try
+                {
+                    int maDauSach = Convert.ToInt32(dgvDauSach.Rows[e.RowIndex].Cells["MaDauSach"].Value);
+                    string tenDauSach = dgvDauSach.Rows[e.RowIndex].Cells["TenDauSach"].Value.ToString();
+                    
+                    DanhSachSachDialog dialog = new DanhSachSachDialog(maDauSach, tenDauSach);
+                    dialog.ShowDialog();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Lỗi: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
     }
 }

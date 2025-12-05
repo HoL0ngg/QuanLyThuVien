@@ -2,9 +2,6 @@
 using QuanLyThuVien.DTO;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace QuanLyThuVien.BUS
 {
@@ -23,6 +20,7 @@ namespace QuanLyThuVien.BUS
         }
 
         private PhieuPhatBUS() { }
+
         public List<PhieuPhatDTO> GetAllPhieuPhat()
         {
             return PhieuPhatDAO.Instance.GetAll();
@@ -34,6 +32,52 @@ namespace QuanLyThuVien.BUS
             else
                 return PhieuPhatDAO.Instance.GetAll();
         }
+        public List<PhieuPhatDTO> GetByDateRange(DateTime starDate, DateTime endDate)
+        {
+            return PhieuPhatDAO.Instance.GetByDateRange(starDate, endDate);
+        }
+        public List<PhieuPhatDTO> GetByKeyword(string keyword)
+        {
+            if (string.IsNullOrWhiteSpace(keyword))
+                return GetAllPhieuPhat();
+            return PhieuPhatDAO.Instance.GetByKeyword(keyword.Trim());
+        }
+        public bool AddPhieuPhat(PhieuPhatDTO phieuPhat)
+        {
+            if (phieuPhat == null)
+                throw new ArgumentNullException(nameof(phieuPhat));
 
+            return PhieuPhatDAO.Instance.Add(phieuPhat);
+        }
+
+        public bool UpdatePhieuPhat(PhieuPhatDTO phieuPhat)
+        {
+            if (phieuPhat == null)
+                throw new ArgumentNullException(nameof(phieuPhat));
+
+            return PhieuPhatDAO.Instance.Update(phieuPhat);
+        }
+
+        public bool XoaPhieuPhat(int maPhieuPhat)
+        {
+            return PhieuPhatDAO.Instance.SetTrangThai(maPhieuPhat, 0);
+        }
+
+        // New: set TrangThai = 1 (đóng / mark as paid)
+        public bool DongPhieuPhat(int maPhieuPhat)
+        {
+            return PhieuPhatDAO.Instance.SetTrangThai(maPhieuPhat, 1);
+        }
+
+        public List<PhieuTraViPhamDTO> GetDanhSachViPham()
+        {
+            return PhieuPhatDAO.Instance.GetDanhSachViPham();
+        }
+
+        public bool CreatePhieuPhatFromViolations(List<PhieuTraViPhamDTO> items)
+        {
+            if (items == null || items.Count == 0) return false;
+            return PhieuPhatDAO.Instance.CreatePhieuPhatFromViolations(items);
+        }
     }
 }

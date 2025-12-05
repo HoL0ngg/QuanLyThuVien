@@ -39,10 +39,13 @@ namespace QuanLyThuVien.GUI
                 MessageBox.Show("Đăng nhập thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 MainForm mainForm = new MainForm(tk);
                 this.Hide();
-                mainForm.ShowDialog();
+                DialogResult result = mainForm.ShowDialog();
+                
+                // Khi MainForm đóng, hiện lại LoginForm
                 this.Show();
                 textBox1.Clear();
                 textBox2.Clear();
+                textBox1.Focus();
             }
             else
             {

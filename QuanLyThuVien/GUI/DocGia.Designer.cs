@@ -27,8 +27,7 @@
         #region Component Designer generated code
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
-            this.dgvDocGia = new System.Windows.Forms.DataGridView();
+            this.dgvDocGia = new QuanLyThuVien.GUI.CustomDataGridView();
             this.grpTimKiem = new System.Windows.Forms.GroupBox();
             this.btnClearFilters = new System.Windows.Forms.Button();
             this.lblMaDGSearch = new System.Windows.Forms.Label();
@@ -44,9 +43,18 @@
             this.grpThongTinDocGia.SuspendLayout();
             this.SuspendLayout();
             // 
+            // dgvDocGia
+            // 
+            this.dgvDocGia.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvDocGia.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvDocGia.Location = new System.Drawing.Point(3, 16);
+            this.dgvDocGia.Name = "dgvDocGia";
+            this.dgvDocGia.Size = new System.Drawing.Size(788, 387);
+            this.dgvDocGia.TabIndex = 0;
+            // 
             // grpTimKiem
             // 
-            this.grpTimKiem.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.grpTimKiem.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.grpTimKiem.Controls.Add(this.btnClearFilters);
             this.grpTimKiem.Controls.Add(this.lblMaDGSearch);
@@ -78,7 +86,7 @@
             this.lblMaDGSearch.AutoSize = true;
             this.lblMaDGSearch.Location = new System.Drawing.Point(15, 24);
             this.lblMaDGSearch.Name = "lblMaDGSearch";
-            this.lblMaDGSearch.Size = new System.Drawing.Size(43, 13);
+            this.lblMaDGSearch.Size = new System.Drawing.Size(41, 13);
             this.lblMaDGSearch.TabIndex = 0;
             this.lblMaDGSearch.Text = "Mã DG";
             // 
@@ -94,7 +102,7 @@
             this.lblTenDGSearch.AutoSize = true;
             this.lblTenDGSearch.Location = new System.Drawing.Point(140, 24);
             this.lblTenDGSearch.Name = "lblTenDGSearch";
-            this.lblTenDGSearch.Size = new System.Drawing.Size(44, 13);
+            this.lblTenDGSearch.Size = new System.Drawing.Size(45, 13);
             this.lblTenDGSearch.TabIndex = 2;
             this.lblTenDGSearch.Text = "Tên DG";
             // 
@@ -110,7 +118,7 @@
             this.lblSDTSearch.AutoSize = true;
             this.lblSDTSearch.Location = new System.Drawing.Point(360, 24);
             this.lblSDTSearch.Name = "lblSDTSearch";
-            this.lblSDTSearch.Size = new System.Drawing.Size(28, 13);
+            this.lblSDTSearch.Size = new System.Drawing.Size(29, 13);
             this.lblSDTSearch.TabIndex = 4;
             this.lblSDTSearch.Text = "SĐT";
             // 
@@ -133,8 +141,8 @@
             // 
             // grpThongTinDocGia
             // 
-            this.grpThongTinDocGia.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.grpThongTinDocGia.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.grpThongTinDocGia.Controls.Add(this.dgvDocGia);
             this.grpThongTinDocGia.Location = new System.Drawing.Point(3, 64);
@@ -143,15 +151,6 @@
             this.grpThongTinDocGia.TabIndex = 1;
             this.grpThongTinDocGia.TabStop = false;
             this.grpThongTinDocGia.Text = "Thông tin độc giả";
-            // 
-            // dgvDocGia
-            // 
-            this.dgvDocGia.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvDocGia.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvDocGia.Location = new System.Drawing.Point(3, 16);
-            this.dgvDocGia.Name = "dgvDocGia";
-            this.dgvDocGia.Size = new System.Drawing.Size(788, 387);
-            this.dgvDocGia.TabIndex = 0;
             // 
             // DocGia
             // 
@@ -166,6 +165,7 @@
             this.grpTimKiem.PerformLayout();
             this.grpThongTinDocGia.ResumeLayout(false);
             this.ResumeLayout(false);
+
         }
         #endregion
     }

@@ -58,12 +58,12 @@ namespace QuanLyThuVien.GUI
             bangCTPhieuMuon.AutoGenerateColumns = false;
             bangCTPhieuMuon.Columns.Clear();
 
-            var colMaSach = new DataGridViewTextBoxColumn { Name = "MaSach", HeaderText = "Mã sách", DataPropertyName = "MaSach", FillWeight = 40 };
-            var colMaDauSach = new DataGridViewTextBoxColumn { Name = "MaDauSach", HeaderText = "Mã đầu sách", DataPropertyName = "MaDauSach", FillWeight = 50 };
+            var colMaSach = new DataGridViewTextBoxColumn { Name = "MaSach", HeaderText = "Mã sách", DataPropertyName = "MaSach" };
+            var colMaDauSach = new DataGridViewTextBoxColumn { Name = "MaDauSach", HeaderText = "Mã đầu sách", DataPropertyName = "MaDauSach" };
             var colTenDauSach = new DataGridViewTextBoxColumn { Name = "TenDauSach", HeaderText = "Tên đầu sách", DataPropertyName = "TenDauSach" };
-            var colNXB = new DataGridViewTextBoxColumn { Name = "TenNXB", HeaderText = "Nhà xuất bản", DataPropertyName = "NhaXuatBan", FillWeight = 80 };
-            var colNamXB = new DataGridViewTextBoxColumn { Name = "NamXuatBan", HeaderText = "Năm xuất bản", DataPropertyName = "NamXuatBan", FillWeight = 60 };
-            var colNgonNgu = new DataGridViewTextBoxColumn { Name = "NgonNgu", HeaderText = "Ngôn ngữ", DataPropertyName = "NgonNgu", FillWeight = 60 };
+            var colNXB = new DataGridViewTextBoxColumn { Name = "TenNXB", HeaderText = "Nhà xuất bản", DataPropertyName = "NhaXuatBan" };
+            var colNamXB = new DataGridViewTextBoxColumn { Name = "NamXuatBan", HeaderText = "Năm xuất bản", DataPropertyName = "NamXuatBan" };
+            var colNgonNgu = new DataGridViewTextBoxColumn { Name = "NgonNgu", HeaderText = "Ngôn ngữ", DataPropertyName = "NgonNgu" };
 
             bangCTPhieuMuon.Columns.AddRange(new DataGridViewColumn[] { colMaSach, colMaDauSach, colTenDauSach, colNXB, colNamXB, colNgonNgu });
 

@@ -225,16 +225,15 @@ CREATE TABLE `ctphieu_phat` (
 --
 
 INSERT INTO `ctphieu_phat` (`TienPhat`, `MaSach`, `MaPhieuPhat`, `MaCTPhieuPhat`) VALUES
-(0, 1, 1, 1),
 (5000, 3, 2, 2),
 (0, 4, 3, 3),
-(10000, 7, 4, 4),
-(30000, 8, 5, 5),
 (0, 10, 6, 6),
 (0, 1, 7, 7),
 (5000, 2, 8, 8),
-(15000, 4, 9, 9),
-(150000, 5, 10, 10);
+(10000, 5, 29, 11),
+(10000, 4, 30, 12),
+(10000, 8, 31, 13),
+(60000, 7, 32, 14);
 
 -- --------------------------------------------------------
 
@@ -514,34 +513,34 @@ CREATE TABLE `phieu_phat` (
   `NgayPhat` date NOT NULL,
   `TrangThai` int(11) NOT NULL,
   `MaCTPhieuTra` int(11) NOT NULL,
-  `Ngaytra` date DEFAULT NULL
+  `Ngaytra` date DEFAULT NULL,
+  `MaDG` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `phieu_phat`
 --
 
-INSERT INTO `phieu_phat` (`MaPhieuPhat`, `NgayPhat`, `TrangThai`, `MaCTPhieuTra`, `Ngaytra`) VALUES
-(1, '2025-01-12', 1, 1, '2025-01-12'),
-(2, '2025-01-15', 1, 2, '2025-01-16'),
-(3, '2025-01-16', 1, 3, '2025-01-16'),
-(4, '2025-01-19', 0, 4, NULL),
-(5, '2025-01-20', 0, 5, NULL),
-(6, '2025-01-19', 1, 6, '2025-01-19'),
-(7, '2025-01-22', 1, 7, '2025-01-22'),
-(8, '2025-01-23', 1, 8, '2025-01-24'),
-(9, '2025-01-25', 0, 9, NULL),
-(10, '2025-01-26', 0, 10, NULL);
+INSERT INTO `phieu_phat` (`MaPhieuPhat`, `NgayPhat`, `TrangThai`, `MaCTPhieuTra`, `Ngaytra`, `MaDG`) VALUES
+(2, '2025-01-15', 1, 2, '2025-01-16', 2),
+(3, '2025-01-16', 1, 3, '2025-01-16', 3),
+(6, '2025-01-19', 1, 6, '2025-01-19', 6),
+(7, '2025-01-22', 1, 7, '2025-01-22', 7),
+(8, '2025-01-23', 1, 8, '2025-01-24', 8),
+(29, '2025-11-28', 1, 10, '2025-01-26', 10),
+(30, '2025-11-28', 1, 9, '2025-01-25', 9),
+(31, '2025-11-28', 1, 5, '2025-01-20', 5),
+(32, '2025-11-28', 1, 4, '2025-01-19', 4);
 
 -- --------------------------------------------------------
 
 --
 -- Cấu trúc bảng cho bảng `phieu_tra`
 --
-
 CREATE TABLE `phieu_tra` (
   `MaPhieuTra` int(11) NOT NULL,
   `NgayTra` date NOT NULL,
+  `MaDG` int(11) NOT NULL,
   `MaNV` int(11) NOT NULL,
   `MaPhieuMuon` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -550,17 +549,17 @@ CREATE TABLE `phieu_tra` (
 -- Đang đổ dữ liệu cho bảng `phieu_tra`
 --
 
-INSERT INTO `phieu_tra` (`MaPhieuTra`, `NgayTra`, `MaNV`, `MaPhieuMuon`) VALUES
-(1, '2025-01-12', 1, 1),
-(2, '2025-01-15', 2, 2),
-(3, '2025-01-16', 1, 3),
-(4, '2025-01-19', 3, 4),
-(5, '2025-01-20', 2, 5),
-(6, '2025-01-19', 1, 6),
-(7, '2025-01-22', 3, 7),
-(8, '2025-01-23', 1, 8),
-(9, '2025-01-25', 2, 9),
-(10, '2025-01-26', 3, 10);
+INSERT INTO `phieu_tra` (`MaPhieuTra`, `NgayTra`, `MaDG`, `MaNV`, `MaPhieuMuon`) VALUES
+(1, '2025-01-12', 1, 1, 1),
+(2, '2025-01-15', 2, 2, 2),
+(3, '2025-01-16', 3, 1, 3),
+(4, '2025-01-19', 4, 3, 4),
+(5, '2025-01-20', 5, 2, 5),
+(6, '2025-01-19', 6, 1, 6),
+(7, '2025-01-22', 7, 3, 7),
+(8, '2025-01-23', 8, 1, 8),
+(9, '2025-01-25', 9, 2, 9),
+(10, '2025-01-26', 10, 3, 10);
 
 -- --------------------------------------------------------
 
@@ -704,7 +703,8 @@ ALTER TABLE `ctphieu_nhap`
 --
 ALTER TABLE `ctphieu_phat`
   ADD PRIMARY KEY (`MaCTPhieuPhat`),
-  ADD KEY `MaPhieuPhat` (`MaPhieuPhat`);
+  ADD KEY `MaPhieuPhat` (`MaPhieuPhat`),
+  ADD KEY `MaSach` (`MaSach`);
 
 --
 -- Chỉ mục cho bảng `ctphieu_tra`
@@ -738,7 +738,8 @@ ALTER TABLE `nhan_vien`
   ADD PRIMARY KEY (`MANV`),
   ADD UNIQUE KEY `SDT` (`SDT`),
   ADD UNIQUE KEY `TenDangNhap_UNIQUE` (`TenDangNhap`),
-  ADD KEY `abc_idx` (`MaNhomQuyen`);
+  ADD KEY `abc_idx` (`MaNhomQuyen`),
+  MODIFY `MANV` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Chỉ mục cho bảng `nha_cung_cap`
@@ -775,7 +776,9 @@ ALTER TABLE `phieu_nhap`
 --
 ALTER TABLE `phieu_phat`
   ADD PRIMARY KEY (`MaPhieuPhat`),
-  ADD KEY `MaCTPhieuTra` (`MaCTPhieuTra`);
+  ADD KEY `MaCTPhieuTra` (`MaCTPhieuTra`),
+  ADD KEY `MaDG` (`MaDG`);
+
 
 --
 -- Chỉ mục cho bảng `phieu_tra`
@@ -783,9 +786,9 @@ ALTER TABLE `phieu_phat`
 ALTER TABLE `phieu_tra`
   ADD PRIMARY KEY (`MaPhieuTra`),
   ADD KEY `MaNV` (`MaNV`),
-  ADD KEY `MaPhieuMuon` (`MaPhieuMuon`);
+  ADD KEY `MaPhieuMuon` (`MaPhieuMuon`),
+  ADD KEY `MaDG` (`MaDG`);
 
---
 -- Chỉ mục cho bảng `sach`
 --
 ALTER TABLE `sach`
@@ -923,7 +926,8 @@ ALTER TABLE `ctphieu_nhap`
 -- Các ràng buộc cho bảng `ctphieu_phat`
 --
 ALTER TABLE `ctphieu_phat`
-  ADD CONSTRAINT `ctphieu_phat_ibfk_1` FOREIGN KEY (`MaPhieuPhat`) REFERENCES `phieu_phat` (`MaPhieuPhat`);
+  ADD CONSTRAINT `ctphieu_phat_ibfk_1` FOREIGN KEY (`MaPhieuPhat`) REFERENCES `phieu_phat` (`MaPhieuPhat`),
+  ADD CONSTRAINT `ctphieu_phat_ibfk_2` FOREIGN KEY (`MaSach`) REFERENCES `sach` (`MaSach`);
 
 --
 -- Các ràng buộc cho bảng `ctphieu_tra`
@@ -955,14 +959,16 @@ ALTER TABLE `phieu_nhap`
 -- Các ràng buộc cho bảng `phieu_phat`
 --
 ALTER TABLE `phieu_phat`
-  ADD CONSTRAINT `phieu_phat_ibfk_2` FOREIGN KEY (`MaCTPhieuTra`) REFERENCES `ctphieu_tra` (`MaCTPhieuTra`);
+  ADD CONSTRAINT `phieu_phat_ibfk_2` FOREIGN KEY (`MaCTPhieuTra`) REFERENCES `ctphieu_tra` (`MaCTPhieuTra`),
+  ADD CONSTRAINT `phieu_phat_ibfk_3` FOREIGN KEY (`MaDG`) REFERENCES `doc_gia` (`MADG`);
 
 --
 -- Các ràng buộc cho bảng `phieu_tra`
 --
 ALTER TABLE `phieu_tra`
   ADD CONSTRAINT `phieu_tra_ibfk_1` FOREIGN KEY (`MaNV`) REFERENCES `nhan_vien` (`MANV`),
-  ADD CONSTRAINT `phieu_tra_ibfk_3` FOREIGN KEY (`MaPhieuMuon`) REFERENCES `phieu_muon` (`MaPhieuMuon`);
+  ADD CONSTRAINT `phieu_tra_ibfk_3` FOREIGN KEY (`MaPhieuMuon`) REFERENCES `phieu_muon` (`MaPhieuMuon`),
+  ADD CONSTRAINT `phieu_tra_ibfk_4` FOREIGN KEY (`MaDG`) REFERENCES `doc_gia` (`MADG`);
 
 --
 -- Các ràng buộc cho bảng `sach`
