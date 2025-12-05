@@ -754,7 +754,8 @@ ALTER TABLE `nhan_vien`
   ADD PRIMARY KEY (`MANV`),
   ADD UNIQUE KEY `SDT` (`SDT`),
   ADD UNIQUE KEY `TenDangNhap_UNIQUE` (`TenDangNhap`),
-  ADD KEY `abc_idx` (`MaNhomQuyen`);
+  ADD KEY `abc_idx` (`MaNhomQuyen`),
+  MODIFY `MANV` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Chỉ mục cho bảng `nha_cung_cap`
@@ -986,8 +987,36 @@ ALTER TABLE `phieu_nhap`
 -- Các ràng buộc cho bảng `phieu_phat`
 --
 ALTER TABLE `phieu_phat`
-  ADD CONSTRAINT `phieu_phat_ibfk_1` FOREIGN KEY (`MaPhieuPhat`) REFERENCES `ctphieu_phat` (`MaPhieuPhat`),
-  ADD CONSTRAINT `phieu_phat_ibfk_2` FOREIGN KEY (`MaDG`) REFERENCES `doc_gia` (`MADG`);
+  ADD CONSTRAINT `phieu_phat_ibfk_2` FOREIGN KEY (`MaCTPhieuTra`) REFERENCES `ctphieu_tra` (`MaCTPhieuTra`),
+  ADD CONSTRAINT `phieu_phat_ibfk_3` FOREIGN KEY (`MaDG`) REFERENCES `doc_gia` (`MADG`);
+
+--
+-- Các ràng buộc cho bảng `phieu_tra`
+--
+ALTER TABLE `phieu_tra`
+  ADD CONSTRAINT `phieu_tra_ibfk_1` FOREIGN KEY (`MaNV`) REFERENCES `nhan_vien` (`MANV`),
+  ADD CONSTRAINT `phieu_tra_ibfk_3` FOREIGN KEY (`MaPhieuMuon`) REFERENCES `phieu_muon` (`MaPhieuMuon`),
+  ADD CONSTRAINT `phieu_tra_ibfk_4` FOREIGN KEY (`MaDG`) REFERENCES `doc_gia` (`MADG`);
+
+--
+-- Các ràng buộc cho bảng `sach`
+--
+ALTER TABLE `sach`
+  ADD CONSTRAINT `sach_ibfk_1` FOREIGN KEY (`MaDauSach`) REFERENCES `dau_sach` (`MaDauSach`);
+
+--
+-- Các ràng buộc cho bảng `tacgia_dausach`
+--
+ALTER TABLE `tacgia_dausach`
+  ADD CONSTRAINT `tacgia_dausach_ibfk_1` FOREIGN KEY (`MaDauSach`) REFERENCES `dau_sach` (`MaDauSach`),
+  ADD CONSTRAINT `tacgia_dausach_ibfk_2` FOREIGN KEY (`MaTacGia`) REFERENCES `tac_gia` (`MaTacGia`);
+
+--
+-- Các ràng buộc cho bảng `the_loai`
+--
+ALTER TABLE `the_loai`
+  ADD CONSTRAINT `the_loai_ibfk_1` FOREIGN KEY (`MaDauSach`) REFERENCES `dau_sach` (`MaDauSach`),
+  ADD CONSTRAINT `the_loai_ibfk_2` FOREIGN KEY (`MaTheLoai`) REFERENCES `ctthe_loai` (`MaTheLoai`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

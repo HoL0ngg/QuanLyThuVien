@@ -36,13 +36,51 @@ namespace QuanLyThuVien.GUI
 
             if (tk != null)
             {
+                // Kiểm tra mật khẩu mặc định
+                if (tk.MatKhau == "123456")
+                {
+                    MessageBox.Show(
+                        "Bạn đang sử dụng mật khẩu mặc định!\nVui lòng đổi mật khẩu để tiếp tục.",
+                        "Yêu cầu đổi mật khẩu",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning);
+
+                    // Hiện form đổi mật khẩu
+                    FormDoiMatKhau formDoiMK = new FormDoiMatKhau(int.Parse(tk.MaNV), true);
+                    DialogResult result = formDoiMK.ShowDialog();
+
+                    if (result == DialogResult.OK)
+                    {
+                        MessageBox.Show(
+                            "Đổi mật khẩu thành công!\nVui lòng đăng nhập lại với mật khẩu mới.",
+                            "Thông báo",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information);
+
+                        textBox1.Clear();
+                        textBox2.Clear();
+                        textBox1.Focus();
+                    }
+                    else
+                    {
+                        // Người dùng hủy đổi mật khẩu -> không cho đăng nhập
+                        textBox1.Clear();
+                        textBox2.Clear();
+                        textBox1.Focus();
+                    }
+                    return;
+                }
+
                 MessageBox.Show("Đăng nhập thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 MainForm mainForm = new MainForm(tk);
                 this.Hide();
-                mainForm.ShowDialog();
+                DialogResult mainResult = mainForm.ShowDialog();
+                
+                // Khi MainForm đóng, hiện lại LoginForm
                 this.Show();
                 textBox1.Clear();
                 textBox2.Clear();
+                textBox1.Focus();
             }
             else
             {

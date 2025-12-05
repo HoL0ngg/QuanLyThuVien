@@ -1,5 +1,6 @@
 ﻿using QuanLyThuVien.DAO;
 using QuanLyThuVien.DTO;
+using System;
 using System.Collections.Generic;
 using System.Data;
 
@@ -26,7 +27,8 @@ namespace QuanLyThuVien.DAO
                 return new TaiKhoanDTO
                 {
                     TenDangNhap = row["TenDangNhap"].ToString(),
-                    MaNV = row["MaNV"].ToString()
+                    MaNV = row["MaNV"].ToString(),
+                    MatKhau = row["MatKhau"].ToString()
                 };
             }
 

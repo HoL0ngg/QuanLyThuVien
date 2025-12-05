@@ -13,6 +13,10 @@ namespace QuanLyThuVien.DTO
         public int SoLuong { get; set; }
         public double DonGia { get; set; }
         public string TenSach { get; set; }
+        public double ThanhTien
+        {
+            get { return SoLuong * DonGia; }
+        }
 
     }
 }

@@ -12,10 +12,6 @@ namespace QuanLyThuVien.DTO
         public int MaPhieuTra { get; set; }
         public int MaSach { get; set; }
         public string TenSach { get; set; }
-        public DateTime NgayMuon { get; set; }
-        public DateTime NgayTraThucTe { get; set; }
-        public int SoNgayTre { get; set; }
-        public decimal TienPhat { get; set; }
-        public string GhiChu { get; set; }
+        public string TenTacGia { get; set; }
     }
 }
