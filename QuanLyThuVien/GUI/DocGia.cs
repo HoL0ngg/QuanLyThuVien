@@ -30,14 +30,6 @@ namespace QuanLyThuVien.GUI
 
         private void InitializeDocGiaGrid()
         {
-            dgvDocGia.AutoGenerateColumns = false;
-            dgvDocGia.Columns.Clear();
-            dgvDocGia.ReadOnly = true;
-            dgvDocGia.AllowUserToAddRows = false;
-            dgvDocGia.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvDocGia.MultiSelect = false;
-            dgvDocGia.RowHeadersVisible = false; // Ẩn cột mũi tên đầu tiên
-
             var colMa = new DataGridViewTextBoxColumn { Name = "MaDG", HeaderText = "Mã độc giả", DataPropertyName = "MaDG", FillWeight = 70 };
             var colTenDG = new DataGridViewTextBoxColumn { Name = "TenDG", HeaderText = "Tên độc giả", DataPropertyName = "TenDG", FillWeight = 100, AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill };
             var colSDT = new DataGridViewTextBoxColumn { Name = "SDT", HeaderText = "SĐT", DataPropertyName = "SDT", FillWeight = 70, Width = 100 };
