@@ -152,7 +152,7 @@ namespace QuanLyThuVien.GUI.phieutra
                 var row = bangPhieuMuon.Rows[e.RowIndex];
                 if (row.Cells["MaPhieuMuon"].Value == null) return;
                 int ma = Convert.ToInt32(row.Cells["MaPhieuMuon"].Value);
-                var ctList = ctDAO.GetByPhieuMuon(ma);
+                var ctList = ctDAO.GetByMaPhieuMuon(ma);
                 InitializeChiTietGrid();
                 bangCTPhieuMuon.DataSource = ctList;
             }
@@ -221,7 +221,7 @@ namespace QuanLyThuVien.GUI.phieutra
 
                 int maPhieuMuon = Convert.ToInt32(bangPhieuMuon.SelectedRows[0].Cells["MaPhieuMuon"].Value);
                 var pm = bus.GetById(maPhieuMuon);
-                var list = ctDAO.GetByPhieuMuon(maPhieuMuon);
+                var list = ctDAO.GetByMaPhieuMuon(maPhieuMuon);
 
                 PhieuTraDTO pt = new PhieuTraDTO();
                 pt.MaPhieuMuon = pm.MaPhieuMuon;

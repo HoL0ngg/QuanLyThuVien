@@ -7,6 +7,7 @@ using QuanLyThuVien.BUS;
 using QuanLyThuVien.DTO;
 using System.Drawing;
 using QuanLyThuVien.DAO;
+using System.Linq.Expressions;
 
 namespace QuanLyThuVien.GUI
 {
@@ -16,15 +17,14 @@ namespace QuanLyThuVien.GUI
         private BindingList<CTPhieuMuonDTO> ctList = new BindingList<CTPhieuMuonDTO>();
         private const string AddColumnName = "colAdd";
         private const string DeleteColumnName = "colDelete";
+        public TaiKhoanDTO tk = new TaiKhoanDTO();
 
-        // Cho phép truyền mã nhân viên hiện tại từ outside (nếu có)
-        public int MaNhanVienHienTai { get; set; } = 0;
-
-        public FormThemPhieuMuon()
+        public FormThemPhieuMuon(TaiKhoanDTO taikhoan)
         {
             InitializeComponent();
             InitializeTimSachGrid();
             InitializeChiTietGrid();
+            tk = taikhoan;
             if (LicenseManager.UsageMode == LicenseUsageMode.Designtime) return;
             this.Load += FormThemPhieuMuon_Load;
             btnThem.Click += BtnThem_Click;
@@ -76,48 +76,57 @@ namespace QuanLyThuVien.GUI
             }
 
             // 2) Kiểm tra tồn tại độc giả trong DB
-            
-            //if (!pmDAO.DocGiaExists(maDocGia))
-            //{
-            //    MessageBox.Show("Mã độc giả không tồn tại.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            //    txtMaDocGia.Focus();
-            //    return;
-            //}
+            var dgBus = new DocGiaBUS();
+            if (dgBus.GetById(maDocGia) == null)
+            {
+                MessageBox.Show("Mã độc giả không tồn tại.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtMaDocGia.Focus();
+                return;
+            }
 
             // 3) Kiểm tra danh sách sách mượn
-            //if (ctList.Count == 0)
-            //{
-            //    MessageBox.Show("Vui lòng chọn ít nhất một sách để mượn.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            //    return;
-            //}
+            if (ctList.Count == 0)
+            {
+                MessageBox.Show("Vui lòng chọn ít nhất một sách để mượn.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
-            //try
-            //{
-            //    var phieu = new PhieuMuonDTO
-            //    {
-            //        NgayMuon = DateTime.Today,
-            //        NgayTraDuKien = dtpNgayTraDuKien.Value,
-            //        TrangThai = 1,
-            //        MaDocGia = maDocGia,
-            //        MaNhanVien = MaNhanVienHienTai,
-            //        CTPM = ctList.ToList()
-            //    };
+            try
+            {
+                PhieuMuonDTO pm = new PhieuMuonDTO
+                {
+                    NgayMuon = DateTime.Today,
+                    NgayTraDuKien = dtpNgayTraDuKien.Value,
+                    TrangThai = 1,
+                    MaDocGia = maDocGia,
+                    MaNhanVien = tk.MaNV
+                };
+                PhieuMuonBUS pmBUS = new PhieuMuonBUS();
+                pmBUS.Create(pm);
+                CTPhieuMuonBUS ctpmBUS = new CTPhieuMuonBUS();
+                int newId = pmBUS.GetLastInsertedId();
+                foreach (var item in ctList)
+                {
+                    CTPhieuMuonDTO ctpm = new CTPhieuMuonDTO
+                    {
+                        MaPhieuMuon = newId,
+                        MaSach = item.MaSach
+                    };
+                    ctpmBUS.Create(ctpm);
+                }
+                ctList.Clear();
+                MessageBox.Show($"Tạo phiếu mượn thành công.", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-            //    //int newId = pmDAO.CreateWithDetails(phieu);
-            //    if (newId > 0)
-            //    {
-            //        MessageBox.Show($"Tạo phiếu mượn thành công (Mã: {newId}).", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            //        CloseRequested?.Invoke();
-            //    }
-            //    else
-            //    {
-            //        MessageBox.Show("Không thể tạo phiếu mượn.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show("Lỗi khi tạo phiếu mượn: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //}
+            }
+            catch (Exception ex) 
+            {
+                var detail = ex.Message;
+                if (ex.InnerException != null && !string.IsNullOrWhiteSpace(ex.InnerException.Message))
+                {
+                    detail += "\n\nChi tiết: " + ex.InnerException.Message;
+                }
+                MessageBox.Show("Không thể tạo phiếu mượn.\n" + detail, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void BtnHuy_Click(object sender, EventArgs e)

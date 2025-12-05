@@ -30,9 +30,9 @@
         {
             this.splitContainerMain = new System.Windows.Forms.SplitContainer();
             this.groupBoxList = new System.Windows.Forms.GroupBox();
-            this.bangPhieuMuon = new System.Windows.Forms.DataGridView();
+            this.bangPhieuMuon = new QuanLyThuVien.GUI.CustomDataGridView();
             this.groupBoxDetails = new System.Windows.Forms.GroupBox();
-            this.bangCTPhieuMuon = new System.Windows.Forms.DataGridView();
+            this.bangCTPhieuMuon = new QuanLyThuVien.GUI.CustomDataGridView();
             this.groupBoxInfo = new System.Windows.Forms.GroupBox();
             this.btnClearFilters = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
@@ -76,8 +76,8 @@
             // splitContainerMain.Panel2
             // 
             this.splitContainerMain.Panel2.Controls.Add(this.groupBoxDetails);
-            this.splitContainerMain.Size = new System.Drawing.Size(770, 432);
-            this.splitContainerMain.SplitterDistance = 210;
+            this.splitContainerMain.Size = new System.Drawing.Size(1028, 563);
+            this.splitContainerMain.SplitterDistance = 273;
             this.splitContainerMain.TabIndex = 2;
             // 
             // groupBoxList
@@ -86,7 +86,7 @@
             this.groupBoxList.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBoxList.Location = new System.Drawing.Point(0, 0);
             this.groupBoxList.Name = "groupBoxList";
-            this.groupBoxList.Size = new System.Drawing.Size(770, 210);
+            this.groupBoxList.Size = new System.Drawing.Size(1028, 273);
             this.groupBoxList.TabIndex = 0;
             this.groupBoxList.TabStop = false;
             this.groupBoxList.Text = "Danh sách phiếu mượn";
@@ -97,7 +97,7 @@
             this.bangPhieuMuon.Dock = System.Windows.Forms.DockStyle.Fill;
             this.bangPhieuMuon.Location = new System.Drawing.Point(3, 16);
             this.bangPhieuMuon.Name = "bangPhieuMuon";
-            this.bangPhieuMuon.Size = new System.Drawing.Size(764, 191);
+            this.bangPhieuMuon.Size = new System.Drawing.Size(1022, 254);
             this.bangPhieuMuon.TabIndex = 0;
             // 
             // groupBoxDetails
@@ -106,7 +106,7 @@
             this.groupBoxDetails.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBoxDetails.Location = new System.Drawing.Point(0, 0);
             this.groupBoxDetails.Name = "groupBoxDetails";
-            this.groupBoxDetails.Size = new System.Drawing.Size(770, 218);
+            this.groupBoxDetails.Size = new System.Drawing.Size(1028, 286);
             this.groupBoxDetails.TabIndex = 0;
             this.groupBoxDetails.TabStop = false;
             this.groupBoxDetails.Text = "Chi tiết phiếu mượn";
@@ -117,7 +117,7 @@
             this.bangCTPhieuMuon.Dock = System.Windows.Forms.DockStyle.Fill;
             this.bangCTPhieuMuon.Location = new System.Drawing.Point(3, 16);
             this.bangCTPhieuMuon.Name = "bangCTPhieuMuon";
-            this.bangCTPhieuMuon.Size = new System.Drawing.Size(764, 199);
+            this.bangCTPhieuMuon.Size = new System.Drawing.Size(1022, 267);
             this.bangCTPhieuMuon.TabIndex = 0;
             // 
             // groupBoxInfo
@@ -140,7 +140,7 @@
             this.groupBoxInfo.Controls.Add(this.btnTimKiem);
             this.groupBoxInfo.Location = new System.Drawing.Point(6, 6);
             this.groupBoxInfo.Name = "groupBoxInfo";
-            this.groupBoxInfo.Size = new System.Drawing.Size(770, 145);
+            this.groupBoxInfo.Size = new System.Drawing.Size(1028, 99);
             this.groupBoxInfo.TabIndex = 1;
             this.groupBoxInfo.TabStop = false;
             this.groupBoxInfo.Text = "Tìm kiếm phiếu mượn";
@@ -149,7 +149,7 @@
             // btnClearFilters
             // 
             this.btnClearFilters.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnClearFilters.Location = new System.Drawing.Point(530, 100);
+            this.btnClearFilters.Location = new System.Drawing.Point(843, 22);
             this.btnClearFilters.Name = "btnClearFilters";
             this.btnClearFilters.Size = new System.Drawing.Size(110, 25);
             this.btnClearFilters.TabIndex = 13;
@@ -264,9 +264,9 @@
             // btnTimKiem
             // 
             this.btnTimKiem.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnTimKiem.Location = new System.Drawing.Point(650, 100);
+            this.btnTimKiem.Location = new System.Drawing.Point(843, 58);
             this.btnTimKiem.Name = "btnTimKiem";
-            this.btnTimKiem.Size = new System.Drawing.Size(90, 25);
+            this.btnTimKiem.Size = new System.Drawing.Size(110, 25);
             this.btnTimKiem.TabIndex = 12;
             this.btnTimKiem.Text = "Tìm kiếm";
             this.btnTimKiem.UseVisualStyleBackColor = true;
@@ -289,9 +289,8 @@
             this.Controls.Add(this.splitContainerMain);
             this.Controls.Add(this.groupBoxInfo);
             this.Controls.Add(this.addPhieuMuon);
-            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "PhieuMuon";
-            this.Size = new System.Drawing.Size(782, 592);
+            this.Size = new System.Drawing.Size(1040, 723);
             this.Load += new System.EventHandler(this.PhieuMuon_Load);
             this.splitContainerMain.Panel1.ResumeLayout(false);
             this.splitContainerMain.Panel2.ResumeLayout(false);

@@ -50,27 +50,42 @@ namespace QuanLyThuVien.GUI
             {
                 var list = bus.GetByPhieuNhap(MaPhieuHienTai);
                 dataGridView1.DataSource = list;
-
-                double tongtien = 0;
-                foreach (DataGridViewRow row in dataGridView1.Rows)
-                {
-                    if (row.Cells["colSoLuong"].Value != null && row.Cells["colDonGia"].Value != null)
-                    {
-                        int soLuong = Convert.ToInt32(row.Cells["colSoLuong"].Value);
-                        double donGia = Convert.ToDouble(row.Cells["colDonGia"].Value);
-                        double thanhTien = soLuong * donGia;
-                        row.Cells["colThanhTien"].Value = thanhTien;
-                        tongtien += thanhTien;
-                    }
-                }
-
-                lblTongTien.Text = tongtien.ToString("N0") + " VNĐ";
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Lỗi khi tải chi tiết phiếu nhập: " + ex.Message,
                                 "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+        private void dataGridView1_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            TinhThanhTienVaTongTien();
+        }
+
+        private void TinhThanhTienVaTongTien()
+        {
+            double tongtien = 0;
+
+            foreach (DataGridViewRow row in dataGridView1.Rows)
+            {
+                if (row.Cells["colSoLuong"].Value != null && row.Cells["colDonGia"].Value != null)
+                {
+                    try
+                    {
+                        int soLuong = Convert.ToInt32(row.Cells["colSoLuong"].Value);
+                        double donGia = Convert.ToDouble(row.Cells["colDonGia"].Value);
+                        double thanhTien = soLuong * donGia;
+                        row.Cells["colThanhTien"].Value = thanhTien;
+
+                        tongtien += thanhTien;
+                    }
+                    catch (Exception)
+                    {
+                        
+                    }
+                }
+            }
+            lblTongTien.Text = $"Tổng tiền: {tongtien.ToString("N0")} VNĐ";
         }
 
         private void LoadSach()
@@ -111,9 +126,10 @@ namespace QuanLyThuVien.GUI
 
         private void FormCTPhieuNhap_Load(object sender, EventArgs e)
         {
+            LoadSach();
             LoadDanhSach();
             dataGridView1.CellClick += CTPhieuNhap_CellClick;
-            LoadSach();
+            dataGridView1.DataBindingComplete += dataGridView1_DataBindingComplete;
             btnThem.Click += new EventHandler(them);
             btnXoa.Click += new EventHandler(xoa);
             btnSua.Click += new EventHandler(sua);

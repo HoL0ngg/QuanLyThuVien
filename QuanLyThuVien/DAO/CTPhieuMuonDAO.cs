@@ -10,7 +10,7 @@ namespace QuanLyThuVien.DAO
 {
     public class CTPhieuMuonDAO
     {
-        public List<CTPhieuMuonDTO> GetByPhieuMuon(int maPhieuMuon)
+        public List<CTPhieuMuonDTO> GetByMaPhieuMuon(int maPhieuMuon)
         {
             List<CTPhieuMuonDTO> list = new List<CTPhieuMuonDTO>();
             string query = @"SELECT ct.MaPhieuMuon,
