@@ -11,5 +11,6 @@ namespace QuanLyThuVien.DTO
         public string TenDangNhap { get; set; }
         public string MaNV { get; set; }
         public string ChucVu { get; set; }
+        public string MatKhau { get; set; }
     }
 }

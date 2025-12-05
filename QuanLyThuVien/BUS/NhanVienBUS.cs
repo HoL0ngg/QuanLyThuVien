@@ -1,4 +1,4 @@
-using QuanLyThuVien.DAO;
+﻿using QuanLyThuVien.DAO;
 using QuanLyThuVien.DTO;
 using System;
 using System.Data;
@@ -22,102 +22,120 @@ namespace QuanLyThuVien.BUS
 
         private NhanVienBUS() { }
 
-        // L?y t?t c? nh�n vi�n
+        // L?y t?t c? nhân viên
         public DataTable GetAllNhanVien()
         {
             return NhanVienDAO.Instance.GetAllNhanVien();
         }
 
-        // L?y nh�n vi�n theo m�
+        // L?y nhân viên theo mã
         public NhanVienDTO GetNhanVienById(int maNV)
         {
             if (maNV <= 0)
-                throw new ArgumentException("M� nh�n vi�n kh�ng h?p l?");
+                throw new ArgumentException("Mã nhân viên không hợp lệ");
 
             return NhanVienDAO.Instance.GetNhanVienById(maNV);
         }
 
-        // Th�m nh�n vi�n m?i
+        // Thêm nhân viên m?i
         public bool ThemNhanVien(NhanVienDTO nv)
         {
             // Validate d? li?u
             if (nv == null)
-                throw new ArgumentNullException("Th�ng tin nh�n vi�n kh�ng ???c ?? tr?ng");
+                throw new ArgumentNullException("Thông tin nhân viên không được trống");
 
             if (string.IsNullOrWhiteSpace(nv.TenNV))
-                throw new Exception("T�n nh�n vi�n kh�ng ???c ?? tr?ng");
+                throw new Exception("Tên nhân viên không được trống");
 
             if (nv.TenNV.Length < 3 || nv.TenNV.Length > 100)
-                throw new Exception("T�n nh�n vi�n ph?i t? 3-100 k� t?");
+                throw new Exception("Tên nhân viên phải từ 3-100 ký tự");
 
             if (nv.NgaySinh >= DateTime.Now)
-                throw new Exception("Ng�y sinh ph?i nh? h?n ng�y hi?n t?i");
+                throw new Exception("Ngày sinh phải nhỏ hơn ngày hiện tại");
 
             int tuoi = DateTime.Now.Year - nv.NgaySinh.Year;
             if (tuoi < 18 || tuoi > 65)
-                throw new Exception("Tu?i nh�n vi�n ph?i t? 18-65");
+                throw new Exception("Tuổi nhân viên phải từ 18-65");
 
             if (string.IsNullOrWhiteSpace(nv.GioiTinh))
-                throw new Exception("Gi?i t�nh kh�ng ???c ?? tr?ng");
+                throw new Exception("Giới tính không được trống");
 
             if (!string.IsNullOrWhiteSpace(nv.SDT))
             {
-                if (!Regex.IsMatch(nv.SDT, @"^0\d{9,10}$"))
-                    throw new Exception("S? ?i?n tho?i kh�ng h?p l? (ph?i b?t ??u b?ng 0 v� c� 10-11 s?)");
+                if (!Regex.IsMatch(nv.SDT, @"^0\d{9}$"))
+                    throw new Exception("Số điện thoại không hợp lệ");
             }
 
             if (!string.IsNullOrWhiteSpace(nv.Email))
             {
                 if (!Regex.IsMatch(nv.Email, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
-                    throw new Exception("Email kh�ng h?p l?");
+                    throw new Exception("Email không h?p l?");
             }
 
             return NhanVienDAO.Instance.InsertNhanVien(nv);
         }
 
-        // S?a nh�n vi�n
+        // S?a nhân viên
         public bool SuaNhanVien(NhanVienDTO nv)
         {
             if (nv == null || nv.MaNV <= 0)
-                throw new Exception("Th�ng tin nh�n vi�n kh�ng h?p l?");
+                throw new Exception("Thông tin nhân viên không hợp lệ");
 
             if (string.IsNullOrWhiteSpace(nv.TenNV))
-                throw new Exception("T�n nh�n vi�n kh�ng ???c ?? tr?ng");
+                throw new Exception("Tên nhân viên không được trống");
 
             if (nv.TenNV.Length < 3 || nv.TenNV.Length > 100)
-                throw new Exception("T�n nh�n vi�n ph?i t? 3-100 k� t?");
+                throw new Exception("Tên nhân viên phải từ 3-100 ký tự");
 
             if (!string.IsNullOrWhiteSpace(nv.SDT))
             {
                 if (!Regex.IsMatch(nv.SDT, @"^0\d{9,10}$"))
-                    throw new Exception("S? ?i?n tho?i kh�ng h?p l?");
+                    throw new Exception("Số điện thoại không hợp lệ");
             }
 
             if (!string.IsNullOrWhiteSpace(nv.Email))
             {
                 if (!Regex.IsMatch(nv.Email, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
-                    throw new Exception("Email kh�ng h?p l?");
+                    throw new Exception("Email không hợp lệ");
             }
 
             return NhanVienDAO.Instance.UpdateNhanVien(nv);
         }
 
-        // X�a nh�n vi�n
+        // Xóa nhân viên
         public bool XoaNhanVien(int maNV)
         {
             if (maNV <= 0)
-                throw new ArgumentException("M� nh�n vi�n kh�ng h?p l?");
+                throw new ArgumentException("Mã nhân viên không hợp lệ");
 
             return NhanVienDAO.Instance.DeleteNhanVien(maNV);
         }
 
-        // T�m ki?m nh�n vi�n
+        // Tìm ki?m nhân viên
         public DataTable TimKiemNhanVien(string keyword)
         {
             if (string.IsNullOrWhiteSpace(keyword))
                 return GetAllNhanVien();
 
             return NhanVienDAO.Instance.SearchNhanVien(keyword.Trim());
+        }
+
+        // ??i m?t kh?u
+        public bool DoiMatKhau(int maNV, string matKhauCu, string matKhauMoi)
+        {
+            if (maNV <= 0)
+                throw new ArgumentException("Mã nhân viên không hợp lệ");
+
+            if (string.IsNullOrWhiteSpace(matKhauCu))
+                throw new Exception("Mật khẩu cũ không được trống");
+
+            if (string.IsNullOrWhiteSpace(matKhauMoi))
+                throw new Exception("Mật khẩu mới không được trống");
+
+            if (matKhauMoi.Length < 6)
+                throw new Exception("Mật khẩu mới phải có ít nhất 6 ký tự");
+
+            return NhanVienDAO.Instance.DoiMatKhau(maNV, matKhauCu, matKhauMoi);
         }
     }
 }

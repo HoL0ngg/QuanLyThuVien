@@ -164,5 +164,31 @@ namespace QuanLyThuVien.DAO
 
             return DataProvider.ExecuteQuery(query, parameters);
         }
+
+        // Đổi mật khẩu
+        public bool DoiMatKhau(int maNV, string matKhauCu, string matKhauMoi)
+        {
+            // Kiểm tra mật khẩu cũ
+            string checkQuery = "SELECT COUNT(*) FROM nhan_vien WHERE MANV = @MaNV AND MatKhau = @MatKhauCu";
+            var checkParams = new Dictionary<string, object>
+            {
+                { "@MaNV", maNV },
+                { "@MatKhauCu", matKhauCu }
+            };
+
+            int count = Convert.ToInt32(DataProvider.ExecuteScalar(checkQuery, checkParams));
+            if (count == 0)
+                return false;
+
+            // Cập nhật mật khẩu mới
+            string updateQuery = "UPDATE nhan_vien SET MatKhau = @MatKhauMoi WHERE MANV = @MaNV";
+            var updateParams = new Dictionary<string, object>
+            {
+                { "@MaNV", maNV },
+                { "@MatKhauMoi", matKhauMoi }
+            };
+
+            return DataProvider.ExecuteNonQuery(updateQuery, updateParams) > 0;
+        }
     }
 }

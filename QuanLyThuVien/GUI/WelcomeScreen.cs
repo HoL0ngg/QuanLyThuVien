@@ -43,25 +43,21 @@ namespace QuanLyThuVien.GUI
         {
             try
             {
-                // Th?ng kê t?ng s? sách
                 string querySach = "SELECT COUNT(*) FROM sach WHERE trangthai = 1";
                 object resultSach = DataProvider.ExecuteScalar(querySach);
                 int tongSach = resultSach != null ? Convert.ToInt32(resultSach) : 0;
                 lblTongSach.Text = tongSach.ToString();
 
-                // Th?ng kê t?ng ??u sách
                 string queryDauSach = "SELECT COUNT(*) FROM dau_sach WHERE TrangThai = 1";
                 object resultDauSach = DataProvider.ExecuteScalar(queryDauSach);
                 int tongDauSach = resultDauSach != null ? Convert.ToInt32(resultDauSach) : 0;
                 lblTongDauSach.Text = tongDauSach.ToString();
 
-                // Th?ng kê ??c gi?
                 string queryDocGia = "SELECT COUNT(*) FROM doc_gia WHERE TrangThai = 1";
                 object resultDocGia = DataProvider.ExecuteScalar(queryDocGia);
                 int tongDocGia = resultDocGia != null ? Convert.ToInt32(resultDocGia) : 0;
                 lblTongDocGia.Text = tongDocGia.ToString();
 
-                // Th?ng kê sách ?ang m??n
                 string querySachMuon = @"
                     SELECT COUNT(DISTINCT pm.MaPhieuMuon) 
                     FROM phieu_muon pm 
@@ -70,12 +66,11 @@ namespace QuanLyThuVien.GUI
                 int sachDangMuon = resultSachMuon != null ? Convert.ToInt32(resultSachMuon) : 0;
                 lblSachDangMuon.Text = sachDangMuon.ToString();
 
-                // Load ho?t ??ng g?n ?ây
                 LoadRecentActivities();
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"L?i t?i th?ng kê: {ex.Message}", "L?i", 
+                MessageBox.Show($"Lỗi tải thống kê: {ex.Message}", "Lỗi", 
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
