@@ -51,5 +51,9 @@ namespace QuanLyThuVien.BUS
             return pmDAO.Delete(maPhieuMuon);
         }
 
+        public int GetLastInsertedId()
+        {
+            return pmDAO.GetLatestId();
+        }
     }
 }

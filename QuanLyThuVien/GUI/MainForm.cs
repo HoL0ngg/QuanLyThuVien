@@ -479,13 +479,15 @@ namespace QuanLyThuVien.GUI
             if (clickedPanel.Name == "panelPhieuNhap")
                 LoadModule(new PhieuNhapGUI());
             else if (clickedPanel.Name == "panelPhieuMuon")
-                LoadModule(new PhieuMuon());
+                LoadModule(new PhieuMuon(currentUser));
             else if (clickedPanel.Name == "panelPhieuTra")
                 LoadModule(new PhieuTraGUI());
             else if (clickedPanel.Name == "panelDauSach")
                 LoadModule(new DauSach());
             else if (clickedPanel.Name == "panelNhanVien")
                 LoadModule(new NhanVienGUI());
+            else if (clickedPanel.Name == "panelDocGia")
+                LoadModule(new DocGia());
             else if (clickedPanel.Name == "panelDangXuat")
                 DangXuat();
         }
