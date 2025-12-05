@@ -27,7 +27,8 @@ namespace QuanLyThuVien.DAO
                 return new TaiKhoanDTO
                 {
                     TenDangNhap = row["TenDangNhap"].ToString(),
-                    MaNV = Convert.ToInt32(row["MaNV"])
+                    MaNV = int.Parse(row["MaNV"].ToString()),
+                    MatKhau = row["MatKhau"].ToString()
                 };
             }
 

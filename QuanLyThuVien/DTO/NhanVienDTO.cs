@@ -13,7 +13,7 @@ namespace QuanLyThuVien.DTO
         public string TenDangNhap { get; set; }
         public string MatKhau { get; set; }
         public int? MaNhomQuyen { get; set; }
-        public int TrangThai { get; set; } // 0: Ngh? vi?c, 1: ?ang làm
+        public int TrangThai { get; set; }
 
         public NhanVienDTO() { }
 

@@ -28,36 +28,37 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panelHeader = new System.Windows.Forms.Panel();
             this.lblWelcome = new System.Windows.Forms.Label();
             this.lblSubtitle = new System.Windows.Forms.Label();
             this.panelStats = new System.Windows.Forms.Panel();
             this.cardTongSach = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
             this.lblTongSach = new System.Windows.Forms.Label();
             this.lblTongSachTitle = new System.Windows.Forms.Label();
-            this.iconTongSach = new System.Windows.Forms.Label();
             this.cardTongDauSach = new System.Windows.Forms.Panel();
+            this.iconTongDauSach = new System.Windows.Forms.Label();
             this.lblTongDauSach = new System.Windows.Forms.Label();
             this.lblTongDauSachTitle = new System.Windows.Forms.Label();
-            this.iconTongDauSach = new System.Windows.Forms.Label();
             this.cardTongDocGia = new System.Windows.Forms.Panel();
+            this.iconTongDocGia = new System.Windows.Forms.Label();
             this.lblTongDocGia = new System.Windows.Forms.Label();
             this.lblTongDocGiaTitle = new System.Windows.Forms.Label();
-            this.iconTongDocGia = new System.Windows.Forms.Label();
             this.cardSachDangMuon = new System.Windows.Forms.Panel();
+            this.iconSachDangMuon = new System.Windows.Forms.Label();
             this.lblSachDangMuon = new System.Windows.Forms.Label();
             this.lblSachDangMuonTitle = new System.Windows.Forms.Label();
-            this.iconSachDangMuon = new System.Windows.Forms.Label();
             this.panelInfo = new System.Windows.Forms.Panel();
             this.lblInfoTitle = new System.Windows.Forms.Label();
             this.lblInfo1 = new System.Windows.Forms.Label();
             this.lblInfo2 = new System.Windows.Forms.Label();
             this.lblInfo3 = new System.Windows.Forms.Label();
             this.lblInfo4 = new System.Windows.Forms.Label();
+            this.btnRefresh = new System.Windows.Forms.Button();
             this.panelActivity = new System.Windows.Forms.Panel();
             this.lblActivityTitle = new System.Windows.Forms.Label();
             this.dgvRecentActivity = new System.Windows.Forms.DataGridView();
-            this.btnRefresh = new System.Windows.Forms.Button();
             this.panelHeader.SuspendLayout();
             this.panelStats.SuspendLayout();
             this.cardTongSach.SuspendLayout();
@@ -88,7 +89,7 @@
             this.lblWelcome.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
             this.lblWelcome.Location = new System.Drawing.Point(30, 25);
             this.lblWelcome.Name = "lblWelcome";
-            this.lblWelcome.Size = new System.Drawing.Size(564, 46);
+            this.lblWelcome.Size = new System.Drawing.Size(660, 46);
             this.lblWelcome.TabIndex = 0;
             this.lblWelcome.Text = "📚 Chào mừng đến Thư viện";
             // 
@@ -99,7 +100,7 @@
             this.lblSubtitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(117)))), ((int)(((byte)(117)))), ((int)(((byte)(117)))));
             this.lblSubtitle.Location = new System.Drawing.Point(35, 75);
             this.lblSubtitle.Name = "lblSubtitle";
-            this.lblSubtitle.Size = new System.Drawing.Size(388, 25);
+            this.lblSubtitle.Size = new System.Drawing.Size(391, 25);
             this.lblSubtitle.TabIndex = 1;
             this.lblSubtitle.Text = "Hệ thống quản lý thư viện hiện đại và tiện lợi";
             // 
@@ -118,7 +119,7 @@
             // cardTongSach
             // 
             this.cardTongSach.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
-            this.cardTongSach.Controls.Add(this.iconTongSach);
+            this.cardTongSach.Controls.Add(this.label1);
             this.cardTongSach.Controls.Add(this.lblTongSach);
             this.cardTongSach.Controls.Add(this.lblTongSachTitle);
             this.cardTongSach.Location = new System.Drawing.Point(10, 10);
@@ -126,16 +127,16 @@
             this.cardTongSach.Size = new System.Drawing.Size(230, 120);
             this.cardTongSach.TabIndex = 0;
             // 
-            // iconTongSach
+            // label1
             // 
-            this.iconTongSach.AutoSize = true;
-            this.iconTongSach.Font = new System.Drawing.Font("Microsoft Sans Serif", 28F);
-            this.iconTongSach.ForeColor = System.Drawing.Color.White;
-            this.iconTongSach.Location = new System.Drawing.Point(15, 15);
-            this.iconTongSach.Name = "iconTongSach";
-            this.iconTongSach.Size = new System.Drawing.Size(71, 54);
-            this.iconTongSach.TabIndex = 0;
-            this.iconTongSach.Text = "??";
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 28F);
+            this.label1.ForeColor = System.Drawing.Color.White;
+            this.label1.Location = new System.Drawing.Point(15, 15);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(77, 54);
+            this.label1.TabIndex = 3;
+            this.label1.Text = "📚";
             // 
             // lblTongSach
             // 
@@ -144,7 +145,7 @@
             this.lblTongSach.ForeColor = System.Drawing.Color.White;
             this.lblTongSach.Location = new System.Drawing.Point(110, 15);
             this.lblTongSach.Name = "lblTongSach";
-            this.lblTongSach.Size = new System.Drawing.Size(51, 54);
+            this.lblTongSach.Size = new System.Drawing.Size(50, 54);
             this.lblTongSach.TabIndex = 1;
             this.lblTongSach.Text = "0";
             // 
@@ -155,7 +156,7 @@
             this.lblTongSachTitle.ForeColor = System.Drawing.Color.White;
             this.lblTongSachTitle.Location = new System.Drawing.Point(20, 80);
             this.lblTongSachTitle.Name = "lblTongSachTitle";
-            this.lblTongSachTitle.Size = new System.Drawing.Size(101, 24);
+            this.lblTongSachTitle.Size = new System.Drawing.Size(100, 24);
             this.lblTongSachTitle.TabIndex = 2;
             this.lblTongSachTitle.Text = "Tổng sách";
             // 
@@ -177,7 +178,7 @@
             this.iconTongDauSach.ForeColor = System.Drawing.Color.White;
             this.iconTongDauSach.Location = new System.Drawing.Point(15, 15);
             this.iconTongDauSach.Name = "iconTongDauSach";
-            this.iconTongDauSach.Size = new System.Drawing.Size(71, 54);
+            this.iconTongDauSach.Size = new System.Drawing.Size(77, 54);
             this.iconTongDauSach.TabIndex = 0;
             this.iconTongDauSach.Text = "📚";
             // 
@@ -188,7 +189,7 @@
             this.lblTongDauSach.ForeColor = System.Drawing.Color.White;
             this.lblTongDauSach.Location = new System.Drawing.Point(110, 15);
             this.lblTongDauSach.Name = "lblTongDauSach";
-            this.lblTongDauSach.Size = new System.Drawing.Size(51, 54);
+            this.lblTongDauSach.Size = new System.Drawing.Size(50, 54);
             this.lblTongDauSach.TabIndex = 1;
             this.lblTongDauSach.Text = "0";
             // 
@@ -199,7 +200,7 @@
             this.lblTongDauSachTitle.ForeColor = System.Drawing.Color.White;
             this.lblTongDauSachTitle.Location = new System.Drawing.Point(20, 80);
             this.lblTongDauSachTitle.Name = "lblTongDauSachTitle";
-            this.lblTongDauSachTitle.Size = new System.Drawing.Size(135, 24);
+            this.lblTongDauSachTitle.Size = new System.Drawing.Size(138, 24);
             this.lblTongDauSachTitle.TabIndex = 2;
             this.lblTongDauSachTitle.Text = "Tổng đầu sách";
             // 
@@ -221,7 +222,7 @@
             this.iconTongDocGia.ForeColor = System.Drawing.Color.White;
             this.iconTongDocGia.Location = new System.Drawing.Point(15, 15);
             this.iconTongDocGia.Name = "iconTongDocGia";
-            this.iconTongDocGia.Size = new System.Drawing.Size(71, 54);
+            this.iconTongDocGia.Size = new System.Drawing.Size(77, 54);
             this.iconTongDocGia.TabIndex = 0;
             this.iconTongDocGia.Text = "👥";
             // 
@@ -232,7 +233,7 @@
             this.lblTongDocGia.ForeColor = System.Drawing.Color.White;
             this.lblTongDocGia.Location = new System.Drawing.Point(110, 15);
             this.lblTongDocGia.Name = "lblTongDocGia";
-            this.lblTongDocGia.Size = new System.Drawing.Size(51, 54);
+            this.lblTongDocGia.Size = new System.Drawing.Size(50, 54);
             this.lblTongDocGia.TabIndex = 1;
             this.lblTongDocGia.Text = "0";
             // 
@@ -243,7 +244,7 @@
             this.lblTongDocGiaTitle.ForeColor = System.Drawing.Color.White;
             this.lblTongDocGiaTitle.Location = new System.Drawing.Point(20, 80);
             this.lblTongDocGiaTitle.Name = "lblTongDocGiaTitle";
-            this.lblTongDocGiaTitle.Size = new System.Drawing.Size(113, 24);
+            this.lblTongDocGiaTitle.Size = new System.Drawing.Size(123, 24);
             this.lblTongDocGiaTitle.TabIndex = 2;
             this.lblTongDocGiaTitle.Text = "Tổng độc giả";
             // 
@@ -265,7 +266,7 @@
             this.iconSachDangMuon.ForeColor = System.Drawing.Color.White;
             this.iconSachDangMuon.Location = new System.Drawing.Point(15, 15);
             this.iconSachDangMuon.Name = "iconSachDangMuon";
-            this.iconSachDangMuon.Size = new System.Drawing.Size(71, 54);
+            this.iconSachDangMuon.Size = new System.Drawing.Size(77, 54);
             this.iconSachDangMuon.TabIndex = 0;
             this.iconSachDangMuon.Text = "📤";
             // 
@@ -276,7 +277,7 @@
             this.lblSachDangMuon.ForeColor = System.Drawing.Color.White;
             this.lblSachDangMuon.Location = new System.Drawing.Point(110, 15);
             this.lblSachDangMuon.Name = "lblSachDangMuon";
-            this.lblSachDangMuon.Size = new System.Drawing.Size(51, 54);
+            this.lblSachDangMuon.Size = new System.Drawing.Size(50, 54);
             this.lblSachDangMuon.TabIndex = 1;
             this.lblSachDangMuon.Text = "0";
             // 
@@ -287,7 +288,7 @@
             this.lblSachDangMuonTitle.ForeColor = System.Drawing.Color.White;
             this.lblSachDangMuonTitle.Location = new System.Drawing.Point(20, 80);
             this.lblSachDangMuonTitle.Name = "lblSachDangMuonTitle";
-            this.lblSachDangMuonTitle.Size = new System.Drawing.Size(155, 24);
+            this.lblSachDangMuonTitle.Size = new System.Drawing.Size(156, 24);
             this.lblSachDangMuonTitle.TabIndex = 2;
             this.lblSachDangMuonTitle.Text = "Sách đang mượn";
             // 
@@ -312,7 +313,7 @@
             this.lblInfoTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
             this.lblInfoTitle.Location = new System.Drawing.Point(20, 20);
             this.lblInfoTitle.Name = "lblInfoTitle";
-            this.lblInfoTitle.Size = new System.Drawing.Size(304, 31);
+            this.lblInfoTitle.Size = new System.Drawing.Size(299, 31);
             this.lblInfoTitle.TabIndex = 0;
             this.lblInfoTitle.Text = "ℹ️ Giới thiệu Thư viện";
             // 
@@ -324,7 +325,8 @@
             this.lblInfo1.Name = "lblInfo1";
             this.lblInfo1.Size = new System.Drawing.Size(430, 80);
             this.lblInfo1.TabIndex = 1;
-            this.lblInfo1.Text = "✨ Thư viện của chúng tôi cung cấp hơn 10,000 đầu sách đa dạng từ văn học, khoa học, công nghệ đến nghệ thuật và nhiều lĩnh vực khác.";
+            this.lblInfo1.Text = "✨ Thư viện của chúng tôi cung cấp hơn 10,000 đầu sách đa dạng từ văn học, khoa họ" +
+    "c, công nghệ đến nghệ thuật và nhiều lĩnh vực khác.";
             // 
             // lblInfo2
             // 
@@ -334,7 +336,8 @@
             this.lblInfo2.Name = "lblInfo2";
             this.lblInfo2.Size = new System.Drawing.Size(430, 60);
             this.lblInfo2.TabIndex = 2;
-            this.lblInfo2.Text = "📱 Hệ thống quản lý hiện đại, dễ sử dụng, giúp việc mượn trả sách trở nên nhanh chóng và thuận tiện.";
+            this.lblInfo2.Text = "📱 Hệ thống quản lý hiện đại, dễ sử dụng, giúp việc mượn trả sách trở nên nhanh c" +
+    "hóng và thuận tiện.";
             // 
             // lblInfo3
             // 
@@ -354,7 +357,7 @@
             this.lblInfo4.Name = "lblInfo4";
             this.lblInfo4.Size = new System.Drawing.Size(430, 40);
             this.lblInfo4.TabIndex = 4;
-            this.lblInfo4.Text = "📧 Liên hệ: library@example.com | ☎️ Hotline: 1900-xxxx";
+            this.lblInfo4.Text = "📧 Liên hệ: hohoanglong2508@gmail.com | ☎️ Hotline: 0937211264";
             // 
             // btnRefresh
             // 
@@ -388,7 +391,7 @@
             this.lblActivityTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
             this.lblActivityTitle.Location = new System.Drawing.Point(20, 20);
             this.lblActivityTitle.Name = "lblActivityTitle";
-            this.lblActivityTitle.Size = new System.Drawing.Size(314, 31);
+            this.lblActivityTitle.Size = new System.Drawing.Size(300, 31);
             this.lblActivityTitle.TabIndex = 0;
             this.lblActivityTitle.Text = "📋 Hoạt động gần đây";
             // 
@@ -400,9 +403,14 @@
             this.dgvRecentActivity.BackgroundColor = System.Drawing.Color.White;
             this.dgvRecentActivity.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgvRecentActivity.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
-            this.dgvRecentActivity.ColumnHeadersDefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
-            this.dgvRecentActivity.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
-            this.dgvRecentActivity.ColumnHeadersDefaultCellStyle.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvRecentActivity.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvRecentActivity.ColumnHeadersHeight = 35;
             this.dgvRecentActivity.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgvRecentActivity.EnableHeadersVisualStyles = false;
@@ -455,7 +463,6 @@
         private System.Windows.Forms.Label lblSubtitle;
         private System.Windows.Forms.Panel panelStats;
         private System.Windows.Forms.Panel cardTongSach;
-        private System.Windows.Forms.Label iconTongSach;
         private System.Windows.Forms.Label lblTongSach;
         private System.Windows.Forms.Label lblTongSachTitle;
         private System.Windows.Forms.Panel cardTongDauSach;
@@ -480,5 +487,6 @@
         private System.Windows.Forms.Panel panelActivity;
         private System.Windows.Forms.Label lblActivityTitle;
         private System.Windows.Forms.DataGridView dgvRecentActivity;
+        private System.Windows.Forms.Label label1;
     }
 }
