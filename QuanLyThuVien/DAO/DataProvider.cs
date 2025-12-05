@@ -9,7 +9,7 @@ namespace QuanLyThuVien.DAO
     public class DataProvider
     {
         private static string connectionString =
-            "server=localhost;user=root;password=;database=qltv;SslMode=none;";
+            "server=localhost;user=root;password=;database=quanlythuvien;SslMode=none;";
             
 
         // Kết nối MySQL
