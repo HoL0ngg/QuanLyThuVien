@@ -24,20 +24,24 @@ namespace QuanLyThuVien.GUI
             this.nhanVien = nv;
             this.isViewOnly = viewOnly;
             this.Text = viewOnly ? "Chi tiết nhân viên" : "Cập nhật nhân viên";
-            LoadData();
         }
 
         private void FormNhanVien_Load(object sender, EventArgs e)
         {
-            // Setup combobox
+            // Thiết lập combobox
             cboGioiTinh.Items.AddRange(new[] { "Nam", "Nữ", "Khác" });
             cboTrangThai.Items.AddRange(new[] { "Đang làm việc", "Nghỉ việc" });
 
             if (nhanVien.MaNV == 0)
             {
-                dtpNgaySinh.Value = new DateTime(1990, 1, 1);
+                // THÊM MỚI
                 cboGioiTinh.SelectedIndex = 0;
                 cboTrangThai.SelectedIndex = 0;
+                dtpNgaySinh.Value = new DateTime(1990, 1, 1);
+            }
+            else
+            {
+                LoadData();
             }
 
             if (isViewOnly)
@@ -52,10 +56,19 @@ namespace QuanLyThuVien.GUI
 
             txtTenNV.Text = nhanVien.TenNV;
             dtpNgaySinh.Value = nhanVien.NgaySinh;
-            cboGioiTinh.Text = nhanVien.GioiTinh;
+
+            // Giới tính an toàn
+            int gioiTinhIndex = cboGioiTinh.Items.IndexOf(nhanVien.GioiTinh);
+            cboGioiTinh.SelectedIndex = gioiTinhIndex >= 0 ? gioiTinhIndex : 0;
+
             txtSDT.Text = nhanVien.SDT;
             txtEmail.Text = nhanVien.Email;
-            cboTrangThai.SelectedIndex = nhanVien.TrangThai;
+
+            // Trạng thái an toàn
+            cboTrangThai.SelectedIndex =
+                nhanVien.TrangThai >= 0 && nhanVien.TrangThai <= 1
+                ? nhanVien.TrangThai
+                : 0;
         }
 
         private void SetReadOnly()
@@ -66,6 +79,7 @@ namespace QuanLyThuVien.GUI
             txtSDT.ReadOnly = true;
             txtEmail.ReadOnly = true;
             cboTrangThai.Enabled = false;
+
             btnLuu.Visible = false;
             btnHuy.Text = "Đóng";
         }
@@ -74,23 +88,23 @@ namespace QuanLyThuVien.GUI
         {
             try
             {
+                // Gán dữ liệu
                 nhanVien.TenNV = txtTenNV.Text.Trim();
                 nhanVien.NgaySinh = dtpNgaySinh.Value;
                 nhanVien.GioiTinh = cboGioiTinh.Text;
                 nhanVien.SDT = txtSDT.Text.Trim();
                 nhanVien.Email = txtEmail.Text.Trim();
-                nhanVien.TrangThai = (cboTrangThai.SelectedIndex + 1) % 2;
+                nhanVien.TrangThai = cboTrangThai.SelectedIndex;   // <-- FIX
 
-                // Nếu là thêm mới, tạo TenDangNhap tự động từ tên
+                // Nếu thêm mới
                 if (nhanVien.MaNV == 0)
                 {
-                    // Tạo username từ tên: Nguyễn Văn A -> nguyenvana
-                    string tenDangNhap = ConvertToUsername(nhanVien.TenNV);
-                    nhanVien.TenDangNhap = tenDangNhap;
-                    nhanVien.MatKhau = "123456"; // Mật khẩu mặc định
-                    nhanVien.MaNhomQuyen = 2; // Nhóm quyền mặc định (Thủ thư)
+                    nhanVien.TenDangNhap = ConvertToUsername(nhanVien.TenNV);
+                    nhanVien.MatKhau = "123456";        // mặc định
+                    nhanVien.MaNhomQuyen = 2;           // mặc định: Thủ thư
                 }
 
+                // Lưu
                 bool result = nhanVien.MaNV == 0
                     ? NhanVienBUS.Instance.ThemNhanVien(nhanVien)
                     : NhanVienBUS.Instance.SuaNhanVien(nhanVien);
@@ -116,15 +130,9 @@ namespace QuanLyThuVien.GUI
             if (string.IsNullOrWhiteSpace(tenNV))
                 return "";
 
-            // Loại bỏ dấu tiếng Việt
             string result = RemoveVietnameseTone(tenNV);
-            
-            // Chuyển về chữ thường, loại bỏ khoảng trắng
             result = result.ToLower().Replace(" ", "");
-
-            // Thêm ngày sinh để đảm bảo unique
             result += dtpNgaySinh.Value.ToString("ddMMyy");
-
             return result;
         }
 
@@ -139,7 +147,7 @@ namespace QuanLyThuVien.GUI
                 "ÉÈẸẺẼÊẾỀỆỂỄ",
                 "óòọỏõôốồộổỗơớờợởỡ",
                 "ÓÒỌỎÕÔỐỒỘỔỖƠỚỜỢỞỠ",
-                "úù ụủũưứừựửữ",
+                "úùụủũưứừựửữ",
                 "ÚÙỤỦŨƯỨỪỰỬỮ",
                 "íìịỉĩ",
                 "ÍÌỊỈĨ",

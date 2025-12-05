@@ -101,6 +101,21 @@ namespace QuanLyThuVien.GUI
                 Width = 160,
                 DefaultCellStyle = new DataGridViewCellStyle { Alignment = DataGridViewContentAlignment.MiddleLeft }
             });
+            dgvNhanVien.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "TenDangNhap",
+                HeaderText = "Tên ĐN",
+                Name = "colTenDangNhap",
+                Width = 100,
+                DefaultCellStyle = new DataGridViewCellStyle { Alignment = DataGridViewContentAlignment.MiddleLeft }
+            });
+            dgvNhanVien.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "ChucVu",
+                HeaderText = "Chức vụ",
+                Name = "colChucVu",
+                Width = 100
+            });
 
             dgvNhanVien.Columns.Add(new DataGridViewTextBoxColumn
             {

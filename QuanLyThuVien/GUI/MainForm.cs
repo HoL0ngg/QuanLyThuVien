@@ -42,6 +42,20 @@ namespace QuanLyThuVien.GUI
         {
             InitializeComponent();
             this.currentUser = taiKhoan;
+            if (this.currentUser != null)
+            {
+                string tenHienThi = $"{this.currentUser.TenNhanVien.Trim()} - {this.currentUser.ChucVu.Trim()}";
+                label1.Text = tenHienThi;
+                label2.Text = "Đăng xuất";
+
+                ApplyRolePermission();
+            }
+            else
+            {
+                MessageBox.Show("Không tìm thấy thông tin người dùng. Ứng dụng sẽ đóng.", "Lỗi hệ thống", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.Load += (s, e) => this.Close();
+                return;
+            }
             this.DoubleBuffered = true;
             this.SetStyle(ControlStyles.OptimizedDoubleBuffer | 
                          ControlStyles.AllPaintingInWmPaint | 
@@ -423,9 +437,90 @@ namespace QuanLyThuVien.GUI
             
             // Hiển thị màn hình chào mừng khi mới mở app
             LoadModule(new WelcomeScreen());
-            
+
             //label1.Text = currentUser.TenDangNhap;
             //label2.Text = currentUser.ChucVu;
+        }
+        private void ApplyRolePermission()
+        {
+            if (currentUser == null || string.IsNullOrEmpty(currentUser.ChucVu))
+            {
+                MessageBox.Show("Không thể xác định vai trò người dùng.", "Lỗi phân quyền", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            string role = currentUser.ChucVu.Trim().ToLower();
+
+            if (role == "admin")
+                return;
+
+            DisablePanel(panelPhieuNhap);
+            DisablePanel(panelPhieuMuon);
+            DisablePanel(panelPhieuTra);
+            DisablePanel(panelPhieuPhat);
+            DisablePanel(panelDocGia);
+            DisablePanel(panelThongKe);
+            DisablePanel(panelNhanVien);
+            DisablePanel(panelDauSach);
+
+            switch (role)
+            {
+                case "thủ thư":
+                    EnablePanel(panelPhieuMuon);
+                    EnablePanel(panelPhieuTra);
+                    EnablePanel(panelPhieuPhat);
+                    EnablePanel(panelDocGia);
+                    EnablePanel(panelDauSach);
+
+                    panelPhieuNhap.Visible = false;
+                    panelThongKe.Visible = false;
+                    panelNhanVien.Visible = false;
+                    break;
+
+                case "quản lý kho":
+                    EnablePanel(panelPhieuNhap);
+                    EnablePanel(panelDauSach);
+                    EnablePanel(panelThongKe);
+
+                    panelPhieuMuon.Visible = false;
+                    panelPhieuTra.Visible = false;
+                    panelPhieuPhat.Visible = false;
+                    panelDocGia.Visible = false;
+                    panelNhanVien.Visible = false;
+
+                    break;
+
+                case "nhân viên":
+                    EnablePanel(panelDauSach);   
+                    EnablePanel(panelDocGia);
+
+                    panel9.Visible = false;
+                    panel10.Visible = false;
+                    panel12.Visible = false;
+                    panelPhieuNhap.Visible = false;
+                    panelPhieuMuon.Visible = false;
+                    panelPhieuTra.Visible = false;
+                    panelPhieuPhat.Visible = false;
+                    panelThongKe.Visible = false;
+                    panelNhanVien.Visible = false;
+                    break;
+                default:
+                    MessageBox.Show($"Vai trò '{currentUser.ChucVu}' không được định nghĩa.", "Lỗi Phân quyền", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    break;
+            }
+        }
+
+        private void DisablePanel(Panel p)
+        {
+            p.Enabled = false;
+            foreach (Control ctrl in p.Controls)
+                ctrl.Enabled = false;
+        }
+
+        private void EnablePanel(Panel p)
+        {
+            p.Enabled = true;
+            foreach (Control ctrl in p.Controls)
+                ctrl.Enabled = true;
         }
 
         private void label3_Click(object sender, EventArgs e) { }
@@ -456,6 +551,7 @@ namespace QuanLyThuVien.GUI
         {
             Panel clickedPanel = sender as Panel;
             if (clickedPanel == activeMenuPanel) return;
+            if (!clickedPanel.Enabled) return;
 
             if (activeMenuPanel != null)
             {

@@ -8,6 +8,7 @@ namespace QuanLyThuVien.DTO
 {
     public class TaiKhoanDTO
     {
+        public string TenNhanVien { get; set; }
         public string TenDangNhap { get; set; }
         public int MaNV { get; set; }
         public string ChucVu { get; set; }

@@ -25,18 +25,19 @@ namespace QuanLyThuVien.DAO
         {
             string query = @"
                 SELECT 
-                    MaNV, TenNV, NgaySinh, SDT, Email,
+                    NV.MANV, NV.TENNV, NV.NGAYSINH, NV.SDT, NV.Email,NV.TenDangNhap,NQ.TENNQ AS ChucVu,
                     CASE
-                        WHEN GioiTinh = 1 THEN 'Nam'
-                        WHEN GioiTinh = 0 THEN 'Nữ'
+                        WHEN NV.GIOITINH = 1 THEN 'Nam'
+                        WHEN NV.GIOITINH = 0 THEN 'Nữ'
                         ELSE 'Khác'
-                    END AS GioiTinh,
+                    END AS GIOITINH,
                     CASE 
-                        WHEN TrangThai = 1 THEN 'Đang làm việc'
+                        WHEN NV.TrangThai = 1 THEN 'Đang làm việc'
                         ELSE 'Nghỉ việc'
                     END AS TrangThai
-                FROM nhan_vien
-                ORDER BY MaNV DESC";
+                FROM nhan_vien NV
+                LEFT JOIN nhom_quyen NQ ON NV.MaNhomQuyen = NQ.MANQ
+                ORDER BY NV.MANV DESC";
 
             return DataProvider.ExecuteQuery(query);
         }
@@ -44,14 +45,16 @@ namespace QuanLyThuVien.DAO
         public NhanVienDTO GetNhanVienById(int maNV)
         {
             string query = @"
-                SELECT MaNV, TenNV, NgaySinh, GioiTinh,
-                       SDT, Email, TenDangNhap, MatKhau, MaNhomQuyen, TrangThai
-                FROM nhan_vien
-                WHERE MaNV = @MaNV";
+                SELECT NV.MANV, NV.TENNV, NV.NGAYSINH, NV.GIOITINH,
+                       NV.SDT, NV.Email, NV.TenDangNhap, NV.MatKhau, NV.MaNhomQuyen, NV.TrangThai,
+                       NQ.TENNQ AS ChucVu
+                FROM nhan_vien NV
+                LEFT JOIN nhom_quyen NQ ON NV.MaNhomQuyen = NQ.MANQ
+                WHERE NV.MANV = @MANV";
 
             var parameters = new Dictionary<string, object>
             {
-                { "@MaNV", maNV }
+                { "@MANV", maNV }
             };
 
             DataTable dt = DataProvider.ExecuteQuery(query, parameters);
@@ -62,10 +65,10 @@ namespace QuanLyThuVien.DAO
             DataRow row = dt.Rows[0];
             return new NhanVienDTO
             {
-                MaNV = Convert.ToInt32(row["MaNV"]),
-                TenNV = row["TenNV"]?.ToString(),
-                NgaySinh = Convert.ToDateTime(row["NgaySinh"]),
-                GioiTinh = row["GioiTinh"]?.ToString(),
+                MaNV = Convert.ToInt32(row["MANV"]),
+                TenNV = row["TENNV"]?.ToString(),
+                NgaySinh = Convert.ToDateTime(row["NGAYSINH"]),
+                GioiTinh = row["GIOITINH"]?.ToString(),
                 SDT = row["SDT"]?.ToString(),
                 Email = row["Email"]?.ToString(),
                 TenDangNhap = row["TenDangNhap"]?.ToString(),
@@ -79,15 +82,15 @@ namespace QuanLyThuVien.DAO
         {
             string query = @"
                 INSERT INTO nhan_vien 
-                (TenNV, NgaySinh, GioiTinh, SDT, Email, TenDangNhap, MatKhau, MaNhomQuyen, TrangThai)
+                (TENNV, NGAYSINH, GIOITINH, SDT, Email, TenDangNhap, MatKhau, MaNhomQuyen, TrangThai)
                 VALUES 
-                (@TenNV, @NgaySinh, @GioiTinh, @SDT, @Email, @TenDangNhap, @MatKhau, @MaNhomQuyen, @TrangThai)";
+                (@TENNV, @NGAYSINH, @GIOITINH, @SDT, @Email, @TenDangNhap, @MatKhau, @MaNhomQuyen, @TrangThai)";
 
             var parameters = new Dictionary<string, object>
             {
-                { "@TenNV", nv.TenNV },
-                { "@NgaySinh", nv.NgaySinh },
-                { "@GioiTinh", nv.GioiTinh },
+                { "@TENNV", nv.TenNV },
+                { "@NGAYSINH", nv.NgaySinh },
+                { "@GIOITINH", nv.GioiTinh },
                 { "@SDT", nv.SDT ?? "" },
                 { "@Email", nv.Email ?? "" },
                 { "@TenDangNhap", nv.TenDangNhap ?? "" },
@@ -103,20 +106,20 @@ namespace QuanLyThuVien.DAO
         {
             string query = @"
                 UPDATE nhan_vien 
-                SET TenNV = @TenNV,
-                    NgaySinh = @NgaySinh,
-                    GioiTinh = @GioiTinh,
+                SET TENNV = @TENNV,
+                    NGAYSINH = @NGAYSINH,
+                    GIOITINH = @GIOITINH,
                     SDT = @SDT,
                     Email = @Email,
                     TrangThai = @TrangThai
-                WHERE MaNV = @MaNV";
+                WHERE MANV = @MANV";
 
             var parameters = new Dictionary<string, object>
             {
-                { "@MaNV", nv.MaNV },
-                { "@TenNV", nv.TenNV },
-                { "@NgaySinh", nv.NgaySinh },
-                { "@GioiTinh", nv.GioiTinh },
+                { "@MANV", nv.MaNV },
+                { "@TENNV", nv.TenNV },
+                { "@NGAYSINH", nv.NgaySinh },
+                { "@GIOITINH", nv.GioiTinh },
                 { "@SDT", nv.SDT ?? "" },
                 { "@Email", nv.Email ?? "" },
                 { "@TrangThai", nv.TrangThai }
@@ -128,10 +131,10 @@ namespace QuanLyThuVien.DAO
         // Xóa nhân viên (soft delete)
         public bool DeleteNhanVien(int maNV)
         {
-            string query = "UPDATE nhan_vien SET TrangThai = 0 WHERE MaNV = @MaNV";
+            string query = "UPDATE nhan_vien SET TrangThai = 0 WHERE MANV = @MANV";
             var parameters = new Dictionary<string, object>
             {
-                { "@MaNV", maNV }
+                { "@MANV", maNV }
             };
 
             return DataProvider.ExecuteNonQuery(query, parameters) > 0;
@@ -141,21 +144,21 @@ namespace QuanLyThuVien.DAO
         {
             string query = @"
                 SELECT 
-                    MaNV, TenNV, NgaySinh, SDT, Email,
+                    MANV, TENNV, NGAYSINH, SDT, Email,
                     CASE
-                        WHEN GioiTinh = 1 THEN 'Nam'
-                        WHEN GioiTinh = 0 THEN 'Nữ'
+                        WHEN GIOITINH = 1 THEN 'Nam'
+                        WHEN GIOITINH = 0 THEN 'Nữ'
                         ELSE 'Khác'
-                    END AS GioiTinh,
+                    END AS GIOITINH,
                     CASE 
                         WHEN TrangThai = 1 THEN 'Đang làm việc'
                         ELSE 'Nghỉ việc'
                     END AS TrangThai
                 FROM nhan_vien
-                WHERE TenNV LIKE @Keyword 
+                WHERE TENNV LIKE @Keyword 
                    OR SDT LIKE @Keyword 
                    OR Email LIKE @Keyword
-                ORDER BY MaNV DESC";
+                ORDER BY MANV DESC";
 
             var parameters = new Dictionary<string, object>
             {

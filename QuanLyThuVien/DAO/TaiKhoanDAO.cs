@@ -10,14 +10,23 @@ namespace QuanLyThuVien.DAO
     {
         public TaiKhoanDTO KiemTraDangNhap(string username, string password)
         {
-            string query = "SELECT * FROM nhan_vien nv " +
-                           "WHERE nv.TenDangNhap=@u AND nv.MatKhau=@p";
+            // 1. Sửa truy vấn: JOIN với bảng nhom_quyen để lấy TenNhomQuyen (Chức vụ)
+            string query = @"
+                            SELECT 
+                                nv.*, 
+                                nq.TENNQ
+                            FROM 
+                                nhan_vien nv 
+                            JOIN 
+                                nhom_quyen nq ON nv.MaNhomQuyen = nq.MANQ
+                            WHERE 
+                                nv.TenDangNhap = @u AND nv.MatKhau = @p";
 
             var parameters = new Dictionary<string, object>
-            {
-                {"@u", username},
-                {"@p", password}
-            };
+                            {
+                                {"@u", username},
+                                {"@p", password}
+                            };
 
             DataTable dt = DataProvider.ExecuteQuery(query, parameters);
 
@@ -26,14 +35,15 @@ namespace QuanLyThuVien.DAO
                 DataRow row = dt.Rows[0];
                 return new TaiKhoanDTO
                 {
+                    TenNhanVien = row["TENNV"].ToString(),
                     TenDangNhap = row["TenDangNhap"].ToString(),
                     MaNV = int.Parse(row["MaNV"].ToString()),
-                    MatKhau = row["MatKhau"].ToString()
+                    MatKhau = row["MatKhau"].ToString(),
+                    ChucVu = row["TENNQ"].ToString()
                 };
             }
 
             return null;
         }
-
     }
 }
