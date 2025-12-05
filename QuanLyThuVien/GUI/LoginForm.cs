@@ -46,7 +46,7 @@ namespace QuanLyThuVien.GUI
                         MessageBoxIcon.Warning);
 
                     // Hiện form đổi mật khẩu
-                    FormDoiMatKhau formDoiMK = new FormDoiMatKhau(int.Parse(tk.MaNV), true);
+                    FormDoiMatKhau formDoiMK = new FormDoiMatKhau(tk.MaNV, true);
                     DialogResult result = formDoiMK.ShowDialog();
 
                     if (result == DialogResult.OK)

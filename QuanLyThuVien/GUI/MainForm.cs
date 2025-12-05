@@ -490,6 +490,8 @@ namespace QuanLyThuVien.GUI
                 LoadModule(new DocGia());
             else if (clickedPanel.Name == "panelDangXuat")
                 DangXuat();
+            else if (clickedPanel.Name == "panelPhieuPhat")
+                LoadModule(new PhieuPhat());
         }
 
         private void panel9_Paint(object sender, PaintEventArgs e) { }
@@ -497,15 +499,6 @@ namespace QuanLyThuVien.GUI
         private void label7_Click(object sender, EventArgs e) { }
         private void pictureBox5_Click(object sender, EventArgs e) { }
         private void panel6_Paint_1(object sender, PaintEventArgs e) { }
-
-        private void panelPhieuPhat_Click(object sender, EventArgs e)
-        {
-            var uc = new PhieuPhat();
-            uc.Dock = DockStyle.Fill;
-            panel3.Controls.Clear();
-            panel3.Controls.Add(uc);
-            uc.BringToFront();
-        }
 
         private void panel3_Paint(object sender, PaintEventArgs e) { }
         private void panelPhieuPhat_DoubleClick(object sender, EventArgs e)
