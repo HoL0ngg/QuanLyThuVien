@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Org.BouncyCastle.Tls.Crypto;
+using System;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -10,10 +11,17 @@ namespace QuanLyThuVien.GUI
         public CustomDataGridView()
         {
             InitializeStyles();
+            this.DataBindingComplete += CustomDataGridView_DataBindingComplete;
+            this.HandleCreated += (s, e) => SafeClearSelection();
         }
 
         private void InitializeStyles()
         {
+            // Prevent user resizing of rows/columns and header height
+            this.AllowUserToResizeRows = false;
+            this.AllowUserToResizeColumns = false;
+            this.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+
             // Header styles
             this.EnableHeadersVisualStyles = false;
             this.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(33, 150, 243);
@@ -39,6 +47,28 @@ namespace QuanLyThuVien.GUI
             this.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             this.RowHeadersVisible = false;
             this.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            this.MultiSelect = false;
+
+            this.ReadOnly = true;
+            this.EditMode = DataGridViewEditMode.EditProgrammatically;
+            this.AllowUserToAddRows = false;
+            this.AllowUserToDeleteRows = false;
+        }
+
+        private void CustomDataGridView_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            // Prevent auto-selecting the first cell/row after binding
+            SafeClearSelection();
+        }
+
+        private void SafeClearSelection()
+        {
+            try
+            {
+                this.ClearSelection();
+                this.CurrentCell = null;
+            }
+            catch { /* ignore if not ready */ }
         }
     }
 }

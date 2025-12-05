@@ -38,11 +38,11 @@ namespace QuanLyThuVien.GUI
             bangPhieuMuon.AutoGenerateColumns = false;
             bangPhieuMuon.Columns.Clear();
 
-            var colMa = new DataGridViewTextBoxColumn { Name = "MaPhieuMuon", HeaderText = "Mã", DataPropertyName = "MaPhieuMuon", FillWeight = 70 };
+            var colMa = new DataGridViewTextBoxColumn { Name = "MaPhieuMuon", HeaderText = "Mã", DataPropertyName = "MaPhieuMuon", FillWeight = 40 };
             var colNgayMuon = new DataGridViewTextBoxColumn { Name = "NgayMuon", HeaderText = "Ngày mượn", DataPropertyName = "NgayMuon", DefaultCellStyle = new DataGridViewCellStyle { Format = "dd/MM/yyyy" } };
             var colNgayTra = new DataGridViewTextBoxColumn { Name = "NgayTraDuKien", HeaderText = "Trả dự kiến", DataPropertyName = "NgayTraDuKien", DefaultCellStyle = new DataGridViewCellStyle { Format = "dd/MM/yyyy" } };
             var colTrangThai = new DataGridViewTextBoxColumn { Name = "TrangThai", HeaderText = "Trạng thái", DataPropertyName = "TrangThai" };
-            var colMaDocGia = new DataGridViewTextBoxColumn { Name = "MaDocGia", HeaderText = "Mã độc giả", DataPropertyName = "MaDocGia", FillWeight = 60 };
+            var colMaDocGia = new DataGridViewTextBoxColumn { Name = "MaDocGia", HeaderText = "Mã độc giả", DataPropertyName = "MaDocGia" };
             var colTenDocGia = new DataGridViewTextBoxColumn { Name = "TenDocGia", HeaderText = "Tên độc giả", DataPropertyName = "TenDocGia" };
             var colTenNhanVien = new DataGridViewTextBoxColumn { Name = "TenNhanVien", HeaderText = "Tên nhân viên", DataPropertyName = "TenNhanVien" };
 
