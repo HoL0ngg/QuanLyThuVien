@@ -20,6 +20,10 @@ namespace QuanLyThuVien.GUI
 
         private Panel activeMenuPanel = null;
         
+        // Lưu vị trí gốc của panel3
+        private Point panel3OriginalLocation;
+        private Size panel3OriginalSize;
+        
         // Material Design Color Palette
         private Color primaryColor = Color.FromArgb(33, 150, 243);      // Blue 500
         private Color primaryDark = Color.FromArgb(25, 118, 210);       // Blue 700
@@ -60,6 +64,11 @@ namespace QuanLyThuVien.GUI
             this.SetStyle(ControlStyles.OptimizedDoubleBuffer | 
                          ControlStyles.AllPaintingInWmPaint | 
                          ControlStyles.UserPaint, true);
+            
+            // Lưu vị trí gốc
+            panel3OriginalLocation = panel3.Location;
+            panel3OriginalSize = panel3.Size;
+            
             
             // Đóng form khi đóng
             this.FormClosing += MainForm_FormClosing;
@@ -565,7 +574,6 @@ namespace QuanLyThuVien.GUI
 
             clickedPanel.BackColor = Color.FromArgb(227, 242, 253);
             activeMenuPanel = clickedPanel;
-            
             foreach (Control ctrl in clickedPanel.Controls)
             {
                 if (ctrl is Label lbl)
@@ -588,6 +596,8 @@ namespace QuanLyThuVien.GUI
                 DangXuat();
             else if (clickedPanel.Name == "panelPhieuPhat")
                 LoadModule(new PhieuPhat());
+            else if (clickedPanel.Name == "panelThongKe")
+                LoadModule(new UCMain());
         }
 
         private void panel9_Paint(object sender, PaintEventArgs e) { }
@@ -595,6 +605,28 @@ namespace QuanLyThuVien.GUI
         private void label7_Click(object sender, EventArgs e) { }
         private void pictureBox5_Click(object sender, EventArgs e) { }
         private void panel6_Paint_1(object sender, PaintEventArgs e) { }
+
+        private void panelPhieuPhat_Click(object sender, EventArgs e)
+        {
+            // Delegate to the shared menu click handler so Designer event hookups work.
+            panelMenu_Click(panelPhieuPhat, EventArgs.Empty);
+        }
+
+        // New: open Thống kê when clicking label/picture inside the panel
+        private void panelThongKe_Click(object sender, EventArgs e)
+        {
+            panelMenu_Click(panelThongKe, EventArgs.Empty);
+        }
+
+        private void pictureBox7_Click(object sender, EventArgs e)
+        {
+            panelThongKe_Click(sender, e);
+        }
+
+        private void label13_Click(object sender, EventArgs e)
+        {
+            panelThongKe_Click(sender, e);
+        }
 
         private void panel3_Paint(object sender, PaintEventArgs e) { }
         private void panelPhieuPhat_DoubleClick(object sender, EventArgs e)

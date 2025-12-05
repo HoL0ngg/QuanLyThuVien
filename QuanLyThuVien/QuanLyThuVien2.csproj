@@ -57,8 +57,6 @@
     <Reference Include="MySql.Data, Version=9.4.0.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <HintPath>..\packages\MySql.Data.9.4.0\lib\net462\MySql.Data.dll</HintPath>
     </Reference>
-    <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
@@ -91,23 +89,22 @@
     </Reference>
     <Reference Include="System.Transactions" />
     <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
-    <Reference Include="WindowsBase" />
     <Reference Include="ZstdSharp, Version=0.8.5.0, Culture=neutral, PublicKeyToken=8d151af33a4ad5cf, processorArchitecture=MSIL">
       <HintPath>..\packages\ZstdSharp.Port.0.8.5\lib\net462\ZstdSharp.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BUS\NhanVienBUS.cs" />
-    <Compile Include="BUS\CTPhieuMuonBUS.cs" />
-    <Compile Include="BUS\DocGiaBUS.cs" />
+<<<<<<< HEAD
     <Compile Include="BUS\ThongKeBUS.cs" />
+=======
+    <Compile Include="BUS\NhanVienBUS.cs" />
+>>>>>>> 2f2e321fcea36f9e2c3a59a7f113625639c16bea
     <Compile Include="BUS\PhieuMuonBUS.cs" />
     <Compile Include="BUS\PhieuPhatBUS.cs" />
     <Compile Include="BUS\CTPhieuNhapBUS.cs" />
@@ -164,9 +161,6 @@
     <Compile Include="GUI\CTPhieuNhapGUI.Designer.cs">
       <DependentUpon>CTPhieuNhapGUI.cs</DependentUpon>
     </Compile>
-    <Compile Include="GUI\CustomDataGridView.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="GUI\DanhSachSachDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -184,18 +178,6 @@
     </Compile>
     <Compile Include="GUI\DauSachDialog.Designer.cs">
       <DependentUpon>DauSachDialog.cs</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\DocGia.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="GUI\DocGia.Designer.cs">
-      <DependentUpon>DocGia.cs</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\FormDoiMatKhau.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GUI\FormDoiMatKhau.Designer.cs">
-      <DependentUpon>FormDoiMatKhau.cs</DependentUpon>
     </Compile>
     <Compile Include="GUI\FormNhanVien.cs">
       <SubType>Form</SubType>
@@ -245,18 +227,6 @@
     <Compile Include="GUI\PhieuNhapGUI.Designer.cs">
       <DependentUpon>PhieuNhapGUI.cs</DependentUpon>
     </Compile>
-    <Compile Include="GUI\SuaDocGiaDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GUI\SuaDocGiaDialog.Designer.cs">
-      <DependentUpon>SuaDocGiaDialog.cs</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\ThemDocGiaDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GUI\ThemDocGiaDialog.Designer.cs">
-      <DependentUpon>ThemDocGiaDialog.cs</DependentUpon>
-    </Compile>
     <Compile Include="GUI\PhieuTraGUI.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -268,12 +238,6 @@
     </Compile>
     <Compile Include="GUI\phieuphat\FormChiTietPhieuPhat.Designer.cs">
       <DependentUpon>FormChiTietPhieuPhat.cs</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\phieutra\ThemPhieuTra.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="GUI\phieutra\ThemPhieuTra.Designer.cs">
-      <DependentUpon>ThemPhieuTra.cs</DependentUpon>
     </Compile>
     <Compile Include="GUI\ThongKeGUI\UCMain.cs">
       <SubType>UserControl</SubType>
@@ -356,12 +320,6 @@
     <EmbeddedResource Include="GUI\DauSachDialog.resx">
       <DependentUpon>DauSachDialog.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GUI\DocGia.resx">
-      <DependentUpon>DocGia.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GUI\FormDoiMatKhau.resx">
-      <DependentUpon>FormDoiMatKhau.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="GUI\FormNhanVien.resx">
       <DependentUpon>FormNhanVien.cs</DependentUpon>
     </EmbeddedResource>
@@ -392,23 +350,14 @@
     <EmbeddedResource Include="GUI\phieuphat\PhieuPhat.resx">
       <DependentUpon>PhieuPhat.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GUI\ThemDocGiaDialog.resx">
-      <DependentUpon>ThemDocGiaDialog.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="GUI\PhieuTraGUI.resx">
       <DependentUpon>PhieuTraGUI.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GUI\phieutra\ThemPhieuTra.resx">
-      <DependentUpon>ThemPhieuTra.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\ThongKeGUI\UCMain.resx">
       <DependentUpon>UCMain.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\ThongKeGUI\UCThongKeSach.resx">
       <DependentUpon>UCThongKeSach.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GUI\WelcomeScreen.resx">
-      <DependentUpon>WelcomeScreen.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

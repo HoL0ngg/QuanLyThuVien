@@ -13,10 +13,7 @@
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
-            if (disposing && (components != null))
-            {
-                components.Dispose();
-            }
+            if (disposing && (components != null)) components.Dispose();
             base.Dispose(disposing);
         }
 
@@ -28,19 +25,43 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.mySqlCommand1 = new MySql.Data.MySqlClient.MySqlCommand();
-            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.tabControlTK = new System.Windows.Forms.TabControl();
             this.btn_tongquan = new System.Windows.Forms.TabPage();
-            this.dgvStats = new System.Windows.Forms.DataGridView();
+            this.panelMain = new System.Windows.Forms.Panel();
+            this.panelCharts = new System.Windows.Forms.TableLayoutPanel();
+            this.panelTrend = new System.Windows.Forms.Panel();
+            this.panelTop5 = new System.Windows.Forms.Panel();
+            this.panelCategory = new System.Windows.Forms.Panel();
             this.panelSummary = new System.Windows.Forms.Panel();
+            this.lblSummaryTitle = new System.Windows.Forms.Label();
             this.lblTotalCount = new System.Windows.Forms.Label();
             this.lblTotalAmount = new System.Windows.Forms.Label();
             this.lblOutstanding = new System.Windows.Forms.Label();
             this.lblUniqueReaders = new System.Windows.Forms.Label();
+            this.panelKPI = new System.Windows.Forms.TableLayoutPanel();
+            this.pnlKpi1 = new System.Windows.Forms.Panel();
+            this.kpiBorrow = new System.Windows.Forms.Label();
+            this.lblKpi1Title = new System.Windows.Forms.Label();
+            this.pnlKpi2 = new System.Windows.Forms.Panel();
+            this.kpiBooks = new System.Windows.Forms.Label();
+            this.lblKpi2Title = new System.Windows.Forms.Label();
+            this.pnlKpi3 = new System.Windows.Forms.Panel();
+            this.kpiOverdue = new System.Windows.Forms.Label();
+            this.lblKpi3Title = new System.Windows.Forms.Label();
+            this.pnlKpi4 = new System.Windows.Forms.Panel();
+            this.kpiPenalty = new System.Windows.Forms.Label();
+            this.lblKpi4Title = new System.Windows.Forms.Label();
             this.panelTop = new System.Windows.Forms.Panel();
+            this.lblFilterTitle = new System.Windows.Forms.Label();
+            this.btnToday = new System.Windows.Forms.Button();
+            this.btn7Days = new System.Windows.Forms.Button();
+            this.btnThisMonth = new System.Windows.Forms.Button();
+            this.btnThisYear = new System.Windows.Forms.Button();
+            this.lblFrom = new System.Windows.Forms.Label();
             this.dtpFrom = new System.Windows.Forms.DateTimePicker();
+            this.lblTo = new System.Windows.Forms.Label();
             this.dtpTo = new System.Windows.Forms.DateTimePicker();
+            this.btnGenerate = new System.Windows.Forms.Button();
             this.txtSearch = new System.Windows.Forms.TextBox();
             this.btnSearch = new System.Windows.Forms.Button();
             this.btn_sach = new System.Windows.Forms.TabPage();
@@ -49,17 +70,16 @@
             this.btn_phieumuon = new System.Windows.Forms.TabPage();
             this.tabControlTK.SuspendLayout();
             this.btn_tongquan.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvStats)).BeginInit();
+            this.panelMain.SuspendLayout();
+            this.panelCharts.SuspendLayout();
             this.panelSummary.SuspendLayout();
+            this.panelKPI.SuspendLayout();
+            this.pnlKpi1.SuspendLayout();
+            this.pnlKpi2.SuspendLayout();
+            this.pnlKpi3.SuspendLayout();
+            this.pnlKpi4.SuspendLayout();
             this.panelTop.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // mySqlCommand1
-            // 
-            this.mySqlCommand1.CacheAge = 0;
-            this.mySqlCommand1.Connection = null;
-            this.mySqlCommand1.EnableCaching = false;
-            this.mySqlCommand1.Transaction = null;
             // 
             // tabControlTK
             // 
@@ -69,6 +89,7 @@
             this.tabControlTK.Controls.Add(this.btn_docgia);
             this.tabControlTK.Controls.Add(this.btn_phieumuon);
             this.tabControlTK.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControlTK.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.tabControlTK.Location = new System.Drawing.Point(0, 0);
             this.tabControlTK.Name = "tabControlTK";
             this.tabControlTK.SelectedIndex = 0;
@@ -77,180 +98,545 @@
             // 
             // btn_tongquan
             // 
-            this.btn_tongquan.Controls.Add(this.dgvStats);
-            this.btn_tongquan.Controls.Add(this.panelSummary);
+            this.btn_tongquan.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
+            this.btn_tongquan.Controls.Add(this.panelMain);
             this.btn_tongquan.Controls.Add(this.panelTop);
-            this.btn_tongquan.Location = new System.Drawing.Point(4, 25);
+            this.btn_tongquan.Location = new System.Drawing.Point(4, 32);
             this.btn_tongquan.Name = "btn_tongquan";
-            this.btn_tongquan.Padding = new System.Windows.Forms.Padding(3);
-            this.btn_tongquan.Size = new System.Drawing.Size(1093, 703);
+            this.btn_tongquan.Padding = new System.Windows.Forms.Padding(10);
+            this.btn_tongquan.Size = new System.Drawing.Size(1093, 696);
             this.btn_tongquan.TabIndex = 0;
             this.btn_tongquan.Text = "Tổng Quan";
-            this.btn_tongquan.UseVisualStyleBackColor = true;
-            this.btn_tongquan.Click += new System.EventHandler(this.tabPageTK_Click);
             // 
-            // dgvStats
+            // panelMain
             // 
-            this.dgvStats.AllowUserToAddRows = false;
-            this.dgvStats.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvStats.ColumnHeadersHeight = 29;
-            this.dgvStats.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvStats.Location = new System.Drawing.Point(3, 73);
-            this.dgvStats.Name = "dgvStats";
-            this.dgvStats.RowHeadersVisible = false;
-            this.dgvStats.RowHeadersWidth = 51;
-            this.dgvStats.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvStats.Size = new System.Drawing.Size(1087, 547);
-            this.dgvStats.TabIndex = 0;
+            this.panelMain.Controls.Add(this.panelCharts);
+            this.panelMain.Controls.Add(this.panelSummary);
+            this.panelMain.Controls.Add(this.panelKPI);
+            this.panelMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelMain.Location = new System.Drawing.Point(10, 90);
+            this.panelMain.Name = "panelMain";
+            this.panelMain.Padding = new System.Windows.Forms.Padding(10);
+            this.panelMain.Size = new System.Drawing.Size(1073, 596);
+            this.panelMain.TabIndex = 0;
+            // 
+            // panelCharts
+            // 
+            this.panelCharts.ColumnCount = 3;
+            this.panelCharts.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33F));
+            this.panelCharts.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 34F));
+            this.panelCharts.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33F));
+            this.panelCharts.Controls.Add(this.panelTrend, 0, 0);
+            this.panelCharts.Controls.Add(this.panelTop5, 1, 0);
+            this.panelCharts.Controls.Add(this.panelCategory, 2, 0);
+            this.panelCharts.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelCharts.Location = new System.Drawing.Point(10, 130);
+            this.panelCharts.Name = "panelCharts";
+            this.panelCharts.Padding = new System.Windows.Forms.Padding(0, 10, 0, 10);
+            this.panelCharts.RowCount = 1;
+            this.panelCharts.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 356F));
+            this.panelCharts.Size = new System.Drawing.Size(1053, 376);
+            this.panelCharts.TabIndex = 0;
+            // 
+            // panelTrend
+            // 
+            this.panelTrend.BackColor = System.Drawing.Color.White;
+            this.panelTrend.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelTrend.Location = new System.Drawing.Point(8, 18);
+            this.panelTrend.Margin = new System.Windows.Forms.Padding(8);
+            this.panelTrend.Name = "panelTrend";
+            this.panelTrend.Padding = new System.Windows.Forms.Padding(16);
+            this.panelTrend.Size = new System.Drawing.Size(331, 340);
+            this.panelTrend.TabIndex = 0;
+            // 
+            // panelTop5
+            // 
+            this.panelTop5.BackColor = System.Drawing.Color.White;
+            this.panelTop5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelTop5.Location = new System.Drawing.Point(355, 18);
+            this.panelTop5.Margin = new System.Windows.Forms.Padding(8);
+            this.panelTop5.Name = "panelTop5";
+            this.panelTop5.Padding = new System.Windows.Forms.Padding(16);
+            this.panelTop5.Size = new System.Drawing.Size(342, 340);
+            this.panelTop5.TabIndex = 1;
+            // 
+            // panelCategory
+            // 
+            this.panelCategory.BackColor = System.Drawing.Color.White;
+            this.panelCategory.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelCategory.Location = new System.Drawing.Point(713, 18);
+            this.panelCategory.Margin = new System.Windows.Forms.Padding(8);
+            this.panelCategory.Name = "panelCategory";
+            this.panelCategory.Padding = new System.Windows.Forms.Padding(16);
+            this.panelCategory.Size = new System.Drawing.Size(332, 340);
+            this.panelCategory.TabIndex = 2;
             // 
             // panelSummary
             // 
+            this.panelSummary.BackColor = System.Drawing.Color.White;
+            this.panelSummary.Controls.Add(this.lblSummaryTitle);
             this.panelSummary.Controls.Add(this.lblTotalCount);
             this.panelSummary.Controls.Add(this.lblTotalAmount);
             this.panelSummary.Controls.Add(this.lblOutstanding);
             this.panelSummary.Controls.Add(this.lblUniqueReaders);
             this.panelSummary.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelSummary.Location = new System.Drawing.Point(3, 620);
+            this.panelSummary.Location = new System.Drawing.Point(10, 506);
             this.panelSummary.Name = "panelSummary";
-            this.panelSummary.Padding = new System.Windows.Forms.Padding(8);
-            this.panelSummary.Size = new System.Drawing.Size(1087, 80);
+            this.panelSummary.Padding = new System.Windows.Forms.Padding(16);
+            this.panelSummary.Size = new System.Drawing.Size(1053, 80);
             this.panelSummary.TabIndex = 1;
+            // 
+            // lblSummaryTitle
+            // 
+            this.lblSummaryTitle.AutoSize = true;
+            this.lblSummaryTitle.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.lblSummaryTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(117)))), ((int)(((byte)(117)))), ((int)(((byte)(117)))));
+            this.lblSummaryTitle.Location = new System.Drawing.Point(16, 8);
+            this.lblSummaryTitle.Name = "lblSummaryTitle";
+            this.lblSummaryTitle.Size = new System.Drawing.Size(75, 20);
+            this.lblSummaryTitle.TabIndex = 0;
+            this.lblSummaryTitle.Text = "TÓM TẮT";
             // 
             // lblTotalCount
             // 
             this.lblTotalCount.AutoSize = true;
-            this.lblTotalCount.Location = new System.Drawing.Point(8, 12);
+            this.lblTotalCount.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
+            this.lblTotalCount.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(33)))), ((int)(((byte)(33)))));
+            this.lblTotalCount.Location = new System.Drawing.Point(16, 36);
             this.lblTotalCount.Name = "lblTotalCount";
-            this.lblTotalCount.Size = new System.Drawing.Size(73, 16);
-            this.lblTotalCount.TabIndex = 0;
+            this.lblTotalCount.Size = new System.Drawing.Size(111, 25);
+            this.lblTotalCount.TabIndex = 1;
             this.lblTotalCount.Text = "Số phiếu: 0";
             // 
             // lblTotalAmount
             // 
             this.lblTotalAmount.AutoSize = true;
-            this.lblTotalAmount.Location = new System.Drawing.Point(8, 36);
+            this.lblTotalAmount.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
+            this.lblTotalAmount.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(175)))), ((int)(((byte)(80)))));
+            this.lblTotalAmount.Location = new System.Drawing.Point(200, 36);
             this.lblTotalAmount.Name = "lblTotalAmount";
-            this.lblTotalAmount.Size = new System.Drawing.Size(83, 16);
-            this.lblTotalAmount.TabIndex = 1;
+            this.lblTotalAmount.Size = new System.Drawing.Size(132, 25);
+            this.lblTotalAmount.TabIndex = 2;
             this.lblTotalAmount.Text = "Tổng thu: 0 đ";
             // 
             // lblOutstanding
             // 
             this.lblOutstanding.AutoSize = true;
-            this.lblOutstanding.Location = new System.Drawing.Point(220, 36);
+            this.lblOutstanding.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
+            this.lblOutstanding.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(67)))), ((int)(((byte)(54)))));
+            this.lblOutstanding.Location = new System.Drawing.Point(420, 36);
             this.lblOutstanding.Name = "lblOutstanding";
-            this.lblOutstanding.Size = new System.Drawing.Size(82, 16);
-            this.lblOutstanding.TabIndex = 2;
+            this.lblOutstanding.Size = new System.Drawing.Size(131, 25);
+            this.lblOutstanding.TabIndex = 3;
             this.lblOutstanding.Text = "Chưa thu: 0 đ";
             // 
             // lblUniqueReaders
             // 
             this.lblUniqueReaders.AutoSize = true;
-            this.lblUniqueReaders.Location = new System.Drawing.Point(400, 12);
+            this.lblUniqueReaders.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
+            this.lblUniqueReaders.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
+            this.lblUniqueReaders.Location = new System.Drawing.Point(620, 36);
             this.lblUniqueReaders.Name = "lblUniqueReaders";
-            this.lblUniqueReaders.Size = new System.Drawing.Size(123, 16);
-            this.lblUniqueReaders.TabIndex = 3;
+            this.lblUniqueReaders.Size = new System.Drawing.Size(188, 25);
+            this.lblUniqueReaders.TabIndex = 4;
             this.lblUniqueReaders.Text = "Độc giả liên quan: 0";
+            // 
+            // panelKPI
+            // 
+            this.panelKPI.ColumnCount = 4;
+            this.panelKPI.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.panelKPI.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.panelKPI.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.panelKPI.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.panelKPI.Controls.Add(this.pnlKpi1, 0, 0);
+            this.panelKPI.Controls.Add(this.pnlKpi2, 1, 0);
+            this.panelKPI.Controls.Add(this.pnlKpi3, 2, 0);
+            this.panelKPI.Controls.Add(this.pnlKpi4, 3, 0);
+            this.panelKPI.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelKPI.Location = new System.Drawing.Point(10, 10);
+            this.panelKPI.Name = "panelKPI";
+            this.panelKPI.Padding = new System.Windows.Forms.Padding(0, 5, 0, 5);
+            this.panelKPI.RowCount = 1;
+            this.panelKPI.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 110F));
+            this.panelKPI.Size = new System.Drawing.Size(1053, 120);
+            this.panelKPI.TabIndex = 2;
+            // 
+            // pnlKpi1
+            // 
+            this.pnlKpi1.BackColor = System.Drawing.Color.White;
+            this.pnlKpi1.Controls.Add(this.kpiBorrow);
+            this.pnlKpi1.Controls.Add(this.lblKpi1Title);
+            this.pnlKpi1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlKpi1.Location = new System.Drawing.Point(8, 13);
+            this.pnlKpi1.Margin = new System.Windows.Forms.Padding(8);
+            this.pnlKpi1.Name = "pnlKpi1";
+            this.pnlKpi1.Padding = new System.Windows.Forms.Padding(16);
+            this.pnlKpi1.Size = new System.Drawing.Size(247, 94);
+            this.pnlKpi1.TabIndex = 0;
+            // 
+            // kpiBorrow
+            // 
+            this.kpiBorrow.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.kpiBorrow.Font = new System.Drawing.Font("Segoe UI", 28F, System.Drawing.FontStyle.Bold);
+            this.kpiBorrow.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
+            this.kpiBorrow.Location = new System.Drawing.Point(16, 40);
+            this.kpiBorrow.Name = "kpiBorrow";
+            this.kpiBorrow.Size = new System.Drawing.Size(215, 38);
+            this.kpiBorrow.TabIndex = 0;
+            this.kpiBorrow.Text = "0";
+            this.kpiBorrow.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // lblKpi1Title
+            // 
+            this.lblKpi1Title.Dock = System.Windows.Forms.DockStyle.Top;
+            this.lblKpi1Title.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.lblKpi1Title.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(117)))), ((int)(((byte)(117)))), ((int)(((byte)(117)))));
+            this.lblKpi1Title.Location = new System.Drawing.Point(16, 16);
+            this.lblKpi1Title.Name = "lblKpi1Title";
+            this.lblKpi1Title.Size = new System.Drawing.Size(215, 24);
+            this.lblKpi1Title.TabIndex = 1;
+            this.lblKpi1Title.Text = "LƯỢT MƯỢN";
+            // 
+            // pnlKpi2
+            // 
+            this.pnlKpi2.BackColor = System.Drawing.Color.White;
+            this.pnlKpi2.Controls.Add(this.kpiBooks);
+            this.pnlKpi2.Controls.Add(this.lblKpi2Title);
+            this.pnlKpi2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlKpi2.Location = new System.Drawing.Point(271, 13);
+            this.pnlKpi2.Margin = new System.Windows.Forms.Padding(8);
+            this.pnlKpi2.Name = "pnlKpi2";
+            this.pnlKpi2.Padding = new System.Windows.Forms.Padding(16);
+            this.pnlKpi2.Size = new System.Drawing.Size(247, 94);
+            this.pnlKpi2.TabIndex = 1;
+            // 
+            // kpiBooks
+            // 
+            this.kpiBooks.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.kpiBooks.Font = new System.Drawing.Font("Segoe UI", 28F, System.Drawing.FontStyle.Bold);
+            this.kpiBooks.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(175)))), ((int)(((byte)(80)))));
+            this.kpiBooks.Location = new System.Drawing.Point(16, 40);
+            this.kpiBooks.Name = "kpiBooks";
+            this.kpiBooks.Size = new System.Drawing.Size(215, 38);
+            this.kpiBooks.TabIndex = 0;
+            this.kpiBooks.Text = "0";
+            this.kpiBooks.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // lblKpi2Title
+            // 
+            this.lblKpi2Title.Dock = System.Windows.Forms.DockStyle.Top;
+            this.lblKpi2Title.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.lblKpi2Title.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(117)))), ((int)(((byte)(117)))), ((int)(((byte)(117)))));
+            this.lblKpi2Title.Location = new System.Drawing.Point(16, 16);
+            this.lblKpi2Title.Name = "lblKpi2Title";
+            this.lblKpi2Title.Size = new System.Drawing.Size(215, 24);
+            this.lblKpi2Title.TabIndex = 1;
+            this.lblKpi2Title.Text = "SÁCH TRONG KHO";
+            // 
+            // pnlKpi3
+            // 
+            this.pnlKpi3.BackColor = System.Drawing.Color.White;
+            this.pnlKpi3.Controls.Add(this.kpiOverdue);
+            this.pnlKpi3.Controls.Add(this.lblKpi3Title);
+            this.pnlKpi3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlKpi3.Location = new System.Drawing.Point(534, 13);
+            this.pnlKpi3.Margin = new System.Windows.Forms.Padding(8);
+            this.pnlKpi3.Name = "pnlKpi3";
+            this.pnlKpi3.Padding = new System.Windows.Forms.Padding(16);
+            this.pnlKpi3.Size = new System.Drawing.Size(247, 94);
+            this.pnlKpi3.TabIndex = 2;
+            // 
+            // kpiOverdue
+            // 
+            this.kpiOverdue.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.kpiOverdue.Font = new System.Drawing.Font("Segoe UI", 28F, System.Drawing.FontStyle.Bold);
+            this.kpiOverdue.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(67)))), ((int)(((byte)(54)))));
+            this.kpiOverdue.Location = new System.Drawing.Point(16, 40);
+            this.kpiOverdue.Name = "kpiOverdue";
+            this.kpiOverdue.Size = new System.Drawing.Size(215, 38);
+            this.kpiOverdue.TabIndex = 0;
+            this.kpiOverdue.Text = "0";
+            this.kpiOverdue.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // lblKpi3Title
+            // 
+            this.lblKpi3Title.Dock = System.Windows.Forms.DockStyle.Top;
+            this.lblKpi3Title.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.lblKpi3Title.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(117)))), ((int)(((byte)(117)))), ((int)(((byte)(117)))));
+            this.lblKpi3Title.Location = new System.Drawing.Point(16, 16);
+            this.lblKpi3Title.Name = "lblKpi3Title";
+            this.lblKpi3Title.Size = new System.Drawing.Size(215, 24);
+            this.lblKpi3Title.TabIndex = 1;
+            this.lblKpi3Title.Text = "QUÁ HẠN";
+            // 
+            // pnlKpi4
+            // 
+            this.pnlKpi4.BackColor = System.Drawing.Color.White;
+            this.pnlKpi4.Controls.Add(this.kpiPenalty);
+            this.pnlKpi4.Controls.Add(this.lblKpi4Title);
+            this.pnlKpi4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlKpi4.Location = new System.Drawing.Point(797, 13);
+            this.pnlKpi4.Margin = new System.Windows.Forms.Padding(8);
+            this.pnlKpi4.Name = "pnlKpi4";
+            this.pnlKpi4.Padding = new System.Windows.Forms.Padding(16);
+            this.pnlKpi4.Size = new System.Drawing.Size(248, 94);
+            this.pnlKpi4.TabIndex = 3;
+            // 
+            // kpiPenalty
+            // 
+            this.kpiPenalty.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.kpiPenalty.Font = new System.Drawing.Font("Segoe UI", 28F, System.Drawing.FontStyle.Bold);
+            this.kpiPenalty.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(152)))), ((int)(((byte)(0)))));
+            this.kpiPenalty.Location = new System.Drawing.Point(16, 40);
+            this.kpiPenalty.Name = "kpiPenalty";
+            this.kpiPenalty.Size = new System.Drawing.Size(216, 38);
+            this.kpiPenalty.TabIndex = 0;
+            this.kpiPenalty.Text = "0 đ";
+            this.kpiPenalty.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // lblKpi4Title
+            // 
+            this.lblKpi4Title.Dock = System.Windows.Forms.DockStyle.Top;
+            this.lblKpi4Title.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.lblKpi4Title.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(117)))), ((int)(((byte)(117)))), ((int)(((byte)(117)))));
+            this.lblKpi4Title.Location = new System.Drawing.Point(16, 16);
+            this.lblKpi4Title.Name = "lblKpi4Title";
+            this.lblKpi4Title.Size = new System.Drawing.Size(216, 24);
+            this.lblKpi4Title.TabIndex = 1;
+            this.lblKpi4Title.Text = "THU PHÍ PHẠT";
             // 
             // panelTop
             // 
+            this.panelTop.BackColor = System.Drawing.Color.White;
+            this.panelTop.Controls.Add(this.lblFilterTitle);
+            this.panelTop.Controls.Add(this.btnToday);
+            this.panelTop.Controls.Add(this.btn7Days);
+            this.panelTop.Controls.Add(this.btnThisMonth);
+            this.panelTop.Controls.Add(this.btnThisYear);
+            this.panelTop.Controls.Add(this.lblFrom);
             this.panelTop.Controls.Add(this.dtpFrom);
+            this.panelTop.Controls.Add(this.lblTo);
             this.panelTop.Controls.Add(this.dtpTo);
+            this.panelTop.Controls.Add(this.btnGenerate);
             this.panelTop.Controls.Add(this.txtSearch);
             this.panelTop.Controls.Add(this.btnSearch);
             this.panelTop.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelTop.Location = new System.Drawing.Point(3, 3);
+            this.panelTop.Location = new System.Drawing.Point(10, 10);
             this.panelTop.Name = "panelTop";
-            this.panelTop.Padding = new System.Windows.Forms.Padding(8);
-            this.panelTop.Size = new System.Drawing.Size(1087, 70);
-            this.panelTop.TabIndex = 2;
+            this.panelTop.Padding = new System.Windows.Forms.Padding(16, 8, 16, 8);
+            this.panelTop.Size = new System.Drawing.Size(1073, 80);
+            this.panelTop.TabIndex = 1;
+            // 
+            // lblFilterTitle
+            // 
+            this.lblFilterTitle.AutoSize = true;
+            this.lblFilterTitle.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.lblFilterTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(117)))), ((int)(((byte)(117)))), ((int)(((byte)(117)))));
+            this.lblFilterTitle.Location = new System.Drawing.Point(16, 8);
+            this.lblFilterTitle.Name = "lblFilterTitle";
+            this.lblFilterTitle.Size = new System.Drawing.Size(62, 20);
+            this.lblFilterTitle.TabIndex = 0;
+            this.lblFilterTitle.Text = "BỘ LỌC";
+            // 
+            // btnToday
+            // 
+            this.btnToday.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(181)))), ((int)(((byte)(246)))));
+            this.btnToday.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnToday.FlatAppearance.BorderSize = 0;
+            this.btnToday.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnToday.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.btnToday.ForeColor = System.Drawing.Color.White;
+            this.btnToday.Location = new System.Drawing.Point(16, 32);
+            this.btnToday.Name = "btnToday";
+            this.btnToday.Size = new System.Drawing.Size(75, 32);
+            this.btnToday.TabIndex = 1;
+            this.btnToday.Text = "Hôm nay";
+            this.btnToday.UseVisualStyleBackColor = false;
+            this.btnToday.Click += new System.EventHandler(this.BtnToday_Click);
+            // 
+            // btn7Days
+            // 
+            this.btn7Days.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(181)))), ((int)(((byte)(246)))));
+            this.btn7Days.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btn7Days.FlatAppearance.BorderSize = 0;
+            this.btn7Days.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn7Days.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.btn7Days.ForeColor = System.Drawing.Color.White;
+            this.btn7Days.Location = new System.Drawing.Point(96, 32);
+            this.btn7Days.Name = "btn7Days";
+            this.btn7Days.Size = new System.Drawing.Size(70, 32);
+            this.btn7Days.TabIndex = 2;
+            this.btn7Days.Text = "7 ngày";
+            this.btn7Days.UseVisualStyleBackColor = false;
+            this.btn7Days.Click += new System.EventHandler(this.Btn7Days_Click);
+            // 
+            // btnThisMonth
+            // 
+            this.btnThisMonth.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(181)))), ((int)(((byte)(246)))));
+            this.btnThisMonth.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnThisMonth.FlatAppearance.BorderSize = 0;
+            this.btnThisMonth.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnThisMonth.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.btnThisMonth.ForeColor = System.Drawing.Color.White;
+            this.btnThisMonth.Location = new System.Drawing.Point(171, 32);
+            this.btnThisMonth.Name = "btnThisMonth";
+            this.btnThisMonth.Size = new System.Drawing.Size(85, 32);
+            this.btnThisMonth.TabIndex = 3;
+            this.btnThisMonth.Text = "Tháng này";
+            this.btnThisMonth.UseVisualStyleBackColor = false;
+            this.btnThisMonth.Click += new System.EventHandler(this.BtnThisMonth_Click);
+            // 
+            // btnThisYear
+            // 
+            this.btnThisYear.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(181)))), ((int)(((byte)(246)))));
+            this.btnThisYear.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnThisYear.FlatAppearance.BorderSize = 0;
+            this.btnThisYear.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnThisYear.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.btnThisYear.ForeColor = System.Drawing.Color.White;
+            this.btnThisYear.Location = new System.Drawing.Point(261, 32);
+            this.btnThisYear.Name = "btnThisYear";
+            this.btnThisYear.Size = new System.Drawing.Size(75, 32);
+            this.btnThisYear.TabIndex = 4;
+            this.btnThisYear.Text = "Năm nay";
+            this.btnThisYear.UseVisualStyleBackColor = false;
+            this.btnThisYear.Click += new System.EventHandler(this.BtnThisYear_Click);
+            // 
+            // lblFrom
+            // 
+            this.lblFrom.AutoSize = true;
+            this.lblFrom.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.lblFrom.Location = new System.Drawing.Point(360, 38);
+            this.lblFrom.Name = "lblFrom";
+            this.lblFrom.Size = new System.Drawing.Size(29, 20);
+            this.lblFrom.TabIndex = 5;
+            this.lblFrom.Text = "Từ:";
             // 
             // dtpFrom
             // 
+            this.dtpFrom.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.dtpFrom.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpFrom.Location = new System.Drawing.Point(40, 18);
+            this.dtpFrom.Location = new System.Drawing.Point(385, 34);
             this.dtpFrom.Name = "dtpFrom";
-            this.dtpFrom.Size = new System.Drawing.Size(110, 22);
-            this.dtpFrom.TabIndex = 0;
+            this.dtpFrom.Size = new System.Drawing.Size(110, 27);
+            this.dtpFrom.TabIndex = 6;
+            // 
+            // lblTo
+            // 
+            this.lblTo.AutoSize = true;
+            this.lblTo.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.lblTo.Location = new System.Drawing.Point(505, 38);
+            this.lblTo.Name = "lblTo";
+            this.lblTo.Size = new System.Drawing.Size(39, 20);
+            this.lblTo.TabIndex = 7;
+            this.lblTo.Text = "Đến:";
             // 
             // dtpTo
             // 
+            this.dtpTo.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.dtpTo.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpTo.Location = new System.Drawing.Point(196, 18);
+            this.dtpTo.Location = new System.Drawing.Point(538, 34);
             this.dtpTo.Name = "dtpTo";
-            this.dtpTo.Size = new System.Drawing.Size(110, 22);
-            this.dtpTo.TabIndex = 1;
+            this.dtpTo.Size = new System.Drawing.Size(110, 27);
+            this.dtpTo.TabIndex = 8;
+            // 
+            // btnGenerate
+            // 
+            this.btnGenerate.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
+            this.btnGenerate.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnGenerate.FlatAppearance.BorderSize = 0;
+            this.btnGenerate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnGenerate.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.btnGenerate.ForeColor = System.Drawing.Color.White;
+            this.btnGenerate.Location = new System.Drawing.Point(660, 32);
+            this.btnGenerate.Name = "btnGenerate";
+            this.btnGenerate.Size = new System.Drawing.Size(90, 32);
+            this.btnGenerate.TabIndex = 9;
+            this.btnGenerate.Text = "Thống kê";
+            this.btnGenerate.UseVisualStyleBackColor = false;
+            this.btnGenerate.Click += new System.EventHandler(this.BtnGenerate_Click);
             // 
             // txtSearch
             // 
-            this.txtSearch.Location = new System.Drawing.Point(743, 20);
+            this.txtSearch.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtSearch.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.txtSearch.Location = new System.Drawing.Point(770, 34);
             this.txtSearch.Name = "txtSearch";
-            this.txtSearch.Size = new System.Drawing.Size(220, 22);
-            this.txtSearch.TabIndex = 3;
+            this.txtSearch.Size = new System.Drawing.Size(180, 27);
+            this.txtSearch.TabIndex = 10;
             // 
             // btnSearch
             // 
-            this.btnSearch.Location = new System.Drawing.Point(981, 18);
+            this.btnSearch.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(175)))), ((int)(((byte)(80)))));
+            this.btnSearch.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnSearch.FlatAppearance.BorderSize = 0;
+            this.btnSearch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSearch.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.btnSearch.ForeColor = System.Drawing.Color.White;
+            this.btnSearch.Location = new System.Drawing.Point(955, 32);
             this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(60, 27);
-            this.btnSearch.TabIndex = 4;
+            this.btnSearch.Size = new System.Drawing.Size(60, 32);
+            this.btnSearch.TabIndex = 11;
             this.btnSearch.Text = "Tìm";
-            this.btnSearch.UseVisualStyleBackColor = true;
+            this.btnSearch.UseVisualStyleBackColor = false;
             this.btnSearch.Click += new System.EventHandler(this.BtnGenerate_Click);
             // 
             // btn_sach
             // 
-            this.btn_sach.Location = new System.Drawing.Point(4, 25);
+            this.btn_sach.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
+            this.btn_sach.Location = new System.Drawing.Point(4, 32);
             this.btn_sach.Name = "btn_sach";
             this.btn_sach.Padding = new System.Windows.Forms.Padding(3);
-            this.btn_sach.Size = new System.Drawing.Size(1093, 703);
+            this.btn_sach.Size = new System.Drawing.Size(1093, 696);
             this.btn_sach.TabIndex = 1;
             this.btn_sach.Text = "Sách";
-            this.btn_sach.UseVisualStyleBackColor = true;
+            this.btn_sach.AutoScroll = true;
             // 
             // btn_phieuphat
             // 
-            this.btn_phieuphat.Location = new System.Drawing.Point(4, 25);
+            this.btn_phieuphat.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
+            this.btn_phieuphat.Location = new System.Drawing.Point(4, 32);
             this.btn_phieuphat.Name = "btn_phieuphat";
-            this.btn_phieuphat.Padding = new System.Windows.Forms.Padding(3);
-            this.btn_phieuphat.Size = new System.Drawing.Size(1093, 703);
+            this.btn_phieuphat.Size = new System.Drawing.Size(1093, 696);
             this.btn_phieuphat.TabIndex = 2;
             this.btn_phieuphat.Text = "Phiếu Phạt";
-            this.btn_phieuphat.UseVisualStyleBackColor = true;
             // 
             // btn_docgia
             // 
-            this.btn_docgia.Location = new System.Drawing.Point(4, 25);
+            this.btn_docgia.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
+            this.btn_docgia.Location = new System.Drawing.Point(4, 32);
             this.btn_docgia.Name = "btn_docgia";
-            this.btn_docgia.Padding = new System.Windows.Forms.Padding(3);
-            this.btn_docgia.Size = new System.Drawing.Size(1093, 703);
+            this.btn_docgia.Size = new System.Drawing.Size(1093, 696);
             this.btn_docgia.TabIndex = 3;
             this.btn_docgia.Text = "Độc Giả";
-            this.btn_docgia.UseVisualStyleBackColor = true;
             // 
             // btn_phieumuon
             // 
-            this.btn_phieumuon.Location = new System.Drawing.Point(4, 25);
+            this.btn_phieumuon.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
+            this.btn_phieumuon.Location = new System.Drawing.Point(4, 32);
             this.btn_phieumuon.Name = "btn_phieumuon";
-            this.btn_phieumuon.Padding = new System.Windows.Forms.Padding(3);
-            this.btn_phieumuon.Size = new System.Drawing.Size(1093, 703);
+            this.btn_phieumuon.Size = new System.Drawing.Size(1093, 696);
             this.btn_phieumuon.TabIndex = 4;
             this.btn_phieumuon.Text = "Phiếu Mượn";
-            this.btn_phieumuon.UseVisualStyleBackColor = true;
             // 
             // UCMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.tabControlTK);
             this.Name = "UCMain";
             this.Size = new System.Drawing.Size(1101, 732);
             this.Load += new System.EventHandler(this.UCMain_Load);
             this.tabControlTK.ResumeLayout(false);
             this.btn_tongquan.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvStats)).EndInit();
+            this.panelMain.ResumeLayout(false);
+            this.panelCharts.ResumeLayout(false);
             this.panelSummary.ResumeLayout(false);
             this.panelSummary.PerformLayout();
+            this.panelKPI.ResumeLayout(false);
+            this.pnlKpi1.ResumeLayout(false);
+            this.pnlKpi2.ResumeLayout(false);
+            this.pnlKpi3.ResumeLayout(false);
+            this.pnlKpi4.ResumeLayout(false);
             this.panelTop.ResumeLayout(false);
             this.panelTop.PerformLayout();
             this.ResumeLayout(false);
@@ -258,24 +644,45 @@
         }
 
         #endregion
-
-        private MySql.Data.MySqlClient.MySqlCommand mySqlCommand1;
-        private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.TabControl tabControlTK;
         private System.Windows.Forms.TabPage btn_tongquan;
         private System.Windows.Forms.TabPage btn_sach;
         private System.Windows.Forms.TabPage btn_phieuphat;
         private System.Windows.Forms.TabPage btn_docgia;
         private System.Windows.Forms.TabPage btn_phieumuon;
-
-        // Designer controls for overview
         private System.Windows.Forms.Panel panelTop;
+        private System.Windows.Forms.Label lblFilterTitle;
+        private System.Windows.Forms.Button btnToday;
+        private System.Windows.Forms.Button btn7Days;
+        private System.Windows.Forms.Button btnThisMonth;
+        private System.Windows.Forms.Button btnThisYear;
+        private System.Windows.Forms.Label lblFrom;
         private System.Windows.Forms.DateTimePicker dtpFrom;
+        private System.Windows.Forms.Label lblTo;
         private System.Windows.Forms.DateTimePicker dtpTo;
+        private System.Windows.Forms.Button btnGenerate;
         private System.Windows.Forms.TextBox txtSearch;
         private System.Windows.Forms.Button btnSearch;
-        private System.Windows.Forms.DataGridView dgvStats;
+        private System.Windows.Forms.Panel panelMain;
+        private System.Windows.Forms.TableLayoutPanel panelKPI;
+        private System.Windows.Forms.Panel pnlKpi1;
+        private System.Windows.Forms.Label lblKpi1Title;
+        private System.Windows.Forms.Label kpiBorrow;
+        private System.Windows.Forms.Panel pnlKpi2;
+        private System.Windows.Forms.Label lblKpi2Title;
+        private System.Windows.Forms.Label kpiBooks;
+        private System.Windows.Forms.Panel pnlKpi3;
+        private System.Windows.Forms.Label lblKpi3Title;
+        private System.Windows.Forms.Label kpiOverdue;
+        private System.Windows.Forms.Panel pnlKpi4;
+        private System.Windows.Forms.Label lblKpi4Title;
+        private System.Windows.Forms.Label kpiPenalty;
+        private System.Windows.Forms.TableLayoutPanel panelCharts;
+        private System.Windows.Forms.Panel panelTrend;
+        private System.Windows.Forms.Panel panelTop5;
+        private System.Windows.Forms.Panel panelCategory;
         private System.Windows.Forms.Panel panelSummary;
+        private System.Windows.Forms.Label lblSummaryTitle;
         private System.Windows.Forms.Label lblTotalCount;
         private System.Windows.Forms.Label lblTotalAmount;
         private System.Windows.Forms.Label lblOutstanding;
