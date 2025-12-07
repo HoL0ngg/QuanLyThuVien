@@ -11,66 +11,30 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+
 namespace QuanLyThuVien.GUI
 {
     public partial class PhieuPhat : BaseModuleUC
     {
         private bool isUserInput = true;
-        private const string PLACEHOLDER_TEXT = "Tìm kiếm...";
+        private const string PLACEHOLDER_TEXT = "Tim kiem...";
+        private List<PhieuPhatDTO> _currentResult = new List<PhieuPhatDTO>();
+
         public PhieuPhat()
         {
-
             InitializeComponent();
             this.Load += PhieuPhat_Load;
-
-
         }
-        private List<PhieuPhatDTO> _currentResult = new List<PhieuPhatDTO>();
+
+        public PhieuPhat(TaiKhoanDTO user) : this()
+        {
+            this.CurrentUser = user;
+        }
+
         private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
         {
 
         }
-
-        //private void btn_search_Click(object sender, EventArgs e)
-        //{
-        //    // Prevent textBox1_TextChanged handler from interfering while we update the grid.
-        //    isUserInput = false;
-        //    try
-        //    {
-        //        DateTime begin = DTP_begin.Value;
-        //        DateTime end = DTP_end.Value.Date.AddDays(1);
-        //        if (begin > end)
-        //        {
-        //            MessageBox.Show("Ngày bắt đầu phải trước ngày kết thúc.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        //            return;
-        //        }
-
-        //        // Get records in date range first
-        //        List<PhieuPhatDTO> list = PhieuPhatBUS.Instance.GetByDateRange(begin, end);
-
-        //        // If there's a keyword, further filter the already retrieved list (client-side)
-        //        string keyword = tb_search.Text?.Trim();
-        //        if (!string.IsNullOrWhiteSpace(keyword))
-        //        {
-        //            int id;
-        //            bool isId = int.TryParse(keyword, out id);
-        //            string kwLower = keyword.ToLowerInvariant();
-
-        //            list = list.Where(p =>
-        //                (p.TenSach != null && p.TenSach.ToLowerInvariant().Contains(kwLower)) ||
-        //                (p.TenDG != null && p.TenDG.ToLowerInvariant().Contains(kwLower)) ||
-        //                (isId && p.MaPhieuPhat == id)
-        //            ).ToList();
-        //        }
-
-        //        dgvPhieuPhat.DataSource = list;
-        //    }
-        //    finally
-        //    {
-        //        // Always re-enable the text changed handler flag
-        //        isUserInput = true;
-        //    }
-        //}
 
         private void btn_search_Click(object sender, EventArgs e)
         {
@@ -78,11 +42,11 @@ namespace QuanLyThuVien.GUI
             try
             {
                 DateTime begin = DTP_begin.Value.Date;
-                DateTime end = DTP_end.Value.Date.AddDays(1); // tới hết ngày
+                DateTime end = DTP_end.Value.Date.AddDays(1); // toi het ngay
 
                 if (begin > end)
                 {
-                    MessageBox.Show("Ngày bắt đầu phải trước ngày kết thúc.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Ngay bat dau phai truoc ngay ket thuc.", "Loi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
@@ -103,7 +67,7 @@ namespace QuanLyThuVien.GUI
                     ).ToList();
                 }
 
-                // Lưu lại kết quả hiện tại
+                // Luu lai ket qua hien tai
                 _currentResult = list;
 
                 dgvPhieuPhat.DataSource = _currentResult;
@@ -128,7 +92,6 @@ namespace QuanLyThuVien.GUI
         {
             Console.WriteLine("Loading PhieuPhat");
             dgvPhieuPhat.AutoGenerateColumns = false;
-            //cbbPhieuPhat.SelectedIndex = 0;
             colID.DataPropertyName = "MaPhieuPhat";
             colNgayPhat.DataPropertyName = "NgayPhat";
             colTrangThai.DataPropertyName = "TrangThaiText";
@@ -140,15 +103,9 @@ namespace QuanLyThuVien.GUI
                 ? PhieuPhatBUS.Instance.GetTrangThaiPhieuPhat(trangThaiLoc.Value)
                 : PhieuPhatBUS.Instance.GetAllPhieuPhat();
 
-            // debug: show which IDs were returned
-            var ids = string.Join(",", list.Select(p => p.MaPhieuPhat).Distinct());
-            // or show messagebox once for debugging:
-            // MessageBox.Show("Loaded IDs: " + ids);
-
             dgvPhieuPhat.DataSource = list;
-
-
         }
+
         private void PhieuPhat_Load(object sender, EventArgs e)
         {
             LoadPhieuPhat(null);
@@ -159,24 +116,16 @@ namespace QuanLyThuVien.GUI
 
         }
 
-        //private void cbbPhieuPhat_SelectedIndexChanged(object sender, EventArgs e)
-        //{
-        //    int? trangThai = null;
-        //    if (cbbPhieuPhat.SelectedIndex == 1) trangThai = 0; // Chưa đóng
-        //    else if (cbbPhieuPhat.SelectedIndex == 2) trangThai = 1; // Đã đóng
-
-        //    LoadPhieuPhat(trangThai);
-        //}
         private void cbbPhieuPhat_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // Nếu chưa có kết quả hiện tại (chưa bấm tìm), fallback sang lấy toàn bộ
+            // Neu chua co ket qua hien tai (chua bam tim), fallback sang lay toan bo
             var baseList = _currentResult != null && _currentResult.Count > 0
                 ? _currentResult
                 : PhieuPhatBUS.Instance.GetAllPhieuPhat();
 
             int? trangThai = null;
-            if (cbbPhieuPhat.SelectedIndex == 1) trangThai = 0; // Chưa đóng
-            else if (cbbPhieuPhat.SelectedIndex == 2) trangThai = 1; // Đã đóng
+            if (cbbPhieuPhat.SelectedIndex == 1) trangThai = 0; // Chua dong
+            else if (cbbPhieuPhat.SelectedIndex == 2) trangThai = 1; // Da dong
 
             var filtered = trangThai.HasValue
                 ? baseList.Where(p => p.TrangThai == trangThai.Value).ToList()
@@ -195,6 +144,7 @@ namespace QuanLyThuVien.GUI
             ResetFiltersToDefaults();
             LoadPhieuPhat(null);
         }
+
         private void ResetFiltersToDefaults()
         {
             DTP_begin.Value = DateTime.Now;
@@ -202,7 +152,7 @@ namespace QuanLyThuVien.GUI
             if (cbbPhieuPhat.Items.Count > 0)
             {
                 cbbPhieuPhat.SelectedIndex = 0;
-                int ind = cbbPhieuPhat.FindStringExact("Tất cả");
+                int ind = cbbPhieuPhat.FindStringExact("Tat ca");
                 if (ind >= 0)
                 {
                     cbbPhieuPhat.SelectedIndex = ind;
@@ -217,7 +167,7 @@ namespace QuanLyThuVien.GUI
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            if (!isUserInput) return; // Bỏ qua nếu không phải user input
+            if (!isUserInput) return; // Bo qua neu khong phai user input
 
             string keyword = tb_search.Text;
             List<PhieuPhatDTO> list = PhieuPhatBUS.Instance.GetByKeyword(keyword);
@@ -228,73 +178,85 @@ namespace QuanLyThuVien.GUI
         {
 
         }
-        // Trong file PhieuPhat.cs
 
-        // Trong file PhieuPhat.cs
         public override void OnAdd()
         {
+            if (!CoQuyenThem)
+            {
+                MessageBox.Show("Ban khong co quyen them phieu phat!", "Thong bao",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
             using (var dlg = new FormAddPhieuPhat())
             {
                 var result = dlg.ShowDialog();
                 if (result == DialogResult.OK)
                 {
-                    // If you later expose selected items from the dialog, process them here.
-                    // For now just refresh the grid to reflect potential changes.
                     LoadPhieuPhat(null);
                 }
             }
         }
+
         public override void OnDelete()
         {
-            // 1. Kiểm tra đã chọn dòng chưa
+            if (!CoQuyenXoa)
+            {
+                MessageBox.Show("Ban khong co quyen xoa phieu phat!", "Thong bao",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            // 1. Kiem tra da chon dong chua
             if (dgvPhieuPhat.SelectedRows.Count == 0)
             {
-                MessageBox.Show("Vui lòng chọn phiếu phạt cần xóa.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Vui long chon phieu phat can xoa.", "Thong bao", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            // 2. Lấy Mã phiếu phạt (ID) từ dòng đang chọn
-            // LƯU Ý: "colID" là tên (Name) cột Mã trong Design DataGridView của bạn. 
-            // Nếu bạn đặt tên khác (ví dụ MaPhieuPhat) thì sửa lại chuỗi string bên dưới cho khớp.
+            // 2. Lay Ma phieu phat (ID) tu dong dang chon
             var cellValue = dgvPhieuPhat.SelectedRows[0].Cells["colID"].Value;
 
             if (cellValue == null) return;
             int maPhieuPhat = Convert.ToInt32(cellValue);
 
-            // 3. Hỏi xác nhận (Quan trọng)
+            // 3. Hoi xac nhan
             var result = MessageBox.Show(
-                $"Bạn có chắc chắn muốn xóa (ẩn) phiếu phạt số {maPhieuPhat} không?",
-                "Xác nhận xóa",
+                "Ban co chac chan muon xoa (an) phieu phat so " + maPhieuPhat + " khong?",
+                "Xac nhan xoa",
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Question);
 
             if (result == DialogResult.Yes)
             {
-                // 4. Gọi BUS để chuyển trạng thái sang 0 (Soft Delete)
+                // 4. Goi BUS de chuyen trang thai sang 0 (Soft Delete)
                 bool isSuccess = PhieuPhatBUS.Instance.XoaPhieuPhat(maPhieuPhat);
 
                 if (isSuccess)
                 {
-                    MessageBox.Show("Đã xóa thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Da xoa thanh cong!", "Thong bao", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                    // 5. Tải lại dữ liệu để dòng đó biến mất (hoặc ẩn đi tùy bộ lọc của bạn)
+                    // 5. Tai lai du lieu
                     LoadPhieuPhat(null);
                 }
                 else
                 {
-                    MessageBox.Show("Có lỗi xảy ra, không thể xóa.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Co loi xay ra, khong the xoa.", "Loi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
 
-        // Thêm override OnEdit vào class PhieuPhat
         public override void OnEdit()
         {
-            // Lấy tất cả phiếu phạt có trạng thái = 0 (chưa đóng)
+            if (!CoQuyenSua)
+            {
+                MessageBox.Show("Ban khong co quyen sua phieu phat!", "Thong bao",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            // Lay tat ca phieu phat co trang thai = 0 (chua dong)
             var list = PhieuPhatBUS.Instance.GetTrangThaiPhieuPhat(0);
             if (list == null || list.Count == 0)
             {
-                MessageBox.Show("Không có phiếu phạt có trạng thái 0 để sửa.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Khong co phieu phat co trang thai 0 de sua.", "Thong bao", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
@@ -303,40 +265,46 @@ namespace QuanLyThuVien.GUI
                 var result = dlg.ShowDialog();
                 if (result == DialogResult.OK)
                 {
-                    // Tải lại dữ liệu sau khi cập nhật
+                    // Tai lai du lieu sau khi cap nhat
                     LoadPhieuPhat(null);
                 }
             }
         }
+
         public override void OnDetails()
         {
-            // 1. Kiểm tra đã chọn dòng chưa
+            if (!CoQuyenXem)
+            {
+                MessageBox.Show("Ban khong co quyen xem chi tiet phieu phat!", "Thong bao",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            // 1. Kiem tra da chon dong chua
             if (dgvPhieuPhat.SelectedRows.Count == 0)
             {
-                MessageBox.Show("Vui lòng chọn phiếu phạt cần xem chi tiết.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Vui long chon phieu phat can xem chi tiet.", "Thong bao", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            // 2. Lấy đối tượng PhieuPhatDTO từ dòng đang chọn
+            // 2. Lay doi tuong PhieuPhatDTO tu dong dang chon
             var phieu = dgvPhieuPhat.SelectedRows[0].DataBoundItem as PhieuPhatDTO;
             if (phieu == null) return;
 
-            // 3. Mở form chi tiết
+            // 3. Mo form chi tiet
             using (var dlg = new FormChiTietPhieuPhat(phieu))
             {
                 dlg.ShowDialog();
             }
         }
+
         private void dgvPhieuPhat_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             if (dgvPhieuPhat.Columns[e.ColumnIndex].Name == "colTrangThai" && e.Value != null)
             {
                 int value = Convert.ToInt32(e.Value);
-                e.Value = value == 1 ? "Đã đóng" : "Chưa đóng";
+                e.Value = value == 1 ? "Da dong" : "Chua dong";
                 e.FormattingApplied = true;
             }
         }
-
-
     }
 }

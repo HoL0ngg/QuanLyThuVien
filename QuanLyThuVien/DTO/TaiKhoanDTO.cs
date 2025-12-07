@@ -13,5 +13,6 @@ namespace QuanLyThuVien.DTO
         public int MaNV { get; set; }
         public string ChucVu { get; set; }
         public string MatKhau { get; set; }
+        public int MaNhomQuyen { get; set; }
     }
 }

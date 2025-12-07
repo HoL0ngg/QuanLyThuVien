@@ -17,12 +17,26 @@ namespace QuanLyThuVien.GUI
     public partial class PhieuTraGUI : BaseModuleUC
     {
         private List<CTPhieuTraDTO> danhSachChiTiet = new List<CTPhieuTraDTO>();
-        private int maNhanVien = 1; // Lấy từ session/login
+        private int maNhanVien = 1; // Lay tu session/login
         private ThemPhieuTra ucThemPhieuTra;
 
         public PhieuTraGUI()
         {
             InitializeComponent();
+            SetupComponents();
+        }
+
+        public PhieuTraGUI(TaiKhoanDTO user) : this()
+        {
+            this.CurrentUser = user;
+            if (user != null)
+            {
+                maNhanVien = user.MaNV;
+            }
+        }
+
+        private void SetupComponents()
+        {
             LoadDanhSachPhieuTra();
             ucThemPhieuTra = new ThemPhieuTra
             {
@@ -42,33 +56,31 @@ namespace QuanLyThuVien.GUI
 
                 dataGridView1.DataSource = danhSachPhieuTra;
 
-            
-
-                dataGridView1.Columns["MaPhieuTra"].HeaderText = "Mã PT";
+                dataGridView1.Columns["MaPhieuTra"].HeaderText = "Ma PT";
                 dataGridView1.Columns["MaPhieuTra"].Width = 70;
 
-                dataGridView1.Columns["NgayMuon"].HeaderText = "Ngày Mượn";
+                dataGridView1.Columns["NgayMuon"].HeaderText = "Ngay Muon";
                 dataGridView1.Columns["NgayMuon"].DefaultCellStyle.Format = "dd/MM/yyyy";
                 dataGridView1.Columns["NgayMuon"].Width = 100;
 
-                dataGridView1.Columns["NgayTraDuKien"].HeaderText = "Hạn Trả";
+                dataGridView1.Columns["NgayTraDuKien"].HeaderText = "Han Tra";
                 dataGridView1.Columns["NgayTraDuKien"].DefaultCellStyle.Format = "dd/MM/yyyy";
                 dataGridView1.Columns["NgayTraDuKien"].Width = 100;
 
-                dataGridView1.Columns["NgayTra"].HeaderText = "Ngày Trả";
+                dataGridView1.Columns["NgayTra"].HeaderText = "Ngay Tra";
                 dataGridView1.Columns["NgayTra"].DefaultCellStyle.Format = "dd/MM/yyyy";
                 dataGridView1.Columns["NgayTra"].Width = 100;
 
-                dataGridView1.Columns["MaPhieuMuon"].HeaderText = "Mã PM";
+                dataGridView1.Columns["MaPhieuMuon"].HeaderText = "Ma PM";
                 dataGridView1.Columns["MaPhieuMuon"].Width = 70;
 
-                dataGridView1.Columns["TENNV"].HeaderText = "Nhân Viên";
+                dataGridView1.Columns["TENNV"].HeaderText = "Nhan Vien";
                 dataGridView1.Columns["TENNV"].Width = 150;
 
-                dataGridView1.Columns["MADG"].HeaderText = "Mã DG";
+                dataGridView1.Columns["MADG"].HeaderText = "Ma DG";
                 dataGridView1.Columns["MADG"].Width = 70;
 
-                dataGridView1.Columns["TENDG"].HeaderText = "Độc Giả";
+                dataGridView1.Columns["TENDG"].HeaderText = "Doc Gia";
                 dataGridView1.Columns["TENDG"].Width = 150;
 
                 dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
@@ -82,7 +94,7 @@ namespace QuanLyThuVien.GUI
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Lỗi khi tải danh sách phiếu trả: " + ex.Message, "Lỗi",
+                MessageBox.Show("Loi khi tai danh sach phieu tra: " + ex.Message, "Loi",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
@@ -109,13 +121,13 @@ namespace QuanLyThuVien.GUI
                     dataGridView2.Columns["MaPhieuTra"].Visible = false;
 
                 if (dataGridView2.Columns.Contains("MaSach"))
-                    dataGridView2.Columns["MaSach"].HeaderText = "Mã Sách";
+                    dataGridView2.Columns["MaSach"].HeaderText = "Ma Sach";
                 dataGridView2.Columns["MaSach"].Width = 80;
 
-                dataGridView2.Columns["TenSach"].HeaderText = "Tên Sách";
+                dataGridView2.Columns["TenSach"].HeaderText = "Ten Sach";
                 dataGridView2.Columns["TenSach"].Width = 280;
 
-                dataGridView2.Columns["TenTacGia"].HeaderText = "Tác Giả";
+                dataGridView2.Columns["TenTacGia"].HeaderText = "Tac Gia";
                 dataGridView2.Columns["TenTacGia"].Width = 150;
 
                 if (dataGridView1.Columns.Contains("MaNV"))
@@ -129,7 +141,7 @@ namespace QuanLyThuVien.GUI
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Lỗi khi tải chi tiết phiếu trả: " + ex.Message, "Lỗi",
+                MessageBox.Show("Loi khi tai chi tiet phieu tra: " + ex.Message, "Loi",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -138,7 +150,6 @@ namespace QuanLyThuVien.GUI
         {
             if (dataGridView1.SelectedRows.Count > 0)
             {
-                
                 int maPhieuTra = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells["MaPhieuTra"].Value);
                 LoadChiTietPhieuTra(maPhieuTra);
             }
@@ -146,6 +157,12 @@ namespace QuanLyThuVien.GUI
 
         public override void OnAdd()
         {
+            if (!CoQuyenThem)
+            {
+                MessageBox.Show("Ban khong co quyen them phieu tra!", "Thong bao",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
             ToggleView(true);
         }
 
@@ -154,7 +171,6 @@ namespace QuanLyThuVien.GUI
             groupBox1.Visible = !showThem;
             groupBox2.Visible = !showThem;
             groupBox3.Visible = !showThem;
-
 
             ucThemPhieuTra.Visible = showThem;
             if (showThem)
@@ -171,6 +187,11 @@ namespace QuanLyThuVien.GUI
         {
             ToggleView(false);
             LoadData();
+        }
+
+        public override void LoadData()
+        {
+            LoadDanhSachPhieuTra();
         }
 
         private void button1_Click(object sender, EventArgs e)

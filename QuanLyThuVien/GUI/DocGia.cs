@@ -21,6 +21,11 @@ namespace QuanLyThuVien.GUI
             btnClearFilters.Click += BtnClearFilters_Click;
         }
 
+        public DocGia(TaiKhoanDTO user) : this()
+        {
+            this.CurrentUser = user;
+        }
+
         public override void LoadData()
         {
             dgList = new BindingList<DocGiaDTO>(dgBUS.GetAll());
@@ -65,6 +70,12 @@ namespace QuanLyThuVien.GUI
 
         public override void OnAdd()
         {
+            if (!CoQuyenThem)
+            {
+                MessageBox.Show("Bạn không có quyền thêm độc giả!", "Thông báo",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
             ThemDocGiaDialog dialog = new ThemDocGiaDialog();
             var result = dialog.ShowDialog();
             if (result == DialogResult.OK)
@@ -76,6 +87,12 @@ namespace QuanLyThuVien.GUI
 
         public override void OnEdit()
         {
+            if (!CoQuyenSua)
+            {
+                MessageBox.Show("Bạn không có quyền sửa độc giả!", "Thông báo",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
             if (dgvDocGia.CurrentRow == null)
             {
                 MessageBox.Show("Vui lòng chọn một độc giả để sửa.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -111,6 +128,12 @@ namespace QuanLyThuVien.GUI
 
         public override void OnDelete()
         {
+            if (!CoQuyenXoa)
+            {
+                MessageBox.Show("Bạn không có quyền xóa độc giả!", "Thông báo",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
             if (dgvDocGia.CurrentRow == null)
             {
                 MessageBox.Show("Vui lòng chọn một độc giả.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -119,7 +142,7 @@ namespace QuanLyThuVien.GUI
             var idCell = dgvDocGia.CurrentRow.Cells["MaDG"];
             if (idCell?.Value == null || !int.TryParse(idCell.Value.ToString(), out int id)) return;
 
-            var confirm = MessageBox.Show($"Bạn có chắc muốn xóa độc giả {id} không?", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            var confirm = MessageBox.Show("Bạn có chắc muốn xóa độc giả " + id + " không?", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (confirm != DialogResult.Yes) return;
             try
             {

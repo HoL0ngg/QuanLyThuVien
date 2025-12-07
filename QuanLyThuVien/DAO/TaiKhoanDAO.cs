@@ -39,7 +39,8 @@ namespace QuanLyThuVien.DAO
                     TenDangNhap = row["TenDangNhap"].ToString(),
                     MaNV = int.Parse(row["MaNV"].ToString()),
                     MatKhau = row["MatKhau"].ToString(),
-                    ChucVu = row["TENNQ"].ToString()
+                    ChucVu = row["TENNQ"].ToString(),
+                    MaNhomQuyen = int.Parse(row["MaNhomQuyen"].ToString())
                 };
             }
 

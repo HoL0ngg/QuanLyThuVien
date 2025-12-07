@@ -10,6 +10,7 @@ namespace QuanLyThuVien.GUI
     public partial class NhanVienGUI : BaseModuleUC
     {
         private int selectedMaNV = -1;
+        private Button btnPhanQuyen;
 
         public NhanVienGUI()
         {
@@ -17,10 +18,54 @@ namespace QuanLyThuVien.GUI
             this.Load += NhanVienGUI_Load;
         }
 
+        public NhanVienGUI(TaiKhoanDTO user) : this()
+        {
+            this.CurrentUser = user;
+        }
+
         private void NhanVienGUI_Load(object sender, EventArgs e)
         {
             SetupDataGridView();
+            SetupButtonPhanQuyen();
             LoadData();
+        }
+
+        private void SetupButtonPhanQuyen()
+        {
+            // Tạo nút Phân quyền
+            btnPhanQuyen = new Button();
+            btnPhanQuyen.Text = "🔐 Phân quyền";
+            btnPhanQuyen.Font = new Font("Segoe UI", 10.2F, FontStyle.Bold);
+            btnPhanQuyen.BackColor = Color.FromArgb(156, 39, 176); // Màu tím
+            btnPhanQuyen.ForeColor = Color.White;
+            btnPhanQuyen.FlatStyle = FlatStyle.Flat;
+            btnPhanQuyen.FlatAppearance.BorderSize = 0;
+            btnPhanQuyen.Cursor = Cursors.Hand;
+            btnPhanQuyen.Size = new Size(140, 34);
+            btnPhanQuyen.Location = new Point(btnLamMoi.Location.X + 125, btnLamMoi.Location.Y);
+            btnPhanQuyen.Click += BtnPhanQuyen_Click;
+
+            // Kiểm tra quyền admin - chỉ admin mới thấy nút này
+            bool isAdmin = false;
+            if (CurrentUser != null)
+            {
+                // Admin có MaNhomQuyen = 0 hoặc 1
+                isAdmin = CurrentUser.MaNhomQuyen <= 1;
+            }
+
+            btnPhanQuyen.Visible = isAdmin;
+
+            // Thêm nút vào panelTop
+            panelTop.Controls.Add(btnPhanQuyen);
+        }
+
+        private void BtnPhanQuyen_Click(object sender, EventArgs e)
+        {
+            // Mở form phân quyền theo nhóm quyền
+            using (var frm = new FormPhanQuyen())
+            {
+                frm.ShowDialog();
+            }
         }
 
         private void SetupDataGridView()
@@ -143,6 +188,14 @@ namespace QuanLyThuVien.GUI
 
         public override void OnAdd()
         {
+            // Kiểm tra quyền trước
+            if (!CoQuyenThem)
+            {
+                MessageBox.Show("Bạn không có quyền thêm nhân viên!", "Thông báo",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             FormNhanVien frm = new FormNhanVien();
             if (frm.ShowDialog() == DialogResult.OK)
             {
@@ -154,6 +207,14 @@ namespace QuanLyThuVien.GUI
 
         public override void OnEdit()
         {
+            // Kiểm tra quyền trước
+            if (!CoQuyenSua)
+            {
+                MessageBox.Show("Bạn không có quyền chỉnh sửa nhân viên!", "Thông báo",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             if (selectedMaNV <= 0)
             {
                 MessageBox.Show("Vui lòng chọn nhân viên cần sửa!", "Thông báo",
@@ -188,6 +249,14 @@ namespace QuanLyThuVien.GUI
 
         public override void OnDelete()
         {
+            // Kiểm tra quyền trước
+            if (!CoQuyenXoa)
+            {
+                MessageBox.Show("Bạn không có quyền xóa nhân viên!", "Thông báo",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             if (selectedMaNV <= 0)
             {
                 MessageBox.Show("Vui lòng chọn nhân viên cần xóa!", "Thông báo",
@@ -228,6 +297,14 @@ namespace QuanLyThuVien.GUI
 
         public override void OnDetails()
         {
+            // Kiểm tra quyền trước
+            if (!CoQuyenXem)
+            {
+                MessageBox.Show("Bạn không có quyền xem chi tiết nhân viên!", "Thông báo",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             if (selectedMaNV <= 0)
             {
                 MessageBox.Show("Vui lòng chọn nhân viên để xem chi tiết!", "Thông báo",

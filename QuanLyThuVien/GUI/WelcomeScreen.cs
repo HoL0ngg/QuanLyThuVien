@@ -70,7 +70,7 @@ namespace QuanLyThuVien.GUI
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Lỗi tải thống kê: {ex.Message}", "Lỗi", 
+                MessageBox.Show("Lỗi tải thống kê: " + ex.Message, "Lỗi", 
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -182,7 +182,7 @@ namespace QuanLyThuVien.GUI
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Lỗi tải hoạt động: {ex.Message}");
+                Console.WriteLine("Lỗi tải hoạt động: " + ex.Message);
             }
         }
 

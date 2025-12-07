@@ -193,5 +193,18 @@ namespace QuanLyThuVien.DAO
 
             return DataProvider.ExecuteNonQuery(updateQuery, updateParams) > 0;
         }
+
+        // Cập nhật nhóm quyền cho nhân viên
+        public bool CapNhatNhomQuyen(int maNV, int maNhomQuyen)
+        {
+            string query = "UPDATE nhan_vien SET MaNhomQuyen = @MaNhomQuyen WHERE MANV = @MaNV";
+            var parameters = new Dictionary<string, object>
+            {
+                { "@MaNV", maNV },
+                { "@MaNhomQuyen", maNhomQuyen }
+            };
+
+            return DataProvider.ExecuteNonQuery(query, parameters) > 0;
+        }
     }
 }
