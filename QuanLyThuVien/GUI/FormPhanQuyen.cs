@@ -1,8 +1,9 @@
-using QuanLyThuVien.BUS;
+﻿using QuanLyThuVien.BUS;
 using QuanLyThuVien.DTO;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace QuanLyThuVien.GUI
@@ -29,7 +30,13 @@ namespace QuanLyThuVien.GUI
         {
             try
             {
-                danhSachNhomQuyen = NhomQuyenBUS.Instance.GetAllNhomQuyen();
+                var allNhomQuyen = NhomQuyenBUS.Instance.GetAllNhomQuyen();
+                
+                // LINQ: Lọc bỏ nhóm Admin (MaNhomQuyen = 1) khỏi danh sách
+                danhSachNhomQuyen = allNhomQuyen
+                    .Where(nq => nq.MaNhomQuyen > 1)
+                    .ToList();
+                
                 cboNhomQuyen.DataSource = null;
                 cboNhomQuyen.DataSource = danhSachNhomQuyen;
                 cboNhomQuyen.DisplayMember = "TenNhomQuyen";
@@ -39,10 +46,15 @@ namespace QuanLyThuVien.GUI
                 {
                     cboNhomQuyen.SelectedIndex = 0;
                 }
+                else
+                {
+                    // Không có nhóm quyền nào (ngoài Admin)
+                    dgvQuyen.DataSource = null;
+                }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("L?i t?i danh s�ch nh�m quy?n: " + ex.Message, "L?i",
+                MessageBox.Show("Lỗi tải danh sách nhóm quyền: " + ex.Message, "Lỗi",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -76,22 +88,22 @@ namespace QuanLyThuVien.GUI
 
             dgvQuyen.Columns.Clear();
 
-            // C?t M� ch?c n?ng (?n)
+            // Cột Mã chức năng (ẩn)
             dgvQuyen.Columns.Add(new DataGridViewTextBoxColumn
             {
                 Name = "colMaCN",
-                HeaderText = "M�",
+                HeaderText = "Mã",
                 DataPropertyName = "MaChucNang",
                 Width = 40,
                 ReadOnly = true,
                 Visible = false
             });
 
-            // C?t T�n ch?c n?ng - Fill ?? chi?m h?t kh�ng gian c�n l?i
+            // Cột Tên chức năng - Fill để chiếm hết không gian còn lại
             var colTenCN = new DataGridViewTextBoxColumn
             {
                 Name = "colTenCN",
-                HeaderText = "Ch?c n?ng",
+                HeaderText = "Chức năng",
                 DataPropertyName = "TenChucNang",
                 ReadOnly = true,
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill,
@@ -101,7 +113,7 @@ namespace QuanLyThuVien.GUI
             colTenCN.DefaultCellStyle.Padding = new Padding(8, 0, 0, 0);
             dgvQuyen.Columns.Add(colTenCN);
 
-            // C?t Quy?n Xem
+            // Cột Quyền Xem
             dgvQuyen.Columns.Add(new DataGridViewCheckBoxColumn
             {
                 Name = "colQuyenXem",
@@ -112,40 +124,40 @@ namespace QuanLyThuVien.GUI
                 FalseValue = false
             });
 
-            // C?t Quy?n Th�m
+            // Cột Quyền Thêm
             dgvQuyen.Columns.Add(new DataGridViewCheckBoxColumn
             {
                 Name = "colQuyenThem",
-                HeaderText = "Th�m",
+                HeaderText = "Thêm",
                 DataPropertyName = "QuyenThem",
                 Width = 60,
                 TrueValue = true,
                 FalseValue = false
             });
 
-            // C?t Quy?n S?a
+            // Cột Quyền Sửa
             dgvQuyen.Columns.Add(new DataGridViewCheckBoxColumn
             {
                 Name = "colQuyenSua",
-                HeaderText = "S?a",
+                HeaderText = "Sửa",
                 DataPropertyName = "QuyenSua",
                 Width = 60,
                 TrueValue = true,
                 FalseValue = false
             });
 
-            // C?t Quy?n X�a
+            // Cột Quyền Xóa
             dgvQuyen.Columns.Add(new DataGridViewCheckBoxColumn
             {
                 Name = "colQuyenXoa",
-                HeaderText = "X�a",
+                HeaderText = "Xóa",
                 DataPropertyName = "QuyenXoa",
                 Width = 60,
                 TrueValue = true,
                 FalseValue = false
             });
 
-            // Event khi thay ??i gi� tr? checkbox
+            // Event khi thay đổi giá trị checkbox
             dgvQuyen.CellValueChanged += DgvQuyen_CellValueChanged;
             dgvQuyen.CurrentCellDirtyStateChanged += DgvQuyen_CurrentCellDirtyStateChanged;
         }
@@ -162,7 +174,7 @@ namespace QuanLyThuVien.GUI
         {
             if (e.RowIndex < 0 || danhSachQuyen == null) return;
 
-            // C?p nh?t gi� tr? t? DataGridView v�o DTO
+            // Cập nhật giá trị từ DataGridView vào DTO
             var row = dgvQuyen.Rows[e.RowIndex];
             var quyen = danhSachQuyen[e.RowIndex];
             
@@ -194,7 +206,7 @@ namespace QuanLyThuVien.GUI
             }
             catch (Exception ex)
             {
-                MessageBox.Show("L?i t?i quy?n: " + ex.Message, "L?i",
+                MessageBox.Show("Lỗi tải quyền: " + ex.Message, "Lỗi",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -203,46 +215,40 @@ namespace QuanLyThuVien.GUI
         {
             if (selectedMaNhomQuyen < 0 || danhSachQuyen == null)
             {
-                MessageBox.Show("Vui l�ng ch?n nh�m quy?n!", "Th�ng b�o",
+                MessageBox.Show("Vui lòng chọn nhóm quyền!", "Thông báo",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            // Kh�ng cho s?a quy?n Admin (m� = 0 ho?c 1)
+            // Không cho sửa quyền Admin (mã <= 1)
             if (selectedMaNhomQuyen <= 1)
             {
-                MessageBox.Show("Kh�ng th? thay ??i quy?n c?a nh�m Admin!", "Th�ng b�o",
+                MessageBox.Show("Không thể thay đổi quyền của nhóm Admin!", "Thông báo",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             try
             {
-                int successCount = 0;
-                int failCount = 0;
-
-                foreach (var quyen in danhSachQuyen)
-                {
-                    if (NhomQuyenBUS.Instance.UpdateQuyenChucNang(quyen))
-                        successCount++;
-                    else
-                        failCount++;
-                }
+                // LINQ: Đếm số lượng thành công/thất bại
+                int successCount = danhSachQuyen
+                    .Count(quyen => NhomQuyenBUS.Instance.UpdateQuyenChucNang(quyen));
+                int failCount = danhSachQuyen.Count - successCount;
 
                 if (failCount == 0)
                 {
-                    MessageBox.Show("?� l?u th�nh c�ng quy?n cho " + successCount + " ch?c n?ng!", "Th�ng b�o",
+                    MessageBox.Show($"Đã lưu thành công quyền cho {successCount} chức năng!", "Thông báo",
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
                 {
-                    MessageBox.Show("Th�nh c�ng: " + successCount + ", Th?t b?i: " + failCount, "K?t qu?",
+                    MessageBox.Show($"Thành công: {successCount}, Thất bại: {failCount}", "Kết quả",
                         MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("L?i: " + ex.Message, "L?i",
+                MessageBox.Show("Lỗi: " + ex.Message, "Lỗi",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -268,14 +274,14 @@ namespace QuanLyThuVien.GUI
         {
             if (selectedMaNhomQuyen < 0)
             {
-                MessageBox.Show("Vui l�ng ch?n nh�m quy?n c?n x�a!", "Th�ng b�o",
+                MessageBox.Show("Vui lòng chọn nhóm quyền cần xóa!", "Thông báo",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             if (selectedMaNhomQuyen <= 1)
             {
-                MessageBox.Show("Kh�ng th? x�a nh�m quy?n Admin!", "Th�ng b�o",
+                MessageBox.Show("Không thể xóa nhóm quyền Admin!", "Thông báo",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
@@ -283,8 +289,8 @@ namespace QuanLyThuVien.GUI
             var selectedNhomQuyen = cboNhomQuyen.SelectedItem as NhomQuyenDTO;
             string tenNQ = selectedNhomQuyen?.TenNhomQuyen ?? "";
 
-            var result = MessageBox.Show("B?n c� ch?c mu?n x�a nh�m quy?n '" + tenNQ + "'?",
-                "X�c nh?n x�a", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            var result = MessageBox.Show($"Bạn có chắc muốn xóa nhóm quyền '{tenNQ}'?",
+                "Xác nhận xóa", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
             if (result == DialogResult.Yes)
             {
@@ -292,14 +298,14 @@ namespace QuanLyThuVien.GUI
                 {
                     if (NhomQuyenBUS.Instance.XoaNhomQuyen(selectedMaNhomQuyen))
                     {
-                        MessageBox.Show("X�a nh�m quy?n th�nh c�ng!", "Th�ng b�o",
+                        MessageBox.Show("Xóa nhóm quyền thành công!", "Thông báo",
                             MessageBoxButtons.OK, MessageBoxIcon.Information);
                         LoadNhomQuyen();
                     }
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("L?i: " + ex.Message, "L?i",
+                    MessageBox.Show("Lỗi: " + ex.Message, "Lỗi",
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }

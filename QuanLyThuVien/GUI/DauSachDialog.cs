@@ -20,51 +20,107 @@ namespace QuanLyThuVien.GUI
         private List<TacGiaDTO> danhSachTacGiaChon = new List<TacGiaDTO>();
         private string mode;
         private int dauSachID;
+        
         public DauSachDialog(string mode, int dauSachID)
         {
             InitializeComponent();
             this.mode = mode;
             this.dauSachID = dauSachID;
 
-            dgvTacGiaChon.AutoGenerateColumns = false; // Tắt tự động tạo cột
+            dgvTacGiaChon.AutoGenerateColumns = false;
             dgvTacGiaChon.Columns.Clear();
 
-            if (mode == "DETAILS")
-            {
-                // Vô hiệu hóa tất cả các điều khiển nhập liệu
-                foreach (Control ctrl in this.Controls)
-                {
-                    if (ctrl is TextBox || ctrl is ComboBox || ctrl is Button)
-                    {
-                        ctrl.Enabled = false;
-                    }
-                }
-                button1.Enabled = false; // Vô hiệu hóa nút chọn ảnh
-                button2.Enabled = false; // Vô hiệu hóa nút Lưu
-                button4.Enabled = false; // Vô hiệu hóa nút Thêm tác giả
-                button5.Enabled = false; // Vô hiệu hóa nút Xóa tác giả
-            }
-
+            // Thiết lập cột cho DataGridView
             DataGridViewTextBoxColumn colMa = new DataGridViewTextBoxColumn();
-            colMa.Name = "MaTacGia";           // Tên nội bộ
-            colMa.HeaderText = "Mã";            // Chữ hiển thị
-            colMa.DataPropertyName = "MaTacGia"; // Map với thuộc tính MaTacGia của DTO
-            colMa.AutoSizeMode = DataGridViewAutoSizeColumnMode.None; // Tắt tự động size
-            colMa.Width = 50;                   // Đặt độ rộng cố định
+            colMa.Name = "MaTacGia";
+            colMa.HeaderText = "Mã";
+            colMa.DataPropertyName = "maTacGia";
+            colMa.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            colMa.Width = 50;
 
             DataGridViewTextBoxColumn colTen = new DataGridViewTextBoxColumn();
             colTen.Name = "TenTacGia";
             colTen.HeaderText = "Tên Tác Giả";
-            colTen.DataPropertyName = "TenTacGia"; // Map với thuộc tính TenTacGia của DTO
-            colTen.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill; // Tự lấp đầy
+            colTen.DataPropertyName = "tenTacGia";
+            colTen.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
 
             dgvTacGiaChon.Columns.Add(colMa);
             dgvTacGiaChon.Columns.Add(colTen);
+
+            // Áp dụng chế độ DETAILS
+            if (mode == "DETAILS")
+            {
+                ApplyDetailsMode();
+            }
+        }
+
+        /// <summary>
+        /// Áp dụng chế độ xem chi tiết - vô hiệu hóa tất cả controls
+        /// </summary>
+        private void ApplyDetailsMode()
+        {
+            // Đặt tất cả TextBox thành ReadOnly
+            SetControlsReadOnly(this);
+            
+            // Vô hiệu hóa các nút
+            button1.Enabled = false; // Nút chọn ảnh
+            button2.Enabled = false; // Nút Lưu
+            button4.Enabled = false; // Nút Thêm tác giả
+            button5.Enabled = false; // Nút Xóa tác giả
+            
+            // Đổi text nút Hủy thành Đóng
+            button3.Text = "Đóng";
+            
+            // Cập nhật tiêu đề form
+            this.Text = "Chi tiết đầu sách";
+        }
+
+        /// <summary>
+        /// Duyệt đệ quy và đặt ReadOnly cho tất cả controls
+        /// </summary>
+        private void SetControlsReadOnly(Control parent)
+        {
+            foreach (Control ctrl in parent.Controls)
+            {
+                // TextBox -> ReadOnly
+                if (ctrl is TextBox textBox)
+                {
+                    textBox.ReadOnly = true;
+                    textBox.BackColor = Color.FromArgb(245, 245, 245);
+                }
+                // ComboBox -> Disabled
+                else if (ctrl is ComboBox comboBox)
+                {
+                    comboBox.Enabled = false;
+                }
+                // DateTimePicker -> Disabled
+                else if (ctrl is DateTimePicker dtp)
+                {
+                    dtp.Enabled = false;
+                }
+                // NumericUpDown -> ReadOnly
+                else if (ctrl is NumericUpDown numeric)
+                {
+                    numeric.ReadOnly = true;
+                }
+                // DataGridView -> ReadOnly
+                else if (ctrl is DataGridView dgv)
+                {
+                    dgv.ReadOnly = true;
+                }
+                
+                // Đệ quy vào các container con (Panel, GroupBox, TabControl, ...)
+                if (ctrl.HasChildren)
+                {
+                    SetControlsReadOnly(ctrl);
+                }
+            }
         }
 
         private void DauSachDialog_Load(object sender, EventArgs e)
         {
             LoadComboBoxes();
+            
             if (dauSachID != 0)
             {
                 var dauSach = DauSachBUS.Instance.GetDauSachByID(dauSachID);
@@ -74,21 +130,40 @@ namespace QuanLyThuVien.GUI
                     cmbNXB.SelectedValue = dauSach.NhaXuatBan;
                     txtNamXuatBan.Text = dauSach.NamXuatBan.ToString();
                     txtNgonNgu.Text = dauSach.NgonNgu;
+                    
+                    // Load hình ảnh
                     if (!string.IsNullOrEmpty(dauSach.HinhAnh))
                     {
                         string appDirectory = AppDomain.CurrentDomain.BaseDirectory;
                         string projectRoot = Path.GetFullPath(Path.Combine(appDirectory, @"..\.."));
                         string imagePath = Path.Combine(projectRoot, dauSach.HinhAnh);
+                        
                         if (File.Exists(imagePath))
                         {
                             pictureBox1.Image = Image.FromFile(imagePath);
-                            this.newImagePath = dauSach.HinhAnh; // Giữ nguyên đường dẫn ảnh hiện tại
+                            this.newImagePath = dauSach.HinhAnh;
                         }
                     }
-                    List<TacGiaDTO> tacGiaListhihi = DauSachBUS.Instance.GetTacGiaByDauSachID(dauSachID);
-                    danhSachTacGiaChon = tacGiaListhihi;
+                    
+                    // Load danh sách tác giả
+                    List<TacGiaDTO> tacGiaList = DauSachBUS.Instance.GetTacGiaByDauSachID(dauSachID);
+                    danhSachTacGiaChon = tacGiaList;
                     RefreshTacGiaGrid();
                 }
+            }
+            
+            // Cập nhật tiêu đề theo mode
+            switch (mode)
+            {
+                case "ADD":
+                    this.Text = "Thêm đầu sách mới";
+                    break;
+                case "EDIT":
+                    this.Text = "Sửa đầu sách";
+                    break;
+                case "DETAILS":
+                    this.Text = "Chi tiết đầu sách";
+                    break;
             }
         }
 
@@ -96,23 +171,20 @@ namespace QuanLyThuVien.GUI
         {
             if (mode == "DETAILS")
             {
-                MessageBox.Show("Chế độ xem chi tiết, không thể thay đổi ảnh bìa!");
+                MessageBox.Show("Chế độ xem chi tiết, không thể thay đổi ảnh bìa!", "Thông báo",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
+            
             OpenFileDialog openFile = new OpenFileDialog();
-            // Lọc chỉ file ảnh
             openFile.Filter = "Image Files (*.jpg; *.jpeg; *.png; *.bmp)|*.jpg; *.jpeg; *.png; *.bmp";
 
             if (openFile.ShowDialog() == DialogResult.OK)
             {
                 string sourceFilePath = openFile.FileName;
-
                 string appDirectory = AppDomain.CurrentDomain.BaseDirectory;
-
                 string projectRoot = Path.GetFullPath(Path.Combine(appDirectory, @"..\.."));
-
                 string assetsImgFolder = Path.Combine(projectRoot, "assets", "img");
-
 
                 if (!Directory.Exists(assetsImgFolder))
                 {
@@ -126,37 +198,42 @@ namespace QuanLyThuVien.GUI
                 try
                 {
                     File.Copy(sourceFilePath, destinationFilePath);
-
                     pictureBox1.Image = Image.FromFile(destinationFilePath);
-
                     this.newImagePath = Path.Combine("assets", "img", newFileName);
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Lỗi khi lưu ảnh: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Lỗi khi lưu ảnh: " + ex.Message, "Lỗi", 
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
 
-        // Hàm helper để làm mới lưới dgvTacGiaChon
         private void RefreshTacGiaGrid()
         {
-            dgvTacGiaChon.DataSource = null; // Phải reset
-            dgvTacGiaChon.DataSource = danhSachTacGiaChon; // Bind vào List DTO
+            dgvTacGiaChon.DataSource = null;
+            dgvTacGiaChon.DataSource = danhSachTacGiaChon;
 
-            //Cấu hình cột sau khi bind
-            if (dgvTacGiaChon.Columns.Count > 0)
+            if (dgvTacGiaChon.Columns.Contains("maTacGia"))
             {
-                dgvTacGiaChon.Columns["MaTacGia"].HeaderText = "Mã";
-                dgvTacGiaChon.Columns["MaTacGia"].Width = 50;
-                dgvTacGiaChon.Columns["TenTacGia"].HeaderText = "Tên Tác Giả";
-                dgvTacGiaChon.Columns["TenTacGia"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                dgvTacGiaChon.Columns["maTacGia"].HeaderText = "Mã";
+                dgvTacGiaChon.Columns["maTacGia"].Width = 50;
             }
+            if (dgvTacGiaChon.Columns.Contains("tenTacGia"))
+            {
+                dgvTacGiaChon.Columns["tenTacGia"].HeaderText = "Tên Tác Giả";
+                dgvTacGiaChon.Columns["tenTacGia"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            }
+            
+            // Ẩn các cột không cần thiết
+            if (dgvTacGiaChon.Columns.Contains("namSinh"))
+                dgvTacGiaChon.Columns["namSinh"].Visible = false;
+            if (dgvTacGiaChon.Columns.Contains("quocTich"))
+                dgvTacGiaChon.Columns["quocTich"].Visible = false;
         }
 
         private void LoadComboBoxes()
         {
-            // Load nhà xuất bản
             var nxbData = BUS.NxbBUS.Instance.getAllNxb();
             cmbNXB.DataSource = nxbData;
             cmbNXB.DisplayMember = "TenNXB";
@@ -165,83 +242,87 @@ namespace QuanLyThuVien.GUI
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            // 1. Lấy dữ liệu từ form
+            // Lấy dữ liệu từ form
             string tenSach = txtTenDauSach.Text.Trim();
-            //int maTacGia = (int)cmbTacGia.SelectedValue;
-            int maNXB = (int)cmbNXB.SelectedValue;
+            int maNXB = Convert.ToInt32(cmbNXB.SelectedValue);
             string namXuatBan = txtNamXuatBan.Text.Trim();
             string ngonNgu = txtNgonNgu.Text.Trim();
-            Console.WriteLine(tenSach, maNXB, namXuatBan, ngonNgu);
-            // 2. Validate
+
+            // Validate
             if (string.IsNullOrEmpty(tenSach))
             {
-                MessageBox.Show("Vui lòng nhập tên đầu sách!");
+                MessageBox.Show("Vui lòng nhập tên đầu sách!", "Thông báo",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtTenDauSach.Focus();
                 return;
             }
 
-            // (Quan trọng) Kiểm tra xem người dùng đã chọn ảnh chưa
             if (string.IsNullOrEmpty(this.newImagePath))
             {
-                MessageBox.Show("Vui lòng chọn ảnh bìa cho đầu sách!");
+                MessageBox.Show("Vui lòng chọn ảnh bìa cho đầu sách!", "Thông báo",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             if (danhSachTacGiaChon.Count == 0)
             {
-                MessageBox.Show("Vui lòng thêm ít nhất một tác giả!");
+                MessageBox.Show("Vui lòng thêm ít nhất một tác giả!", "Thông báo",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            List<int> maTacGiaList = danhSachTacGiaChon.Select(tacgia => tacgia.maTacGia).ToList();
-            if (mode == "ADD")
+            // LINQ: Lấy danh sách mã tác giả
+            List<int> maTacGiaList = danhSachTacGiaChon
+                .Select(tg => tg.maTacGia)
+                .ToList();
+
+            try
             {
-
-                // 3. Gọi BUS để thêm
-                bool result = DauSachBUS.Instance.AddDauSach(tenSach, maNXB, this.newImagePath, namXuatBan, ngonNgu, maTacGiaList);
-                try
+                bool result = false;
+                
+                if (mode == "ADD")
                 {
-
+                    result = DauSachBUS.Instance.AddDauSach(tenSach, maNXB, this.newImagePath, namXuatBan, ngonNgu, maTacGiaList);
+                    
                     if (result)
                     {
-                        MessageBox.Show("Thêm đầu sách thành công!");
+                        MessageBox.Show("Thêm đầu sách thành công!", "Thông báo",
+                            MessageBoxButtons.OK, MessageBoxIcon.Information);
                         this.DialogResult = DialogResult.OK;
                         this.Close();
                     }
                     else
                     {
-                        MessageBox.Show("Thêm đầu sách thất bại!");
+                        MessageBox.Show("Thêm đầu sách thất bại!", "Lỗi",
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
-                catch (Exception ex)
+                else if (mode == "EDIT")
                 {
-                    MessageBox.Show("Lỗi khi thêm: " + ex.Message);
+                    result = DauSachBUS.Instance.UpdateDauSach(dauSachID, tenSach, maNXB, this.newImagePath, namXuatBan, ngonNgu, maTacGiaList);
+                    
+                    if (result)
+                    {
+                        MessageBox.Show("Cập nhật đầu sách thành công!", "Thông báo",
+                            MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        this.DialogResult = DialogResult.OK;
+                        this.Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Cập nhật đầu sách thất bại!", "Lỗi",
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
             }
-            else if (mode == "EDIT")
+            catch (Exception ex)
             {
-                bool result = DauSachBUS.Instance.UpdateDauSach(dauSachID, tenSach, maNXB, this.newImagePath, namXuatBan, ngonNgu, maTacGiaList);
-                try
-                {
-                    if (result)
-                    {
-                        MessageBox.Show("Cập nhật đầu sách thành công!");
-                        this.DialogResult = DialogResult.OK;
-                        this.Close();
-                    }
-                    else
-                    {
-                        MessageBox.Show("Cập nhật đầu sách thất bại!");
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Lỗi khi cập nhật: " + ex.Message);
-                }
+                MessageBox.Show("Lỗi: " + ex.Message, "Lỗi",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -249,27 +330,26 @@ namespace QuanLyThuVien.GUI
         {
             if (mode == "DETAILS")
             {
-                MessageBox.Show("Chế độ xem chi tiết, không thể thêm tác giả!");
+                MessageBox.Show("Chế độ xem chi tiết, không thể thêm tác giả!", "Thông báo",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
+            
             using (ChonTacGiaDialog dialog = new ChonTacGiaDialog())
             {
-                // Mở dialog
                 if (dialog.ShowDialog() == DialogResult.OK)
                 {
-                    // Lấy danh sách tác giả đã chọn từ dialog
                     List<TacGiaDTO> authorsFromDialog = dialog.SelectedAuthors;
 
-                    // Thêm vào danh sách chính (tránh trùng lặp)
+                    // LINQ: Thêm tác giả mới, tránh trùng lặp
                     foreach (var author in authorsFromDialog)
                     {
-                        // Dùng LINQ để kiểm tra xem tác giả đã tồn tại chưa
                         if (!danhSachTacGiaChon.Any(a => a.maTacGia == author.maTacGia))
                         {
                             danhSachTacGiaChon.Add(author);
                         }
                     }
-                    // Cập nhật lại DataGridView
+                    
                     RefreshTacGiaGrid();
                 }
             }
@@ -285,17 +365,23 @@ namespace QuanLyThuVien.GUI
         {
             if (mode == "DETAILS")
             {
-                MessageBox.Show("Chế độ xem chi tiết, không thể xóa tác giả!");
+                MessageBox.Show("Chế độ xem chi tiết, không thể xóa tác giả!", "Thông báo",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
+            
             if (dgvTacGiaChon.SelectedRows.Count == 0)
             {
-                MessageBox.Show("Vui lòng chọn tác giả để xóa!");
+                MessageBox.Show("Vui lòng chọn tác giả để xóa!", "Thông báo",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             int selectedMaTacGia = Convert.ToInt32(dgvTacGiaChon.SelectedRows[0].Cells["MaTacGia"].Value);
-            var authorToRemove = danhSachTacGiaChon.FirstOrDefault(a => a.maTacGia == selectedMaTacGia);
+            
+            // LINQ: Tìm và xóa tác giả
+            var authorToRemove = danhSachTacGiaChon
+                .FirstOrDefault(a => a.maTacGia == selectedMaTacGia);
 
             if (authorToRemove != null)
             {

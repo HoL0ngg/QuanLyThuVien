@@ -1,4 +1,4 @@
-using QuanLyThuVien.DAO;
+﻿using QuanLyThuVien.DAO;
 using System;
 using System.Data;
 using System.Drawing;
@@ -17,13 +17,12 @@ namespace QuanLyThuVien.GUI
             this.maDauSach = maDauSach;
             this.tenDauSach = tenDauSach;
             
-            // Set font an to�n cho c�c control
+            // Set font an toàn cho các control
             SetSafeFonts();
         }
 
         private void SetSafeFonts()
         {
-            // Th? d�ng Segoe UI, n?u kh�ng c� th� d�ng Microsoft Sans Serif
             Font titleFont = GetSafeFont("Segoe UI", 16F, FontStyle.Bold);
             Font normalFont = GetSafeFont("Segoe UI", 10F, FontStyle.Regular);
             Font buttonFont = GetSafeFont("Segoe UI", 10F, FontStyle.Bold);
@@ -46,20 +45,20 @@ namespace QuanLyThuVien.GUI
             {
                 using (Font testFont = new Font(fontName, size, style))
                 {
-                    // N?u font t?n t?i, t?o font m?i v� return
+                    // N?u font t?n t?i, t?o font m?i và return
                     return new Font(fontName, size, style);
                 }
             }
             catch
             {
-                // N?u font kh�ng t?n t?i, d�ng font m?c ??nh
+                // N?u font không t?n t?i, dùng font m?c ??nh
                 return new Font(FontFamily.GenericSansSerif, size, style);
             }
         }
 
         private void DanhSachSachDialog_Load(object sender, EventArgs e)
         {
-            lblTitle.Text = $"Danh s�ch s�ch: {tenDauSach}";
+            lblTitle.Text = $"Danh sách sách: {tenDauSach}";
             LoadDanhSachSach();
         }
 
@@ -72,11 +71,11 @@ namespace QuanLyThuVien.GUI
                         s.MaSach AS 'MaSach',
                         ds.TenDauSach AS 'TenSach',
                         CASE 
-                            WHEN s.trangthai = 1 THEN 'B�nh th??ng'
-                            WHEN s.trangthai = 0 THEN 'B? h?'
-                            WHEN s.trangthai = -1 THEN 'B? m?t'
-                            WHEN s.trangthai = -10 THEN '?� h?y'
-                            ELSE 'Kh�ng x�c ??nh'
+                            WHEN s.trangthai = 1 THEN 'Bình thường'
+                            WHEN s.trangthai = 0 THEN 'Bị hư'
+                            WHEN s.trangthai = -1 THEN 'Bị mất'
+                            WHEN s.trangthai = -10 THEN 'Đã hủy'
+                            ELSE 'Không xác định'
                         END AS 'TrangThai'
                     FROM sach s
                     JOIN dau_sach ds ON s.MaDauSach = ds.MaDauSach
@@ -91,15 +90,15 @@ namespace QuanLyThuVien.GUI
                 DataTable dt = DataProvider.ExecuteQuery(query, parameters);
                 dgvSach.DataSource = dt;
 
-                // ??i t�n header
+                // ??i tên header
                 if (dgvSach.Columns.Contains("MaSach"))
-                    dgvSach.Columns["MaSach"].HeaderText = "M� s�ch";
+                    dgvSach.Columns["MaSach"].HeaderText = "Mã sách";
                 if (dgvSach.Columns.Contains("TenSach"))
-                    dgvSach.Columns["TenSach"].HeaderText = "T�n s�ch";
+                    dgvSach.Columns["TenSach"].HeaderText = "Tên sách";
                 if (dgvSach.Columns.Contains("TrangThai"))
-                    dgvSach.Columns["TrangThai"].HeaderText = "Tr?ng th�i";
+                    dgvSach.Columns["TrangThai"].HeaderText = "Trạng thái";
 
-                // ??m s? l??ng theo tr?ng th�i
+                // ??m s? l??ng theo tr?ng thái
                 int tongSo = dt.Rows.Count;
                 int binhThuong = 0, biHu = 0, biMat = 0, daHuy = 0;
 
@@ -108,16 +107,16 @@ namespace QuanLyThuVien.GUI
                     string trangThai = row["TrangThai"].ToString();
                     switch (trangThai)
                     {
-                        case "B�nh th??ng": binhThuong++; break;
-                        case "B? h?": biHu++; break;
-                        case "B? m?t": biMat++; break;
-                        case "?� h?y": daHuy++; break;
+                        case "Bình thường": binhThuong++; break;
+                        case "Bị hư": biHu++; break;
+                        case "Bị mất": biMat++; break;
+                        case "Đã hủy": daHuy++; break;
                     }
                 }
 
-                lblThongKe.Text = $"T?ng: {tongSo} | B�nh th??ng: {binhThuong} | B? h?: {biHu} | B? m?t: {biMat} | ?� h?y: {daHuy}";
+                lblThongKe.Text = $"Tổng: {tongSo} | Bình thường: {binhThuong} | Bị hư: {biHu} | Bị mất: {biMat} | Đã hủy: {daHuy}";
 
-                // T� m�u theo tr?ng th�i
+                // Tô màu theo tr?ng thái
                 dgvSach.CellFormatting += DgvSach_CellFormatting;
             }
             catch (Exception ex)
@@ -134,19 +133,19 @@ namespace QuanLyThuVien.GUI
                 string trangThai = e.Value.ToString();
                 switch (trangThai)
                 {
-                    case "B�nh th??ng":
+                    case "Bình thường":
                         e.CellStyle.BackColor = Color.FromArgb(200, 230, 201); // Light Green
                         e.CellStyle.ForeColor = Color.FromArgb(27, 94, 32);
                         break;
-                    case "B? h?":
+                    case "Bị hư":
                         e.CellStyle.BackColor = Color.FromArgb(255, 224, 178); // Light Orange
                         e.CellStyle.ForeColor = Color.FromArgb(230, 81, 0);
                         break;
-                    case "B? m?t":
+                    case "Bị mất":
                         e.CellStyle.BackColor = Color.FromArgb(255, 205, 210); // Light Red
                         e.CellStyle.ForeColor = Color.FromArgb(183, 28, 28);
                         break;
-                    case "?� h?y":
+                    case "Đã hủy":
                         e.CellStyle.BackColor = Color.FromArgb(224, 224, 224); // Light Gray
                         e.CellStyle.ForeColor = Color.FromArgb(97, 97, 97);
                         break;

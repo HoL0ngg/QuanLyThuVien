@@ -1,4 +1,4 @@
-namespace QuanLyThuVien.GUI
+﻿namespace QuanLyThuVien.GUI
 {
     partial class FormPhanQuyen
     {
@@ -58,7 +58,7 @@ namespace QuanLyThuVien.GUI
             this.lblTitle.Name = "lblTitle";
             this.lblTitle.Size = new System.Drawing.Size(700, 70);
             this.lblTitle.TabIndex = 0;
-            this.lblTitle.Text = "Qu?n l� ph�n quy?n theo nh�m";
+            this.lblTitle.Text = "Quản lý phân quyền theo nhóm";
             this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // panelBody
@@ -127,12 +127,11 @@ namespace QuanLyThuVien.GUI
             this.lblNhomQuyen.Name = "lblNhomQuyen";
             this.lblNhomQuyen.Size = new System.Drawing.Size(119, 25);
             this.lblNhomQuyen.TabIndex = 0;
-            this.lblNhomQuyen.Text = "Nh�m quy?n:";
+            this.lblNhomQuyen.Text = "Nhóm quyền:";
             // 
             // panelInfo
             // 
             this.panelInfo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(243)))), ((int)(((byte)(224)))));
-
             this.panelInfo.Controls.Add(this.lblInfo);
             this.panelInfo.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelInfo.Location = new System.Drawing.Point(20, 20);
@@ -150,13 +149,12 @@ namespace QuanLyThuVien.GUI
             this.lblInfo.Padding = new System.Windows.Forms.Padding(10, 0, 10, 0);
             this.lblInfo.Size = new System.Drawing.Size(660, 45);
             this.lblInfo.TabIndex = 0;
-            this.lblInfo.Text = "Ch?n nh�m quy?n v� t�ch ch?n c�c � ?? c?p quy?n. Nh�m Admin kh�ng th? s?a.";
+            this.lblInfo.Text = "Chọn nhóm quyền và tích chọn các ô để cấp quyền. Nhóm Admin không hiển thị.";
             this.lblInfo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // panelFooter
             // 
             this.panelFooter.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(245)))), ((int)(((byte)(245)))));
-
             this.panelFooter.Controls.Add(this.btnXoaNhomQuyen);
             this.panelFooter.Controls.Add(this.btnThemNhomQuyen);
             this.panelFooter.Controls.Add(this.btnHuy);
@@ -179,7 +177,7 @@ namespace QuanLyThuVien.GUI
             this.btnXoaNhomQuyen.Name = "btnXoaNhomQuyen";
             this.btnXoaNhomQuyen.Size = new System.Drawing.Size(110, 40);
             this.btnXoaNhomQuyen.TabIndex = 3;
-            this.btnXoaNhomQuyen.Text = "X�a nh�m";
+            this.btnXoaNhomQuyen.Text = "Xóa nhóm";
             this.btnXoaNhomQuyen.UseVisualStyleBackColor = false;
             this.btnXoaNhomQuyen.Click += new System.EventHandler(this.btnXoaNhomQuyen_Click);
             // 
@@ -195,7 +193,7 @@ namespace QuanLyThuVien.GUI
             this.btnThemNhomQuyen.Name = "btnThemNhomQuyen";
             this.btnThemNhomQuyen.Size = new System.Drawing.Size(110, 40);
             this.btnThemNhomQuyen.TabIndex = 2;
-            this.btnThemNhomQuyen.Text = "Th�m nh�m";
+            this.btnThemNhomQuyen.Text = "Thêm nhóm";
             this.btnThemNhomQuyen.UseVisualStyleBackColor = false;
             this.btnThemNhomQuyen.Click += new System.EventHandler(this.btnThemNhomQuyen_Click);
             // 
@@ -211,7 +209,7 @@ namespace QuanLyThuVien.GUI
             this.btnHuy.Name = "btnHuy";
             this.btnHuy.Size = new System.Drawing.Size(110, 40);
             this.btnHuy.TabIndex = 1;
-            this.btnHuy.Text = "?�ng";
+            this.btnHuy.Text = "Đóng";
             this.btnHuy.UseVisualStyleBackColor = false;
             this.btnHuy.Click += new System.EventHandler(this.btnHuy_Click);
             // 
@@ -227,7 +225,7 @@ namespace QuanLyThuVien.GUI
             this.btnLuu.Name = "btnLuu";
             this.btnLuu.Size = new System.Drawing.Size(120, 40);
             this.btnLuu.TabIndex = 0;
-            this.btnLuu.Text = "L?u quy?n";
+            this.btnLuu.Text = "Lưu quyền";
             this.btnLuu.UseVisualStyleBackColor = false;
             this.btnLuu.Click += new System.EventHandler(this.btnLuu_Click);
             // 
@@ -244,7 +242,7 @@ namespace QuanLyThuVien.GUI
             this.MinimizeBox = false;
             this.Name = "FormPhanQuyen";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Qu?n l� ph�n quy?n";
+            this.Text = "Quản lý phân quyền";
             this.panelHeader.ResumeLayout(false);
             this.panelBody.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvQuyen)).EndInit();

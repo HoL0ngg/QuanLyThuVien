@@ -1,4 +1,4 @@
-namespace QuanLyThuVien.GUI
+﻿namespace QuanLyThuVien.GUI
 {
     partial class DanhSachSachDialog
     {
@@ -58,7 +58,7 @@ namespace QuanLyThuVien.GUI
             this.lblTitle.Name = "lblTitle";
             this.lblTitle.Size = new System.Drawing.Size(238, 31);
             this.lblTitle.TabIndex = 0;
-            this.lblTitle.Text = "Danh s�ch s�ch";
+            this.lblTitle.Text = "Danh sách sách";
             // 
             // dgvSach
             // 
@@ -101,7 +101,7 @@ namespace QuanLyThuVien.GUI
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(110, 40);
             this.btnClose.TabIndex = 0;
-            this.btnClose.Text = "?�ng";
+            this.btnClose.Text = "?óng";
             this.btnClose.UseVisualStyleBackColor = false;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
@@ -113,7 +113,7 @@ namespace QuanLyThuVien.GUI
             this.lblThongKe.Name = "lblThongKe";
             this.lblThongKe.Size = new System.Drawing.Size(68, 20);
             this.lblThongKe.TabIndex = 1;
-            this.lblThongKe.Text = "T?ng: 0";
+            this.lblThongKe.Text = "Tổng: 0";
             // 
             // DanhSachSachDialog
             // 
@@ -129,7 +129,7 @@ namespace QuanLyThuVien.GUI
             this.MinimizeBox = false;
             this.Name = "DanhSachSachDialog";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Danh s�ch s�ch";
+            this.Text = "Danh sách sách";
             this.Load += new System.EventHandler(this.DanhSachSachDialog_Load);
             this.panelTop.ResumeLayout(false);
             this.panelTop.PerformLayout();

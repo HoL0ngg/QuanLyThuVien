@@ -45,7 +45,17 @@ namespace QuanLyThuVien.GUI
                 return;
             }
 
-            // Kiểm tra từng quyền
+            // *** QUAN TRỌNG: Admin (MaNhomQuyen <= 1) có tất cả quyền, không cần kiểm tra ***
+            if (user.MaNhomQuyen <= 1)
+            {
+                CoQuyenXem = true;
+                CoQuyenThem = true;
+                CoQuyenSua = true;
+                CoQuyenXoa = true;
+                return;
+            }
+
+            // Kiểm tra từng quyền cho các nhóm quyền khác
             CoQuyenXem = NhomQuyenBUS.Instance.KiemTraQuyen(user.MaNhomQuyen, tenChucNang, "XEM");
             CoQuyenThem = NhomQuyenBUS.Instance.KiemTraQuyen(user.MaNhomQuyen, tenChucNang, "THEM");
             CoQuyenSua = NhomQuyenBUS.Instance.KiemTraQuyen(user.MaNhomQuyen, tenChucNang, "SUA");
@@ -58,6 +68,14 @@ namespace QuanLyThuVien.GUI
         public bool CoItNhatMotQuyen()
         {
             return CoQuyenXem || CoQuyenThem || CoQuyenSua || CoQuyenXoa;
+        }
+
+        /// <summary>
+        /// Kiểm tra có phải Admin không
+        /// </summary>
+        protected bool IsAdmin()
+        {
+            return CurrentUser != null && CurrentUser.MaNhomQuyen <= 1;
         }
 
         public virtual void OnAdd()
