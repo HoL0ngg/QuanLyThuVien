@@ -1,14 +1,8 @@
 ﻿using QuanLyThuVien.DTO;
 using QuanLyThuVien.BUS;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using QuanLyThuVien.GUI.ThongKeGUI;
 
@@ -18,30 +12,24 @@ namespace QuanLyThuVien.GUI
     {
         private TaiKhoanDTO currentUser;
         private BaseModuleUC currentModule;
-
         private Panel activeMenuPanel = null;
         
-        // Lưu vị trí gốc của panel3
-        private Point panel3OriginalLocation;
-        private Size panel3OriginalSize;
-        
         // Material Design Color Palette
-        private Color primaryColor = Color.FromArgb(33, 150, 243);      // Blue 500
-        private Color primaryDark = Color.FromArgb(25, 118, 210);       // Blue 700
-        private Color primaryLight = Color.FromArgb(100, 181, 246);     // Blue 300
-        private Color accentColor = Color.FromArgb(255, 64, 129);       // Pink A200
+        private Color primaryColor = Color.FromArgb(33, 150, 243);
+        private Color primaryDark = Color.FromArgb(25, 118, 210);
+        private Color primaryLight = Color.FromArgb(100, 181, 246);
+        private Color accentColor = Color.FromArgb(255, 64, 129);
         
-        private Color defaultColor = Color.FromArgb(66, 66, 66);        // Dark Grey
-        private Color activeColor = Color.FromArgb(33, 150, 243);       // Blue 500
-        private Color hoverColor = Color.FromArgb(97, 97, 97);          // Medium Grey
-        private Color menuBgColor = Color.FromArgb(250, 250, 250);      // Light Grey
-        private Color cardBgColor = Color.White;                        // White
+        private Color defaultColor = Color.FromArgb(66, 66, 66);
+        private Color activeColor = Color.FromArgb(33, 150, 243);
+        private Color hoverColor = Color.FromArgb(97, 97, 97);
+        private Color menuBgColor = Color.FromArgb(250, 250, 250);
+        private Color cardBgColor = Color.White;
         
-        // Action button colors
-        private Color successColor = Color.FromArgb(76, 175, 80);       // Green 500
-        private Color infoColor = Color.FromArgb(33, 150, 243);         // Blue 500
-        private Color dangerColor = Color.FromArgb(244, 67, 54);        // Red 500
-        private Color warningColor = Color.FromArgb(156, 39, 176);      // Purple 500
+        private Color successColor = Color.FromArgb(76, 175, 80);
+        private Color infoColor = Color.FromArgb(33, 150, 243);
+        private Color dangerColor = Color.FromArgb(244, 67, 54);
+        private Color warningColor = Color.FromArgb(156, 39, 176);
         
         public MainForm(TaiKhoanDTO taiKhoan)
         {
@@ -66,12 +54,6 @@ namespace QuanLyThuVien.GUI
                          ControlStyles.AllPaintingInWmPaint | 
                          ControlStyles.UserPaint, true);
             
-            // Lưu vị trí gốc
-            panel3OriginalLocation = panel3.Location;
-            panel3OriginalSize = panel3.Size;
-			
-			
-            // Đóng form khi đóng
             this.FormClosing += MainForm_FormClosing;
             
             ApplyMaterialDesign();
@@ -79,14 +61,12 @@ namespace QuanLyThuVien.GUI
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            // Giải phóng tài nguyên
             if (currentModule != null)
             {
                 currentModule.Dispose();
             }
         }
 
-        // Phương thức đăng xuất
         public void DangXuat()
         {
             DialogResult result = MessageBox.Show(
@@ -101,20 +81,32 @@ namespace QuanLyThuVien.GUI
                 this.Close();
             }
         }
+
+        /// <summary>
+        /// Ẩn flowLayoutPanel1 (các nút THÊM/SỬA/XÓA/CHI TIẾT) cho WelcomeScreen
+        /// </summary>
+        public void HideActionButtons()
+        {
+            flowLayoutPanel1.Visible = false;
+        }
+
+        /// <summary>
+        /// Hiện flowLayoutPanel1 (các nút THÊM/SỬA/XÓA/CHI TIẾT) cho các module khác
+        /// </summary>
+        public void ShowActionButtons()
+        {
+            flowLayoutPanel1.Visible = true;
+        }
         
         private void ApplyMaterialDesign()
         {
-            // Form background
             this.BackColor = Color.FromArgb(250, 250, 250);
             
-            // Header panel với Material Design
             panel1.BackColor = primaryColor;
             panel1.Paint += Panel1_Paint;
             
-            // Menu background
             flowLayoutPanel2.BackColor = menuBgColor;
             
-            // Styling cho menu panels
             foreach (Control ctrl in flowLayoutPanel2.Controls)
             {
                 if (ctrl is Panel panel)
@@ -137,25 +129,21 @@ namespace QuanLyThuVien.GUI
                 }
             }
             
-            // Action buttons với Material Design
             SetupActionButton(panel9, successColor, "Segoe UI", 11F);
             SetupActionButton(panel10, infoColor, "Segoe UI", 11F);
             SetupActionButton(panel12, dangerColor, "Segoe UI", 11F);
             SetupActionButton(panel11, warningColor, "Segoe UI", 11F);
             
-            // Header labels
             label1.ForeColor = Color.White;
             label1.Font = GetSafeFont("Segoe UI", 18F, FontStyle.Bold);
             
-            // Label2 làm nút đăng xuất
             label2.ForeColor = Color.FromArgb(230, 230, 230);
             label2.Font = GetSafeFont("Segoe UI", 11F, FontStyle.Bold);
             label2.Text = "Đăng xuất";
             label2.Cursor = Cursors.Hand;
-            label2.Click -= label2_Click; // Xóa event cũ nếu có
-            label2.Click += Label2_DangXuat_Click; // Thêm event mới
+            label2.Click -= label2_Click;
+            label2.Click += Label2_DangXuat_Click;
             
-            // Thêm hover effect cho label2
             label2.MouseEnter += (s, e) => {
                 label2.ForeColor = Color.White;
                 label2.Font = GetSafeFont("Segoe UI", 11F, FontStyle.Bold | FontStyle.Underline);
@@ -184,7 +172,7 @@ namespace QuanLyThuVien.GUI
             panel.MouseLeave += ActionButton_MouseLeave;
             panel.MouseDown += ActionButton_MouseDown;
             panel.MouseUp += ActionButton_MouseUp;
-            panel.Tag = baseColor; // Store original color
+            panel.Tag = baseColor;
             
             foreach (Control ctrl in panel.Controls)
             {
@@ -196,18 +184,14 @@ namespace QuanLyThuVien.GUI
             }
         }
         
-        // Vẽ Material shadow cho header
         private void Panel1_Paint(object sender, PaintEventArgs e)
         {
             Panel panel = sender as Panel;
             e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
             
             Rectangle rect = panel.ClientRectangle;
-            
-            // Draw shadow
             DrawShadow(e.Graphics, rect, 8);
             
-            // Draw gradient background
             using (LinearGradientBrush brush = new LinearGradientBrush(
                 rect, primaryColor, primaryDark, LinearGradientMode.Horizontal))
             {
@@ -218,18 +202,14 @@ namespace QuanLyThuVien.GUI
             }
         }
         
-        // Vẽ Material card cho menu
         private void MenuPanel_Paint(object sender, PaintEventArgs e)
         {
             Panel panel = sender as Panel;
             e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
             
             Rectangle rect = new Rectangle(0, 0, panel.Width - 1, panel.Height - 1);
-            
-            // Draw shadow
             DrawShadow(e.Graphics, rect, panel == activeMenuPanel ? 6 : 2);
             
-            // Draw card
             using (SolidBrush brush = new SolidBrush(panel.BackColor))
             {
                 using (GraphicsPath path = GetRoundedRectPath(rect, 8))
@@ -238,7 +218,6 @@ namespace QuanLyThuVien.GUI
                 }
             }
             
-            // Draw active indicator
             if (panel == activeMenuPanel)
             {
                 using (SolidBrush indicatorBrush = new SolidBrush(primaryColor))
@@ -249,18 +228,14 @@ namespace QuanLyThuVien.GUI
             }
         }
         
-        // Vẽ Material button
         private void ActionButton_Paint(object sender, PaintEventArgs e)
         {
             Panel panel = sender as Panel;
             e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
             
             Rectangle rect = new Rectangle(0, 0, panel.Width - 1, panel.Height - 1);
-            
-            // Draw shadow
             DrawShadow(e.Graphics, rect, 4);
             
-            // Draw button
             using (SolidBrush brush = new SolidBrush(panel.BackColor))
             {
                 using (GraphicsPath path = GetRoundedRectPath(rect, 8))
@@ -269,7 +244,6 @@ namespace QuanLyThuVien.GUI
                 }
             }
             
-            // Draw highlight
             Rectangle highlightRect = new Rectangle(rect.X + 2, rect.Y + 2, rect.Width - 4, rect.Height / 2);
             using (LinearGradientBrush highlightBrush = new LinearGradientBrush(
                 highlightRect,
@@ -284,7 +258,6 @@ namespace QuanLyThuVien.GUI
             }
         }
         
-        // Material shadow drawing
         private void DrawShadow(Graphics g, Rectangle rect, int depth)
         {
             for (int i = 0; i < depth; i++)
@@ -293,11 +266,8 @@ namespace QuanLyThuVien.GUI
                 if (alpha < 0) alpha = 0;
                 
                 Rectangle shadowRect = new Rectangle(
-                    rect.X + i, 
-                    rect.Y + i, 
-                    rect.Width - (i * 2), 
-                    rect.Height - (i * 2)
-                );
+                    rect.X + i, rect.Y + i, 
+                    rect.Width - (i * 2), rect.Height - (i * 2));
                 
                 using (Pen shadowPen = new Pen(Color.FromArgb(alpha, 0, 0, 0)))
                 {
@@ -309,7 +279,6 @@ namespace QuanLyThuVien.GUI
             }
         }
         
-        // Rounded rectangle path
         private GraphicsPath GetRoundedRectPath(Rectangle rect, int radius)
         {
             GraphicsPath path = new GraphicsPath();
@@ -334,7 +303,6 @@ namespace QuanLyThuVien.GUI
             return path;
         }
         
-        // Menu panel hover effects
         private void MenuPanel_MouseEnter(object sender, EventArgs e)
         {
             Panel panel = sender as Panel;
@@ -373,7 +341,6 @@ namespace QuanLyThuVien.GUI
             }
         }
         
-        // Action button hover effects
         private void ActionButton_MouseEnter(object sender, EventArgs e)
         {
             Panel panel = sender as Panel;
@@ -402,14 +369,12 @@ namespace QuanLyThuVien.GUI
             panel.BackColor = LightenColor(baseColor, 20);
         }
         
-        // Color helpers
         private Color LightenColor(Color color, int amount)
         {
             return Color.FromArgb(
                 Math.Min(color.R + amount, 255),
                 Math.Min(color.G + amount, 255),
-                Math.Min(color.B + amount, 255)
-            );
+                Math.Min(color.B + amount, 255));
         }
         
         private Color DarkenColor(Color color, int amount)
@@ -417,10 +382,12 @@ namespace QuanLyThuVien.GUI
             return Color.FromArgb(
                 Math.Max(color.R - amount, 0),
                 Math.Max(color.G - amount, 0),
-                Math.Max(color.B - amount, 0)
-            );
+                Math.Max(color.B - amount, 0));
         }
 
+        /// <summary>
+        /// Load module và hiện các nút action
+        /// </summary>
         private void LoadModule(BaseModuleUC module, string tenChucNang)
         {
             if (this.currentModule != null)
@@ -429,18 +396,20 @@ namespace QuanLyThuVien.GUI
                 this.currentModule.Dispose();
             }
 
+            // Hiện các nút action cho các module thông thường
+            ShowActionButtons();
+
             this.currentModule = module;
-            
-            // Thiết lập quyền cho module
             this.currentModule.SetupPermission(currentUser, tenChucNang);
-            
             this.currentModule.Dock = DockStyle.Fill;
             this.panel3.Controls.Add(this.currentModule);
             this.currentModule.BringToFront();
         }
 
-        // Overload cho WelcomeScreen (không cần quyền)
-        private void LoadModule(BaseModuleUC module)
+        /// <summary>
+        /// Load WelcomeScreen - ẩn các nút action
+        /// </summary>
+        private void LoadWelcomeScreen()
         {
             if (this.currentModule != null)
             {
@@ -448,7 +417,22 @@ namespace QuanLyThuVien.GUI
                 this.currentModule.Dispose();
             }
 
-            this.currentModule = module;
+            // Ẩn các nút action cho WelcomeScreen
+            HideActionButtons();
+
+            // Reset active menu panel
+            if (activeMenuPanel != null)
+            {
+                activeMenuPanel.BackColor = cardBgColor;
+                foreach (Control ctrl in activeMenuPanel.Controls)
+                {
+                    if (ctrl is Label lbl)
+                        lbl.ForeColor = Color.FromArgb(66, 66, 66);
+                }
+                activeMenuPanel = null;
+            }
+
+            this.currentModule = new WelcomeScreen();
             this.currentModule.Dock = DockStyle.Fill;
             this.panel3.Controls.Add(this.currentModule);
             this.currentModule.BringToFront();
@@ -459,13 +443,10 @@ namespace QuanLyThuVien.GUI
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            if (this.DesignMode)
-            {
-                return; // Nếu đang ở chế độ Design, không làm gì cả
-            }
+            if (this.DesignMode) return;
             
             // Hiển thị màn hình chào mừng khi mới mở app
-            LoadModule(new WelcomeScreen());
+            LoadWelcomeScreen();
         }
 
         private void ApplyRolePermission()
@@ -478,42 +459,22 @@ namespace QuanLyThuVien.GUI
 
             int maNhomQuyen = currentUser.MaNhomQuyen;
 
-            // Admin (MaNhomQuyen = 0 hoặc 1) có tất cả quyền
-            if (maNhomQuyen <= 1)
-                return;
+            if (maNhomQuyen <= 1) return;
 
-            // Kiểm tra quyền từng chức năng và ẩn/hiện menu tương ứng
-            // Tên chức năng phải khớp với TENCN trong bảng chuc_nang
-            
-            // Phiếu Nhập
             if (!NhomQuyenBUS.Instance.CoItNhatMotQuyen(maNhomQuyen, "Phiếu Nhập"))
                 panelPhieuNhap.Visible = false;
-
-            // Phiếu Mượn
             if (!NhomQuyenBUS.Instance.CoItNhatMotQuyen(maNhomQuyen, "Phiếu Mượn"))
                 panelPhieuMuon.Visible = false;
-
-            // Phiếu Trả
             if (!NhomQuyenBUS.Instance.CoItNhatMotQuyen(maNhomQuyen, "Phiếu Trả"))
                 panelPhieuTra.Visible = false;
-
-            // Phiếu Phạt
             if (!NhomQuyenBUS.Instance.CoItNhatMotQuyen(maNhomQuyen, "Phiếu Phạt"))
                 panelPhieuPhat.Visible = false;
-
-            // Đầu Sách
             if (!NhomQuyenBUS.Instance.CoItNhatMotQuyen(maNhomQuyen, "Đầu Sách"))
                 panelDauSach.Visible = false;
-
-            // Độc Giả
             if (!NhomQuyenBUS.Instance.CoItNhatMotQuyen(maNhomQuyen, "Độc Giả"))
                 panelDocGia.Visible = false;
-
-            // Nhân Viên
             if (!NhomQuyenBUS.Instance.CoItNhatMotQuyen(maNhomQuyen, "Nhân Viên"))
                 panelNhanVien.Visible = false;
-
-            // Thống Kê
             if (!NhomQuyenBUS.Instance.CoItNhatMotQuyen(maNhomQuyen, "Thống Kê"))
                 panelThongKe.Visible = false;
         }
@@ -580,48 +541,42 @@ namespace QuanLyThuVien.GUI
                     lbl.ForeColor = primaryColor;
             }
 
-            // Load module với thông tin quyền - truyền currentUser vào constructor
+            // Load module tương ứng
             if (clickedPanel.Name == "panelPhieuNhap")
             {
-                var module = new PhieuNhapGUI(currentUser);
-                LoadModule(module, "Phieu Nhap");
+                LoadModule(new PhieuNhapGUI(currentUser), "Phieu Nhap");
             }
             else if (clickedPanel.Name == "panelPhieuMuon")
             {
-                var module = new PhieuMuon(currentUser);
-                LoadModule(module, "Phieu Muon");
+                LoadModule(new PhieuMuon(currentUser), "Phieu Muon");
             }
             else if (clickedPanel.Name == "panelPhieuTra")
             {
-                var module = new PhieuTraGUI(currentUser);
-                LoadModule(module, "Phieu Tra");
+                LoadModule(new PhieuTraGUI(currentUser), "Phieu Tra");
             }
             else if (clickedPanel.Name == "panelDauSach")
             {
-                var module = new DauSach(currentUser);
-                LoadModule(module, "Dau Sach");
+                LoadModule(new DauSach(currentUser), "Dau Sach");
             }
             else if (clickedPanel.Name == "panelNhanVien")
             {
-                var module = new NhanVienGUI(currentUser);
-                LoadModule(module, "Nhan Vien");
+                LoadModule(new NhanVienGUI(currentUser), "Nhan Vien");
             }
             else if (clickedPanel.Name == "panelDocGia")
             {
-                var module = new DocGia(currentUser);
-                LoadModule(module, "Doc Gia");
+                LoadModule(new DocGia(currentUser), "Doc Gia");
             }
             else if (clickedPanel.Name == "panelDangXuat")
+            {
                 DangXuat();
+            }
             else if (clickedPanel.Name == "panelPhieuPhat")
             {
-                var module = new PhieuPhat(currentUser);
-                LoadModule(module, "Phieu Phat");
+                LoadModule(new PhieuPhat(currentUser), "Phieu Phat");
             }
             else if (clickedPanel.Name == "panelThongKe")
             {
-                var module = new UCMain(currentUser);
-                LoadModule(module, "Thong Ke");
+                LoadModule(new UCMain(currentUser), "Thong Ke");
             }
         }
 
@@ -633,11 +588,9 @@ namespace QuanLyThuVien.GUI
 
         private void panelPhieuPhat_Click(object sender, EventArgs e)
         {
-            // Delegate to the shared menu click handler so Designer event hookups work.
             panelMenu_Click(panelPhieuPhat, EventArgs.Empty);
         }
 
-        // Mở Thống kê khi click label/picture bên trong panel
         private void panelThongKe_Click(object sender, EventArgs e)
         {
             panelMenu_Click(panelThongKe, EventArgs.Empty);
@@ -654,13 +607,10 @@ namespace QuanLyThuVien.GUI
         }
 
         private void panel3_Paint(object sender, PaintEventArgs e) { }
+        
         private void panelPhieuPhat_DoubleClick(object sender, EventArgs e)
         {
-            PhieuPhat phieuphat = new PhieuPhat(currentUser);
-            phieuphat.SetupPermission(currentUser, "Phieu Phat");
-            phieuphat.Dock = DockStyle.Fill;
-            this.panel3.Controls.Clear();
-            this.panel3.Controls.Add(phieuphat);
+            LoadModule(new PhieuPhat(currentUser), "Phieu Phat");
         }
 
         private void panelPhieuPhat_MouseDown(object sender, MouseEventArgs e) { }
