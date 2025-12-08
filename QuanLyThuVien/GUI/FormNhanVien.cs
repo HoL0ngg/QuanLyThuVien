@@ -1,6 +1,8 @@
 ﻿using QuanLyThuVien.BUS;
 using QuanLyThuVien.DTO;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace QuanLyThuVien.GUI
@@ -9,6 +11,7 @@ namespace QuanLyThuVien.GUI
     {
         private NhanVienDTO nhanVien;
         private bool isViewOnly;
+        private List<NhomQuyenDTO> danhSachNhomQuyen;
 
         public FormNhanVien()
         {
@@ -24,25 +27,60 @@ namespace QuanLyThuVien.GUI
             this.nhanVien = nv;
             this.isViewOnly = viewOnly;
             this.Text = viewOnly ? "Chi tiết nhân viên" : "Cập nhật nhân viên";
-            LoadData();
         }
 
         private void FormNhanVien_Load(object sender, EventArgs e)
         {
-            // Setup combobox
-            cboGioiTinh.Items.AddRange(new[] { "Nam", "Nữ", "Khác" });
-            cboTrangThai.Items.AddRange(new[] { "Đang làm việc", "Nghỉ việc" });
+            // Thiết lập combobox giới tính
+            cboGioiTinh.Items.AddRange(new[] { "Nam", "Nữ" });
+
+            // Load danh sách nhóm quyền (loại bỏ Admin)
+            LoadNhomQuyen();
 
             if (nhanVien.MaNV == 0)
             {
-                dtpNgaySinh.Value = new DateTime(1990, 1, 1);
+                // THÊM MỚI
                 cboGioiTinh.SelectedIndex = 0;
-                cboTrangThai.SelectedIndex = 0;
+                dtpNgaySinh.Value = new DateTime(1990, 1, 1);
+                
+                // Mặc định chọn nhóm quyền đầu tiên (thường là Thủ thư)
+                if (cboNhomQuyen.Items.Count > 0)
+                    cboNhomQuyen.SelectedIndex = 0;
+            }
+            else
+            {
+                LoadData();
             }
 
             if (isViewOnly)
             {
                 SetReadOnly();
+            }
+        }
+
+        /// <summary>
+        /// Load danh sách nhóm quyền vào ComboBox (loại bỏ Admin)
+        /// </summary>
+        private void LoadNhomQuyen()
+        {
+            try
+            {
+                var allNhomQuyen = NhomQuyenBUS.Instance.GetAllNhomQuyen();
+                
+                // LINQ: Lọc bỏ nhóm Admin (MaNhomQuyen <= 1)
+                danhSachNhomQuyen = allNhomQuyen
+                    .Where(nq => nq.MaNhomQuyen > 1)
+                    .ToList();
+
+                cboNhomQuyen.DataSource = null;
+                cboNhomQuyen.DataSource = danhSachNhomQuyen;
+                cboNhomQuyen.DisplayMember = "TenNhomQuyen";
+                cboNhomQuyen.ValueMember = "MaNhomQuyen";
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi tải danh sách nhóm quyền: " + ex.Message, "Lỗi",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -52,10 +90,19 @@ namespace QuanLyThuVien.GUI
 
             txtTenNV.Text = nhanVien.TenNV;
             dtpNgaySinh.Value = nhanVien.NgaySinh;
-            cboGioiTinh.Text = nhanVien.GioiTinh;
+
+            // Giới tính an toàn
+            int gioiTinhIndex = cboGioiTinh.Items.IndexOf(nhanVien.GioiTinh);
+            cboGioiTinh.SelectedIndex = gioiTinhIndex >= 0 ? gioiTinhIndex : 0;
+
             txtSDT.Text = nhanVien.SDT;
             txtEmail.Text = nhanVien.Email;
-            cboTrangThai.SelectedIndex = nhanVien.TrangThai;
+
+            // Chọn nhóm quyền theo MaNhomQuyen của nhân viên
+            if (nhanVien.MaNhomQuyen > 0)
+            {
+                cboNhomQuyen.SelectedValue = nhanVien.MaNhomQuyen;
+            }
         }
 
         private void SetReadOnly()
@@ -65,7 +112,8 @@ namespace QuanLyThuVien.GUI
             cboGioiTinh.Enabled = false;
             txtSDT.ReadOnly = true;
             txtEmail.ReadOnly = true;
-            cboTrangThai.Enabled = false;
+            cboNhomQuyen.Enabled = false;
+
             btnLuu.Visible = false;
             btnHuy.Text = "Đóng";
         }
@@ -74,29 +122,50 @@ namespace QuanLyThuVien.GUI
         {
             try
             {
+                // Validate
+                if (string.IsNullOrWhiteSpace(txtTenNV.Text))
+                {
+                    MessageBox.Show("Vui lòng nhập tên nhân viên!", "Thông báo",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    txtTenNV.Focus();
+                    return;
+                }
+
+                if (cboNhomQuyen.SelectedValue == null)
+                {
+                    MessageBox.Show("Vui lòng chọn nhóm quyền!", "Thông báo",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    cboNhomQuyen.Focus();
+                    return;
+                }
+
+                // Gán dữ liệu
                 nhanVien.TenNV = txtTenNV.Text.Trim();
                 nhanVien.NgaySinh = dtpNgaySinh.Value;
                 nhanVien.GioiTinh = cboGioiTinh.Text;
                 nhanVien.SDT = txtSDT.Text.Trim();
                 nhanVien.Email = txtEmail.Text.Trim();
-                nhanVien.TrangThai = (cboTrangThai.SelectedIndex + 1) % 2;
+                nhanVien.MaNhomQuyen = Convert.ToInt32(cboNhomQuyen.SelectedValue);
+                nhanVien.TrangThai = 1; // Mặc định: Đang làm việc
 
-                // Nếu là thêm mới, tạo TenDangNhap tự động từ tên
+                // Nếu thêm mới
                 if (nhanVien.MaNV == 0)
                 {
-                    // Tạo username từ tên: Nguyễn Văn A -> nguyenvana
-                    string tenDangNhap = ConvertToUsername(nhanVien.TenNV);
-                    nhanVien.TenDangNhap = tenDangNhap;
+                    nhanVien.TenDangNhap = ConvertToUsername(nhanVien.TenNV);
                     nhanVien.MatKhau = "123456"; // Mật khẩu mặc định
-                    nhanVien.MaNhomQuyen = 2; // Nhóm quyền mặc định (Thủ thư)
                 }
 
+                // Lưu
                 bool result = nhanVien.MaNV == 0
                     ? NhanVienBUS.Instance.ThemNhanVien(nhanVien)
                     : NhanVienBUS.Instance.SuaNhanVien(nhanVien);
 
                 if (result)
                 {
+                    string msg = nhanVien.MaNV == 0 
+                        ? $"Thêm nhân viên thành công!\n\nTên đăng nhập: {nhanVien.TenDangNhap}\nMật khẩu mặc định: 123456"
+                        : "Cập nhật nhân viên thành công!";
+                    MessageBox.Show(msg, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     this.DialogResult = DialogResult.OK;
                     this.Close();
                 }
@@ -107,7 +176,7 @@ namespace QuanLyThuVien.GUI
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Lỗi: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -116,15 +185,9 @@ namespace QuanLyThuVien.GUI
             if (string.IsNullOrWhiteSpace(tenNV))
                 return "";
 
-            // Loại bỏ dấu tiếng Việt
             string result = RemoveVietnameseTone(tenNV);
-            
-            // Chuyển về chữ thường, loại bỏ khoảng trắng
             result = result.ToLower().Replace(" ", "");
-
-            // Thêm ngày sinh để đảm bảo unique
             result += dtpNgaySinh.Value.ToString("ddMMyy");
-
             return result;
         }
 
@@ -134,12 +197,12 @@ namespace QuanLyThuVien.GUI
             {
                 "aAeEoOuUiIdDyY",
                 "áàạảãâấầậẩẫăắằặẳẵ",
-                "ÁÀẠẢÃÂẤẦẬẨẪĂẮẰẶẲẴ",
+                "ÁÀẠẢÃÂẤẦẬẨẪĂẮẰẶẲỆ",
                 "éèẹẻẽêếềệểễ",
                 "ÉÈẸẺẼÊẾỀỆỂỄ",
                 "óòọỏõôốồộổỗơớờợởỡ",
                 "ÓÒỌỎÕÔỐỒỘỔỖƠỚỜỢỞỠ",
-                "úù ụủũưứừựửữ",
+                "úùụủũưứừựửữ",
                 "ÚÙỤỦŨƯỨỪỰỬỮ",
                 "íìịỉĩ",
                 "ÍÌỊỈĨ",

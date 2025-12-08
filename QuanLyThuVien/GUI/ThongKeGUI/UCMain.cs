@@ -32,6 +32,11 @@ namespace QuanLyThuVien.GUI.ThongKeGUI
                 this.btn_docgia.Enter += Btn_docgia_Enter;
         }
 
+        public UCMain(TaiKhoanDTO user) : this()
+        {
+            this.CurrentUser = user;
+        }
+
         private void Btn_docgia_Enter(object sender, EventArgs e)
         {
             EnsureThongKeDocGiaLoaded();
@@ -131,9 +136,9 @@ namespace QuanLyThuVien.GUI.ThongKeGUI
             if (this.btn_tongquan == null) return;
             if (this.dtpTo != null) this.dtpTo.Value = DateTime.Now.Date;
             if (this.dtpFrom != null) this.dtpFrom.Value = DateTime.Now.Date.AddDays(-7);
-            SetupChartPanel(panelTrend, "XU HƯỚNG MƯỢN/TRẢ");
-            SetupChartPanel(panelTop5, "TOP 5 SÁCH VÀ ĐỘC GIẢ");
-            SetupChartPanel(panelCategory, "CƠ CẤU THỂ LOẠI");
+            SetupChartPanel(panelTrend, "XU HUONG MUON/TRA");
+            SetupChartPanel(panelTop5, "TOP 5 SACH VA DOC GIA");
+            SetupChartPanel(panelCategory, "CO CAU THE LOAI");
             BtnGenerate_Click(this, EventArgs.Empty);
         }
 
@@ -175,11 +180,11 @@ namespace QuanLyThuVien.GUI.ThongKeGUI
                     if (kpiBorrow != null) kpiBorrow.Text = overview.TongLuotMuon.ToString("N0");
                     if (kpiBooks != null) kpiBooks.Text = overview.TongSachTrongKho.ToString("N0");
                     if (kpiOverdue != null) kpiOverdue.Text = overview.SachQuaHan.ToString("N0");
-                    if (kpiPenalty != null) kpiPenalty.Text = overview.TongThuPhiPhat.ToString("N0") + " đ";
-                    if (lblTotalCount != null) lblTotalCount.Text = $"Số phiếu: {overview.SoPhieuMuon + overview.SoPhieuTra:N0}";
-                    if (lblTotalAmount != null) lblTotalAmount.Text = $"Tổng thu: {overview.TongThuPhiPhat:N0} đ";
-                    if (lblOutstanding != null) lblOutstanding.Text = "Chưa thu: 0 đ";
-                    if (lblUniqueReaders != null) lblUniqueReaders.Text = $"Độc giả liên quan: {overview.SoDocGiaLienQuan:N0}";
+                    if (kpiPenalty != null) kpiPenalty.Text = overview.TongThuPhiPhat.ToString("N0") + " d";
+                    if (lblTotalCount != null) lblTotalCount.Text = "So phieu: " + (overview.SoPhieuMuon + overview.SoPhieuTra).ToString("N0");
+                    if (lblTotalAmount != null) lblTotalAmount.Text = "Tong thu: " + overview.TongThuPhiPhat.ToString("N0") + " d";
+                    if (lblOutstanding != null) lblOutstanding.Text = "Chua thu: 0 d";
+                    if (lblUniqueReaders != null) lblUniqueReaders.Text = "Doc gia lien quan: " + overview.SoDocGiaLienQuan.ToString("N0");
                 }
                 FillTrendPanel();
                 FillTop5Panel();
@@ -187,7 +192,7 @@ namespace QuanLyThuVien.GUI.ThongKeGUI
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Lỗi khi thống kê: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Loi khi thong ke: " + ex.Message, "Loi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -197,7 +202,7 @@ namespace QuanLyThuVien.GUI.ThongKeGUI
             var content = panelTrend.Controls.Find("content_panelTrend", false).FirstOrDefault() as FlowLayoutPanel;
             if (content == null) return;
             content.Controls.Clear();
-            var data = new[] { "Tháng 1: 45 mượn / 40 trả", "Tháng 2: 52 mượn / 48 trả", "Tháng 3: 38 mượn / 35 trả" };
+            var data = new[] { "Thang 1: 45 muon / 40 tra", "Thang 2: 52 muon / 48 tra", "Thang 3: 38 muon / 35 tra" };
             foreach (var item in data) content.Controls.Add(CreateDataLabel(item, Color.FromArgb(33, 150, 243)));
         }
 
@@ -207,8 +212,8 @@ namespace QuanLyThuVien.GUI.ThongKeGUI
             var content = panelTop5.Controls.Find("content_panelTop5", false).FirstOrDefault() as FlowLayoutPanel;
             if (content == null) return;
             content.Controls.Clear();
-            var books = new[] { ("Harry Potter", 25), ("Doraemon", 20), ("Tuổi Thơ Dữ Dội", 18), ("Nhà Giả Kim", 15), ("Đắc Nhân Tâm", 12) };
-            foreach (var b in books) content.Controls.Add(CreateDataLabel($"{b.Item1}: {b.Item2} lượt", Color.FromArgb(76, 175, 80)));
+            var books = new[] { ("Harry Potter", 25), ("Doraemon", 20), ("Tuoi Tho Du Doi", 18), ("Nha Gia Kim", 15), ("Dac Nhan Tam", 12) };
+            foreach (var b in books) content.Controls.Add(CreateDataLabel(b.Item1 + ": " + b.Item2 + " luot", Color.FromArgb(76, 175, 80)));
         }
 
         private void FillCategoryPanel()
@@ -217,15 +222,15 @@ namespace QuanLyThuVien.GUI.ThongKeGUI
             var content = panelCategory.Controls.Find("content_panelCategory", false).FirstOrDefault() as FlowLayoutPanel;
             if (content == null) return;
             content.Controls.Clear();
-            var cats = new[] { ("Văn học", 30), ("Thiếu nhi", 25), ("Khoa học", 20), ("Lịch sử", 15), ("Khác", 10) };
-            foreach (var c in cats) content.Controls.Add(CreateDataLabel($"{c.Item1}: {c.Item2}%", Color.FromArgb(255, 152, 0)));
+            var cats = new[] { ("Van hoc", 30), ("Thieu nhi", 25), ("Khoa hoc", 20), ("Lich su", 15), ("Khac", 10) };
+            foreach (var c in cats) content.Controls.Add(CreateDataLabel(c.Item1 + ": " + c.Item2 + "%", Color.FromArgb(255, 152, 0)));
         }
 
         private Label CreateDataLabel(string text, Color bulletColor)
         {
             return new Label
             {
-                Text = "● " + text,
+                Text = "* " + text,
                 AutoSize = true,
                 Font = new Font("Segoe UI", 10F),
                 ForeColor = Color.FromArgb(66, 66, 66),

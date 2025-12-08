@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 
 namespace QuanLyThuVien.DTO
 {
@@ -31,7 +31,7 @@ namespace QuanLyThuVien.DTO
 
         public string TrangThaiText
         {
-            get { return TrangThai == 1 ? "?ang l�m" : "Ngh? vi?c"; }
+            get { return TrangThai == 1 ? "Đang làm" : "Nghỉ việc"; }
         }
     }
 }

@@ -107,6 +107,7 @@
     <Compile Include="BUS\NhanVienBUS.cs" />
     <Compile Include="BUS\CTPhieuMuonBUS.cs" />
     <Compile Include="BUS\DocGiaBUS.cs" />
+    <Compile Include="BUS\NhomQuyenBUS.cs" />
     <Compile Include="BUS\ThongKeBUS.cs" />
     <Compile Include="BUS\PhieuMuonBUS.cs" />
     <Compile Include="BUS\PhieuPhatBUS.cs" />
@@ -117,6 +118,7 @@
     <Compile Include="BUS\PhieuTraBUS.cs" />
     <Compile Include="BUS\TacGiaBUS.cs" />
     <Compile Include="BUS\TaiKhoanBUS.cs" />
+    <Compile Include="DAO\NhomQuyenDAO.cs" />
     <Compile Include="DAO\ThongKeDAO.cs" />
     <Compile Include="DAO\DocGiaDAO.cs" />
     <Compile Include="DAO\CTPhieuMuonDAO.cs" />
@@ -131,8 +133,10 @@
     <Compile Include="DAO\PhieuTraDAO.cs" />
     <Compile Include="DAO\TacGiaDAO.cs" />
     <Compile Include="DAO\TaiKhoanDAO.cs" />
+    <Compile Include="DTO\ChucNangDTO.cs" />
     <Compile Include="DTO\CTPhieuTraDTO.cs" />
     <Compile Include="DTO\NhanVienDTO.cs" />
+    <Compile Include="DTO\NhomQuyenDTO.cs" />
     <Compile Include="DTO\PhieuTraViPhamDTO.cs" />
     <Compile Include="DTO\DocGiaDTO.cs" />
     <Compile Include="DTO\PhieuPhatDTO.cs" />
@@ -142,6 +146,7 @@
     <Compile Include="DTO\DauSachDTO.cs" />
     <Compile Include="DTO\PhieuNhapDTO.cs" />
     <Compile Include="DTO\PhieuTraDTO.cs" />
+    <Compile Include="DTO\QuyenChucNangDTO.cs" />
     <Compile Include="DTO\TacGiaDTO.cs" />
     <Compile Include="DTO\TaiKhoanDTO.cs" />
     <Compile Include="DTO\ThongKeOverviewDTO.cs" />
@@ -202,6 +207,18 @@
     </Compile>
     <Compile Include="GUI\FormNhanVien.Designer.cs">
       <DependentUpon>FormNhanVien.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\FormPhanQuyen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\FormPhanQuyen.Designer.cs">
+      <DependentUpon>FormPhanQuyen.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\FormThemNhomQuyen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\FormThemNhomQuyen.Designer.cs">
+      <DependentUpon>FormThemNhomQuyen.cs</DependentUpon>
     </Compile>
     <Compile Include="GUI\NhanVienGUI.cs">
       <SubType>UserControl</SubType>
@@ -275,6 +292,12 @@
     <Compile Include="GUI\phieutra\ThemPhieuTra.Designer.cs">
       <DependentUpon>ThemPhieuTra.cs</DependentUpon>
     </Compile>
+    <Compile Include="GUI\phieutra\TraForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\phieutra\TraForm.Designer.cs">
+      <DependentUpon>TraForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI\ThongKeGUI\UCMain.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -339,6 +362,7 @@
   <ItemGroup>
     <Folder Include="assets\img\" />
     <Folder Include="Fonts\" />
+    <Folder Include="SQL\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="GUI\BaseModuleUC.resx">
@@ -349,6 +373,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\CTPhieuNhapGUI.resx">
       <DependentUpon>CTPhieuNhapGUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\DanhSachSachDialog.resx">
+      <DependentUpon>DanhSachSachDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\DauSach.resx">
       <DependentUpon>DauSach.cs</DependentUpon>
@@ -364,6 +391,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\FormNhanVien.resx">
       <DependentUpon>FormNhanVien.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\FormPhanQuyen.resx">
+      <DependentUpon>FormPhanQuyen.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\NhanVienGUI.resx">
       <DependentUpon>NhanVienGUI.cs</DependentUpon>
@@ -400,6 +430,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\phieutra\ThemPhieuTra.resx">
       <DependentUpon>ThemPhieuTra.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\phieutra\TraForm.resx">
+      <DependentUpon>TraForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\ThongKeGUI\UCMain.resx">
       <DependentUpon>UCMain.cs</DependentUpon>

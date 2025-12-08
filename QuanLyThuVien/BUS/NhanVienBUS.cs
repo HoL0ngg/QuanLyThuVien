@@ -127,15 +127,27 @@ namespace QuanLyThuVien.BUS
                 throw new ArgumentException("Mã nhân viên không hợp lệ");
 
             if (string.IsNullOrWhiteSpace(matKhauCu))
-                throw new Exception("Mật khẩu cũ không được trống");
+                throw new Exception("Mật khẩu cũ không được để trống");
 
             if (string.IsNullOrWhiteSpace(matKhauMoi))
-                throw new Exception("Mật khẩu mới không được trống");
+                throw new Exception("Mật khẩu mới không được để trống");
 
             if (matKhauMoi.Length < 6)
                 throw new Exception("Mật khẩu mới phải có ít nhất 6 ký tự");
 
             return NhanVienDAO.Instance.DoiMatKhau(maNV, matKhauCu, matKhauMoi);
+        }
+
+        // Cập nhật nhóm quyền cho nhân viên
+        public bool CapNhatNhomQuyen(int maNV, int maNhomQuyen)
+        {
+            if (maNV <= 0)
+                throw new ArgumentException("Mã nhân viên không hợp lệ");
+
+            if (maNhomQuyen <= 0)
+                throw new ArgumentException("Mã nhóm quyền không hợp lệ");
+
+            return NhanVienDAO.Instance.CapNhatNhomQuyen(maNV, maNhomQuyen);
         }
     }
 }

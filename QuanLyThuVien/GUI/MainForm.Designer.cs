@@ -112,7 +112,7 @@ namespace QuanLyThuVien.GUI
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Location = new System.Drawing.Point(21, 20);
-            this.panel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(453, 111);
             this.panel1.TabIndex = 0;
@@ -151,7 +151,7 @@ namespace QuanLyThuVien.GUI
             this.flowLayoutPanel1.Controls.Add(this.panel12);
             this.flowLayoutPanel1.Controls.Add(this.panel11);
             this.flowLayoutPanel1.Location = new System.Drawing.Point(499, 20);
-            this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(4);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.Size = new System.Drawing.Size(1387, 111);
             this.flowLayoutPanel1.TabIndex = 2;
@@ -173,10 +173,10 @@ namespace QuanLyThuVien.GUI
             // pictureBox9
             // 
             this.pictureBox9.Image = global::QuanLyThuVien.Properties.Resources.addIcon;
-            this.pictureBox9.Location = new System.Drawing.Point(29, 22);
-            this.pictureBox9.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pictureBox9.Location = new System.Drawing.Point(22, 18);
+            this.pictureBox9.Margin = new System.Windows.Forms.Padding(4);
             this.pictureBox9.Name = "pictureBox9";
-            this.pictureBox9.Size = new System.Drawing.Size(69, 64);
+            this.pictureBox9.Size = new System.Drawing.Size(52, 52);
             this.pictureBox9.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox9.TabIndex = 1;
             this.pictureBox9.TabStop = false;
@@ -210,10 +210,10 @@ namespace QuanLyThuVien.GUI
             // pictureBox10
             // 
             this.pictureBox10.Image = global::QuanLyThuVien.Properties.Resources.editIcon;
-            this.pictureBox10.Location = new System.Drawing.Point(29, 22);
-            this.pictureBox10.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pictureBox10.Location = new System.Drawing.Point(22, 18);
+            this.pictureBox10.Margin = new System.Windows.Forms.Padding(4);
             this.pictureBox10.Name = "pictureBox10";
-            this.pictureBox10.Size = new System.Drawing.Size(69, 64);
+            this.pictureBox10.Size = new System.Drawing.Size(52, 52);
             this.pictureBox10.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox10.TabIndex = 2;
             this.pictureBox10.TabStop = false;
@@ -246,10 +246,10 @@ namespace QuanLyThuVien.GUI
             // pictureBox11
             // 
             this.pictureBox11.Image = global::QuanLyThuVien.Properties.Resources.removeIcon;
-            this.pictureBox11.Location = new System.Drawing.Point(29, 22);
-            this.pictureBox11.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pictureBox11.Location = new System.Drawing.Point(22, 18);
+            this.pictureBox11.Margin = new System.Windows.Forms.Padding(4);
             this.pictureBox11.Name = "pictureBox11";
-            this.pictureBox11.Size = new System.Drawing.Size(69, 64);
+            this.pictureBox11.Size = new System.Drawing.Size(52, 52);
             this.pictureBox11.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox11.TabIndex = 4;
             this.pictureBox11.TabStop = false;
@@ -284,10 +284,10 @@ namespace QuanLyThuVien.GUI
             // pictureBox12
             // 
             this.pictureBox12.Image = global::QuanLyThuVien.Properties.Resources.detailIcon;
-            this.pictureBox12.Location = new System.Drawing.Point(29, 22);
-            this.pictureBox12.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pictureBox12.Location = new System.Drawing.Point(22, 18);
+            this.pictureBox12.Margin = new System.Windows.Forms.Padding(4);
             this.pictureBox12.Name = "pictureBox12";
-            this.pictureBox12.Size = new System.Drawing.Size(69, 64);
+            this.pictureBox12.Size = new System.Drawing.Size(52, 52);
             this.pictureBox12.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox12.TabIndex = 5;
             this.pictureBox12.TabStop = false;
@@ -319,7 +319,7 @@ namespace QuanLyThuVien.GUI
             this.flowLayoutPanel2.Location = new System.Drawing.Point(21, 145);
             this.flowLayoutPanel2.Margin = new System.Windows.Forms.Padding(0);
             this.flowLayoutPanel2.Name = "flowLayoutPanel2";
-            this.flowLayoutPanel2.Padding = new System.Windows.Forms.Padding(11, 15, 11, 15);
+            this.flowLayoutPanel2.Padding = new System.Windows.Forms.Padding(11, 10, 11, 10);
             this.flowLayoutPanel2.Size = new System.Drawing.Size(453, 911);
             this.flowLayoutPanel2.TabIndex = 4;
             // 
@@ -329,7 +329,7 @@ namespace QuanLyThuVien.GUI
             this.panelPhieuNhap.Controls.Add(this.pictureBox1);
             this.panelPhieuNhap.Controls.Add(this.label3);
             this.panelPhieuNhap.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.panelPhieuNhap.Location = new System.Drawing.Point(11, 19);
+            this.panelPhieuNhap.Location = new System.Drawing.Point(11, 14);
             this.panelPhieuNhap.Margin = new System.Windows.Forms.Padding(0, 4, 0, 12);
             this.panelPhieuNhap.Name = "panelPhieuNhap";
             this.panelPhieuNhap.Size = new System.Drawing.Size(427, 84);
@@ -342,10 +342,10 @@ namespace QuanLyThuVien.GUI
             // pictureBox1
             // 
             this.pictureBox1.Image = global::QuanLyThuVien.Properties.Resources.importIcon;
-            this.pictureBox1.Location = new System.Drawing.Point(21, 15);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pictureBox1.Location = new System.Drawing.Point(16, 12);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(4);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(64, 59);
+            this.pictureBox1.Size = new System.Drawing.Size(48, 48);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
@@ -369,7 +369,7 @@ namespace QuanLyThuVien.GUI
             this.panelPhieuMuon.Controls.Add(this.pictureBox2);
             this.panelPhieuMuon.Controls.Add(this.label4);
             this.panelPhieuMuon.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.panelPhieuMuon.Location = new System.Drawing.Point(11, 119);
+            this.panelPhieuMuon.Location = new System.Drawing.Point(11, 114);
             this.panelPhieuMuon.Margin = new System.Windows.Forms.Padding(0, 4, 0, 12);
             this.panelPhieuMuon.Name = "panelPhieuMuon";
             this.panelPhieuMuon.Size = new System.Drawing.Size(427, 84);
@@ -381,10 +381,10 @@ namespace QuanLyThuVien.GUI
             // pictureBox2
             // 
             this.pictureBox2.Image = global::QuanLyThuVien.Properties.Resources.loanIcon;
-            this.pictureBox2.Location = new System.Drawing.Point(21, 15);
-            this.pictureBox2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pictureBox2.Location = new System.Drawing.Point(16, 12);
+            this.pictureBox2.Margin = new System.Windows.Forms.Padding(4);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(64, 59);
+            this.pictureBox2.Size = new System.Drawing.Size(48, 48);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox2.TabIndex = 2;
             this.pictureBox2.TabStop = false;
@@ -407,7 +407,7 @@ namespace QuanLyThuVien.GUI
             this.panelPhieuTra.Controls.Add(this.pictureBox3);
             this.panelPhieuTra.Controls.Add(this.label5);
             this.panelPhieuTra.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.panelPhieuTra.Location = new System.Drawing.Point(11, 219);
+            this.panelPhieuTra.Location = new System.Drawing.Point(11, 214);
             this.panelPhieuTra.Margin = new System.Windows.Forms.Padding(0, 4, 0, 12);
             this.panelPhieuTra.Name = "panelPhieuTra";
             this.panelPhieuTra.Size = new System.Drawing.Size(427, 84);
@@ -419,10 +419,10 @@ namespace QuanLyThuVien.GUI
             // pictureBox3
             // 
             this.pictureBox3.Image = global::QuanLyThuVien.Properties.Resources.returnIcon;
-            this.pictureBox3.Location = new System.Drawing.Point(21, 15);
-            this.pictureBox3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pictureBox3.Location = new System.Drawing.Point(16, 12);
+            this.pictureBox3.Margin = new System.Windows.Forms.Padding(4);
             this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(64, 59);
+            this.pictureBox3.Size = new System.Drawing.Size(48, 48);
             this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox3.TabIndex = 3;
             this.pictureBox3.TabStop = false;
@@ -445,7 +445,7 @@ namespace QuanLyThuVien.GUI
             this.panelPhieuPhat.Controls.Add(this.pictureBox4);
             this.panelPhieuPhat.Controls.Add(this.label6);
             this.panelPhieuPhat.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.panelPhieuPhat.Location = new System.Drawing.Point(11, 319);
+            this.panelPhieuPhat.Location = new System.Drawing.Point(11, 314);
             this.panelPhieuPhat.Margin = new System.Windows.Forms.Padding(0, 4, 0, 12);
             this.panelPhieuPhat.Name = "panelPhieuPhat";
             this.panelPhieuPhat.Size = new System.Drawing.Size(427, 84);
@@ -458,14 +458,14 @@ namespace QuanLyThuVien.GUI
             // pictureBox4
             // 
             this.pictureBox4.Image = global::QuanLyThuVien.Properties.Resources.penaltyIcon;
-            this.pictureBox4.Location = new System.Drawing.Point(21, 15);
-            this.pictureBox4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pictureBox4.Location = new System.Drawing.Point(16, 12);
+            this.pictureBox4.Margin = new System.Windows.Forms.Padding(4);
             this.pictureBox4.Name = "pictureBox4";
-            this.pictureBox4.Size = new System.Drawing.Size(64, 59);
+            this.pictureBox4.Size = new System.Drawing.Size(48, 48);
             this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox4.TabIndex = 4;
             this.pictureBox4.TabStop = false;
-            this.pictureBox4.Click += new System.EventHandler(this.panelMenu_Click);
+            this.pictureBox4.Click += new System.EventHandler(this.panelPhieuPhat_Click);
             this.pictureBox4.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panelPhieuPhat_MouseDown);
             // 
             // label6
@@ -488,7 +488,7 @@ namespace QuanLyThuVien.GUI
             this.panelDauSach.Controls.Add(this.pictureBox5);
             this.panelDauSach.Controls.Add(this.label7);
             this.panelDauSach.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.panelDauSach.Location = new System.Drawing.Point(11, 419);
+            this.panelDauSach.Location = new System.Drawing.Point(11, 414);
             this.panelDauSach.Margin = new System.Windows.Forms.Padding(0, 4, 0, 12);
             this.panelDauSach.Name = "panelDauSach";
             this.panelDauSach.Size = new System.Drawing.Size(427, 84);
@@ -501,10 +501,10 @@ namespace QuanLyThuVien.GUI
             // pictureBox5
             // 
             this.pictureBox5.Image = global::QuanLyThuVien.Properties.Resources.booksIcon;
-            this.pictureBox5.Location = new System.Drawing.Point(21, 15);
-            this.pictureBox5.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pictureBox5.Location = new System.Drawing.Point(16, 12);
+            this.pictureBox5.Margin = new System.Windows.Forms.Padding(4);
             this.pictureBox5.Name = "pictureBox5";
-            this.pictureBox5.Size = new System.Drawing.Size(64, 59);
+            this.pictureBox5.Size = new System.Drawing.Size(48, 48);
             this.pictureBox5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox5.TabIndex = 5;
             this.pictureBox5.TabStop = false;
@@ -529,7 +529,7 @@ namespace QuanLyThuVien.GUI
             this.panelDocGia.Controls.Add(this.pictureBox6);
             this.panelDocGia.Controls.Add(this.label8);
             this.panelDocGia.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.panelDocGia.Location = new System.Drawing.Point(11, 519);
+            this.panelDocGia.Location = new System.Drawing.Point(11, 514);
             this.panelDocGia.Margin = new System.Windows.Forms.Padding(0, 4, 0, 12);
             this.panelDocGia.Name = "panelDocGia";
             this.panelDocGia.Size = new System.Drawing.Size(427, 84);
@@ -541,10 +541,10 @@ namespace QuanLyThuVien.GUI
             // pictureBox6
             // 
             this.pictureBox6.Image = global::QuanLyThuVien.Properties.Resources.readerIcon;
-            this.pictureBox6.Location = new System.Drawing.Point(21, 15);
-            this.pictureBox6.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pictureBox6.Location = new System.Drawing.Point(16, 12);
+            this.pictureBox6.Margin = new System.Windows.Forms.Padding(4);
             this.pictureBox6.Name = "pictureBox6";
-            this.pictureBox6.Size = new System.Drawing.Size(64, 59);
+            this.pictureBox6.Size = new System.Drawing.Size(48, 48);
             this.pictureBox6.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox6.TabIndex = 6;
             this.pictureBox6.TabStop = false;
@@ -568,7 +568,7 @@ namespace QuanLyThuVien.GUI
             this.panelNhanVien.Controls.Add(this.pictureBox13);
             this.panelNhanVien.Controls.Add(this.label15);
             this.panelNhanVien.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.panelNhanVien.Location = new System.Drawing.Point(11, 619);
+            this.panelNhanVien.Location = new System.Drawing.Point(11, 614);
             this.panelNhanVien.Margin = new System.Windows.Forms.Padding(0, 4, 0, 12);
             this.panelNhanVien.Name = "panelNhanVien";
             this.panelNhanVien.Size = new System.Drawing.Size(427, 84);
@@ -581,7 +581,7 @@ namespace QuanLyThuVien.GUI
             // 
             this.pictureBox13.Image = global::QuanLyThuVien.Properties.Resources.nhanvien;
             this.pictureBox13.Location = new System.Drawing.Point(21, 15);
-            this.pictureBox13.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pictureBox13.Margin = new System.Windows.Forms.Padding(4);
             this.pictureBox13.Name = "pictureBox13";
             this.pictureBox13.Size = new System.Drawing.Size(64, 59);
             this.pictureBox13.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -602,14 +602,14 @@ namespace QuanLyThuVien.GUI
             // 
             // panelThongKe
             // 
-            this.panelThongKe.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.panelThongKe.BackColor = System.Drawing.Color.White;
             this.panelThongKe.Controls.Add(this.pictureBox7);
             this.panelThongKe.Controls.Add(this.label13);
             this.panelThongKe.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.panelThongKe.Location = new System.Drawing.Point(0, 534);
-            this.panelThongKe.Margin = new System.Windows.Forms.Padding(0);
+            this.panelThongKe.Location = new System.Drawing.Point(11, 714);
+            this.panelThongKe.Margin = new System.Windows.Forms.Padding(0, 4, 0, 12);
             this.panelThongKe.Name = "panelThongKe";
-            this.panelThongKe.Size = new System.Drawing.Size(359, 91);
+            this.panelThongKe.Size = new System.Drawing.Size(427, 84);
             this.panelThongKe.TabIndex = 1;
             this.panelThongKe.Click += new System.EventHandler(this.panelMenu_Click);
             this.panelThongKe.MouseEnter += new System.EventHandler(this.panelMenu_MouseEnter);
@@ -618,10 +618,10 @@ namespace QuanLyThuVien.GUI
             // pictureBox7
             // 
             this.pictureBox7.Image = global::QuanLyThuVien.Properties.Resources.thongKeIcon;
-            this.pictureBox7.Location = new System.Drawing.Point(21, 15);
-            this.pictureBox7.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pictureBox7.Location = new System.Drawing.Point(16, 12);
+            this.pictureBox7.Margin = new System.Windows.Forms.Padding(4);
             this.pictureBox7.Name = "pictureBox7";
-            this.pictureBox7.Size = new System.Drawing.Size(64, 59);
+            this.pictureBox7.Size = new System.Drawing.Size(60, 60);
             this.pictureBox7.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox7.TabIndex = 7;
             this.pictureBox7.TabStop = false;
@@ -632,7 +632,7 @@ namespace QuanLyThuVien.GUI
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F);
             this.label13.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(66)))), ((int)(((byte)(66)))));
-            this.label13.Location = new System.Drawing.Point(117, 25);
+            this.label13.Location = new System.Drawing.Point(117, 34);
             this.label13.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(101, 26);
@@ -646,7 +646,7 @@ namespace QuanLyThuVien.GUI
             this.panelDangXuat.Controls.Add(this.pictureBox8);
             this.panelDangXuat.Controls.Add(this.label14);
             this.panelDangXuat.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.panelDangXuat.Location = new System.Drawing.Point(11, 819);
+            this.panelDangXuat.Location = new System.Drawing.Point(11, 814);
             this.panelDangXuat.Margin = new System.Windows.Forms.Padding(0, 4, 0, 12);
             this.panelDangXuat.Name = "panelDangXuat";
             this.panelDangXuat.Size = new System.Drawing.Size(427, 84);
@@ -658,10 +658,10 @@ namespace QuanLyThuVien.GUI
             // pictureBox8
             // 
             this.pictureBox8.Image = global::QuanLyThuVien.Properties.Resources.backIcon;
-            this.pictureBox8.Location = new System.Drawing.Point(21, 15);
-            this.pictureBox8.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pictureBox8.Location = new System.Drawing.Point(16, 12);
+            this.pictureBox8.Margin = new System.Windows.Forms.Padding(4);
             this.pictureBox8.Name = "pictureBox8";
-            this.pictureBox8.Size = new System.Drawing.Size(64, 59);
+            this.pictureBox8.Size = new System.Drawing.Size(48, 48);
             this.pictureBox8.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox8.TabIndex = 7;
             this.pictureBox8.TabStop = false;
@@ -684,135 +684,11 @@ namespace QuanLyThuVien.GUI
             this.panel3.BackColor = System.Drawing.Color.White;
             this.panel3.Cursor = System.Windows.Forms.Cursors.Default;
             this.panel3.Location = new System.Drawing.Point(499, 145);
-            this.panel3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel3.Margin = new System.Windows.Forms.Padding(4);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(1387, 890);
             this.panel3.TabIndex = 5;
             this.panel3.Paint += new System.Windows.Forms.PaintEventHandler(this.panel3_Paint);
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = global::QuanLyThuVien.Properties.Resources.importIcon;
-            this.pictureBox1.Location = new System.Drawing.Point(16, 12);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(48, 48);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 1;
-            this.pictureBox1.TabStop = false;
-            // 
-            // pictureBox2
-            // 
-            this.pictureBox2.Image = global::QuanLyThuVien.Properties.Resources.loanIcon;
-            this.pictureBox2.Location = new System.Drawing.Point(16, 12);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(48, 48);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox2.TabIndex = 2;
-            this.pictureBox2.TabStop = false;
-            // 
-            // pictureBox3
-            // 
-            this.pictureBox3.Image = global::QuanLyThuVien.Properties.Resources.returnIcon;
-            this.pictureBox3.Location = new System.Drawing.Point(16, 12);
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(48, 48);
-            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox3.TabIndex = 3;
-            this.pictureBox3.TabStop = false;
-            // 
-            // pictureBox4
-            // 
-            this.pictureBox4.Image = global::QuanLyThuVien.Properties.Resources.penaltyIcon;
-            this.pictureBox4.Location = new System.Drawing.Point(16, 12);
-            this.pictureBox4.Name = "pictureBox4";
-            this.pictureBox4.Size = new System.Drawing.Size(48, 48);
-            this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox4.TabIndex = 4;
-            this.pictureBox4.TabStop = false;
-            this.pictureBox4.Click += new System.EventHandler(this.panelPhieuPhat_Click);
-            this.pictureBox4.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panelPhieuPhat_MouseDown);
-            // 
-            // pictureBox5
-            // 
-            this.pictureBox5.Image = global::QuanLyThuVien.Properties.Resources.booksIcon;
-            this.pictureBox5.Location = new System.Drawing.Point(16, 12);
-            this.pictureBox5.Name = "pictureBox5";
-            this.pictureBox5.Size = new System.Drawing.Size(48, 48);
-            this.pictureBox5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox5.TabIndex = 5;
-            this.pictureBox5.TabStop = false;
-            this.pictureBox5.Click += new System.EventHandler(this.pictureBox5_Click);
-            // 
-            // pictureBox6
-            // 
-            this.pictureBox6.Image = global::QuanLyThuVien.Properties.Resources.readerIcon;
-            this.pictureBox6.Location = new System.Drawing.Point(16, 12);
-            this.pictureBox6.Name = "pictureBox6";
-            this.pictureBox6.Size = new System.Drawing.Size(48, 48);
-            this.pictureBox6.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox6.TabIndex = 6;
-            this.pictureBox6.TabStop = false;
-            // 
-            // pictureBox7
-            // 
-            this.pictureBox7.Image = global::QuanLyThuVien.Properties.Resources.thongKeIcon;
-            this.pictureBox7.Location = new System.Drawing.Point(16, 12);
-            this.pictureBox7.Name = "pictureBox7";
-            this.pictureBox7.Size = new System.Drawing.Size(48, 48);
-            this.pictureBox7.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox7.TabIndex = 7;
-            this.pictureBox7.TabStop = false;
-            this.pictureBox7.Click += new System.EventHandler(this.pictureBox7_Click);
-            // 
-            // pictureBox8
-            // 
-            this.pictureBox8.Image = global::QuanLyThuVien.Properties.Resources.backIcon;
-            this.pictureBox8.Location = new System.Drawing.Point(16, 12);
-            this.pictureBox8.Name = "pictureBox8";
-            this.pictureBox8.Size = new System.Drawing.Size(48, 48);
-            this.pictureBox8.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox8.TabIndex = 7;
-            this.pictureBox8.TabStop = false;
-            // 
-            // pictureBox9
-            // 
-            this.pictureBox9.Image = global::QuanLyThuVien.Properties.Resources.addIcon;
-            this.pictureBox9.Location = new System.Drawing.Point(22, 18);
-            this.pictureBox9.Name = "pictureBox9";
-            this.pictureBox9.Size = new System.Drawing.Size(52, 52);
-            this.pictureBox9.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox9.TabIndex = 1;
-            this.pictureBox9.TabStop = false;
-            // 
-            // pictureBox10
-            // 
-            this.pictureBox10.Image = global::QuanLyThuVien.Properties.Resources.editIcon;
-            this.pictureBox10.Location = new System.Drawing.Point(22, 18);
-            this.pictureBox10.Name = "pictureBox10";
-            this.pictureBox10.Size = new System.Drawing.Size(52, 52);
-            this.pictureBox10.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox10.TabIndex = 2;
-            this.pictureBox10.TabStop = false;
-            // 
-            // pictureBox11
-            // 
-            this.pictureBox11.Image = global::QuanLyThuVien.Properties.Resources.removeIcon;
-            this.pictureBox11.Location = new System.Drawing.Point(22, 18);
-            this.pictureBox11.Name = "pictureBox11";
-            this.pictureBox11.Size = new System.Drawing.Size(52, 52);
-            this.pictureBox11.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox11.TabIndex = 4;
-            this.pictureBox11.TabStop = false;
-            // 
-            // pictureBox12
-            // 
-            this.pictureBox12.Image = global::QuanLyThuVien.Properties.Resources.detailIcon;
-            this.pictureBox12.Location = new System.Drawing.Point(22, 18);
-            this.pictureBox12.Name = "pictureBox12";
-            this.pictureBox12.Size = new System.Drawing.Size(52, 52);
-            this.pictureBox12.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox12.TabIndex = 5;
-            this.pictureBox12.TabStop = false;
             // 
             // MainForm
             // 

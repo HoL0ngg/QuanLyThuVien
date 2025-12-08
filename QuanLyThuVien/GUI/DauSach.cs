@@ -1,22 +1,29 @@
 ﻿using QuanLyThuVien.BUS;
+using QuanLyThuVien.DTO;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace QuanLyThuVien.GUI
 {
     public partial class DauSach : BaseModuleUC
     {
+        // Cache dữ liệu để sử dụng với LINQ
+        private List<DauSachDTO> _allDauSach;
+        private DataTable _currentDataTable;
+
         public DauSach()
         {
             InitializeComponent();
             CustomizeDataGridView();
+        }
+
+        public DauSach(TaiKhoanDTO user) : this()
+        {
+            this.CurrentUser = user;
         }
 
         private void CustomizeDataGridView()
@@ -45,69 +52,122 @@ namespace QuanLyThuVien.GUI
             dgvDauSach.ShowCellToolTips = true;
         }
 
-        // Ghi đè (override) lại các hành vi của lớp cha
+        #region Override Methods
+
         public override void OnAdd()
         {
-            // Mở form_ThemPhieuMuon
+            if (!CoQuyenThem)
+            {
+                MessageBox.Show("Bạn không có quyền thêm đầu sách!", "Thông báo",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            
             DauSachDialog dialog = new DauSachDialog("ADD", 0);
             var result = dialog.ShowDialog();
             if (result == DialogResult.OK)
             {
-                MessageBox.Show("Thêm đầu sách thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                LoadData(); // Tải lại dữ liệu sau khi thêm
+                MessageBox.Show("Thêm đầu sách thành công!", "Thông báo", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                LoadData();
             }
         }
 
         public override void OnEdit()
         {
-            // Lấy ID của phiếu mượn đang chọn trên DataGridView
-            if (dgvDauSach.SelectedRows.Count == 0)
+            if (!CoQuyenSua)
             {
-                MessageBox.Show("Vui lòng chọn đầu sách để sửa!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Bạn không có quyền sửa đầu sách!", "Thông báo",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
+            
+            if (dgvDauSach.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Vui lòng chọn đầu sách để sửa!", "Cảnh báo", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            
             int selectedDauSachID = Convert.ToInt32(dgvDauSach.SelectedRows[0].Cells["MaDauSach"].Value);
             DauSachDialog dialog = new DauSachDialog("EDIT", selectedDauSachID);
             
             var result = dialog.ShowDialog();
             if (result == DialogResult.OK)
             {
-                MessageBox.Show("Sửa đầu sách thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                LoadData(); // Tải lại dữ liệu sau khi thêm
+                MessageBox.Show("Sửa đầu sách thành công!", "Thông báo", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                LoadData();
             }
         }
 
         public override void OnDelete()
         {
-            if (dgvDauSach.SelectedRows.Count == 0)
+            if (!CoQuyenXoa)
             {
-                MessageBox.Show("Vui lòng chọn đầu sách để xóa!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Bạn không có quyền xóa đầu sách!", "Thông báo",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
+            
+            if (dgvDauSach.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Vui lòng chọn đầu sách để xóa!", "Cảnh báo", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            
+            // LINQ: Lấy thông tin đầu sách được chọn
             int selectedDauSachID = Convert.ToInt32(dgvDauSach.SelectedRows[0].Cells["MaDauSach"].Value);
-            var confirmResult = MessageBox.Show("Bạn có chắc chắn muốn xóa đầu sách này?", "Xác nhận xóa", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            string tenDauSach = dgvDauSach.SelectedRows[0].Cells["TenDauSach"].Value?.ToString() ?? "";
+            
+            var confirmResult = MessageBox.Show(
+                $"Bạn có chắc chắn muốn xóa đầu sách:\n\"{tenDauSach}\"?", 
+                "Xác nhận xóa", 
+                MessageBoxButtons.YesNo, 
+                MessageBoxIcon.Question);
+                
             if (confirmResult == DialogResult.Yes)
             {
-                bool success = DauSachBUS.Instance.DeleteDauSach(selectedDauSachID);
-                if (success)
+                try
                 {
-                    MessageBox.Show("Xóa đầu sách thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    bool success = DauSachBUS.Instance.DeleteDauSach(selectedDauSachID);
+                    if (success)
+                    {
+                        MessageBox.Show("Xóa đầu sách thành công!", "Thông báo", 
+                            MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        LoadData();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Xóa đầu sách thất bại!", "Lỗi", 
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
-                else
+                catch (Exception ex)
                 {
-                    MessageBox.Show("Xóa đầu sách thất bại!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Lỗi: " + ex.Message, "Lỗi", 
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-            LoadData(); // Tải lại
         }
 
         public override void OnDetails()
         {
-            if (dgvDauSach.SelectedRows.Count == 0)
+            if (!CoQuyenXem)
             {
-                MessageBox.Show("Vui lòng chọn đầu sách để xem chi tiết!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Bạn không có quyền xem chi tiết đầu sách!", "Thông báo",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
+            
+            if (dgvDauSach.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Vui lòng chọn đầu sách để xem chi tiết!", "Cảnh báo", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            
             int selectedDauSachID = Convert.ToInt32(dgvDauSach.SelectedRows[0].Cells["MaDauSach"].Value);
             DauSachDialog dialog = new DauSachDialog("DETAILS", selectedDauSachID);
             dialog.ShowDialog();
@@ -116,68 +176,170 @@ namespace QuanLyThuVien.GUI
         public override void LoadData()
         {
             string searchTerm = txtSearch.Text.Trim();
-            DataTable data;
 
             if (string.IsNullOrEmpty(searchTerm))
             {
-                // Ô tìm kiếm rỗng -> Lấy tất cả
-                data = DauSachBUS.Instance.GetAllDauSach();
+                // Tải tất cả dữ liệu
+                _currentDataTable = DauSachBUS.Instance.GetAllDauSach();
             }
             else
             {
-                // Ô tìm kiếm có chữ -> Lọc theo chữ
-                data = DauSachBUS.Instance.SearchDauSach(searchTerm);
+                // Tìm kiếm theo từ khóa
+                _currentDataTable = DauSachBUS.Instance.SearchDauSach(searchTerm);
             }
 
             // Bind dữ liệu lên DataGridView
-            dgvDauSach.DataSource = data;
+            dgvDauSach.DataSource = _currentDataTable;
             
-            // Đổi tên cột hiển thị cho đẹp (nếu muốn)
-            if (dgvDauSach.Columns.Contains("MaDauSach"))
-            {
-                dgvDauSach.Columns["MaDauSach"].HeaderText = "Mã đầu sách";
-                dgvDauSach.Columns["MaDauSach"].Width = 100;
-            }
-            if (dgvDauSach.Columns.Contains("TenDauSach"))
-            {
-                dgvDauSach.Columns["TenDauSach"].HeaderText = "Tên đầu sách";
-                dgvDauSach.Columns["TenDauSach"].Width = 250;
-            }
-            if (dgvDauSach.Columns.Contains("NhaXuatBan"))
-            {
-                dgvDauSach.Columns["NhaXuatBan"].HeaderText = "Nhà xuất bản";
-                dgvDauSach.Columns["NhaXuatBan"].Width = 200;
-            }
-            if (dgvDauSach.Columns.Contains("NamXuatBan"))
-            {
-                dgvDauSach.Columns["NamXuatBan"].HeaderText = "Năm XB";
-                dgvDauSach.Columns["NamXuatBan"].Width = 80;
-            }
-            if (dgvDauSach.Columns.Contains("NgonNgu"))
-            {
-                dgvDauSach.Columns["NgonNgu"].HeaderText = "Ngôn ngữ";
-                dgvDauSach.Columns["NgonNgu"].Width = 120;
-            }
-            if (dgvDauSach.Columns.Contains("SoLuong"))
-            {
-                dgvDauSach.Columns["SoLuong"].HeaderText = "Số lượng";
-                dgvDauSach.Columns["SoLuong"].Width = 90;
-            }
+            // Đổi tên cột hiển thị
+            CustomizeColumns();
             
-            // Tùy chỉnh tooltip cho mỗi cell
+            // Cập nhật thông tin thống kê
+            UpdateStatistics();
+        }
+
+        #endregion
+
+        #region Private Methods
+
+        /// <summary>
+        /// Tùy chỉnh cột hiển thị
+        /// </summary>
+        private void CustomizeColumns()
+        {
+            var colMa = new DataGridViewTextBoxColumn { Name = "MaDauSach", HeaderText = "Mã đầu sách", DataPropertyName = "MaDauSach" };
+            var colTenDauSach = new DataGridViewTextBoxColumn { Name = "TenDauSach", HeaderText = "Tên đầu sách", DataPropertyName = "TenDauSach" };
+            var colNhaXuatBan = new DataGridViewTextBoxColumn { Name = "NhaXuatBan", HeaderText = "Nhà xuất bản", DataPropertyName = "NhaXuatBan" };
+            var colNamXuatBan = new DataGridViewTextBoxColumn { Name = "NamXuatBan", HeaderText = "Năm xuất bản", DataPropertyName = "NamXuatBan" };
+            var colNgonNgu = new DataGridViewTextBoxColumn { Name = "NgonNgu", HeaderText = "Ngôn ngữ", DataPropertyName = "NgonNgu" };
+            var colSoLuong = new DataGridViewTextBoxColumn { Name = "SoLuong", HeaderText = "Số lượng", DataPropertyName = "SoLuong" };
+
+            dgvDauSach.Columns.AddRange(new DataGridViewColumn[] { colMa, colTenDauSach, colNhaXuatBan, colNamXuatBan, colNgonNgu, colSoLuong });
+            // LINQ: Thêm tooltip cho từng dòng
             foreach (DataGridViewRow row in dgvDauSach.Rows)
             {
-                if (row.Cells["TenDauSach"] != null)
+                if (row.Cells["TenDauSach"].Value != null)
                 {
                     row.Cells["TenDauSach"].ToolTipText = "Nhấn đúp để xem danh sách sách";
                 }
             }
         }
 
+        /// <summary>
+        /// Cập nhật thông tin thống kê - sử dụng LINQ
+        /// </summary>
+        private void UpdateStatistics()
+        {
+            if (_currentDataTable == null || _currentDataTable.Rows.Count == 0)
+                return;
+
+            // LINQ: Thống kê từ DataTable
+            int tongDauSach = _currentDataTable.Rows.Count;
+            
+            int tongSoLuong = _currentDataTable.AsEnumerable()
+                .Sum(row => row.Field<int>("SoLuong"));
+
+            // LINQ: Đếm số đầu sách hết trong kho
+            int hetHang = _currentDataTable.AsEnumerable()
+                .Count(row => row.Field<int>("SoLuong") == 0);
+
+            // LINQ: Lấy danh sách ngôn ngữ duy nhất
+            var ngonNguList = _currentDataTable.AsEnumerable()
+                .Select(row => row.Field<string>("NgonNgu"))
+                .Distinct()
+                .ToList();
+
+            Console.WriteLine($"Tổng đầu sách: {tongDauSach}, Tổng số lượng: {tongSoLuong}, Hết hàng: {hetHang}");
+            Console.WriteLine($"Ngôn ngữ: {string.Join(", ", ngonNguList)}");
+        }
+
+        /// <summary>
+        /// Lọc dữ liệu trên UI với LINQ (không gọi lại database)
+        /// </summary>
+        private void FilterDataOnUI(string keyword)
+        {
+            if (_currentDataTable == null)
+                return;
+
+            if (string.IsNullOrWhiteSpace(keyword))
+            {
+                dgvDauSach.DataSource = _currentDataTable;
+                return;
+            }
+
+            string searchTerm = keyword.ToLower();
+
+            // LINQ: Lọc DataTable
+            var filteredRows = _currentDataTable.AsEnumerable()
+                .Where(row =>
+                    row.Field<string>("TenDauSach")?.ToLower().Contains(searchTerm) == true ||
+                    row.Field<string>("NhaXuatBan")?.ToLower().Contains(searchTerm) == true ||
+                    row.Field<string>("NgonNgu")?.ToLower().Contains(searchTerm) == true ||
+                    row.Field<int>("NamXuatBan").ToString().Contains(searchTerm));
+
+            // LINQ: Tạo DataTable mới từ kết quả lọc
+            if (filteredRows.Any())
+            {
+                DataTable filteredTable = filteredRows.CopyToDataTable();
+                dgvDauSach.DataSource = filteredTable;
+            }
+            else
+            {
+                dgvDauSach.DataSource = _currentDataTable.Clone(); // Empty table
+            }
+
+            CustomizeColumns();
+        }
+
+        /// <summary>
+        /// Sắp xếp dữ liệu với LINQ
+        /// </summary>
+        private void SortData(string columnName, bool ascending)
+        {
+            if (_currentDataTable == null)
+                return;
+
+            // LINQ: Sắp xếp DataTable
+            IEnumerable<DataRow> sortedRows;
+            
+            if (ascending)
+            {
+                sortedRows = _currentDataTable.AsEnumerable()
+                    .OrderBy(row => row[columnName]);
+            }
+            else
+            {
+                sortedRows = _currentDataTable.AsEnumerable()
+                    .OrderByDescending(row => row[columnName]);
+            }
+
+            if (sortedRows.Any())
+            {
+                DataTable sortedTable = sortedRows.CopyToDataTable();
+                dgvDauSach.DataSource = sortedTable;
+                CustomizeColumns();
+            }
+        }
+
+        /// <summary>
+        /// Lấy danh sách mã đầu sách được chọn - sử dụng LINQ
+        /// </summary>
+        private List<int> GetSelectedDauSachIDs()
+        {
+            // LINQ: Lấy danh sách mã từ các dòng được chọn
+            return dgvDauSach.SelectedRows
+                .Cast<DataGridViewRow>()
+                .Select(row => Convert.ToInt32(row.Cells["MaDauSach"].Value))
+                .ToList();
+        }
+
+        #endregion
+
+        #region Event Handlers
+
         private void DauSach_Load_1(object sender, EventArgs e)
         {
             Console.WriteLine("DauSach Loaded");
-            // Tải dữ liệu lần đầu
             LoadData();
         }
 
@@ -186,7 +348,7 @@ namespace QuanLyThuVien.GUI
             if (e.KeyCode == Keys.Enter)
             {
                 LoadData();
-                e.SuppressKeyPress = true; // Ngăn tiếng beep
+                e.SuppressKeyPress = true;
             }
         }
 
@@ -197,7 +359,6 @@ namespace QuanLyThuVien.GUI
 
         private void flowLayoutPanel1_Paint(object sender, PaintEventArgs e)
         {
-
         }
         
         private void dgvDauSach_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -214,9 +375,12 @@ namespace QuanLyThuVien.GUI
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"Lỗi: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Lỗi: " + ex.Message, "Lỗi", 
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
+
+        #endregion
     }
 }

@@ -1,16 +1,16 @@
 ﻿using MySql.Data.MySqlClient;
 using QuanLyThuVien.DTO;
 using System;
-// Thư viện này cần thiết cho Dictionary
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using System.Text;
 
-namespace QuanLyThuVien.DAO // Hoặc QuanLyNhanSu.DAO
+namespace QuanLyThuVien.DAO
 {
     public class DauSachDAO
     {
-        // Ta vẫn dùng Singleton cho DAO để BUS gọi
+        // Singleton Pattern
         private static DauSachDAO _instance;
         public static DauSachDAO Instance
         {
@@ -24,16 +24,19 @@ namespace QuanLyThuVien.DAO // Hoặc QuanLyNhanSu.DAO
         }
         private DauSachDAO() { }
 
+        /// <summary>
+        /// Lấy tất cả đầu sách dưới dạng DataTable
+        /// </summary>
         public DataTable GetAllDauSach()
         {
             string query = @"
                 SELECT 
-                    ds.MaDauSach as 'MaDauSach',
-                    ds.TenDauSach as 'TenDauSach',
+                    ds.MaDauSach,
+                    ds.TenDauSach,
                     nxb.tenNXB as 'NhaXuatBan', 
-                    ds.NamXuatBan as 'NamXuatBan',
-                    ds.NgonNgu as 'NgonNgu',
-                    ds.SoLuong as 'SoLuong'
+                    ds.NamXuatBan,
+                    ds.NgonNgu,
+                    ds.SoLuong
                 FROM 
                     dau_sach ds
                 JOIN 
@@ -42,86 +45,35 @@ namespace QuanLyThuVien.DAO // Hoặc QuanLyNhanSu.DAO
                     ds.TrangThai = 1
                 ORDER BY 
                     ds.MaDauSach ASC";
-            DataTable data = DataProvider.ExecuteQuery(query);
-            Console.WriteLine("DataTable rows count: " + data.Rows.Count);
-            return data;
+            return DataProvider.ExecuteQuery(query);
         }
 
-        public bool UpdateDauSach(int dauSachID, string tenDauSach, int maNXB, string hinhAnhPath, string namXuatBan, string ngonNgu, List<int> maTacGiaList)
+        /// <summary>
+        /// Lấy tất cả đầu sách dưới dạng List DTO - sử dụng LINQ để convert
+        /// </summary>
+        public List<DauSachDTO> GetAllDauSachList()
         {
-            using (MySqlConnection connection = DataProvider.GetConnection())
-            {
-                connection.Open();
-                MySqlTransaction transaction = connection.BeginTransaction();
-                MySqlCommand command = connection.CreateCommand();
-                command.Transaction = transaction;
-                try
+            DataTable dt = GetAllDauSach();
+            
+            // LINQ: Convert DataTable sang List<DauSachDTO>
+            // Sử dụng Convert.ToInt32 để tránh lỗi InvalidCastException
+            var danhSach = dt.AsEnumerable()
+                .Select(row => new DauSachDTO
                 {
-                    string queryDauSach = @"
-                        UPDATE dau_sach 
-                        SET TenDauSach = @tenDauSach, NhaXuatBan = @maNXB, HinhAnh = @hinhAnhPath, NamXuatBan = @namXuatBan, NgonNgu = @ngonNgu
-                        WHERE MaDauSach = @dauSachID";
-                    command.CommandText = queryDauSach;
-                    command.Parameters.AddWithValue("@tenDauSach", tenDauSach);
-                    command.Parameters.AddWithValue("@maNXB", maNXB);
-                    command.Parameters.AddWithValue("@hinhAnhPath", hinhAnhPath);
-                    command.Parameters.AddWithValue("@namXuatBan", namXuatBan);
-                    command.Parameters.AddWithValue("@ngonNgu", ngonNgu);
-                    command.Parameters.AddWithValue("@dauSachID", dauSachID);
-                    command.ExecuteNonQuery();
-                    // Xóa các tham số cũ
-                    command.Parameters.Clear();
-                    // Xóa các tác giả cũ
-                    string deleteQuery = "DELETE FROM tacgia_dausach WHERE MaDauSach = @dauSachID";
-                    command.CommandText = deleteQuery;
-                    command.Parameters.AddWithValue("@dauSachID", dauSachID);
-                    command.ExecuteNonQuery();
-                    // Thêm lại các tác giả mới
-                    var queryTacGia = new StringBuilder();
-                    queryTacGia.Append("INSERT INTO tacgia_dausach (MaDauSach, MaTacGia) VALUES ");
-                    for (int i = 0; i < maTacGiaList.Count; i++)
-                    {
-                        string maDSParam = "@MaDS" + i;
-                        string maTGParam = "@MaTG" + i;
-                        queryTacGia.AppendFormat("({0}, {1})", maDSParam, maTGParam);
-                        if (i < maTacGiaList.Count - 1)
-                        {
-                            queryTacGia.Append(", ");
-                        }
-                        // Thêm tham số cho vòng lặp
-                        command.Parameters.AddWithValue(maDSParam, dauSachID);
-                        command.Parameters.AddWithValue(maTGParam, maTacGiaList[i]);
-                    }
-                    // Chạy câu query thêm tác giả
-                    command.CommandText = queryTacGia.ToString();
-                    command.ExecuteNonQuery();
-                    // BƯỚC 3: Nếu mọi thứ OK, commit transaction
-                    transaction.Commit();
-                    return true;
-                }
-                catch (Exception ex)
-                {
-                    transaction.Rollback();
-                    throw new Exception("Lỗi CSDL khi cập nhật đầu sách: " + ex.Message);
-                }
-            }
+                    MaDauSach = Convert.ToInt32(row["MaDauSach"]),
+                    TenDauSach = row["TenDauSach"]?.ToString() ?? "",
+                    NamXuatBan = Convert.ToInt32(row["NamXuatBan"]),
+                    NgonNgu = row["NgonNgu"]?.ToString() ?? "",
+                    SoLuong = Convert.ToInt32(row["SoLuong"])
+                })
+                .ToList();
+
+            return danhSach;
         }
 
-        public bool DeleteDauSach(int dauSachID)
-        {
-            string query = @"
-                UPDATE 
-                    dau_sach
-                SET 
-                    TrangThai = 0
-                WHERE 
-                    MaDauSach = @dauSachID";
-            var parameters = new Dictionary<string, object>();
-            parameters.Add("@dauSachID", dauSachID);
-            int result = DataProvider.ExecuteNonQuery(query, parameters);
-            return result > 0;
-        }
-
+        /// <summary>
+        /// Tìm kiếm đầu sách theo từ khóa
+        /// </summary>
         public DataTable SearchDauSach(string keyword)
         {
             string searchKeyword = "%" + keyword + "%";
@@ -131,37 +83,41 @@ namespace QuanLyThuVien.DAO // Hoặc QuanLyNhanSu.DAO
                     ds.MaDauSach, 
                     ds.TenDauSach,
                     ds.HinhAnh,
-                    ds.NhaXuatBan, 
+                    nxb.tenNXB as 'NhaXuatBan', 
                     ds.NamXuatBan,
                     ds.NgonNgu,
                     ds.SoLuong,
                     GROUP_CONCAT(tg.TenTacGia SEPARATOR ', ') AS TenTacGia
                 FROM 
                     dau_sach ds
-                JOIN
+                LEFT JOIN
+                    nha_xuat_ban nxb ON ds.NhaXuatBan = nxb.MaNXB
+                LEFT JOIN
                     tacgia_dausach tgds ON ds.MaDauSach = tgds.MaDauSach
-                JOIN
+                LEFT JOIN
                     tac_gia tg ON tgds.MaTacGia = tg.MaTacGia
                 WHERE 
-                        ds.TrangThai = 1 AND
-                        ds.TenDauSach LIKE @keyword OR
-                        tg.TenTacGia LIKE @keyword OR
-                        ds.NhaXuatBan LIKE @keyword
+                    ds.TrangThai = 1 AND
+                    (ds.TenDauSach LIKE @keyword OR
+                    tg.TenTacGia LIKE @keyword OR
+                    nxb.tenNXB LIKE @keyword)
                 GROUP BY
                     ds.MaDauSach
                 ORDER BY
                     ds.MaDauSach ASC";
 
-            var parameters = new Dictionary<string, object>();
-            parameters.Add("@keyword", searchKeyword);
+            var parameters = new Dictionary<string, object>
+            {
+                { "@keyword", searchKeyword }
+            };
 
-            // Gọi DataProvider với Dictionary parameters
-            DataTable data = DataProvider.ExecuteQuery(query, parameters);
-
-            return data;
+            return DataProvider.ExecuteQuery(query, parameters);
         }
 
-        public DauSachDTO GetDauSachByID(int dauSach)
+        /// <summary>
+        /// Lấy đầu sách theo ID
+        /// </summary>
+        public DauSachDTO GetDauSachByID(int dauSachID)
         {
             string query = @"
                 SELECT 
@@ -176,25 +132,36 @@ namespace QuanLyThuVien.DAO // Hoặc QuanLyNhanSu.DAO
                     dau_sach
                 WHERE 
                     MaDauSach = @dauSachID";
-            var parameters = new Dictionary<string, object>();
-            parameters.Add("@dauSachID", dauSach);
+            
+            var parameters = new Dictionary<string, object>
+            {
+                { "@dauSachID", dauSachID }
+            };
+            
             DataTable dt = DataProvider.ExecuteQuery(query, parameters);
-            if (dt.Rows.Count == 0)
+            
+            if (dt == null || dt.Rows.Count == 0)
                 return null;
+
+            // Sử dụng Convert để tránh lỗi InvalidCastException
             DataRow row = dt.Rows[0];
-            DauSachDTO dauSachDTO = new DauSachDTO
+            var dauSach = new DauSachDTO
             {
                 MaDauSach = Convert.ToInt32(row["MaDauSach"]),
-                TenDauSach = row["TenDauSach"].ToString(),
+                TenDauSach = row["TenDauSach"]?.ToString() ?? "",
                 NhaXuatBan = Convert.ToInt32(row["NhaXuatBan"]),
                 NamXuatBan = Convert.ToInt32(row["NamXuatBan"]),
-                NgonNgu = row["NgonNgu"].ToString(),
+                NgonNgu = row["NgonNgu"]?.ToString() ?? "",
                 SoLuong = Convert.ToInt32(row["SoLuong"]),
-                HinhAnh = row["HinhAnh"].ToString()
+                HinhAnh = row["HinhAnh"]?.ToString() ?? ""
             };
-            return dauSachDTO;
+
+            return dauSach;
         }
 
+        /// <summary>
+        /// Lấy danh sách tác giả theo mã đầu sách - sử dụng LINQ
+        /// </summary>
         public List<TacGiaDTO> GetTacGiaByDauSachID(int dauSachID)
         {
             string query = @"
@@ -206,28 +173,36 @@ namespace QuanLyThuVien.DAO // Hoặc QuanLyNhanSu.DAO
                 FROM 
                     tac_gia tg
                 JOIN
-                    tacgia_dausach ON tacgia_dausach.MaTacGia = tg.MaTacGia
+                    tacgia_dausach tgds ON tgds.MaTacGia = tg.MaTacGia
                 WHERE 
-                    MaDauSach = @dauSachID";
-            var parameters = new Dictionary<string, object>();
-            parameters.Add("@dauSachID", dauSachID);
-            DataTable dt = DataProvider.ExecuteQuery(query, parameters);
-            List<TacGiaDTO> tacGiaList = new List<TacGiaDTO>();
-            foreach (DataRow row in dt.Rows)
+                    tgds.MaDauSach = @dauSachID";
+            
+            var parameters = new Dictionary<string, object>
             {
-                TacGiaDTO tacGia = new TacGiaDTO
+                { "@dauSachID", dauSachID }
+            };
+            
+            DataTable dt = DataProvider.ExecuteQuery(query, parameters);
+            
+            // LINQ: Convert DataTable sang List<TacGiaDTO>
+            // Sử dụng Convert để tránh lỗi InvalidCastException
+            var tacGiaList = dt.AsEnumerable()
+                .Select(row => new TacGiaDTO
                 {
                     maTacGia = Convert.ToInt32(row["MaTacGia"]),
-                    tenTacGia = row["TenTacGia"].ToString(),
-                    namSinh = row["NamSinh"].ToString(),
-                    quocTich = row["QuocTich"].ToString()
-                };
-                tacGiaList.Add(tacGia);
-            }
+                    tenTacGia = row["TenTacGia"]?.ToString() ?? "",
+                    namSinh = row["NamSinh"]?.ToString() ?? "",
+                    quocTich = row["QuocTich"]?.ToString() ?? ""
+                })
+                .ToList();
+
             return tacGiaList;
         }
 
-        public bool AddDauSach(string tenDauSach, int maNXB, string hinhAnhPath, string namXuatBan, string NgonNgu, List<int> maTacGiaList)
+        /// <summary>
+        /// Thêm đầu sách mới
+        /// </summary>
+        public bool AddDauSach(string tenDauSach, int maNXB, string hinhAnhPath, string namXuatBan, string ngonNgu, List<int> maTacGiaList)
         {
             using (MySqlConnection connection = DataProvider.GetConnection())
             {
@@ -235,53 +210,51 @@ namespace QuanLyThuVien.DAO // Hoặc QuanLyNhanSu.DAO
                 MySqlTransaction transaction = connection.BeginTransaction();
                 MySqlCommand command = connection.CreateCommand();
                 command.Transaction = transaction;
+                
                 try
                 {
+                    // Thêm đầu sách
                     string queryDauSach = @"
                         INSERT INTO dau_sach (TenDauSach, NhaXuatBan, HinhAnh, NamXuatBan, NgonNgu)
-                        VALUES (@tenDauSach, @maNXB, @hinhAnhPath, @namXuatBan, @NgonNgu); SELECT LAST_INSERT_ID();";
+                        VALUES (@tenDauSach, @maNXB, @hinhAnhPath, @namXuatBan, @ngonNgu); 
+                        SELECT LAST_INSERT_ID();";
 
                     command.CommandText = queryDauSach;
                     command.Parameters.AddWithValue("@tenDauSach", tenDauSach);
                     command.Parameters.AddWithValue("@maNXB", maNXB);
                     command.Parameters.AddWithValue("@hinhAnhPath", hinhAnhPath);
                     command.Parameters.AddWithValue("@namXuatBan", namXuatBan);
-                    command.Parameters.AddWithValue("@NgonNgu", NgonNgu);
+                    command.Parameters.AddWithValue("@ngonNgu", ngonNgu);
 
                     int newMaDauSach = Convert.ToInt32(command.ExecuteScalar());
 
                     if (newMaDauSach == 0)
-                    {
                         throw new Exception("Không thể tạo đầu sách mới.");
-                    }
 
-                    // Xóa các tham số cũ
                     command.Parameters.Clear();
 
-                    var queryTacGia = new StringBuilder();
-                    queryTacGia.Append("INSERT INTO tacgia_dausach (MaDauSach, MaTacGia) VALUES ");
-
-                    for (int i = 0; i < maTacGiaList.Count; i++)
+                    // Thêm tác giả nếu có
+                    if (maTacGiaList != null && maTacGiaList.Any())
                     {
-                        string maDSParam = "@MaDS" + i;
-                        string maTGParam = "@MaTG" + i;
+                        var queryTacGia = new StringBuilder();
+                        queryTacGia.Append("INSERT INTO tacgia_dausach (MaDauSach, MaTacGia) VALUES ");
 
-                        queryTacGia.AppendFormat("({0}, {1})", maDSParam, maTGParam);
-                        if (i < maTacGiaList.Count - 1)
+                        // Tạo danh sách values
+                        var valuesList = new List<string>();
+                        for (int i = 0; i < maTacGiaList.Count; i++)
                         {
-                            queryTacGia.Append(", ");
+                            string maDSParam = "@MaDS" + i;
+                            string maTGParam = "@MaTG" + i;
+                            command.Parameters.AddWithValue(maDSParam, newMaDauSach);
+                            command.Parameters.AddWithValue(maTGParam, maTacGiaList[i]);
+                            valuesList.Add($"({maDSParam}, {maTGParam})");
                         }
 
-                        // Thêm tham số cho vòng lặp
-                        command.Parameters.AddWithValue(maDSParam, newMaDauSach);
-                        command.Parameters.AddWithValue(maTGParam, maTacGiaList[i]);
+                        queryTacGia.Append(string.Join(", ", valuesList));
+                        command.CommandText = queryTacGia.ToString();
+                        command.ExecuteNonQuery();
                     }
 
-                    // Chạy câu query thêm tác giả
-                    command.CommandText = queryTacGia.ToString();
-                    command.ExecuteNonQuery();
-
-                    // BƯỚC 3: Nếu mọi thứ OK, commit transaction
                     transaction.Commit();
                     return true;
                 }
@@ -291,7 +264,128 @@ namespace QuanLyThuVien.DAO // Hoặc QuanLyNhanSu.DAO
                     throw new Exception("Lỗi CSDL khi thêm đầu sách: " + ex.Message);
                 }
             }
+        }
 
+        /// <summary>
+        /// Cập nhật đầu sách
+        /// </summary>
+        public bool UpdateDauSach(int dauSachID, string tenDauSach, int maNXB, string hinhAnhPath, string namXuatBan, string ngonNgu, List<int> maTacGiaList)
+        {
+            using (MySqlConnection connection = DataProvider.GetConnection())
+            {
+                connection.Open();
+                MySqlTransaction transaction = connection.BeginTransaction();
+                MySqlCommand command = connection.CreateCommand();
+                command.Transaction = transaction;
+                
+                try
+                {
+                    // Cập nhật đầu sách
+                    string queryDauSach = @"
+                        UPDATE dau_sach 
+                        SET TenDauSach = @tenDauSach, 
+                            NhaXuatBan = @maNXB, 
+                            HinhAnh = @hinhAnhPath, 
+                            NamXuatBan = @namXuatBan, 
+                            NgonNgu = @ngonNgu
+                        WHERE MaDauSach = @dauSachID";
+                    
+                    command.CommandText = queryDauSach;
+                    command.Parameters.AddWithValue("@tenDauSach", tenDauSach);
+                    command.Parameters.AddWithValue("@maNXB", maNXB);
+                    command.Parameters.AddWithValue("@hinhAnhPath", hinhAnhPath);
+                    command.Parameters.AddWithValue("@namXuatBan", namXuatBan);
+                    command.Parameters.AddWithValue("@ngonNgu", ngonNgu);
+                    command.Parameters.AddWithValue("@dauSachID", dauSachID);
+                    command.ExecuteNonQuery();
+
+                    command.Parameters.Clear();
+
+                    // Xóa tác giả cũ
+                    string deleteQuery = "DELETE FROM tacgia_dausach WHERE MaDauSach = @dauSachID";
+                    command.CommandText = deleteQuery;
+                    command.Parameters.AddWithValue("@dauSachID", dauSachID);
+                    command.ExecuteNonQuery();
+
+                    command.Parameters.Clear();
+
+                    // Thêm lại tác giả mới
+                    if (maTacGiaList != null && maTacGiaList.Any())
+                    {
+                        var queryTacGia = new StringBuilder();
+                        queryTacGia.Append("INSERT INTO tacgia_dausach (MaDauSach, MaTacGia) VALUES ");
+
+                        var valuesList = new List<string>();
+                        for (int i = 0; i < maTacGiaList.Count; i++)
+                        {
+                            string maDSParam = "@MaDS" + i;
+                            string maTGParam = "@MaTG" + i;
+                            command.Parameters.AddWithValue(maDSParam, dauSachID);
+                            command.Parameters.AddWithValue(maTGParam, maTacGiaList[i]);
+                            valuesList.Add($"({maDSParam}, {maTGParam})");
+                        }
+
+                        queryTacGia.Append(string.Join(", ", valuesList));
+                        command.CommandText = queryTacGia.ToString();
+                        command.ExecuteNonQuery();
+                    }
+
+                    transaction.Commit();
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    throw new Exception("Lỗi CSDL khi cập nhật đầu sách: " + ex.Message);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Xóa đầu sách (soft delete)
+        /// </summary>
+        public bool DeleteDauSach(int dauSachID)
+        {
+            string query = @"
+                UPDATE dau_sach
+                SET TrangThai = 0
+                WHERE MaDauSach = @dauSachID";
+            
+            var parameters = new Dictionary<string, object>
+            {
+                { "@dauSachID", dauSachID }
+            };
+            
+            int result = DataProvider.ExecuteNonQuery(query, parameters);
+            return result > 0;
+        }
+
+        /// <summary>
+        /// Lấy danh sách đầu sách theo năm xuất bản - sử dụng LINQ
+        /// </summary>
+        public List<DauSachDTO> GetDauSachByNamXuatBan(int namXuatBan)
+        {
+            var allDauSach = GetAllDauSachList();
+            
+            // LINQ: Lọc theo năm xuất bản
+            return allDauSach
+                .Where(ds => ds.NamXuatBan == namXuatBan)
+                .OrderBy(ds => ds.TenDauSach)
+                .ToList();
+        }
+
+        /// <summary>
+        /// Lấy danh sách đầu sách theo ngôn ngữ - sử dụng LINQ
+        /// </summary>
+        public List<DauSachDTO> GetDauSachByNgonNgu(string ngonNgu)
+        {
+            var allDauSach = GetAllDauSachList();
+            
+            // LINQ: Lọc theo ngôn ngữ (không phân biệt hoa thường)
+            return allDauSach
+                .Where(ds => ds.NgonNgu.Equals(ngonNgu, StringComparison.OrdinalIgnoreCase))
+                .OrderBy(ds => ds.TenDauSach)
+                .ToList();
         }
     }
 }
