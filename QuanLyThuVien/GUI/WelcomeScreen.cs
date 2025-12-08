@@ -128,7 +128,7 @@ namespace QuanLyThuVien.GUI
                     (SELECT 
                         pn.ThoiGian as NgayThucHien,
                         nv.TENNV as NguoiThucHien,
-                        CONCAT('Nhập từ ', ncc.TENCC) as NoiDung,
+                        CONCAT('Nhập từ ', ncc.TENNCC) as NoiDung,
                         'Nhập sách' as LoaiHoatDong
                     FROM phieu_nhap pn
                     JOIN nhan_vien nv ON pn.MaNV = nv.MANV

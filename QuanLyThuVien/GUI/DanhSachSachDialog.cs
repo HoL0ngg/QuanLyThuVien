@@ -72,9 +72,9 @@ namespace QuanLyThuVien.GUI
                         ds.TenDauSach AS 'TenSach',
                         CASE 
                             WHEN s.trangthai = 1 THEN 'Bình thường'
-                            WHEN s.trangthai = 0 THEN 'Bị hư'
-                            WHEN s.trangthai = -1 THEN 'Bị mất'
-                            WHEN s.trangthai = -10 THEN 'Đã hủy'
+                            WHEN s.trangthai = 2 THEN 'Bị hư'
+                            WHEN s.trangthai = 3 THEN 'Bị mất'
+                            WHEN s.trangthai = -1 THEN 'Đã hủy'
                             ELSE 'Không xác định'
                         END AS 'TrangThai'
                     FROM sach s

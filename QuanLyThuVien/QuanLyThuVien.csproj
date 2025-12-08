@@ -368,6 +368,9 @@
     <EmbeddedResource Include="GUI\CTPhieuNhapGUI.resx">
       <DependentUpon>CTPhieuNhapGUI.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="GUI\DanhSachSachDialog.resx">
+      <DependentUpon>DanhSachSachDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GUI\DauSach.resx">
       <DependentUpon>DauSach.cs</DependentUpon>
     </EmbeddedResource>
