@@ -197,7 +197,7 @@ namespace QuanLyThuVien.GUI.phieutra
             try
             {
                 InitializePhieuMuonGrid();
-                var data = bus.Search(maPhieu, ngayFrom, ngayTo, trangThai, maDocGia, maNhanVien);
+                var data = bus.Search(maPhieu, ngayFrom, ngayTo, 1, maDocGia, maNhanVien);
                 bangPhieuMuon.DataSource = data;
                 ConfigureGrid();
                 InitializeChiTietGrid();
@@ -216,51 +216,63 @@ namespace QuanLyThuVien.GUI.phieutra
 
         private void button2_Click(object sender, EventArgs e)
         {
-            if (bangPhieuMuon.SelectedRows.Count > 0)
+            //if (bangPhieuMuon.SelectedRows.Count > 0)
+            //{
+
+            //    int maPhieuMuon = Convert.ToInt32(bangPhieuMuon.SelectedRows[0].Cells["MaPhieuMuon"].Value);
+            //    var pm = bus.GetById(maPhieuMuon);
+            //    var list = ctDAO.GetByPhieuMuon(maPhieuMuon);
+
+            //    PhieuTraDTO pt = new PhieuTraDTO();
+            //    pt.MaPhieuMuon = pm.MaPhieuMuon;
+            //    pt.MaNV = maNhanVien;
+            //    pt.NgayTra = DateTime.Today;
+            //    pt.NgayTraDuKien = pm.NgayTraDuKien;
+
+
+            //    foreach (var item in list)
+            //    {
+            //        pt.list.Add(new CTPhieuTraDTO
+            //        {
+            //            MaSach = item.MaSach,
+            //        });
+            //    }
+
+            //    DialogResult result = MessageBox.Show(
+            //       $"Bạn có chắc muốn tạo phiếu trả sách cho phiếu mượn mã:{pm.MaPhieuMuon} không?",  
+            //       "Xác nhận",                               
+            //       MessageBoxButtons.YesNo,                      
+            //       MessageBoxIcon.Question);                     
+
+            //    if (result == DialogResult.Yes)
+            //    {
+            //        var rs = PhieuTraBUS.Instance.InSertPhieuTra(pt);
+
+            //        if (rs)
+            //        {
+            //            MessageBox.Show("Trả sách thành công");
+            //            LoadData();
+            //        }
+            //        else
+            //        {
+            //            MessageBox.Show("Trả sách thất bại");
+            //        }
+            //    }
+
+
+
+            //}
+            int maPhieuMuon = Convert.ToInt32(bangPhieuMuon.SelectedRows[0].Cells["MaPhieuMuon"].Value);
+            var pm = bus.GetById(maPhieuMuon);
+
+            using (var frm = new TraForm(pm))
             {
+                frm.StartPosition = FormStartPosition.CenterParent;
 
-                int maPhieuMuon = Convert.ToInt32(bangPhieuMuon.SelectedRows[0].Cells["MaPhieuMuon"].Value);
-                var pm = bus.GetById(maPhieuMuon);
-                var list = ctDAO.GetByPhieuMuon(maPhieuMuon);
-
-                PhieuTraDTO pt = new PhieuTraDTO();
-                pt.MaPhieuMuon = pm.MaPhieuMuon;
-                pt.MaNV = maNhanVien;
-                pt.NgayTra = DateTime.Today;
-                pt.NgayTraDuKien = pm.NgayTraDuKien;
-                
-                
-                foreach (var item in list)
+                if (frm.ShowDialog(this) == DialogResult.OK)
                 {
-                    pt.list.Add(new CTPhieuTraDTO
-                    {
-                        MaSach = item.MaSach,
-                    });
+                    
                 }
-
-                DialogResult result = MessageBox.Show(
-                   $"Bạn có chắc muốn tạo phiếu trả sách cho phiếu mượn mã:{pm.MaPhieuMuon} không?",  
-                   "Xác nhận",                               
-                   MessageBoxButtons.YesNo,                      
-                   MessageBoxIcon.Question);                     
-
-                if (result == DialogResult.Yes)
-                {
-                    var rs = PhieuTraBUS.Instance.InSertPhieuTra(pt);
-
-                    if (rs)
-                    {
-                        MessageBox.Show("Trả sách thành công");
-                        LoadData();
-                    }
-                    else
-                    {
-                        MessageBox.Show("Trả sách thất bại");
-                    }
-                }
-
-
-               
             }
         }
     }

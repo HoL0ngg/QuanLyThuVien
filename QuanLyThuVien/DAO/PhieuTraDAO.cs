@@ -69,6 +69,7 @@ namespace QuanLyThuVien.DAO
             CTPT.MaCTPhieuTra,
             CTPT.MaPhieuTra,
             CTPT.MaSach,
+            CTPT.TrangThai,
             DS.TenDauSach AS TenSach,
             MIN(TG.TenTacGia) AS TenTacGia 
         FROM 
@@ -103,7 +104,8 @@ namespace QuanLyThuVien.DAO
                     MaPhieuTra = Convert.ToInt32(row["MaPhieuTra"]),
                     MaSach = Convert.ToInt32(row["MaSach"]),
                     TenSach = row["TenSach"].ToString(),
-                    TenTacGia = row["TenTacGia"] == DBNull.Value ? "Chưa rõ" : row["TenTacGia"].ToString()
+                    TenTacGia = row["TenTacGia"] == DBNull.Value ? "Chưa rõ" : row["TenTacGia"].ToString(),
+                    TrangThai = Convert.ToInt32(row["TrangThai"])
                 };
                 list.Add(ct);
             }
@@ -155,7 +157,7 @@ namespace QuanLyThuVien.DAO
                 
                 {"@MaPhieuTra", ct.MaPhieuTra},
                 {"@MaSach", ct.MaSach },
-                {"@TrangThai", 1 }
+                {"@TrangThai", ct.TrangThai }
             };
 
             try

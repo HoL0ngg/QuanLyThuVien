@@ -3,27 +3,22 @@ using QuanLyThuVien.DTO;
 using QuanLyThuVien.GUI.phieutra;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace QuanLyThuVien.GUI
 {
     public partial class PhieuTraGUI : BaseModuleUC
     {
-        private List<CTPhieuTraDTO> danhSachChiTiet = new List<CTPhieuTraDTO>();
-        private int maNhanVien = 1; // Lấy từ session/login
+        private List<PhieuTraDTO> danhSachTatCaPhieuTra; 
         private ThemPhieuTra ucThemPhieuTra;
 
         public PhieuTraGUI()
         {
             InitializeComponent();
             LoadDanhSachPhieuTra();
+
             ucThemPhieuTra = new ThemPhieuTra
             {
                 Dock = DockStyle.Fill,
@@ -31,18 +26,18 @@ namespace QuanLyThuVien.GUI
             };
             this.Controls.Add(ucThemPhieuTra);
             ucThemPhieuTra.CloseRequested += UcThemPhieuTra_CloseRequested;
-            ucThemPhieuTra.BringToFront();
+
+            searchButton.Click += searchButton_Click;
+            textBox1.KeyDown += textBox1_KeyDown;
         }
 
         private void LoadDanhSachPhieuTra()
         {
             try
             {
-                var danhSachPhieuTra = PhieuTraBUS.Instance.GetAllPhieuTra();
+                danhSachTatCaPhieuTra = PhieuTraBUS.Instance.GetAllPhieuTra();
 
-                dataGridView1.DataSource = danhSachPhieuTra;
-
-            
+                dataGridView1.DataSource = danhSachTatCaPhieuTra;
 
                 dataGridView1.Columns["MaPhieuTra"].HeaderText = "Mã PT";
                 dataGridView1.Columns["MaPhieuTra"].Width = 70;
@@ -65,27 +60,29 @@ namespace QuanLyThuVien.GUI
                 dataGridView1.Columns["TENNV"].HeaderText = "Nhân Viên";
                 dataGridView1.Columns["TENNV"].Width = 150;
 
-                dataGridView1.Columns["MADG"].HeaderText = "Mã DG";
+                dataGridView1.Columns["MADG"].HeaderText = "Mã ĐG";
                 dataGridView1.Columns["MADG"].Width = 70;
 
                 dataGridView1.Columns["TENDG"].HeaderText = "Độc Giả";
-                dataGridView1.Columns["TENDG"].Width = 150;
+                dataGridView1.Columns["TENDG"].Width = 180;
 
+                // Ẩn cột không cần thiết (nếu có)
+                if (dataGridView1.Columns.Contains("MaNV"))
+                    dataGridView1.Columns["MaNV"].Visible = false;
+
+                // Cấu hình grid chung
                 dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
                 dataGridView1.MultiSelect = false;
                 dataGridView1.ReadOnly = true;
                 dataGridView1.RowHeadersVisible = false;
-
-                dataGridView1.SelectionChanged += dataGridView1_SelectionChanged;
                 dataGridView1.AutoGenerateColumns = false;
-
+                dataGridView1.SelectionChanged += dataGridView1_SelectionChanged;
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Lỗi khi tải danh sách phiếu trả: " + ex.Message, "Lỗi",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
         }
 
         private void LoadChiTietPhieuTra(int maPhieuTra)
@@ -93,7 +90,6 @@ namespace QuanLyThuVien.GUI
             try
             {
                 var chiTietList = PhieuTraBUS.Instance.GetCTPhieuTraById(maPhieuTra);
-
                 dataGridView2.DataSource = chiTietList;
 
                 dataGridView2.RowHeadersVisible = false;
@@ -103,28 +99,29 @@ namespace QuanLyThuVien.GUI
                 dataGridView2.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(248, 252, 255);
 
                 if (dataGridView2.Columns.Contains("MaCTPhieuTra"))
-                    dataGridView2.Columns["MaCTPhieuTra"].Visible = false; 
-
+                    dataGridView2.Columns["MaCTPhieuTra"].Visible = false;
                 if (dataGridView2.Columns.Contains("MaPhieuTra"))
                     dataGridView2.Columns["MaPhieuTra"].Visible = false;
 
                 if (dataGridView2.Columns.Contains("MaSach"))
+                {
                     dataGridView2.Columns["MaSach"].HeaderText = "Mã Sách";
-                dataGridView2.Columns["MaSach"].Width = 80;
+                    dataGridView2.Columns["MaSach"].Width = 80;
+                }
+                if (dataGridView2.Columns.Contains("TenSach"))
+                {
+                    dataGridView2.Columns["TenSach"].HeaderText = "Tên Sách";
+                    dataGridView2.Columns["TenSach"].Width = 280;
+                }
+                if (dataGridView2.Columns.Contains("TenTacGia"))
+                {
+                    dataGridView2.Columns["TenTacGia"].HeaderText = "Tác Giả";
+                    dataGridView2.Columns["TenTacGia"].Width = 150;
+                }
 
-                dataGridView2.Columns["TenSach"].HeaderText = "Tên Sách";
-                dataGridView2.Columns["TenSach"].Width = 280;
-
-                dataGridView2.Columns["TenTacGia"].HeaderText = "Tác Giả";
-                dataGridView2.Columns["TenTacGia"].Width = 150;
-
-                if (dataGridView1.Columns.Contains("MaNV"))
-                    dataGridView1.Columns["MaNV"].Visible = false;
-
-                if (chiTietList.Count == 0)
+                if (chiTietList == null || chiTietList.Count == 0)
                 {
                     dataGridView2.DataSource = null;
-                    dataGridView2.Rows.Clear();
                 }
             }
             catch (Exception ex)
@@ -138,10 +135,64 @@ namespace QuanLyThuVien.GUI
         {
             if (dataGridView1.SelectedRows.Count > 0)
             {
-                
                 int maPhieuTra = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells["MaPhieuTra"].Value);
                 LoadChiTietPhieuTra(maPhieuTra);
             }
+            else
+            {
+                dataGridView2.DataSource = null; 
+            }
+        }
+
+        private void searchButton_Click(object sender, EventArgs e)
+        {
+            LocTheoMaDocGia();
+        }
+
+        private void textBox1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                LocTheoMaDocGia();
+                e.SuppressKeyPress = true; 
+            }
+        }
+
+        private void LocTheoMaDocGia()
+        {
+            string input = textBox1.Text.Trim();
+
+            List<PhieuTraDTO> ketQua;
+
+            if (string.IsNullOrEmpty(input))
+            {
+                ketQua = danhSachTatCaPhieuTra;
+                label1.Text = "Mã độc giả:";
+            }
+            else if (int.TryParse(input, out int maDG))
+            {
+                ketQua = danhSachTatCaPhieuTra
+                         .Where(pt => pt.MADG == maDG)
+                         .ToList();
+
+                if (ketQua.Count == 0)
+                {
+                    MessageBox.Show($"Không tìm thấy phiếu trả nào của độc giả có mã {maDG}",
+                                    "Không có kết quả", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                label1.Text = $"Mã độc giả: {maDG} ({ketQua.Count} phiếu)";
+            }
+            else
+            {
+                MessageBox.Show("Vui lòng nhập mã độc giả là số nguyên!", "Sai định dạng",
+                                MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            dataGridView1.DataSource = ketQua;
+            dataGridView1.Refresh();
+
+            dataGridView2.DataSource = null;
         }
 
         public override void OnAdd()
@@ -154,28 +205,23 @@ namespace QuanLyThuVien.GUI
             groupBox1.Visible = !showThem;
             groupBox2.Visible = !showThem;
             groupBox3.Visible = !showThem;
-
-
             ucThemPhieuTra.Visible = showThem;
+
             if (showThem)
-            {
                 ucThemPhieuTra.BringToFront();
-            }
             else
-            {
                 ucThemPhieuTra.SendToBack();
-            }
         }
 
         private void UcThemPhieuTra_CloseRequested()
         {
             ToggleView(false);
-            LoadData();
+            LoadDanhSachPhieuTra(); 
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        public void LoadData()
         {
-           
+            LoadDanhSachPhieuTra();
         }
     }
 }

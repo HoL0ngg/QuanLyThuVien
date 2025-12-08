@@ -227,6 +227,12 @@
     <Compile Include="GUI\phieutra\ThemPhieuTra.Designer.cs">
       <DependentUpon>ThemPhieuTra.cs</DependentUpon>
     </Compile>
+    <Compile Include="GUI\phieutra\TraForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\phieutra\TraForm.Designer.cs">
+      <DependentUpon>TraForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI\ThongKeGUI\UCMain.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -313,6 +319,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\phieutra\ThemPhieuTra.resx">
       <DependentUpon>ThemPhieuTra.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\phieutra\TraForm.resx">
+      <DependentUpon>TraForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\ThongKeGUI\UCMain.resx">
       <DependentUpon>UCMain.cs</DependentUpon>
