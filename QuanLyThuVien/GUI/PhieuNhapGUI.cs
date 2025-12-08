@@ -18,9 +18,20 @@ namespace QuanLyThuVien.GUI
         PhieuNhapBUS bus = new PhieuNhapBUS();
         private FormThemPhieuNhap formThemPhieuNhap1;
         private CTPhieuNhapGUI ctPhieuNhapGUI1;
+
         public PhieuNhapGUI()
         {
             InitializeComponent();
+            SetupComponents();
+        }
+
+        public PhieuNhapGUI(TaiKhoanDTO user) : this()
+        {
+            this.CurrentUser = user;
+        }
+
+        private void SetupComponents()
+        {
             formThemPhieuNhap1 = new FormThemPhieuNhap();
             formThemPhieuNhap1.Dock = DockStyle.Fill;
             formThemPhieuNhap1.Visible = false;
@@ -67,7 +78,7 @@ namespace QuanLyThuVien.GUI
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Lỗi khi chọn phiếu nhập: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Loi khi chon phieu nhap: " + ex.Message, "Loi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -87,30 +98,30 @@ namespace QuanLyThuVien.GUI
             }
             else
             {
-                MessageBox.Show("Vui lòng chọn một phiếu nhập để xem chi tiết!");
+                MessageBox.Show("Vui long chon mot phieu nhap de xem chi tiet!");
             }
         }
 
         private void xoa(object sender, EventArgs e)
         {
             if(dataGridView1.CurrentRow == null) {
-                MessageBox.Show("Vui lòng chọn một phiếu nhập để xóa!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Vui long chon mot phieu nhap de xoa!", "Thong bao", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
                 
             int maPhieuCanXoa = Convert.ToInt32(dataGridView1.CurrentRow.Cells["colMaPhieuNhap"].Value.ToString());
-            DialogResult result = MessageBox.Show("Bạn có chắc chắn muốn xóa phiếu nhập " + maPhieuCanXoa + "?", "Xác nhận xóa", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            DialogResult result = MessageBox.Show("Ban co chac chan muon xoa phieu nhap " + maPhieuCanXoa + "?", "Xac nhan xoa", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (result == DialogResult.Yes)
             {
                 bool xoaThanhCong = bus.Delete(maPhieuCanXoa);
                 if (xoaThanhCong)
                 {
-                    MessageBox.Show("Xóa thành công");
+                    MessageBox.Show("Xoa thanh cong");
                     LoadDanhSach();
                 }
                 else
                 {
-                    MessageBox.Show("Xóa thất bại. Vui lòng thử lại.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Xoa that bai. Vui long thu lai.", "Loi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
@@ -119,7 +130,7 @@ namespace QuanLyThuVien.GUI
         {
             if (dataGridView1.CurrentRow == null)
             {
-                MessageBox.Show("Vui lòng chọn một phiếu nhập để xóa!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Vui long chon mot phieu nhap de sua!", "Thong bao", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
             int maPhieuCanSua = Convert.ToInt32(dataGridView1.CurrentRow.Cells["colMaPhieuNhap"].Value.ToString());
@@ -134,12 +145,12 @@ namespace QuanLyThuVien.GUI
             bool SuaThanhCong = bus.Update(NewPhieu);
             if(SuaThanhCong)
             {
-                MessageBox.Show("Cập nhật thành công!");
+                MessageBox.Show("Cap nhat thanh cong!");
                 LoadDanhSach();
             }
             else
             {
-                MessageBox.Show("Cập nhật thất bại. Vui lòng thử lại.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Cap nhat that bai. Vui long thu lai.", "Loi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         private void btnSearch_Click(object sender, EventArgs e)
@@ -148,8 +159,8 @@ namespace QuanLyThuVien.GUI
             var result = bus.Search(keyword);
             if (result == null || result.Count == 0)
             {
-                MessageBox.Show("Không tìm thấy phiếu nhập nào phù hợp với từ khóa",
-                                "Thông báo",
+                MessageBox.Show("Khong tim thay phieu nhap nao phu hop voi tu khoa",
+                                "Thong bao",
                                 MessageBoxButtons.OK,
                                 MessageBoxIcon.Information);
 
@@ -182,50 +193,54 @@ namespace QuanLyThuVien.GUI
 
         public override void OnAdd()
         {
-            them(this,EventArgs.Empty);
+            if (!CoQuyenThem)
+            {
+                MessageBox.Show("Ban khong co quyen them phieu nhap!", "Thong bao",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            them(this, EventArgs.Empty);
         }
+
         public override void OnEdit()
         {
+            if (!CoQuyenSua)
+            {
+                MessageBox.Show("Ban khong co quyen sua phieu nhap!", "Thong bao",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
             sua(this, EventArgs.Empty);
         }
+
         public override void OnDelete()
         {
+            if (!CoQuyenXoa)
+            {
+                MessageBox.Show("Ban khong co quyen xoa phieu nhap!", "Thong bao",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
             xoa(this, EventArgs.Empty);
         }
 
         public override void OnDetails()
         {
+            if (!CoQuyenXem)
+            {
+                MessageBox.Show("Ban khong co quyen xem chi tiet phieu nhap!", "Thong bao",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
             chitiet(this, EventArgs.Empty);
         }
-        private void label3_Click(object sender, EventArgs e)
-        {
 
-        }
-
-        private void label9_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox2_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
-        private void dtpDate_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
+        private void label3_Click(object sender, EventArgs e) { }
+        private void label9_Click(object sender, EventArgs e) { }
+        private void textBox2_TextChanged(object sender, EventArgs e) { }
+        private void button2_Click(object sender, EventArgs e) { }
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e) { }
+        private void dtpDate_ValueChanged(object sender, EventArgs e) { }
 
         private void PhieuNhapGUI_Load(object sender, EventArgs e)
         {
@@ -235,24 +250,14 @@ namespace QuanLyThuVien.GUI
             dataGridView1.CellClick += PhieuNhap_CellClick;
         }
 
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void formThemPhieuNhap2_Load(object sender, EventArgs e)
-        {
-
-        }
+        private void panel1_Paint(object sender, PaintEventArgs e) { }
+        private void formThemPhieuNhap2_Load(object sender, EventArgs e) { }
 
         private void btnSearch_Click_1(object sender, EventArgs e)
         {
             btnSearch_Click(this, EventArgs.Empty);
         }
 
-        private void txtSearch_TextChanged(object sender, EventArgs e)
-        {
-
-        }
+        private void txtSearch_TextChanged(object sender, EventArgs e) { }
     }
 }

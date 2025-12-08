@@ -1,4 +1,5 @@
 ﻿using QuanLyThuVien.DTO;
+using QuanLyThuVien.BUS;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -19,6 +20,10 @@ namespace QuanLyThuVien.GUI
         private BaseModuleUC currentModule;
 
         private Panel activeMenuPanel = null;
+        
+        // Lưu vị trí gốc của panel3
+        private Point panel3OriginalLocation;
+        private Size panel3OriginalSize;
         
         // Material Design Color Palette
         private Color primaryColor = Color.FromArgb(33, 150, 243);      // Blue 500
@@ -42,13 +47,61 @@ namespace QuanLyThuVien.GUI
         {
             InitializeComponent();
             this.currentUser = taiKhoan;
+            if (this.currentUser != null)
+            {
+                string tenHienThi = $"{this.currentUser.TenNhanVien.Trim()} - {this.currentUser.ChucVu.Trim()}";
+                label1.Text = tenHienThi;
+                label2.Text = "Đăng xuất";
+
+                ApplyRolePermission();
+            }
+            else
+            {
+                MessageBox.Show("Không tìm thấy thông tin người dùng. Ứng dụng sẽ đóng.", "Lỗi hệ thống", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.Load += (s, e) => this.Close();
+                return;
+            }
             this.DoubleBuffered = true;
             this.SetStyle(ControlStyles.OptimizedDoubleBuffer | 
                          ControlStyles.AllPaintingInWmPaint | 
                          ControlStyles.UserPaint, true);
+            
+            // Lưu vị trí gốc
+            panel3OriginalLocation = panel3.Location;
+            panel3OriginalSize = panel3.Size;
+			
+			
+            // Đóng form khi đóng
+            this.FormClosing += MainForm_FormClosing;
+            
             ApplyMaterialDesign();
         }
 
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            // Giải phóng tài nguyên
+            if (currentModule != null)
+            {
+                currentModule.Dispose();
+            }
+        }
+
+        // Phương thức đăng xuất
+        public void DangXuat()
+        {
+            DialogResult result = MessageBox.Show(
+                "Bạn có chắc chắn muốn đăng xuất?",
+                "Xác nhận đăng xuất",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question);
+
+            if (result == DialogResult.Yes)
+            {
+                this.DialogResult = DialogResult.OK;
+                this.Close();
+            }
+        }
+        
         private void ApplyMaterialDesign()
         {
             // Form background
@@ -93,8 +146,29 @@ namespace QuanLyThuVien.GUI
             // Header labels
             label1.ForeColor = Color.White;
             label1.Font = GetSafeFont("Segoe UI", 18F, FontStyle.Bold);
+            
+            // Label2 làm nút đăng xuất
             label2.ForeColor = Color.FromArgb(230, 230, 230);
-            label2.Font = GetSafeFont("Segoe UI", 10F, FontStyle.Regular);
+            label2.Font = GetSafeFont("Segoe UI", 11F, FontStyle.Bold);
+            label2.Text = "Đăng xuất";
+            label2.Cursor = Cursors.Hand;
+            label2.Click -= label2_Click; // Xóa event cũ nếu có
+            label2.Click += Label2_DangXuat_Click; // Thêm event mới
+            
+            // Thêm hover effect cho label2
+            label2.MouseEnter += (s, e) => {
+                label2.ForeColor = Color.White;
+                label2.Font = GetSafeFont("Segoe UI", 11F, FontStyle.Bold | FontStyle.Underline);
+            };
+            label2.MouseLeave += (s, e) => {
+                label2.ForeColor = Color.FromArgb(230, 230, 230);
+                label2.Font = GetSafeFont("Segoe UI", 11F, FontStyle.Bold);
+            };
+        }
+        
+        private void Label2_DangXuat_Click(object sender, EventArgs e)
+        {
+            DangXuat();
         }
         
         private Font GetSafeFont(string fontName, float size, FontStyle style)
@@ -347,6 +421,25 @@ namespace QuanLyThuVien.GUI
             );
         }
 
+        private void LoadModule(BaseModuleUC module, string tenChucNang)
+        {
+            if (this.currentModule != null)
+            {
+                this.panel3.Controls.Remove(this.currentModule);
+                this.currentModule.Dispose();
+            }
+
+            this.currentModule = module;
+            
+            // Thiết lập quyền cho module
+            this.currentModule.SetupPermission(currentUser, tenChucNang);
+            
+            this.currentModule.Dock = DockStyle.Fill;
+            this.panel3.Controls.Add(this.currentModule);
+            this.currentModule.BringToFront();
+        }
+
+        // Overload cho WelcomeScreen (không cần quyền)
         private void LoadModule(BaseModuleUC module)
         {
             if (this.currentModule != null)
@@ -373,9 +466,70 @@ namespace QuanLyThuVien.GUI
             
             // Hiển thị màn hình chào mừng khi mới mở app
             LoadModule(new WelcomeScreen());
+        }
+
+        private void ApplyRolePermission()
+        {
+            if (currentUser == null)
+            {
+                MessageBox.Show("Không thể xác định vai trò người dùng.", "Lỗi phân quyền", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            int maNhomQuyen = currentUser.MaNhomQuyen;
+
+            // Admin (MaNhomQuyen = 0 hoặc 1) có tất cả quyền
+            if (maNhomQuyen <= 1)
+                return;
+
+            // Kiểm tra quyền từng chức năng và ẩn/hiện menu tương ứng
+            // Tên chức năng phải khớp với TENCN trong bảng chuc_nang
             
-            //label1.Text = currentUser.TenDangNhap;
-            //label2.Text = currentUser.ChucVu;
+            // Phiếu Nhập
+            if (!NhomQuyenBUS.Instance.CoItNhatMotQuyen(maNhomQuyen, "Phiếu Nhập"))
+                panelPhieuNhap.Visible = false;
+
+            // Phiếu Mượn
+            if (!NhomQuyenBUS.Instance.CoItNhatMotQuyen(maNhomQuyen, "Phiếu Mượn"))
+                panelPhieuMuon.Visible = false;
+
+            // Phiếu Trả
+            if (!NhomQuyenBUS.Instance.CoItNhatMotQuyen(maNhomQuyen, "Phiếu Trả"))
+                panelPhieuTra.Visible = false;
+
+            // Phiếu Phạt
+            if (!NhomQuyenBUS.Instance.CoItNhatMotQuyen(maNhomQuyen, "Phiếu Phạt"))
+                panelPhieuPhat.Visible = false;
+
+            // Đầu Sách
+            if (!NhomQuyenBUS.Instance.CoItNhatMotQuyen(maNhomQuyen, "Đầu Sách"))
+                panelDauSach.Visible = false;
+
+            // Độc Giả
+            if (!NhomQuyenBUS.Instance.CoItNhatMotQuyen(maNhomQuyen, "Độc Giả"))
+                panelDocGia.Visible = false;
+
+            // Nhân Viên
+            if (!NhomQuyenBUS.Instance.CoItNhatMotQuyen(maNhomQuyen, "Nhân Viên"))
+                panelNhanVien.Visible = false;
+
+            // Thống Kê
+            if (!NhomQuyenBUS.Instance.CoItNhatMotQuyen(maNhomQuyen, "Thống Kê"))
+                panelThongKe.Visible = false;
+        }
+
+        private void DisablePanel(Panel p)
+        {
+            p.Enabled = false;
+            foreach (Control ctrl in p.Controls)
+                ctrl.Enabled = false;
+        }
+
+        private void EnablePanel(Panel p)
+        {
+            p.Enabled = true;
+            foreach (Control ctrl in p.Controls)
+                ctrl.Enabled = true;
         }
 
         private void label3_Click(object sender, EventArgs e) { }
@@ -406,6 +560,7 @@ namespace QuanLyThuVien.GUI
         {
             Panel clickedPanel = sender as Panel;
             if (clickedPanel == activeMenuPanel) return;
+            if (!clickedPanel.Enabled) return;
 
             if (activeMenuPanel != null)
             {
@@ -419,21 +574,55 @@ namespace QuanLyThuVien.GUI
 
             clickedPanel.BackColor = Color.FromArgb(227, 242, 253);
             activeMenuPanel = clickedPanel;
-            
             foreach (Control ctrl in clickedPanel.Controls)
             {
                 if (ctrl is Label lbl)
                     lbl.ForeColor = primaryColor;
             }
 
+            // Load module với thông tin quyền - truyền currentUser vào constructor
             if (clickedPanel.Name == "panelPhieuNhap")
-                LoadModule(new PhieuNhapGUI());
+            {
+                var module = new PhieuNhapGUI(currentUser);
+                LoadModule(module, "Phieu Nhap");
+            }
             else if (clickedPanel.Name == "panelPhieuMuon")
-                LoadModule(new PhieuMuon());
+            {
+                var module = new PhieuMuon(currentUser);
+                LoadModule(module, "Phieu Muon");
+            }
             else if (clickedPanel.Name == "panelPhieuTra")
-                LoadModule(new PhieuTraGUI());
+            {
+                var module = new PhieuTraGUI(currentUser);
+                LoadModule(module, "Phieu Tra");
+            }
             else if (clickedPanel.Name == "panelDauSach")
-                LoadModule(new DauSach());
+            {
+                var module = new DauSach(currentUser);
+                LoadModule(module, "Dau Sach");
+            }
+            else if (clickedPanel.Name == "panelNhanVien")
+            {
+                var module = new NhanVienGUI(currentUser);
+                LoadModule(module, "Nhan Vien");
+            }
+            else if (clickedPanel.Name == "panelDocGia")
+            {
+                var module = new DocGia(currentUser);
+                LoadModule(module, "Doc Gia");
+            }
+            else if (clickedPanel.Name == "panelDangXuat")
+                DangXuat();
+            else if (clickedPanel.Name == "panelPhieuPhat")
+            {
+                var module = new PhieuPhat(currentUser);
+                LoadModule(module, "Phieu Phat");
+            }
+            else if (clickedPanel.Name == "panelThongKe")
+            {
+                var module = new UCMain(currentUser);
+                LoadModule(module, "Thong Ke");
+            }
         }
 
         private void panel9_Paint(object sender, PaintEventArgs e) { }
@@ -444,17 +633,31 @@ namespace QuanLyThuVien.GUI
 
         private void panelPhieuPhat_Click(object sender, EventArgs e)
         {
-            var uc = new PhieuPhat();
-            uc.Dock = DockStyle.Fill;
-            panel3.Controls.Clear();
-            panel3.Controls.Add(uc);
-            uc.BringToFront();
+            // Delegate to the shared menu click handler so Designer event hookups work.
+            panelMenu_Click(panelPhieuPhat, EventArgs.Empty);
+        }
+
+        // Mở Thống kê khi click label/picture bên trong panel
+        private void panelThongKe_Click(object sender, EventArgs e)
+        {
+            panelMenu_Click(panelThongKe, EventArgs.Empty);
+        }
+
+        private void pictureBox7_Click(object sender, EventArgs e)
+        {
+            panelThongKe_Click(sender, e);
+        }
+
+        private void label13_Click(object sender, EventArgs e)
+        {
+            panelThongKe_Click(sender, e);
         }
 
         private void panel3_Paint(object sender, PaintEventArgs e) { }
         private void panelPhieuPhat_DoubleClick(object sender, EventArgs e)
         {
-            PhieuPhat phieuphat = new PhieuPhat();
+            PhieuPhat phieuphat = new PhieuPhat(currentUser);
+            phieuphat.SetupPermission(currentUser, "Phieu Phat");
             phieuphat.Dock = DockStyle.Fill;
             this.panel3.Controls.Clear();
             this.panel3.Controls.Add(phieuphat);

@@ -157,8 +157,19 @@ namespace QuanLyThuVien.DAO
                 TenNhanVien = row["TenNV"]?.ToString()
             };
             CTPhieuMuonDAO ctpmDAO = new CTPhieuMuonDAO();
-            phieuMuon.CTPM = ctpmDAO.GetByPhieuMuon(phieuMuon.MaPhieuMuon);
+            phieuMuon.CTPM = ctpmDAO.GetByMaPhieuMuon(phieuMuon.MaPhieuMuon);
             return phieuMuon;
+        }
+
+        public int GetLatestId()
+        {
+            string query = "SELECT MAX(MaPhieuMuon) AS LatestId FROM phieu_muon";
+            DataTable dt = DataProvider.ExecuteQuery(query);
+            if (dt.Rows.Count > 0 && dt.Rows[0]["LatestId"] != DBNull.Value)
+            {
+                return Convert.ToInt32(dt.Rows[0]["LatestId"]);
+            }
+            return 0;
         }
     }
 }

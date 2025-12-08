@@ -29,12 +29,12 @@
             this.lblNgayTra = new System.Windows.Forms.Label();
             this.dtpNgayTraDuKien = new System.Windows.Forms.DateTimePicker();
             this.groupTimSach = new System.Windows.Forms.GroupBox();
-            this.dgvKetQuaSach = new System.Windows.Forms.DataGridView();
+            this.dgvKetQuaSach = new QuanLyThuVien.GUI.CustomDataGridView();
             this.btnTimSach = new System.Windows.Forms.Button();
             this.txtTuKhoaSach = new System.Windows.Forms.TextBox();
             this.lblTuKhoa = new System.Windows.Forms.Label();
             this.groupChiTiet = new System.Windows.Forms.GroupBox();
-            this.dgvCT = new System.Windows.Forms.DataGridView();
+            this.dgvCT = new QuanLyThuVien.GUI.CustomDataGridView();
             this.panelBottom = new System.Windows.Forms.Panel();
             this.btnHuy = new System.Windows.Forms.Button();
             this.btnThem = new System.Windows.Forms.Button();
