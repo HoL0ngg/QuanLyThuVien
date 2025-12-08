@@ -30,10 +30,10 @@ namespace QuanLyThuVien.GUI
 
         private void InitializeDocGiaGrid()
         {
-            var colMa = new DataGridViewTextBoxColumn { Name = "MaDG", HeaderText = "Mã độc giả", DataPropertyName = "MaDG", FillWeight = 70 };
-            var colTenDG = new DataGridViewTextBoxColumn { Name = "TenDG", HeaderText = "Tên độc giả", DataPropertyName = "TenDG", FillWeight = 100, AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill };
-            var colSDT = new DataGridViewTextBoxColumn { Name = "SDT", HeaderText = "SĐT", DataPropertyName = "SDT", FillWeight = 70, Width = 100 };
-            var colDiaChi = new DataGridViewTextBoxColumn { Name = "DiaChi", HeaderText = "Địa chỉ", DataPropertyName = "DiaChi", FillWeight = 100, AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill };
+            var colMa = new DataGridViewTextBoxColumn { Name = "MaDG", HeaderText = "Mã độc giả", DataPropertyName = "MaDG" };
+            var colTenDG = new DataGridViewTextBoxColumn { Name = "TenDG", HeaderText = "Tên độc giả", DataPropertyName = "TenDG" };
+            var colSDT = new DataGridViewTextBoxColumn { Name = "SDT", HeaderText = "SĐT", DataPropertyName = "SDT" };
+            var colDiaChi = new DataGridViewTextBoxColumn {Name = "DiaChi", HeaderText = "Địa chỉ", DataPropertyName = "DiaChi" };
 
             dgvDocGia.Columns.AddRange(new DataGridViewColumn[] { colMa, colTenDG, colSDT, colDiaChi });
         }
