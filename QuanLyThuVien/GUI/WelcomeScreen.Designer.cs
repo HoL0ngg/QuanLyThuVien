@@ -85,22 +85,22 @@
             // lblWelcome
             // 
             this.lblWelcome.AutoSize = true;
-            this.lblWelcome.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold);
+            this.lblWelcome.Font = new System.Drawing.Font("Segoe UI", 24F, System.Drawing.FontStyle.Bold);
             this.lblWelcome.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
             this.lblWelcome.Location = new System.Drawing.Point(30, 25);
             this.lblWelcome.Name = "lblWelcome";
-            this.lblWelcome.Size = new System.Drawing.Size(660, 46);
+            this.lblWelcome.Size = new System.Drawing.Size(450, 46);
             this.lblWelcome.TabIndex = 0;
-            this.lblWelcome.Text = "📚 Chào mừng đến Thư viện";
+            this.lblWelcome.Text = "Chào mừng đến Thư viện";
             // 
             // lblSubtitle
             // 
             this.lblSubtitle.AutoSize = true;
-            this.lblSubtitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.lblSubtitle.Font = new System.Drawing.Font("Segoe UI", 12F);
             this.lblSubtitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(117)))), ((int)(((byte)(117)))), ((int)(((byte)(117)))));
             this.lblSubtitle.Location = new System.Drawing.Point(35, 75);
             this.lblSubtitle.Name = "lblSubtitle";
-            this.lblSubtitle.Size = new System.Drawing.Size(391, 25);
+            this.lblSubtitle.Size = new System.Drawing.Size(350, 25);
             this.lblSubtitle.TabIndex = 1;
             this.lblSubtitle.Text = "Hệ thống quản lý thư viện hiện đại và tiện lợi";
             // 
@@ -130,18 +130,18 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 28F);
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 28F);
             this.label1.ForeColor = System.Drawing.Color.White;
             this.label1.Location = new System.Drawing.Point(15, 15);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(77, 54);
+            this.label1.Size = new System.Drawing.Size(50, 54);
             this.label1.TabIndex = 3;
-            this.label1.Text = "📚";
+            this.label1.Text = "#";
             // 
             // lblTongSach
             // 
             this.lblTongSach.AutoSize = true;
-            this.lblTongSach.Font = new System.Drawing.Font("Microsoft Sans Serif", 28F, System.Drawing.FontStyle.Bold);
+            this.lblTongSach.Font = new System.Drawing.Font("Segoe UI", 28F, System.Drawing.FontStyle.Bold);
             this.lblTongSach.ForeColor = System.Drawing.Color.White;
             this.lblTongSach.Location = new System.Drawing.Point(110, 15);
             this.lblTongSach.Name = "lblTongSach";
@@ -152,11 +152,11 @@
             // lblTongSachTitle
             // 
             this.lblTongSachTitle.AutoSize = true;
-            this.lblTongSachTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
+            this.lblTongSachTitle.Font = new System.Drawing.Font("Segoe UI", 11F);
             this.lblTongSachTitle.ForeColor = System.Drawing.Color.White;
             this.lblTongSachTitle.Location = new System.Drawing.Point(20, 80);
             this.lblTongSachTitle.Name = "lblTongSachTitle";
-            this.lblTongSachTitle.Size = new System.Drawing.Size(100, 24);
+            this.lblTongSachTitle.Size = new System.Drawing.Size(90, 24);
             this.lblTongSachTitle.TabIndex = 2;
             this.lblTongSachTitle.Text = "Tổng sách";
             // 
@@ -174,18 +174,18 @@
             // iconTongDauSach
             // 
             this.iconTongDauSach.AutoSize = true;
-            this.iconTongDauSach.Font = new System.Drawing.Font("Microsoft Sans Serif", 28F);
+            this.iconTongDauSach.Font = new System.Drawing.Font("Segoe UI", 28F);
             this.iconTongDauSach.ForeColor = System.Drawing.Color.White;
             this.iconTongDauSach.Location = new System.Drawing.Point(15, 15);
             this.iconTongDauSach.Name = "iconTongDauSach";
-            this.iconTongDauSach.Size = new System.Drawing.Size(77, 54);
+            this.iconTongDauSach.Size = new System.Drawing.Size(50, 54);
             this.iconTongDauSach.TabIndex = 0;
-            this.iconTongDauSach.Text = "📚";
+            this.iconTongDauSach.Text = "#";
             // 
             // lblTongDauSach
             // 
             this.lblTongDauSach.AutoSize = true;
-            this.lblTongDauSach.Font = new System.Drawing.Font("Microsoft Sans Serif", 28F, System.Drawing.FontStyle.Bold);
+            this.lblTongDauSach.Font = new System.Drawing.Font("Segoe UI", 28F, System.Drawing.FontStyle.Bold);
             this.lblTongDauSach.ForeColor = System.Drawing.Color.White;
             this.lblTongDauSach.Location = new System.Drawing.Point(110, 15);
             this.lblTongDauSach.Name = "lblTongDauSach";
@@ -196,11 +196,11 @@
             // lblTongDauSachTitle
             // 
             this.lblTongDauSachTitle.AutoSize = true;
-            this.lblTongDauSachTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
+            this.lblTongDauSachTitle.Font = new System.Drawing.Font("Segoe UI", 11F);
             this.lblTongDauSachTitle.ForeColor = System.Drawing.Color.White;
             this.lblTongDauSachTitle.Location = new System.Drawing.Point(20, 80);
             this.lblTongDauSachTitle.Name = "lblTongDauSachTitle";
-            this.lblTongDauSachTitle.Size = new System.Drawing.Size(138, 24);
+            this.lblTongDauSachTitle.Size = new System.Drawing.Size(120, 24);
             this.lblTongDauSachTitle.TabIndex = 2;
             this.lblTongDauSachTitle.Text = "Tổng đầu sách";
             // 
@@ -218,18 +218,18 @@
             // iconTongDocGia
             // 
             this.iconTongDocGia.AutoSize = true;
-            this.iconTongDocGia.Font = new System.Drawing.Font("Microsoft Sans Serif", 28F);
+            this.iconTongDocGia.Font = new System.Drawing.Font("Segoe UI", 28F);
             this.iconTongDocGia.ForeColor = System.Drawing.Color.White;
             this.iconTongDocGia.Location = new System.Drawing.Point(15, 15);
             this.iconTongDocGia.Name = "iconTongDocGia";
-            this.iconTongDocGia.Size = new System.Drawing.Size(77, 54);
+            this.iconTongDocGia.Size = new System.Drawing.Size(50, 54);
             this.iconTongDocGia.TabIndex = 0;
-            this.iconTongDocGia.Text = "👥";
+            this.iconTongDocGia.Text = "#";
             // 
             // lblTongDocGia
             // 
             this.lblTongDocGia.AutoSize = true;
-            this.lblTongDocGia.Font = new System.Drawing.Font("Microsoft Sans Serif", 28F, System.Drawing.FontStyle.Bold);
+            this.lblTongDocGia.Font = new System.Drawing.Font("Segoe UI", 28F, System.Drawing.FontStyle.Bold);
             this.lblTongDocGia.ForeColor = System.Drawing.Color.White;
             this.lblTongDocGia.Location = new System.Drawing.Point(110, 15);
             this.lblTongDocGia.Name = "lblTongDocGia";
@@ -240,11 +240,11 @@
             // lblTongDocGiaTitle
             // 
             this.lblTongDocGiaTitle.AutoSize = true;
-            this.lblTongDocGiaTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
+            this.lblTongDocGiaTitle.Font = new System.Drawing.Font("Segoe UI", 11F);
             this.lblTongDocGiaTitle.ForeColor = System.Drawing.Color.White;
             this.lblTongDocGiaTitle.Location = new System.Drawing.Point(20, 80);
             this.lblTongDocGiaTitle.Name = "lblTongDocGiaTitle";
-            this.lblTongDocGiaTitle.Size = new System.Drawing.Size(123, 24);
+            this.lblTongDocGiaTitle.Size = new System.Drawing.Size(110, 24);
             this.lblTongDocGiaTitle.TabIndex = 2;
             this.lblTongDocGiaTitle.Text = "Tổng độc giả";
             // 
@@ -262,18 +262,18 @@
             // iconSachDangMuon
             // 
             this.iconSachDangMuon.AutoSize = true;
-            this.iconSachDangMuon.Font = new System.Drawing.Font("Microsoft Sans Serif", 28F);
+            this.iconSachDangMuon.Font = new System.Drawing.Font("Segoe UI", 28F);
             this.iconSachDangMuon.ForeColor = System.Drawing.Color.White;
             this.iconSachDangMuon.Location = new System.Drawing.Point(15, 15);
             this.iconSachDangMuon.Name = "iconSachDangMuon";
-            this.iconSachDangMuon.Size = new System.Drawing.Size(77, 54);
+            this.iconSachDangMuon.Size = new System.Drawing.Size(50, 54);
             this.iconSachDangMuon.TabIndex = 0;
-            this.iconSachDangMuon.Text = "📤";
+            this.iconSachDangMuon.Text = "#";
             // 
             // lblSachDangMuon
             // 
             this.lblSachDangMuon.AutoSize = true;
-            this.lblSachDangMuon.Font = new System.Drawing.Font("Microsoft Sans Serif", 28F, System.Drawing.FontStyle.Bold);
+            this.lblSachDangMuon.Font = new System.Drawing.Font("Segoe UI", 28F, System.Drawing.FontStyle.Bold);
             this.lblSachDangMuon.ForeColor = System.Drawing.Color.White;
             this.lblSachDangMuon.Location = new System.Drawing.Point(110, 15);
             this.lblSachDangMuon.Name = "lblSachDangMuon";
@@ -284,11 +284,11 @@
             // lblSachDangMuonTitle
             // 
             this.lblSachDangMuonTitle.AutoSize = true;
-            this.lblSachDangMuonTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
+            this.lblSachDangMuonTitle.Font = new System.Drawing.Font("Segoe UI", 11F);
             this.lblSachDangMuonTitle.ForeColor = System.Drawing.Color.White;
             this.lblSachDangMuonTitle.Location = new System.Drawing.Point(20, 80);
             this.lblSachDangMuonTitle.Name = "lblSachDangMuonTitle";
-            this.lblSachDangMuonTitle.Size = new System.Drawing.Size(156, 24);
+            this.lblSachDangMuonTitle.Size = new System.Drawing.Size(130, 24);
             this.lblSachDangMuonTitle.TabIndex = 2;
             this.lblSachDangMuonTitle.Text = "Sách đang mượn";
             // 
@@ -309,68 +309,68 @@
             // lblInfoTitle
             // 
             this.lblInfoTitle.AutoSize = true;
-            this.lblInfoTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold);
+            this.lblInfoTitle.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Bold);
             this.lblInfoTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
             this.lblInfoTitle.Location = new System.Drawing.Point(20, 20);
             this.lblInfoTitle.Name = "lblInfoTitle";
-            this.lblInfoTitle.Size = new System.Drawing.Size(299, 31);
+            this.lblInfoTitle.Size = new System.Drawing.Size(230, 31);
             this.lblInfoTitle.TabIndex = 0;
-            this.lblInfoTitle.Text = "ℹ️ Giới thiệu Thư viện";
+            this.lblInfoTitle.Text = "Giới thiệu Thư viện";
             // 
             // lblInfo1
             // 
-            this.lblInfo1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
+            this.lblInfo1.Font = new System.Drawing.Font("Segoe UI", 11F);
             this.lblInfo1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(66)))), ((int)(((byte)(66)))));
             this.lblInfo1.Location = new System.Drawing.Point(25, 70);
             this.lblInfo1.Name = "lblInfo1";
             this.lblInfo1.Size = new System.Drawing.Size(430, 80);
             this.lblInfo1.TabIndex = 1;
-            this.lblInfo1.Text = "✨ Thư viện của chúng tôi cung cấp hơn 10,000 đầu sách đa dạng từ văn học, khoa họ" +
-    "c, công nghệ đến nghệ thuật và nhiều lĩnh vực khác.";
+            this.lblInfo1.Text = "Thư viện của chúng tôi cung cấp hơn 10,000 đầu sách đa dạng từ văn học, khoa học," +
+    " công nghệ đến nghệ thuật và nhiều lĩnh vực khác.";
             // 
             // lblInfo2
             // 
-            this.lblInfo2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
+            this.lblInfo2.Font = new System.Drawing.Font("Segoe UI", 11F);
             this.lblInfo2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(66)))), ((int)(((byte)(66)))));
             this.lblInfo2.Location = new System.Drawing.Point(25, 160);
             this.lblInfo2.Name = "lblInfo2";
             this.lblInfo2.Size = new System.Drawing.Size(430, 60);
             this.lblInfo2.TabIndex = 2;
-            this.lblInfo2.Text = "📱 Hệ thống quản lý hiện đại, dễ sử dụng, giúp việc mượn trả sách trở nên nhanh c" +
-    "hóng và thuận tiện.";
+            this.lblInfo2.Text = "Hệ thống quản lý hiện đại, dễ sử dụng, giúp việc mượn trả sách trở nên nhanh chón" +
+    "g và thuận tiện.";
             // 
             // lblInfo3
             // 
-            this.lblInfo3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
+            this.lblInfo3.Font = new System.Drawing.Font("Segoe UI", 11F);
             this.lblInfo3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(66)))), ((int)(((byte)(66)))));
             this.lblInfo3.Location = new System.Drawing.Point(25, 230);
             this.lblInfo3.Name = "lblInfo3";
             this.lblInfo3.Size = new System.Drawing.Size(430, 60);
             this.lblInfo3.TabIndex = 3;
-            this.lblInfo3.Text = "🕐 Giờ mở cửa: Thứ 2 - Thứ 6: 8:00 - 20:00 | Thứ 7 - CN: 9:00 - 17:00";
+            this.lblInfo3.Text = "Giờ mở cửa: Thứ 2 - Thứ 6: 8:00 - 20:00 | Thứ 7 - CN: 9:00 - 17:00";
             // 
             // lblInfo4
             // 
-            this.lblInfo4.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
+            this.lblInfo4.Font = new System.Drawing.Font("Segoe UI", 11F);
             this.lblInfo4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(66)))), ((int)(((byte)(66)))));
             this.lblInfo4.Location = new System.Drawing.Point(25, 300);
             this.lblInfo4.Name = "lblInfo4";
             this.lblInfo4.Size = new System.Drawing.Size(430, 40);
             this.lblInfo4.TabIndex = 4;
-            this.lblInfo4.Text = "📧 Liên hệ: hohoanglong2508@gmail.com | ☎️ Hotline: 0937211264";
+            this.lblInfo4.Text = "Liên hệ: hohoanglong2508@gmail.com | Hotline: 0937211264";
             // 
             // btnRefresh
             // 
             this.btnRefresh.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
             this.btnRefresh.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnRefresh.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
+            this.btnRefresh.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             this.btnRefresh.ForeColor = System.Drawing.Color.White;
             this.btnRefresh.Location = new System.Drawing.Point(25, 360);
             this.btnRefresh.Name = "btnRefresh";
-            this.btnRefresh.Size = new System.Drawing.Size(180, 40);
+            this.btnRefresh.Size = new System.Drawing.Size(226, 40);
             this.btnRefresh.TabIndex = 5;
-            this.btnRefresh.Text = "🔄 Làm mới dữ liệu";
+            this.btnRefresh.Text = "Làm mới dữ liệu";
             this.btnRefresh.UseVisualStyleBackColor = false;
             this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
@@ -387,13 +387,13 @@
             // lblActivityTitle
             // 
             this.lblActivityTitle.AutoSize = true;
-            this.lblActivityTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold);
+            this.lblActivityTitle.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Bold);
             this.lblActivityTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
             this.lblActivityTitle.Location = new System.Drawing.Point(20, 20);
             this.lblActivityTitle.Name = "lblActivityTitle";
-            this.lblActivityTitle.Size = new System.Drawing.Size(300, 31);
+            this.lblActivityTitle.Size = new System.Drawing.Size(230, 31);
             this.lblActivityTitle.TabIndex = 0;
-            this.lblActivityTitle.Text = "📋 Hoạt động gần đây";
+            this.lblActivityTitle.Text = "Hoạt động gần đây";
             // 
             // dgvRecentActivity
             // 
@@ -405,7 +405,7 @@
             this.dgvRecentActivity.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             dataGridViewCellStyle1.ForeColor = System.Drawing.Color.White;
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;

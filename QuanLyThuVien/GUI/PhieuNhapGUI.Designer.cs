@@ -38,8 +38,12 @@ namespace QuanLyThuVien.GUI
         private void InitializeComponent()
         {
             this.panel3 = new System.Windows.Forms.Panel();
+            this.formThemPhieuNhap2 = new QuanLyThuVien.GUI.FormThemPhieuNhap();
             this.panel9 = new System.Windows.Forms.Panel();
+            this.btnSearch = new System.Windows.Forms.Button();
             this.cbMaNCC = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.txtSearch = new System.Windows.Forms.TextBox();
             this.cbMaNV = new System.Windows.Forms.ComboBox();
             this.label11 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
@@ -52,10 +56,6 @@ namespace QuanLyThuVien.GUI
             this.colTenNhanVien = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colMaNCC = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colTenNCC = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.txtSearch = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.btnSearch = new System.Windows.Forms.Button();
-            this.formThemPhieuNhap2 = new QuanLyThuVien.GUI.FormThemPhieuNhap();
             this.panel3.SuspendLayout();
             this.panel9.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -70,6 +70,15 @@ namespace QuanLyThuVien.GUI
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(1030, 725);
             this.panel3.TabIndex = 9;
+            // 
+            // formThemPhieuNhap2
+            // 
+            this.formThemPhieuNhap2.Location = new System.Drawing.Point(210, 56);
+            this.formThemPhieuNhap2.Name = "formThemPhieuNhap2";
+            this.formThemPhieuNhap2.Size = new System.Drawing.Size(575, 448);
+            this.formThemPhieuNhap2.TabIndex = 2;
+            this.formThemPhieuNhap2.Visible = false;
+            this.formThemPhieuNhap2.Load += new System.EventHandler(this.formThemPhieuNhap2_Load);
             // 
             // panel9
             // 
@@ -87,6 +96,16 @@ namespace QuanLyThuVien.GUI
             this.panel9.Size = new System.Drawing.Size(1024, 197);
             this.panel9.TabIndex = 1;
             // 
+            // btnSearch
+            // 
+            this.btnSearch.Location = new System.Drawing.Point(649, 38);
+            this.btnSearch.Name = "btnSearch";
+            this.btnSearch.Size = new System.Drawing.Size(93, 24);
+            this.btnSearch.TabIndex = 9;
+            this.btnSearch.Text = "Tìm kiếm";
+            this.btnSearch.UseVisualStyleBackColor = true;
+            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click_1);
+            // 
             // cbMaNCC
             // 
             this.cbMaNCC.FormattingEnabled = true;
@@ -94,6 +113,23 @@ namespace QuanLyThuVien.GUI
             this.cbMaNCC.Name = "cbMaNCC";
             this.cbMaNCC.Size = new System.Drawing.Size(195, 24);
             this.cbMaNCC.TabIndex = 6;
+            // 
+            // label1
+            // 
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.label1.Location = new System.Drawing.Point(236, 40);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(184, 22);
+            this.label1.TabIndex = 8;
+            this.label1.Text = "Nhập từ khóa tìm kiếm";
+            // 
+            // txtSearch
+            // 
+            this.txtSearch.Location = new System.Drawing.Point(426, 40);
+            this.txtSearch.Name = "txtSearch";
+            this.txtSearch.Size = new System.Drawing.Size(199, 22);
+            this.txtSearch.TabIndex = 7;
+            this.txtSearch.TextChanged += new System.EventHandler(this.txtSearch_TextChanged);
             // 
             // cbMaNV
             // 
@@ -193,42 +229,6 @@ namespace QuanLyThuVien.GUI
             this.colTenNCC.HeaderText = "Tên nhà cung cấp";
             this.colTenNCC.MinimumWidth = 6;
             this.colTenNCC.Name = "colTenNCC";
-            // 
-            // txtSearch
-            // 
-            this.txtSearch.Location = new System.Drawing.Point(426, 40);
-            this.txtSearch.Name = "txtSearch";
-            this.txtSearch.Size = new System.Drawing.Size(199, 22);
-            this.txtSearch.TabIndex = 7;
-            this.txtSearch.TextChanged += new System.EventHandler(this.txtSearch_TextChanged);
-            // 
-            // label1
-            // 
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.label1.Location = new System.Drawing.Point(236, 40);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(184, 22);
-            this.label1.TabIndex = 8;
-            this.label1.Text = "Nhập từ khóa tìm kiếm";
-            // 
-            // btnSearch
-            // 
-            this.btnSearch.Location = new System.Drawing.Point(649, 38);
-            this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(93, 24);
-            this.btnSearch.TabIndex = 9;
-            this.btnSearch.Text = "Tìm kiếm";
-            this.btnSearch.UseVisualStyleBackColor = true;
-            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click_1);
-            // 
-            // formThemPhieuNhap2
-            // 
-            this.formThemPhieuNhap2.Location = new System.Drawing.Point(210, 56);
-            this.formThemPhieuNhap2.Name = "formThemPhieuNhap2";
-            this.formThemPhieuNhap2.Size = new System.Drawing.Size(575, 448);
-            this.formThemPhieuNhap2.TabIndex = 2;
-            this.formThemPhieuNhap2.Visible = false;
-            this.formThemPhieuNhap2.Load += new System.EventHandler(this.formThemPhieuNhap2_Load);
             // 
             // PhieuNhapGUI
             // 

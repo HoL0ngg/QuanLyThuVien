@@ -15,6 +15,7 @@ namespace QuanLyThuVien.GUI
     public partial class LoginForm : Form
     {
         private TaiKhoanBUS tkBUS = new TaiKhoanBUS();
+        
         public LoginForm()
         {
             InitializeComponent();
@@ -23,19 +24,48 @@ namespace QuanLyThuVien.GUI
 
         private void textBox2_TextChanged(object sender, EventArgs e)
         {
-
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            string username = textBox1.Text;
+            string username = textBox1.Text.Trim();
             string password = textBox2.Text;
 
+            // Validate
+            if (string.IsNullOrEmpty(username))
+            {
+                MessageBox.Show("Vui lòng nhập tên đăng nhập!", "Thông báo",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                textBox1.Focus();
+                return;
+            }
+
+            if (string.IsNullOrEmpty(password))
+            {
+                MessageBox.Show("Vui lòng nhập mật khẩu!", "Thông báo",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                textBox2.Focus();
+                return;
+            }
+
             TaiKhoanDTO tk = tkBUS.DangNhap(username, password);
-            Console.WriteLine(tk);
 
             if (tk != null)
             {
+                // Kiểm tra nhân viên đã nghỉ việc chưa
+                if (!tk.DangLamViec)
+                {
+                    MessageBox.Show(
+                        "Tài khoản này đã bị vô hiệu hóa do nhân viên đã nghỉ việc!\nVui lòng liên hệ quản trị viên.",
+                        "Không thể đăng nhập",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
+                    textBox1.Clear();
+                    textBox2.Clear();
+                    textBox1.Focus();
+                    return;
+                }
+
                 // Kiểm tra mật khẩu mặc định
                 if (tk.MatKhau == "123456")
                 {
@@ -71,7 +101,9 @@ namespace QuanLyThuVien.GUI
                     return;
                 }
 
-                MessageBox.Show("Đăng nhập thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Đăng nhập thành công!", "Thông báo", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    
                 MainForm mainForm = new MainForm(tk);
                 this.Hide();
                 DialogResult mainResult = mainForm.ShowDialog();
@@ -84,26 +116,20 @@ namespace QuanLyThuVien.GUI
             }
             else
             {
-                MessageBox.Show("Tên đăng nhập hoặc mật khẩu không đúng!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                MessageBox.Show("Tên đăng nhập hoặc mật khẩu không đúng!", "Lỗi", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                textBox2.Clear();
+                textBox2.Focus();
             }
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
-            if (checkBox1.Checked)
-            {
-                textBox2.UseSystemPasswordChar = false;
-            }
-            else
-            {
-                textBox2.UseSystemPasswordChar = true;
-            }
+            textBox2.UseSystemPasswordChar = !checkBox1.Checked;
         }
 
         private void LoginForm_Load(object sender, EventArgs e)
         {
-
         }
     }
 }

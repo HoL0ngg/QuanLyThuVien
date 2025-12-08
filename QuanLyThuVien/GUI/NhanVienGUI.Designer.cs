@@ -51,9 +51,9 @@
             this.panelTop.Controls.Add(this.lblTitle);
             this.panelTop.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelTop.Location = new System.Drawing.Point(0, 0);
-            this.panelTop.Margin = new System.Windows.Forms.Padding(2);
+            this.panelTop.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panelTop.Name = "panelTop";
-            this.panelTop.Size = new System.Drawing.Size(780, 65);
+            this.panelTop.Size = new System.Drawing.Size(1040, 80);
             this.panelTop.TabIndex = 0;
             // 
             // btnLamMoi
@@ -62,10 +62,10 @@
             this.btnLamMoi.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnLamMoi.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnLamMoi.ForeColor = System.Drawing.SystemColors.HighlightText;
-            this.btnLamMoi.Location = new System.Drawing.Point(652, 20);
-            this.btnLamMoi.Margin = new System.Windows.Forms.Padding(2);
+            this.btnLamMoi.Location = new System.Drawing.Point(869, 25);
+            this.btnLamMoi.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnLamMoi.Name = "btnLamMoi";
-            this.btnLamMoi.Size = new System.Drawing.Size(102, 28);
+            this.btnLamMoi.Size = new System.Drawing.Size(136, 34);
             this.btnLamMoi.TabIndex = 2;
             this.btnLamMoi.Text = "🔄 Làm mới";
             this.btnLamMoi.UseVisualStyleBackColor = false;
@@ -74,10 +74,10 @@
             // txtTimKiem
             // 
             this.txtTimKiem.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTimKiem.Location = new System.Drawing.Point(450, 23);
-            this.txtTimKiem.Margin = new System.Windows.Forms.Padding(2);
+            this.txtTimKiem.Location = new System.Drawing.Point(600, 28);
+            this.txtTimKiem.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtTimKiem.Name = "txtTimKiem";
-            this.txtTimKiem.Size = new System.Drawing.Size(188, 27);
+            this.txtTimKiem.Size = new System.Drawing.Size(249, 31);
             this.txtTimKiem.TabIndex = 1;
             this.txtTimKiem.TextChanged += new System.EventHandler(this.txtTimKiem_TextChanged);
             // 
@@ -86,10 +86,9 @@
             this.lblTitle.AutoSize = true;
             this.lblTitle.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTitle.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.lblTitle.Location = new System.Drawing.Point(15, 20);
-            this.lblTitle.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblTitle.Location = new System.Drawing.Point(20, 25);
             this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(266, 32);
+            this.lblTitle.Size = new System.Drawing.Size(327, 41);
             this.lblTitle.TabIndex = 0;
             this.lblTitle.Text = "👥 Quản lý Nhân viên";
             // 
@@ -126,8 +125,8 @@
             this.dgvNhanVien.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dgvNhanVien.EnableHeadersVisualStyles = false;
             this.dgvNhanVien.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.dgvNhanVien.Location = new System.Drawing.Point(0, 65);
-            this.dgvNhanVien.Margin = new System.Windows.Forms.Padding(2);
+            this.dgvNhanVien.Location = new System.Drawing.Point(0, 80);
+            this.dgvNhanVien.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dgvNhanVien.MultiSelect = false;
             this.dgvNhanVien.Name = "dgvNhanVien";
             this.dgvNhanVien.ReadOnly = true;
@@ -135,7 +134,7 @@
             this.dgvNhanVien.RowHeadersWidth = 51;
             this.dgvNhanVien.RowTemplate.Height = 24;
             this.dgvNhanVien.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvNhanVien.Size = new System.Drawing.Size(780, 527);
+            this.dgvNhanVien.Size = new System.Drawing.Size(1040, 649);
             this.dgvNhanVien.TabIndex = 1;
             this.dgvNhanVien.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvNhanVien_CellClick);
             // 
@@ -144,10 +143,10 @@
             this.panelBottom.BackColor = System.Drawing.SystemColors.Window;
             this.panelBottom.Controls.Add(this.lblTongSo);
             this.panelBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelBottom.Location = new System.Drawing.Point(0, 511);
-            this.panelBottom.Margin = new System.Windows.Forms.Padding(2);
+            this.panelBottom.Location = new System.Drawing.Point(0, 629);
+            this.panelBottom.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panelBottom.Name = "panelBottom";
-            this.panelBottom.Size = new System.Drawing.Size(780, 81);
+            this.panelBottom.Size = new System.Drawing.Size(1040, 100);
             this.panelBottom.TabIndex = 2;
             // 
             // lblTongSo
@@ -155,23 +154,23 @@
             this.lblTongSo.AutoSize = true;
             this.lblTongSo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblTongSo.Location = new System.Drawing.Point(0, 0);
-            this.lblTongSo.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblTongSo.Name = "lblTongSo";
-            this.lblTongSo.Padding = new System.Windows.Forms.Padding(15, 0, 0, 0);
-            this.lblTongSo.Size = new System.Drawing.Size(123, 13);
+            this.lblTongSo.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
+            this.lblTongSo.Size = new System.Drawing.Size(150, 16);
             this.lblTongSo.TabIndex = 0;
             this.lblTongSo.Text = "Tổng số: 0 nhân viên";
             this.lblTongSo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // NhanVienGUI
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.panelBottom);
             this.Controls.Add(this.dgvNhanVien);
             this.Controls.Add(this.panelTop);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "NhanVienGUI";
-            this.Size = new System.Drawing.Size(780, 592);
+            this.Size = new System.Drawing.Size(1040, 729);
             this.panelTop.ResumeLayout(false);
             this.panelTop.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvNhanVien)).EndInit();

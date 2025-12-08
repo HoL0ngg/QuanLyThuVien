@@ -1355,7 +1355,6 @@ CREATE TABLE `nhom_quyen` (
 --
 
 INSERT INTO `nhom_quyen` (`MANQ`, `TENNQ`) VALUES
-(0, 'Admin'),
 (1, 'Admin'),
 (2, 'Thủ thư'),
 (3, 'Quản lý kho');
@@ -1672,7 +1671,8 @@ ALTER TABLE `nha_xuat_ban`
 -- Indexes for table `nhom_quyen`
 --
 ALTER TABLE `nhom_quyen`
-  ADD PRIMARY KEY (`MANQ`);
+  ADD PRIMARY KEY (`MANQ`),
+  MODIFY `MANQ` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Indexes for table `phieu_muon`

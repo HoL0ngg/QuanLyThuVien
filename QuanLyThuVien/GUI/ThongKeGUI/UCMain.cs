@@ -32,6 +32,11 @@ namespace QuanLyThuVien.GUI.ThongKeGUI
                 this.btn_docgia.Enter += Btn_docgia_Enter;
         }
 
+        public UCMain(TaiKhoanDTO user) : this()
+        {
+            this.CurrentUser = user;
+        }
+
         private void Btn_docgia_Enter(object sender, EventArgs e)
         {
             EnsureThongKeDocGiaLoaded();
@@ -202,7 +207,7 @@ namespace QuanLyThuVien.GUI.ThongKeGUI
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Lỗi khi thống kê: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Loi khi thong ke: " + ex.Message, "Loi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

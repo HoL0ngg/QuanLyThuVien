@@ -32,8 +32,8 @@
             this.lblTitle = new System.Windows.Forms.Label();
             this.panelBody = new System.Windows.Forms.Panel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.cboTrangThai = new System.Windows.Forms.ComboBox();
-            this.label10 = new System.Windows.Forms.Label();
+            this.cboNhomQuyen = new System.Windows.Forms.ComboBox();
+            this.lblNhomQuyen = new System.Windows.Forms.Label();
             this.txtEmail = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.txtSDT = new System.Windows.Forms.TextBox();
@@ -72,7 +72,7 @@
             this.lblTitle.Name = "lblTitle";
             this.lblTitle.Size = new System.Drawing.Size(700, 60);
             this.lblTitle.TabIndex = 0;
-            this.lblTitle.Text = "👤 Thông tin Nhân viên";
+            this.lblTitle.Text = "Thông tin Nhân viên";
             this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // panelBody
@@ -89,8 +89,8 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.cboTrangThai);
-            this.groupBox1.Controls.Add(this.label10);
+            this.groupBox1.Controls.Add(this.cboNhomQuyen);
+            this.groupBox1.Controls.Add(this.lblNhomQuyen);
             this.groupBox1.Controls.Add(this.txtEmail);
             this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Controls.Add(this.txtSDT);
@@ -112,26 +112,26 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Thông tin nhân viên";
             // 
-            // cboTrangThai
+            // cboNhomQuyen
             // 
-            this.cboTrangThai.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboTrangThai.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.cboTrangThai.FormattingEnabled = true;
-            this.cboTrangThai.Location = new System.Drawing.Point(470, 230);
-            this.cboTrangThai.Name = "cboTrangThai";
-            this.cboTrangThai.Size = new System.Drawing.Size(170, 25);
-            this.cboTrangThai.TabIndex = 13;
+            this.cboNhomQuyen.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboNhomQuyen.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.cboNhomQuyen.FormattingEnabled = true;
+            this.cboNhomQuyen.Location = new System.Drawing.Point(140, 230);
+            this.cboNhomQuyen.Name = "cboNhomQuyen";
+            this.cboNhomQuyen.Size = new System.Drawing.Size(250, 25);
+            this.cboNhomQuyen.TabIndex = 13;
             // 
-            // label10
+            // lblNhomQuyen
             // 
-            this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            this.label10.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(66)))), ((int)(((byte)(66)))));
-            this.label10.Location = new System.Drawing.Point(370, 233);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(73, 17);
-            this.label10.TabIndex = 12;
-            this.label10.Text = "Trạng thái:";
+            this.lblNhomQuyen.AutoSize = true;
+            this.lblNhomQuyen.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            this.lblNhomQuyen.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(66)))), ((int)(((byte)(66)))));
+            this.lblNhomQuyen.Location = new System.Drawing.Point(20, 233);
+            this.lblNhomQuyen.Name = "lblNhomQuyen";
+            this.lblNhomQuyen.Size = new System.Drawing.Size(89, 17);
+            this.lblNhomQuyen.TabIndex = 12;
+            this.lblNhomQuyen.Text = "Nhóm quyền:";
             // 
             // txtEmail
             // 
@@ -257,7 +257,7 @@
             this.btnHuy.Name = "btnHuy";
             this.btnHuy.Size = new System.Drawing.Size(120, 40);
             this.btnHuy.TabIndex = 1;
-            this.btnHuy.Text = "❌ Hủy";
+            this.btnHuy.Text = "Hủy";
             this.btnHuy.UseVisualStyleBackColor = false;
             this.btnHuy.Click += new System.EventHandler(this.btnHuy_Click);
             // 
@@ -273,7 +273,7 @@
             this.btnLuu.Name = "btnLuu";
             this.btnLuu.Size = new System.Drawing.Size(120, 40);
             this.btnLuu.TabIndex = 0;
-            this.btnLuu.Text = "💾 Lưu";
+            this.btnLuu.Text = "Lưu";
             this.btnLuu.UseVisualStyleBackColor = false;
             this.btnLuu.Click += new System.EventHandler(this.btnLuu_Click);
             // 
@@ -317,8 +317,8 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox txtEmail;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.ComboBox cboTrangThai;
-        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.ComboBox cboNhomQuyen;
+        private System.Windows.Forms.Label lblNhomQuyen;
         private System.Windows.Forms.Panel panelFooter;
         private System.Windows.Forms.Button btnHuy;
         private System.Windows.Forms.Button btnLuu;
