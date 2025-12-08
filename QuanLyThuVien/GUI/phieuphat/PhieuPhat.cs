@@ -36,7 +36,7 @@ namespace QuanLyThuVien.GUI
         //    // Prevent textBox1_TextChanged handler from interfering while we update the grid.
         //    isUserInput = false;
         //    try
-        //    {
+        //    {DVG
         //        DateTime begin = DTP_begin.Value;
         //        DateTime end = DTP_end.Value.Date.AddDays(1);
         //        if (begin > end)
@@ -135,6 +135,7 @@ namespace QuanLyThuVien.GUI
             colDG.DataPropertyName = "TenDG";
             colTien.DataPropertyName = "tienPhat";
             colTen.DataPropertyName = "TenSach";
+            colLyDo.DataPropertyName = "LydoPhat";
 
             List<PhieuPhatDTO> list = trangThaiLoc.HasValue
                 ? PhieuPhatBUS.Instance.GetTrangThaiPhieuPhat(trangThaiLoc.Value)

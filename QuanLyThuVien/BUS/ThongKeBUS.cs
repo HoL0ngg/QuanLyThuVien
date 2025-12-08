@@ -15,6 +15,25 @@ namespace QuanLyThuVien.BUS
         #region Thống kê Tổng quan (Overview)
 
         /// <summary>
+        /// Lấy dữ liệu tổng quan thống kê tất cả (không giới hạn thời gian)
+        /// </summary>
+        //public ThongKeOverviewDTO GetOverviewAll()
+        //{
+        //    var dto = new ThongKeOverviewDTO
+        //    {
+        //        TongLuotMuon = ThongKeDAO.Instance.GetTongLuotMuonAll(),
+        //        TongSachTrongKho = ThongKeDAO.Instance.GetTongSachTrongKho(),
+        //        SachQuaHan = ThongKeDAO.Instance.GetSoSachQuaHanAll(),
+        //        TongThuPhiPhat = ThongKeDAO.Instance.GetTongThuPhiPhatAll(),
+        //        SoPhieuMuon = ThongKeDAO.Instance.GetSoPhieuMuonAll(),
+        //        SoPhieuTra = ThongKeDAO.Instance.GetSoPhieuTraAll(),
+        //        SoDocGiaLienQuan = ThongKeDAO.Instance.GetSoDocGiaLienQuanAll()
+        //    };
+
+        //    return dto;
+        //}
+
+        /// <summary>
         /// Lấy dữ liệu tổng quan thống kê trong khoảng thời gian
         /// </summary>
         public ThongKeOverviewDTO GetOverview(DateTime from, DateTime to)
@@ -23,7 +42,7 @@ namespace QuanLyThuVien.BUS
             {
                 TongLuotMuon = ThongKeDAO.Instance.GetTongLuotMuon(from, to),
                 TongSachTrongKho = ThongKeDAO.Instance.GetTongSachTrongKho(),
-                SachQuaHan = ThongKeDAO.Instance.GetSoSachQuaHan(from, to),
+                SachMatHong = ThongKeDAO.Instance.GetSoSachMatHong(from, to),
                 TongThuPhiPhat = ThongKeDAO.Instance.GetTongThuPhiPhat(from, to),
                 SoPhieuMuon = ThongKeDAO.Instance.GetSoPhieuMuon(from, to),
                 SoPhieuTra = ThongKeDAO.Instance.GetSoPhieuTra(from, to),
@@ -33,9 +52,57 @@ namespace QuanLyThuVien.BUS
             return dto;
         }
 
+        /// <summary>
+        /// Lấy dữ liệu tổng quan thống kê trong khoảng thời gian - PHIÊN BẢN TỐI ƯU
+        /// Chỉ gọi 1 query thay vì 7 queries riêng biệt
+        /// </summary>
+        public ThongKeOverviewDTO GetOverviewOptimized(DateTime from, DateTime to)
+        {
+            return ThongKeDAO.Instance.GetOverviewAllInOne(from, to);
+        }
+
+        /// <summary>
+        /// Lấy xu hướng mượn/trả của tất cả 12 tháng - TỐI ƯU
+        /// Chỉ gọi 1 query thay vì 12 queries riêng biệt
+        /// </summary>
+        public List<ThongKeOverviewDTO> GetTrendAll12Months()
+        {
+            return ThongKeDAO.Instance.GetTrendAll12Months();
+        }
+
+        public ThongKeOverviewDTO GetTrendByMonth(int month)
+        {
+            ThongKeOverviewDTO result = ThongKeDAO.Instance.GetTrendByMonth(month);
+            return result;
+        }
+
+        public List<ThongKeOverviewDTO> GetTop5SachMuon()
+        {
+            return ThongKeDAO.Instance.GetTop5SachMuon();
+        }
+        public List<ThongKeOverviewDTO> GetTop5TheLoai()
+        {
+            return ThongKeDAO.Instance.GetTop5TheLoai();
+        }
+        public int GetTongDauSach()
+        {
+            return ThongKeDAO.Instance.GetTongDauSach();
+        }
+        public int GetTongBanSach() { 
+            return ThongKeDAO.Instance.GetTongBanSach();
+        }
         #endregion
 
-        #region Thống kê Phiếu Mượn
+        public int GetSachSanSangChoMuon()
+        {
+            return ThongKeDAO.Instance.GetSachSanSangChoMuon();
+        }
+        public int GetSoSachHongMat()
+        {
+            return ThongKeDAO.Instance.GetSoSachHongMat();
+        }
+        
+
 
         /// <summary>
         /// Lấy danh sách phiếu mượn với chi tiết số lượng sách mượn
@@ -72,6 +139,26 @@ namespace QuanLyThuVien.BUS
 
             return list;
         }
+        public List<ThongKeSachDTO> GetSoLuongSachTheoTheLoai()
+        {
+            return ThongKeDAO.Instance.GetSoLuongSachTheoTheLoai();
+        }
+        public  List<ThongKeSachDTO> GetSoLuongSachTheoNam()
+        {
+            return ThongKeDAO.Instance.GetSoLuongSachTheoNam();
+        }
+        public List<ThongKeSachDTO> GetChiTietSach()
+        {
+            return ThongKeDAO.Instance.GetChiTietSach();
+        }
+
+        /// <summary>
+        /// Lấy xu hướng mượn/trả tất cả (group theo tháng, 12 tháng gần nhất)
+        /// </summary>
+        public DataTable GetPhieuMuonTrendAll()
+        {
+            return ThongKeDAO.Instance.GetPhieuMuonTrendAll();
+        }
 
         /// <summary>
         /// Lấy xu hướng mượn/trả theo ngày trong khoảng thời gian
@@ -94,11 +181,10 @@ namespace QuanLyThuVien.BUS
         /// </summary>
         public DataRow GetPhieuMuonKPIs(DateTime from, DateTime to)
         {
-            DataTable dt = ThongKeDAO.Instance.GetPhieuMuonKPIs(from, to);
-            return dt.Rows.Count > 0 ? dt.Rows[0] : null;
+            return ThongKeDAO.Instance.GetPhieuMuonKPIs(from, to);
         }
 
-        #endregion
+       
 
         #region Thống kê Độc Giả
 
@@ -107,8 +193,7 @@ namespace QuanLyThuVien.BUS
         /// </summary>
         public DataRow GetDocGiaKPIs()
         {
-            DataTable dt = ThongKeDAO.Instance.GetDocGiaKPIs();
-            return dt.Rows.Count > 0 ? dt.Rows[0] : null;
+            return ThongKeDAO.Instance.GetDocGiaKPIs();
         }
 
         /// <summary>

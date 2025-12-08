@@ -82,8 +82,8 @@
             this.panelKPI.Name = "panelKPI";
             this.panelKPI.Padding = new System.Windows.Forms.Padding(5);
             this.panelKPI.RowCount = 1;
-            this.panelKPI.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 100F));
-            this.panelKPI.Size = new System.Drawing.Size(1819, 110);
+            this.panelKPI.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.panelKPI.Size = new System.Drawing.Size(1798, 130);
             this.panelKPI.TabIndex = 0;
             // 
             // pnlKpi1
@@ -96,7 +96,7 @@
             this.pnlKpi1.Margin = new System.Windows.Forms.Padding(8);
             this.pnlKpi1.Name = "pnlKpi1";
             this.pnlKpi1.Padding = new System.Windows.Forms.Padding(12);
-            this.pnlKpi1.Size = new System.Drawing.Size(436, 84);
+            this.pnlKpi1.Size = new System.Drawing.Size(431, 104);
             this.pnlKpi1.TabIndex = 0;
             // 
             // lblTongPhieu
@@ -104,12 +104,13 @@
             this.lblTongPhieu.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblTongPhieu.Font = new System.Drawing.Font("Segoe UI", 28F, System.Drawing.FontStyle.Bold);
             this.lblTongPhieu.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
-            this.lblTongPhieu.Location = new System.Drawing.Point(12, 34);
+            this.lblTongPhieu.Location = new System.Drawing.Point(12, 37);
             this.lblTongPhieu.Name = "lblTongPhieu";
-            this.lblTongPhieu.Size = new System.Drawing.Size(412, 38);
+            this.lblTongPhieu.Size = new System.Drawing.Size(407, 55);
             this.lblTongPhieu.TabIndex = 0;
             this.lblTongPhieu.Text = "0";
             this.lblTongPhieu.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblTongPhieu.Click += new System.EventHandler(this.lblTongPhieu_Click);
             // 
             // lblKpi1Title
             // 
@@ -118,7 +119,7 @@
             this.lblKpi1Title.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(117)))), ((int)(((byte)(117)))), ((int)(((byte)(117)))));
             this.lblKpi1Title.Location = new System.Drawing.Point(12, 12);
             this.lblKpi1Title.Name = "lblKpi1Title";
-            this.lblKpi1Title.Size = new System.Drawing.Size(412, 22);
+            this.lblKpi1Title.Size = new System.Drawing.Size(407, 25);
             this.lblKpi1Title.TabIndex = 1;
             this.lblKpi1Title.Text = "TONG SO PHIEU PHAT";
             // 
@@ -128,11 +129,11 @@
             this.pnlKpi2.Controls.Add(this.lblTongPhiPhat);
             this.pnlKpi2.Controls.Add(this.lblKpi2Title);
             this.pnlKpi2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlKpi2.Location = new System.Drawing.Point(465, 13);
+            this.pnlKpi2.Location = new System.Drawing.Point(460, 13);
             this.pnlKpi2.Margin = new System.Windows.Forms.Padding(8);
             this.pnlKpi2.Name = "pnlKpi2";
             this.pnlKpi2.Padding = new System.Windows.Forms.Padding(12);
-            this.pnlKpi2.Size = new System.Drawing.Size(436, 84);
+            this.pnlKpi2.Size = new System.Drawing.Size(431, 104);
             this.pnlKpi2.TabIndex = 1;
             // 
             // lblTongPhiPhat
@@ -140,9 +141,9 @@
             this.lblTongPhiPhat.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblTongPhiPhat.Font = new System.Drawing.Font("Segoe UI", 28F, System.Drawing.FontStyle.Bold);
             this.lblTongPhiPhat.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(67)))), ((int)(((byte)(54)))));
-            this.lblTongPhiPhat.Location = new System.Drawing.Point(12, 34);
+            this.lblTongPhiPhat.Location = new System.Drawing.Point(12, 37);
             this.lblTongPhiPhat.Name = "lblTongPhiPhat";
-            this.lblTongPhiPhat.Size = new System.Drawing.Size(412, 38);
+            this.lblTongPhiPhat.Size = new System.Drawing.Size(407, 55);
             this.lblTongPhiPhat.TabIndex = 0;
             this.lblTongPhiPhat.Text = "0";
             this.lblTongPhiPhat.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -154,7 +155,7 @@
             this.lblKpi2Title.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(117)))), ((int)(((byte)(117)))), ((int)(((byte)(117)))));
             this.lblKpi2Title.Location = new System.Drawing.Point(12, 12);
             this.lblKpi2Title.Name = "lblKpi2Title";
-            this.lblKpi2Title.Size = new System.Drawing.Size(412, 22);
+            this.lblKpi2Title.Size = new System.Drawing.Size(407, 25);
             this.lblKpi2Title.TabIndex = 1;
             this.lblKpi2Title.Text = "TONG PHI PHAT";
             // 
@@ -164,11 +165,11 @@
             this.pnlKpi3.Controls.Add(this.lblDaThu);
             this.pnlKpi3.Controls.Add(this.lblKpi3Title);
             this.pnlKpi3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlKpi3.Location = new System.Drawing.Point(917, 13);
+            this.pnlKpi3.Location = new System.Drawing.Point(907, 13);
             this.pnlKpi3.Margin = new System.Windows.Forms.Padding(8);
             this.pnlKpi3.Name = "pnlKpi3";
             this.pnlKpi3.Padding = new System.Windows.Forms.Padding(12);
-            this.pnlKpi3.Size = new System.Drawing.Size(436, 84);
+            this.pnlKpi3.Size = new System.Drawing.Size(431, 104);
             this.pnlKpi3.TabIndex = 2;
             // 
             // lblDaThu
@@ -176,9 +177,9 @@
             this.lblDaThu.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblDaThu.Font = new System.Drawing.Font("Segoe UI", 28F, System.Drawing.FontStyle.Bold);
             this.lblDaThu.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(175)))), ((int)(((byte)(80)))));
-            this.lblDaThu.Location = new System.Drawing.Point(12, 34);
+            this.lblDaThu.Location = new System.Drawing.Point(12, 37);
             this.lblDaThu.Name = "lblDaThu";
-            this.lblDaThu.Size = new System.Drawing.Size(412, 38);
+            this.lblDaThu.Size = new System.Drawing.Size(407, 55);
             this.lblDaThu.TabIndex = 0;
             this.lblDaThu.Text = "0";
             this.lblDaThu.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -190,7 +191,7 @@
             this.lblKpi3Title.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(117)))), ((int)(((byte)(117)))), ((int)(((byte)(117)))));
             this.lblKpi3Title.Location = new System.Drawing.Point(12, 12);
             this.lblKpi3Title.Name = "lblKpi3Title";
-            this.lblKpi3Title.Size = new System.Drawing.Size(412, 22);
+            this.lblKpi3Title.Size = new System.Drawing.Size(407, 25);
             this.lblKpi3Title.TabIndex = 1;
             this.lblKpi3Title.Text = "TONG THU THUC TE";
             // 
@@ -200,11 +201,11 @@
             this.pnlKpi4.Controls.Add(this.lblChuaThu);
             this.pnlKpi4.Controls.Add(this.lblKpi4Title);
             this.pnlKpi4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlKpi4.Location = new System.Drawing.Point(1369, 13);
+            this.pnlKpi4.Location = new System.Drawing.Point(1354, 13);
             this.pnlKpi4.Margin = new System.Windows.Forms.Padding(8);
             this.pnlKpi4.Name = "pnlKpi4";
             this.pnlKpi4.Padding = new System.Windows.Forms.Padding(12);
-            this.pnlKpi4.Size = new System.Drawing.Size(437, 84);
+            this.pnlKpi4.Size = new System.Drawing.Size(431, 104);
             this.pnlKpi4.TabIndex = 3;
             // 
             // lblChuaThu
@@ -212,9 +213,9 @@
             this.lblChuaThu.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblChuaThu.Font = new System.Drawing.Font("Segoe UI", 28F, System.Drawing.FontStyle.Bold);
             this.lblChuaThu.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(152)))), ((int)(((byte)(0)))));
-            this.lblChuaThu.Location = new System.Drawing.Point(12, 34);
+            this.lblChuaThu.Location = new System.Drawing.Point(12, 37);
             this.lblChuaThu.Name = "lblChuaThu";
-            this.lblChuaThu.Size = new System.Drawing.Size(413, 38);
+            this.lblChuaThu.Size = new System.Drawing.Size(407, 55);
             this.lblChuaThu.TabIndex = 0;
             this.lblChuaThu.Text = "0";
             this.lblChuaThu.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -226,7 +227,7 @@
             this.lblKpi4Title.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(117)))), ((int)(((byte)(117)))), ((int)(((byte)(117)))));
             this.lblKpi4Title.Location = new System.Drawing.Point(12, 12);
             this.lblKpi4Title.Name = "lblKpi4Title";
-            this.lblKpi4Title.Size = new System.Drawing.Size(413, 22);
+            this.lblKpi4Title.Size = new System.Drawing.Size(407, 25);
             this.lblKpi4Title.TabIndex = 1;
             this.lblKpi4Title.Text = "PHI CHUA THU";
             // 
@@ -238,12 +239,12 @@
             this.panelCharts.Controls.Add(this.panelLyDo, 0, 0);
             this.panelCharts.Controls.Add(this.panelTopDocGia, 1, 0);
             this.panelCharts.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelCharts.Location = new System.Drawing.Point(10, 120);
+            this.panelCharts.Location = new System.Drawing.Point(10, 140);
             this.panelCharts.Name = "panelCharts";
             this.panelCharts.Padding = new System.Windows.Forms.Padding(5);
             this.panelCharts.RowCount = 1;
             this.panelCharts.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 270F));
-            this.panelCharts.Size = new System.Drawing.Size(1819, 280);
+            this.panelCharts.Size = new System.Drawing.Size(1798, 280);
             this.panelCharts.TabIndex = 1;
             // 
             // panelLyDo
@@ -256,7 +257,7 @@
             this.panelLyDo.Margin = new System.Windows.Forms.Padding(8);
             this.panelLyDo.Name = "panelLyDo";
             this.panelLyDo.Padding = new System.Windows.Forms.Padding(12);
-            this.panelLyDo.Size = new System.Drawing.Size(888, 254);
+            this.panelLyDo.Size = new System.Drawing.Size(878, 254);
             this.panelLyDo.TabIndex = 0;
             // 
             // flpLyDo
@@ -268,7 +269,7 @@
             this.flpLyDo.Location = new System.Drawing.Point(12, 42);
             this.flpLyDo.Name = "flpLyDo";
             this.flpLyDo.Padding = new System.Windows.Forms.Padding(5);
-            this.flpLyDo.Size = new System.Drawing.Size(864, 200);
+            this.flpLyDo.Size = new System.Drawing.Size(854, 200);
             this.flpLyDo.TabIndex = 0;
             this.flpLyDo.WrapContents = false;
             // 
@@ -279,7 +280,7 @@
             this.lblLyDoTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(66)))), ((int)(((byte)(66)))));
             this.lblLyDoTitle.Location = new System.Drawing.Point(12, 12);
             this.lblLyDoTitle.Name = "lblLyDoTitle";
-            this.lblLyDoTitle.Size = new System.Drawing.Size(864, 30);
+            this.lblLyDoTitle.Size = new System.Drawing.Size(854, 30);
             this.lblLyDoTitle.TabIndex = 1;
             this.lblLyDoTitle.Text = "CO CAU LY DO PHAT";
             // 
@@ -289,11 +290,11 @@
             this.panelTopDocGia.Controls.Add(this.flpTopDocGia);
             this.panelTopDocGia.Controls.Add(this.lblTopDocGiaTitle);
             this.panelTopDocGia.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelTopDocGia.Location = new System.Drawing.Point(917, 13);
+            this.panelTopDocGia.Location = new System.Drawing.Point(907, 13);
             this.panelTopDocGia.Margin = new System.Windows.Forms.Padding(8);
             this.panelTopDocGia.Name = "panelTopDocGia";
             this.panelTopDocGia.Padding = new System.Windows.Forms.Padding(12);
-            this.panelTopDocGia.Size = new System.Drawing.Size(889, 254);
+            this.panelTopDocGia.Size = new System.Drawing.Size(878, 254);
             this.panelTopDocGia.TabIndex = 1;
             // 
             // flpTopDocGia
@@ -305,7 +306,7 @@
             this.flpTopDocGia.Location = new System.Drawing.Point(12, 42);
             this.flpTopDocGia.Name = "flpTopDocGia";
             this.flpTopDocGia.Padding = new System.Windows.Forms.Padding(5);
-            this.flpTopDocGia.Size = new System.Drawing.Size(865, 200);
+            this.flpTopDocGia.Size = new System.Drawing.Size(854, 200);
             this.flpTopDocGia.TabIndex = 0;
             this.flpTopDocGia.WrapContents = false;
             // 
@@ -316,9 +317,120 @@
             this.lblTopDocGiaTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(66)))), ((int)(((byte)(66)))));
             this.lblTopDocGiaTitle.Location = new System.Drawing.Point(12, 12);
             this.lblTopDocGiaTitle.Name = "lblTopDocGiaTitle";
-            this.lblTopDocGiaTitle.Size = new System.Drawing.Size(865, 30);
+            this.lblTopDocGiaTitle.Size = new System.Drawing.Size(854, 30);
             this.lblTopDocGiaTitle.TabIndex = 1;
             this.lblTopDocGiaTitle.Text = "TOP 5 DOC GIA BI PHAT NHIEU NHAT";
+            // 
+            // panelTable
+            // 
+            this.panelTable.BackColor = System.Drawing.Color.White;
+            this.panelTable.Controls.Add(this.dgvChiTiet);
+            this.panelTable.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelTable.Location = new System.Drawing.Point(10, 470);
+            this.panelTable.Name = "panelTable";
+            this.panelTable.Padding = new System.Windows.Forms.Padding(10);
+            this.panelTable.Size = new System.Drawing.Size(1798, 420);
+            this.panelTable.TabIndex = 3;
+            // 
+            // dgvChiTiet
+            // 
+            this.dgvChiTiet.AllowUserToAddRows = false;
+            this.dgvChiTiet.AllowUserToDeleteRows = false;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
+            this.dgvChiTiet.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            this.dgvChiTiet.BackgroundColor = System.Drawing.Color.White;
+            this.dgvChiTiet.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 9.5F, System.Drawing.FontStyle.Bold);
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvChiTiet.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            this.dgvChiTiet.ColumnHeadersHeight = 40;
+            this.dgvChiTiet.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.colMaPhieu,
+            this.colDocGia,
+            this.colLyDo,
+            this.colGiaTri,
+            this.colTrangThai,
+            this.colNgayLap,
+            this.colNgayThanhToan});
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI", 9F);
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(242)))), ((int)(((byte)(253)))));
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvChiTiet.DefaultCellStyle = dataGridViewCellStyle3;
+            this.dgvChiTiet.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvChiTiet.EnableHeadersVisualStyles = false;
+            this.dgvChiTiet.Location = new System.Drawing.Point(10, 10);
+            this.dgvChiTiet.Name = "dgvChiTiet";
+            this.dgvChiTiet.ReadOnly = true;
+            this.dgvChiTiet.RowHeadersVisible = false;
+            this.dgvChiTiet.RowHeadersWidth = 51;
+            this.dgvChiTiet.RowTemplate.Height = 35;
+            this.dgvChiTiet.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvChiTiet.Size = new System.Drawing.Size(1778, 400);
+            this.dgvChiTiet.TabIndex = 0;
+            // 
+            // colMaPhieu
+            // 
+            this.colMaPhieu.HeaderText = "Ma Phieu";
+            this.colMaPhieu.MinimumWidth = 6;
+            this.colMaPhieu.Name = "colMaPhieu";
+            this.colMaPhieu.ReadOnly = true;
+            // 
+            // colDocGia
+            // 
+            this.colDocGia.HeaderText = "Doc Gia";
+            this.colDocGia.MinimumWidth = 6;
+            this.colDocGia.Name = "colDocGia";
+            this.colDocGia.ReadOnly = true;
+            this.colDocGia.Width = 200;
+            // 
+            // colLyDo
+            // 
+            this.colLyDo.HeaderText = "Ly Do Phat";
+            this.colLyDo.MinimumWidth = 6;
+            this.colLyDo.Name = "colLyDo";
+            this.colLyDo.ReadOnly = true;
+            this.colLyDo.Width = 150;
+            // 
+            // colGiaTri
+            // 
+            this.colGiaTri.HeaderText = "Gia Tri Phat";
+            this.colGiaTri.MinimumWidth = 6;
+            this.colGiaTri.Name = "colGiaTri";
+            this.colGiaTri.ReadOnly = true;
+            this.colGiaTri.Width = 120;
+            // 
+            // colTrangThai
+            // 
+            this.colTrangThai.HeaderText = "Trang Thai";
+            this.colTrangThai.MinimumWidth = 6;
+            this.colTrangThai.Name = "colTrangThai";
+            this.colTrangThai.ReadOnly = true;
+            this.colTrangThai.Width = 130;
+            // 
+            // colNgayLap
+            // 
+            this.colNgayLap.HeaderText = "Ngay Lap";
+            this.colNgayLap.MinimumWidth = 6;
+            this.colNgayLap.Name = "colNgayLap";
+            this.colNgayLap.ReadOnly = true;
+            this.colNgayLap.Width = 120;
+            // 
+            // colNgayThanhToan
+            // 
+            this.colNgayThanhToan.HeaderText = "Ngay Thanh Toan";
+            this.colNgayThanhToan.MinimumWidth = 6;
+            this.colNgayThanhToan.Name = "colNgayThanhToan";
+            this.colNgayThanhToan.ReadOnly = true;
+            this.colNgayThanhToan.Width = 140;
             // 
             // panelSearch
             // 
@@ -330,10 +442,10 @@
             this.panelSearch.Controls.Add(this.btnSearch);
             this.panelSearch.Controls.Add(this.btnRefresh);
             this.panelSearch.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelSearch.Location = new System.Drawing.Point(10, 400);
+            this.panelSearch.Location = new System.Drawing.Point(10, 420);
             this.panelSearch.Name = "panelSearch";
             this.panelSearch.Padding = new System.Windows.Forms.Padding(10);
-            this.panelSearch.Size = new System.Drawing.Size(1819, 50);
+            this.panelSearch.Size = new System.Drawing.Size(1798, 50);
             this.panelSearch.TabIndex = 2;
             // 
             // lblTableTitle
@@ -343,7 +455,7 @@
             this.lblTableTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(66)))), ((int)(((byte)(66)))));
             this.lblTableTitle.Location = new System.Drawing.Point(15, 15);
             this.lblTableTitle.Name = "lblTableTitle";
-            this.lblTableTitle.Size = new System.Drawing.Size(170, 23);
+            this.lblTableTitle.Size = new System.Drawing.Size(181, 23);
             this.lblTableTitle.TabIndex = 0;
             this.lblTableTitle.Text = "CHI TIET PHIEU PHAT";
             // 
@@ -353,7 +465,7 @@
             this.lblTrangThai.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.lblTrangThai.Location = new System.Drawing.Point(230, 17);
             this.lblTrangThai.Name = "lblTrangThai";
-            this.lblTrangThai.Size = new System.Drawing.Size(75, 20);
+            this.lblTrangThai.Size = new System.Drawing.Size(78, 20);
             this.lblTrangThai.TabIndex = 1;
             this.lblTrangThai.Text = "Trang thai:";
             // 
@@ -408,118 +520,6 @@
             this.btnRefresh.UseVisualStyleBackColor = false;
             this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
-            // panelTable
-            // 
-            this.panelTable.BackColor = System.Drawing.Color.White;
-            this.panelTable.Controls.Add(this.dgvChiTiet);
-            this.panelTable.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelTable.Location = new System.Drawing.Point(10, 450);
-            this.panelTable.Name = "panelTable";
-            this.panelTable.Padding = new System.Windows.Forms.Padding(10);
-            this.panelTable.Size = new System.Drawing.Size(1819, 420);
-            this.panelTable.TabIndex = 3;
-            // 
-            // dgvChiTiet
-            // 
-            this.dgvChiTiet.AllowUserToAddRows = false;
-            this.dgvChiTiet.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
-            this.dgvChiTiet.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
-            this.dgvChiTiet.BackgroundColor = System.Drawing.Color.White;
-            this.dgvChiTiet.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 9.5F, System.Drawing.FontStyle.Bold);
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvChiTiet.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
-            this.dgvChiTiet.ColumnHeadersHeight = 40;
-            this.dgvChiTiet.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.colMaPhieu,
-            this.colDocGia,
-            this.colLyDo,
-            this.colGiaTri,
-            this.colTrangThai,
-            this.colNgayLap,
-            this.colNgayThanhToan});
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI", 9F);
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(242)))), ((int)(((byte)(253)))));
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvChiTiet.DefaultCellStyle = dataGridViewCellStyle3;
-            this.dgvChiTiet.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvChiTiet.EnableHeadersVisualStyles = false;
-            this.dgvChiTiet.Location = new System.Drawing.Point(10, 10);
-            this.dgvChiTiet.Name = "dgvChiTiet";
-            this.dgvChiTiet.ReadOnly = true;
-            this.dgvChiTiet.RowHeadersVisible = false;
-            this.dgvChiTiet.RowHeadersWidth = 51;
-            this.dgvChiTiet.RowTemplate.Height = 35;
-            this.dgvChiTiet.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvChiTiet.Size = new System.Drawing.Size(1799, 400);
-            this.dgvChiTiet.TabIndex = 0;
-            // 
-            // colMaPhieu
-            // 
-            this.colMaPhieu.HeaderText = "Ma Phieu";
-            this.colMaPhieu.MinimumWidth = 6;
-            this.colMaPhieu.Name = "colMaPhieu";
-            this.colMaPhieu.ReadOnly = true;
-            this.colMaPhieu.Width = 100;
-            // 
-            // colDocGia
-            // 
-            this.colDocGia.HeaderText = "Doc Gia";
-            this.colDocGia.MinimumWidth = 6;
-            this.colDocGia.Name = "colDocGia";
-            this.colDocGia.ReadOnly = true;
-            this.colDocGia.Width = 200;
-            // 
-            // colLyDo
-            // 
-            this.colLyDo.HeaderText = "Ly Do Phat";
-            this.colLyDo.MinimumWidth = 6;
-            this.colLyDo.Name = "colLyDo";
-            this.colLyDo.ReadOnly = true;
-            this.colLyDo.Width = 150;
-            // 
-            // colGiaTri
-            // 
-            this.colGiaTri.HeaderText = "Gia Tri Phat";
-            this.colGiaTri.MinimumWidth = 6;
-            this.colGiaTri.Name = "colGiaTri";
-            this.colGiaTri.ReadOnly = true;
-            this.colGiaTri.Width = 120;
-            // 
-            // colTrangThai
-            // 
-            this.colTrangThai.HeaderText = "Trang Thai";
-            this.colTrangThai.MinimumWidth = 6;
-            this.colTrangThai.Name = "colTrangThai";
-            this.colTrangThai.ReadOnly = true;
-            this.colTrangThai.Width = 130;
-            // 
-            // colNgayLap
-            // 
-            this.colNgayLap.HeaderText = "Ngay Lap";
-            this.colNgayLap.MinimumWidth = 6;
-            this.colNgayLap.Name = "colNgayLap";
-            this.colNgayLap.ReadOnly = true;
-            this.colNgayLap.Width = 120;
-            // 
-            // colNgayThanhToan
-            // 
-            this.colNgayThanhToan.HeaderText = "Ngay Thanh Toan";
-            this.colNgayThanhToan.MinimumWidth = 6;
-            this.colNgayThanhToan.Name = "colNgayThanhToan";
-            this.colNgayThanhToan.ReadOnly = true;
-            this.colNgayThanhToan.Width = 140;
-            // 
             // UCThongKePhieuPhat
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -532,7 +532,7 @@
             this.Controls.Add(this.panelKPI);
             this.Name = "UCThongKePhieuPhat";
             this.Padding = new System.Windows.Forms.Padding(10);
-            this.Size = new System.Drawing.Size(1839, 900);
+            this.Size = new System.Drawing.Size(1818, 900);
             this.panelKPI.ResumeLayout(false);
             this.pnlKpi1.ResumeLayout(false);
             this.pnlKpi2.ResumeLayout(false);
@@ -546,6 +546,7 @@
             this.panelSearch.ResumeLayout(false);
             this.panelSearch.PerformLayout();
             this.ResumeLayout(false);
+
         }
 
         #endregion

@@ -36,6 +36,7 @@ namespace QuanLyThuVien.DAO
                     ct.MaCTPhieuPhat,
                     pp.Ngaytra AS NgayTra,
                     ct.TienPhat,
+                    ct.lydoPhat,
                     ds.TenDauSach AS TenSach,
                     dg.TenDG,
                     pp.MaDG
@@ -59,6 +60,7 @@ namespace QuanLyThuVien.DAO
                     MaCTPhieuPhat = Convert.ToInt32(r["MaCTPhieuPhat"]),
                     NgayTra = r["NgayTra"] == DBNull.Value ? DateTime.MinValue : Convert.ToDateTime(r["NgayTra"]),
                     tienPhat = Convert.ToInt32(r["TienPhat"]),
+                    LydoPhat = r["lydoPhat"]?.ToString(),
                     TenSach = r["TenSach"]?.ToString(),
                     TenDG = r["TenDG"]?.ToString(),
                     MaDG = Convert.ToInt32(r["MaDG"])
@@ -76,6 +78,7 @@ namespace QuanLyThuVien.DAO
                     ct.MaCTPhieuPhat,
                     pp.Ngaytra AS NgayTra,
                     ct.TienPhat,
+                    ct.lydoPhat,
                     ds.TenDauSach AS TenSach,
                     dg.TenDG,
                     pp.MaDG
@@ -105,6 +108,7 @@ namespace QuanLyThuVien.DAO
                     MaCTPhieuPhat = Convert.ToInt32(r["MaCTPhieuPhat"]),
                     NgayTra = r["NgayTra"] == DBNull.Value ? DateTime.MinValue : Convert.ToDateTime(r["NgayTra"]),
                     tienPhat = Convert.ToInt32(r["TienPhat"]),
+                    LydoPhat = r["lydoPhat"]?.ToString(),
                     TenSach = r["TenSach"]?.ToString(),
                     TenDG = r["TenDG"]?.ToString(),
                     MaDG = Convert.ToInt32(r["MaDG"])
@@ -122,6 +126,7 @@ namespace QuanLyThuVien.DAO
                     ct.MaCTPhieuPhat,
                     pp.Ngaytra AS NgayTra,
                     ct.TienPhat,
+                    ct.lydoPhat,
                     ds.TenDauSach AS TenSach,
                     dg.TenDG,
                     pp.MaDG
@@ -152,6 +157,7 @@ namespace QuanLyThuVien.DAO
                     MaCTPhieuPhat = Convert.ToInt32(r["MaCTPhieuPhat"]),
                     NgayTra = r["NgayTra"] == DBNull.Value ? DateTime.MinValue : Convert.ToDateTime(r["NgayTra"]),
                     tienPhat = Convert.ToInt32(r["TienPhat"]),
+                    LydoPhat = r["lydoPhat"]?.ToString(),
                     TenSach = r["TenSach"]?.ToString(),
                     TenDG = r["TenDG"]?.ToString(),
                     MaDG = Convert.ToInt32(r["MaDG"])
@@ -169,6 +175,7 @@ namespace QuanLyThuVien.DAO
                     ct.MaCTPhieuPhat,
                     pp.Ngaytra AS NgayTra,
                     ct.TienPhat,
+                    ct.lydoPhat,
                     ds.TenDauSach AS TenSach,
                     dg.TenDG,
                     pp.MaDG
@@ -205,6 +212,7 @@ namespace QuanLyThuVien.DAO
                     MaCTPhieuPhat = Convert.ToInt32(r["MaCTPhieuPhat"]),
                     NgayTra = r["NgayTra"] == DBNull.Value ? DateTime.MinValue : Convert.ToDateTime(r["NgayTra"]),
                     tienPhat = Convert.ToInt32(r["TienPhat"]),
+                    LydoPhat = r["lydoPhat"]?.ToString(),
                     TenSach = r["TenSach"]?.ToString(),
                     TenDG = r["TenDG"]?.ToString(),
                     MaDG = Convert.ToInt32(r["MaDG"])
@@ -264,6 +272,10 @@ namespace QuanLyThuVien.DAO
 
 
       
+        /// <summary>
+        /// Lấy tất cả sách đã trả chưa có phiếu phạt
+        /// Hiển thị cả số ngày trễ nếu trả muộn
+        /// </summary>
         public List<PhieuTraViPhamDTO> GetDanhSachViPham()
         {
             const string sql = @"
@@ -274,11 +286,14 @@ namespace QuanLyThuVien.DAO
             ct.MaSach, 
             pt.NgayTra, 
             pm.NgayTraDuKien, 
-            ds.TenDauSach AS TenSach, 
+            ds.TenDauSach AS TenSach,
+            ds.Gia AS GiaSach,
             dg.TENDG AS TenDocGia,
-            
-            dg.MADG  -- <--- QUAN TRỌNG: Phải Select cột này
-            
+            dg.MADG,
+            CASE 
+                WHEN pt.NgayTra > pm.NgayTraDuKien THEN DATEDIFF(pt.NgayTra, pm.NgayTraDuKien)
+                ELSE 0 
+            END AS SoNgayTre
         FROM ctphieu_tra ct
         JOIN phieu_tra pt ON ct.MaPhieuTra = pt.MaPhieuTra
         JOIN phieu_muon pm ON pt.MaPhieuMuon = pm.MaPhieuMuon
@@ -286,8 +301,7 @@ namespace QuanLyThuVien.DAO
         JOIN dau_sach ds ON s.MaDauSach = ds.MaDauSach
         JOIN doc_gia dg ON pm.MaDocGia = dg.MADG
         LEFT JOIN phieu_phat pp_exist ON pp_exist.MaCTPhieuTra = ct.MaCTPhieuTra
-        WHERE (ct.TrangThai IN (2, 3) OR pt.NgayTra > pm.NgayTraDuKien)
-            AND pp_exist.MaPhieuPhat IS NULL
+        WHERE pp_exist.MaPhieuPhat IS NULL
         ORDER BY pt.NgayTra DESC;";
 
             DataTable dt = DataProvider.ExecuteQuery(sql);
@@ -295,27 +309,34 @@ namespace QuanLyThuVien.DAO
 
             foreach (DataRow r in dt.Rows)
             {
-                // ... (các biến ngày tháng giữ nguyên)
                 DateTime ngayTra = Convert.ToDateTime(r["NgayTra"]);
                 DateTime ngayTraDuKien = Convert.ToDateTime(r["NgayTraDuKien"]);
+                int soNgayTre = r["SoNgayTre"] != DBNull.Value ? Convert.ToInt32(r["SoNgayTre"]) : 0;
+                int giaSach = r["GiaSach"] != DBNull.Value ? Convert.ToInt32(r["GiaSach"]) : 0;
 
-                list.Add(new PhieuTraViPhamDTO
+                var item = new PhieuTraViPhamDTO
                 {
                     MaCTPhieuTra = Convert.ToInt32(r["MaCTPhieuTra"]),
                     TrangThai = Convert.ToInt32(r["TrangThai"]),
                     MaPhieuTra = Convert.ToInt32(r["MaPhieuTra"]),
                     MaSach = Convert.ToInt32(r["MaSach"]),
-
-                    // --- GÁN GIÁ TRỊ TỪ DATABASE VÀO DTO ---
                     MaDG = Convert.ToInt32(r["MADG"]),
-                    // ---------------------------------------
-
                     NgayTra = ngayTra,
                     NgayTraDuKien = ngayTraDuKien,
                     TenSach = r["TenSach"]?.ToString(),
                     TenDocGia = r["TenDocGia"]?.ToString(),
-                    QuaHan = (ngayTra > ngayTraDuKien)
-                });
+                    QuaHan = soNgayTre > 0,
+                    GiaSach = giaSach
+                };
+
+                // Tính tiền phạt trễ hạn tự động (5000đ/ngày)
+                if (soNgayTre > 0)
+                {
+                    item.TienPhat = soNgayTre * 5000;
+                    item.LyDo = $"Trả trễ {soNgayTre} ngày";
+                }
+
+                list.Add(item);
             }
             return list;
         }
@@ -338,54 +359,51 @@ namespace QuanLyThuVien.DAO
 
                             foreach (var item in items)
                             {
-                                // -------------------------------------------------------------
-                                // [QUAN TRỌNG] SỬA CÂU SQL TẠI ĐÂY
-                                // Bạn phải thêm cột MaDG vào câu INSERT này
-                                // -------------------------------------------------------------
                                 cmd.Parameters.Clear();
                                 cmd.CommandText = @"INSERT INTO phieu_phat 
                                            (NgayPhat, TrangThai, MaCTPhieuTra, Ngaytra, MaDG) 
                                            VALUES 
-                                           (@NgayPhat, @TrangThai, @MaCTPhieuTra, @NgayTra, @MaDG);"; // <--- Thêm @MaDG
+                                           (@NgayPhat, @TrangThai, @MaCTPhieuTra, @NgayTra, @MaDG);";
 
                                 cmd.Parameters.AddWithValue("@NgayPhat", DateTime.Now.Date);
                                 cmd.Parameters.AddWithValue("@TrangThai", 1);
                                 cmd.Parameters.AddWithValue("@MaCTPhieuTra", item.MaCTPhieuTra);
                                 cmd.Parameters.AddWithValue("@NgayTra", item.NgayTra == DateTime.MinValue ? (object)DBNull.Value : item.NgayTra);
-
-                                // [QUAN TRỌNG] Thêm tham số MaDG lấy từ item
                                 cmd.Parameters.AddWithValue("@MaDG", item.MaDG);
 
                                 cmd.ExecuteNonQuery();
                                 long newPhieuPhatId = cmd.LastInsertedId;
 
-                                // --- PHẦN TÍNH TIỀN PHẠT (GIỮ NGUYÊN) ---
-                                int tienPhat = 0;
-                                if (item.QuaHan) tienPhat += item.SoNgayTre * 5000;
-                                if (item.TrangThai == 2) tienPhat += 50000;
-                                if (item.TrangThai == 3)
+                                // --- PHẦN TÍNH TIỀN PHẠT ---
+                                int tienPhat = item.TienPhat;
+                                if (tienPhat == 0)
                                 {
-                                    // Lấy giá sách để bồi thường (logic cũ của bạn)
-                                    using (MySqlCommand cmdPrice = conn.CreateCommand())
+                                    if (item.QuaHan) tienPhat += item.SoNgayTre * 5000;
+                                    if (item.TrangThai == 2) tienPhat += 50000;
+                                    if (item.TrangThai == 3)
                                     {
-                                        cmdPrice.Transaction = trans;
-                                        cmdPrice.CommandText = "SELECT ds.Gia FROM sach s JOIN dau_sach ds ON s.MaDauSach = ds.MaDauSach WHERE s.MaSach = @MaSach LIMIT 1";
-                                        cmdPrice.Parameters.AddWithValue("@MaSach", item.MaSach);
-                                        object obj = cmdPrice.ExecuteScalar();
-                                        if (obj != null && obj != DBNull.Value)
+                                        using (MySqlCommand cmdPrice = conn.CreateCommand())
                                         {
-                                            int.TryParse(obj.ToString(), out int gia);
-                                            tienPhat += gia;
+                                            cmdPrice.Transaction = trans;
+                                            cmdPrice.CommandText = "SELECT ds.Gia FROM sach s JOIN dau_sach ds ON s.MaDauSach = ds.MaDauSach WHERE s.MaSach = @MaSach LIMIT 1";
+                                            cmdPrice.Parameters.AddWithValue("@MaSach", item.MaSach);
+                                            object obj = cmdPrice.ExecuteScalar();
+                                            if (obj != null && obj != DBNull.Value)
+                                            {
+                                                int.TryParse(obj.ToString(), out int gia);
+                                                tienPhat += gia;
+                                            }
                                         }
                                     }
                                 }
 
-                                // --- INSERT CHI TIẾT PHIẾU PHẠT (GIỮ NGUYÊN) ---
+                                // --- INSERT CHI TIẾT PHIẾU PHẠT VỚI LÝ DO ---
                                 cmd.Parameters.Clear();
-                                cmd.CommandText = "INSERT INTO ctphieu_phat (TienPhat, MaSach, MaPhieuPhat) VALUES (@TienPhat, @MaSach, @MaPhieuPhat);";
+                                cmd.CommandText = "INSERT INTO ctphieu_phat (TienPhat, MaSach, MaPhieuPhat, lydoPhat) VALUES (@TienPhat, @MaSach, @MaPhieuPhat, @LydoPhat);";
                                 cmd.Parameters.AddWithValue("@TienPhat", tienPhat);
                                 cmd.Parameters.AddWithValue("@MaSach", item.MaSach);
                                 cmd.Parameters.AddWithValue("@MaPhieuPhat", newPhieuPhatId);
+                                cmd.Parameters.AddWithValue("@LydoPhat", string.IsNullOrEmpty(item.LyDo) ? (object)DBNull.Value : item.LyDo);
 
                                 cmd.ExecuteNonQuery();
                             }
@@ -397,7 +415,6 @@ namespace QuanLyThuVien.DAO
                     catch (Exception ex)
                     {
                         try { trans.Rollback(); } catch { }
-                        // Hiện lỗi chi tiết để biết sai ở đâu
                         System.Windows.Forms.MessageBox.Show("Lỗi SQL khi lưu: " + ex.Message);
                         return false;
                     }
@@ -426,6 +443,306 @@ namespace QuanLyThuVien.DAO
         }
     }
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

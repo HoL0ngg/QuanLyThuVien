@@ -131,6 +131,7 @@
     <Compile Include="DAO\PhieuTraDAO.cs" />
     <Compile Include="DAO\TacGiaDAO.cs" />
     <Compile Include="DAO\TaiKhoanDAO.cs" />
+    <Compile Include="DTO\ThongKePhieuPhatDTO.cs" />
     <Compile Include="DTO\CTPhieuTraDTO.cs" />
     <Compile Include="DTO\NhanVienDTO.cs" />
     <Compile Include="DTO\PhieuTraViPhamDTO.cs" />
@@ -275,6 +276,12 @@
     <Compile Include="GUI\phieutra\ThemPhieuTra.Designer.cs">
       <DependentUpon>ThemPhieuTra.cs</DependentUpon>
     </Compile>
+    <Compile Include="GUI\ThongKeGUI\BarChartPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\ThongKeGUI\BarChartPanel.Designer.cs">
+      <DependentUpon>BarChartPanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI\ThongKeGUI\UCMain.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -317,6 +324,12 @@
     <Compile Include="GUI\ThongKeGUI\UCThongKeDocGia.Designer.cs">
       <DependentUpon>UCThongKeDocGia.cs</DependentUpon>
     </Compile>
+    <Compile Include="GUI\ThongKeGUI\KPIBox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\ThongKeGUI\KPIBox.Designer.cs">
+      <DependentUpon>KPIBox.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI\WelcomeScreen.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -334,6 +347,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="GUI\ThongKeGUI\BarChartPanel_Demo.md" />
+    <None Include="GUI\ThongKeGUI\BarChartPanel_Usage_Guide.md" />
+    <None Include="GUI\ThongKeGUI\Designer_Visual_Guide.md" />
+    <None Include="GUI\ThongKeGUI\KPIBox_Usage_Guide.md" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -403,6 +420,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\ThongKeGUI\UCMain.resx">
       <DependentUpon>UCMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\ThongKeGUI\UCThongKePhieuPhat.resx">
+      <DependentUpon>UCThongKePhieuPhat.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\ThongKeGUI\UCThongKeSach.resx">
       <DependentUpon>UCThongKeSach.cs</DependentUpon>

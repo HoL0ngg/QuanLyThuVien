@@ -155,8 +155,14 @@ namespace QuanLyThuVien.GUI.ThongKeGUI
             dgvChiTiet.Rows.Clear();
             if (dt == null) return;
 
-            foreach (DataRow row in dt.Rows)
+            // Limit rows to prevent UI freeze
+            int maxRows = 1000;
+            int totalRows = dt.Rows.Count;
+            int displayRows = Math.Min(maxRows, totalRows);
+
+            for (int i = 0; i < displayRows; i++)
             {
+                DataRow row = dt.Rows[i];
                 int maDocGia = Convert.ToInt32(row["MaDocGia"]);
                 string tenDocGia = row["TenDocGia"].ToString();
                 string sdt = row["SDT"].ToString();
@@ -197,6 +203,15 @@ namespace QuanLyThuVien.GUI.ThongKeGUI
                 {
                     dgvRow.Cells["colSachDangGiu"].Style.ForeColor = Color.FromArgb(33, 150, 243);
                 }
+            }
+            
+            // Show message if there are more rows
+            if (totalRows > maxRows)
+            {
+                int rowIndex = dgvChiTiet.Rows.Add("", "", "", "", "", "", "Hiển thị " + maxRows + "/" + totalRows + " bản ghi");
+                DataGridViewRow dgvRow = dgvChiTiet.Rows[rowIndex];
+                dgvRow.DefaultCellStyle.ForeColor = Color.Gray;
+                dgvRow.DefaultCellStyle.Font = new Font("Segoe UI", 9F, FontStyle.Italic);
             }
         }
 

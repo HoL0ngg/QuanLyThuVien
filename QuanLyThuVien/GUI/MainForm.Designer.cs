@@ -602,14 +602,14 @@ namespace QuanLyThuVien.GUI
             // 
             // panelThongKe
             // 
-            this.panelThongKe.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.panelThongKe.BackColor = System.Drawing.Color.White;
             this.panelThongKe.Controls.Add(this.pictureBox7);
             this.panelThongKe.Controls.Add(this.label13);
             this.panelThongKe.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.panelThongKe.Location = new System.Drawing.Point(0, 534);
-            this.panelThongKe.Margin = new System.Windows.Forms.Padding(0);
+            this.panelThongKe.Location = new System.Drawing.Point(11, 719);
+            this.panelThongKe.Margin = new System.Windows.Forms.Padding(0, 4, 0, 12);
             this.panelThongKe.Name = "panelThongKe";
-            this.panelThongKe.Size = new System.Drawing.Size(359, 91);
+            this.panelThongKe.Size = new System.Drawing.Size(427, 84);
             this.panelThongKe.TabIndex = 1;
             this.panelThongKe.Click += new System.EventHandler(this.panelMenu_Click);
             this.panelThongKe.MouseEnter += new System.EventHandler(this.panelMenu_MouseEnter);

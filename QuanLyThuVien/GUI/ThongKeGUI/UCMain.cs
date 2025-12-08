@@ -131,9 +131,9 @@ namespace QuanLyThuVien.GUI.ThongKeGUI
             if (this.btn_tongquan == null) return;
             if (this.dtpTo != null) this.dtpTo.Value = DateTime.Now.Date;
             if (this.dtpFrom != null) this.dtpFrom.Value = DateTime.Now.Date.AddDays(-7);
-            SetupChartPanel(panelTrend, "XU HƯỚNG MƯỢN/TRẢ");
-            SetupChartPanel(panelTop5, "TOP 5 SÁCH VÀ ĐỘC GIẢ");
-            SetupChartPanel(panelCategory, "CƠ CẤU THỂ LOẠI");
+            SetupChartPanel(panelTrend, "📊 XU HƯỚNG MƯỢN/TRẢ");
+            SetupChartPanel(panelTop5, "🏆 TOP 5 SÁCH MƯỢN NHIỀU");
+            SetupChartPanel(panelCategory, "📚 CƠ CẤU THỂ LOẠI");
             BtnGenerate_Click(this, EventArgs.Empty);
         }
 
@@ -148,7 +148,7 @@ namespace QuanLyThuVien.GUI.ThongKeGUI
                 Height = 30,
                 TextAlign = ContentAlignment.MiddleLeft,
                 Font = new Font("Segoe UI", 10F, FontStyle.Bold),
-                ForeColor = Color.FromArgb(117, 117, 117),
+                ForeColor = Color.FromArgb(66, 66, 66),
             };
             var contentPanel = new FlowLayoutPanel
             {
@@ -156,7 +156,8 @@ namespace QuanLyThuVien.GUI.ThongKeGUI
                 AutoScroll = true,
                 FlowDirection = FlowDirection.TopDown,
                 WrapContents = false,
-                Padding = new Padding(0, 5, 0, 0)
+                Padding = new Padding(5),
+                BackColor = Color.FromArgb(250, 250, 250)
             };
             contentPanel.Name = "content_" + p.Name;
             p.Controls.Add(contentPanel);
@@ -169,21 +170,35 @@ namespace QuanLyThuVien.GUI.ThongKeGUI
             {
                 DateTime from = (this.dtpFrom != null) ? this.dtpFrom.Value.Date : DateTime.Now.Date.AddMonths(-1);
                 DateTime to = (this.dtpTo != null) ? this.dtpTo.Value.Date : DateTime.Now.Date;
-                var overview = ThongKeBUS.Instance.GetOverview(from, to);
+                
+                // THAY ĐỔI: Sử dụng method tối ưu - chỉ 1 query thay vì 7 queries
+                var overview = ThongKeBUS.Instance.GetOverviewOptimized(from, to);
+                Console.WriteLine(overview.TongLuotMuon);
                 if (overview != null)
                 {
                     if (kpiBorrow != null) kpiBorrow.Text = overview.TongLuotMuon.ToString("N0");
                     if (kpiBooks != null) kpiBooks.Text = overview.TongSachTrongKho.ToString("N0");
-                    if (kpiOverdue != null) kpiOverdue.Text = overview.SachQuaHan.ToString("N0");
+                    if (kpiOverdue != null) kpiOverdue.Text = overview.SachMatHong.ToString("N0");
                     if (kpiPenalty != null) kpiPenalty.Text = overview.TongThuPhiPhat.ToString("N0") + " đ";
-                    if (lblTotalCount != null) lblTotalCount.Text = $"Số phiếu: {overview.SoPhieuMuon + overview.SoPhieuTra:N0}";
-                    if (lblTotalAmount != null) lblTotalAmount.Text = $"Tổng thu: {overview.TongThuPhiPhat:N0} đ";
-                    if (lblOutstanding != null) lblOutstanding.Text = "Chưa thu: 0 đ";
-                    if (lblUniqueReaders != null) lblUniqueReaders.Text = $"Độc giả liên quan: {overview.SoDocGiaLienQuan:N0}";
+                    
                 }
-                FillTrendPanel();
-                FillTop5Panel();
-                FillCategoryPanel();
+                
+                // Đợi layout hoàn tất trước khi fill charts
+                if (this.IsHandleCreated)
+                {
+                    this.BeginInvoke(new Action(() =>
+                    {
+                        FillTrendPanel();
+                        FillTop5Panel();
+                        FillCategoryPanel();
+                    }));
+                }
+                else
+                {
+                    FillTrendPanel();
+                    FillTop5Panel();
+                    FillCategoryPanel();
+                }
             }
             catch (Exception ex)
             {
@@ -197,8 +212,126 @@ namespace QuanLyThuVien.GUI.ThongKeGUI
             var content = panelTrend.Controls.Find("content_panelTrend", false).FirstOrDefault() as FlowLayoutPanel;
             if (content == null) return;
             content.Controls.Clear();
-            var data = new[] { "Tháng 1: 45 mượn / 40 trả", "Tháng 2: 52 mượn / 48 trả", "Tháng 3: 38 mượn / 35 trả" };
-            foreach (var item in data) content.Controls.Add(CreateDataLabel(item, Color.FromArgb(33, 150, 243)));
+
+            // THAY ĐỔI: Lấy tất cả 12 tháng trong 1 query duy nhất thay vì 12 queries riêng biệt
+            List<ThongKeOverviewDTO> trendData = ThongKeBUS.Instance.GetTrendAll12Months();
+            
+            var items = new List<(string Label, int Muon, int Tra)>();
+            for (int i = 0; i < 12; i++)
+            {
+                items.Add((
+                    "Tháng " + (i + 1),
+                    trendData[i].TongMuon,
+                    trendData[i].TongTra
+                ));
+            }
+
+            int maxValue = items.Max(x => Math.Max(x.Muon, x.Tra));
+            if (maxValue == 0) maxValue = 1;
+
+            // Tính containerWidth từ panelTrend trừ padding, đảm bảo luôn có giá trị hợp lệ
+            int containerWidth = panelTrend.Width - panelTrend.Padding.Horizontal - 10;
+            if (containerWidth < 200) containerWidth = 280;
+
+            foreach (var item in items)
+            {
+                var card = CreateTrendBarCard(item.Label, item.Muon, item.Tra, maxValue, containerWidth);
+                content.Controls.Add(card);
+            }
+        }
+
+        private Panel CreateTrendBarCard(string label, int muon, int tra, int maxValue, int containerWidth)
+        {
+            int panelWidth = containerWidth - 30;
+            if (panelWidth < 200) panelWidth = 400;
+
+            var card = new Panel
+            {
+                Size = new Size(panelWidth, 50),
+                Margin = new Padding(2),
+                BackColor = Color.Transparent
+            };
+
+            int labelWidth = 80;
+            int valueWidth = 80;
+            int barStartX = labelWidth + 5;
+            int barMaxWidth = (panelWidth - labelWidth - valueWidth - 20) / 2;
+
+            var lblName = new Label
+            {
+                Text = label,
+                Location = new Point(0, 15),
+                Size = new Size(labelWidth, 20),
+                Font = new Font("Segoe UI", 9F),
+                ForeColor = Color.FromArgb(33, 33, 33),
+                TextAlign = ContentAlignment.MiddleLeft
+            };
+
+            // Bar mượn
+            double percentMuon = maxValue > 0 ? (double)muon / maxValue : 0;
+            int barWidthMuon = (int)(barMaxWidth * percentMuon);
+            if (barWidthMuon < 2 && muon > 0) barWidthMuon = 2;
+
+            var pnlBarBgMuon = new Panel
+            {
+                Location = new Point(barStartX, 5),
+                Size = new Size(barMaxWidth, 16),
+                BackColor = Color.FromArgb(230, 230, 230)
+            };
+            var pnlBarMuon = new Panel
+            {
+                Location = new Point(0, 0),
+                Size = new Size(barWidthMuon, 16),
+                BackColor = Color.FromArgb(33, 150, 243)
+            };
+            pnlBarBgMuon.Controls.Add(pnlBarMuon);
+
+            var lblMuon = new Label
+            {
+                Text = muon.ToString("N0") + " mượn",
+                Location = new Point(barStartX + barMaxWidth + 5, 5),
+                Size = new Size(valueWidth, 16),
+                Font = new Font("Segoe UI", 8F, FontStyle.Bold),
+                ForeColor = Color.FromArgb(33, 150, 243),
+                TextAlign = ContentAlignment.MiddleLeft
+            };
+
+            // Bar trả
+            double percentTra = maxValue > 0 ? (double)tra / maxValue : 0;
+            int barWidthTra = (int)(barMaxWidth * percentTra);
+            if (barWidthTra < 2 && tra > 0) barWidthTra = 2;
+
+            var pnlBarBgTra = new Panel
+            {
+                Location = new Point(barStartX, 28),
+                Size = new Size(barMaxWidth, 16),
+                BackColor = Color.FromArgb(230, 230, 230)
+            };
+            var pnlBarTra = new Panel
+            {
+                Location = new Point(0, 0),
+                Size = new Size(barWidthTra, 16),
+                BackColor = Color.FromArgb(76, 175, 80)
+            };
+            pnlBarBgTra.Controls.Add(pnlBarTra);
+
+            var lblTra = new Label
+            {
+                Text = tra.ToString("N0") + " trả",
+                Location = new Point(barStartX + barMaxWidth + 5, 28),
+                Size = new Size(valueWidth, 16),
+                Font = new Font("Segoe UI", 8F, FontStyle.Bold),
+                ForeColor = Color.FromArgb(76, 175, 80),
+                TextAlign = ContentAlignment.MiddleLeft
+            };
+
+            card.Controls.Add(lblName);
+            card.Controls.Add(pnlBarBgMuon);
+            card.Controls.Add(lblMuon);
+            card.Controls.Add(pnlBarBgTra);
+            card.Controls.Add(lblTra);
+
+            return card;
         }
 
         private void FillTop5Panel()
@@ -207,30 +340,122 @@ namespace QuanLyThuVien.GUI.ThongKeGUI
             var content = panelTop5.Controls.Find("content_panelTop5", false).FirstOrDefault() as FlowLayoutPanel;
             if (content == null) return;
             content.Controls.Clear();
-            var books = new[] { ("Harry Potter", 25), ("Doraemon", 20), ("Tuổi Thơ Dữ Dội", 18), ("Nhà Giả Kim", 15), ("Đắc Nhân Tâm", 12) };
-            foreach (var b in books) content.Controls.Add(CreateDataLabel($"{b.Item1}: {b.Item2} lượt", Color.FromArgb(76, 175, 80)));
-        }
+            List<ThongKeOverviewDTO> bus = ThongKeBUS.Instance.GetTop5SachMuon();
+            var items = new List<(string Label, int Value, Color BarColor)>
+            {
+                ( bus[0].TenDauSach, bus[0].SoLanMuon, Color.FromArgb(255, 193, 7)),
+                ( bus[1].TenDauSach, bus[1].SoLanMuon, Color.FromArgb(158, 158, 158)),
+                ( bus[2].TenDauSach, bus[2].SoLanMuon, Color.FromArgb(205, 127, 50)),
+                ( bus[3].TenDauSach, bus[3].SoLanMuon, Color.FromArgb(33, 150, 243)),
+                ( bus[4].TenDauSach, bus[4].SoLanMuon, Color.FromArgb(33, 150, 243))
+            };
 
+            int maxValue = items.Max(x => x.Value);
+            if (maxValue == 0) maxValue = 1;
+
+            // Tính containerWidth từ panelTop5 trừ padding, đảm bảo luôn có giá trị hợp lệ
+            int containerWidth = panelTop5.Width - panelTop5.Padding.Horizontal - 10;
+            if (containerWidth < 200) containerWidth = 280;
+
+            foreach (var item in items)
+            {
+                var card = CreateBarCard(item.Label, item.Value, maxValue, item.BarColor, "lượt mượn", containerWidth);
+                content.Controls.Add(card);
+            }
+        }
+        // biểu đồ 
         private void FillCategoryPanel()
         {
             if (panelCategory == null) return;
             var content = panelCategory.Controls.Find("content_panelCategory", false).FirstOrDefault() as FlowLayoutPanel;
             if (content == null) return;
             content.Controls.Clear();
-            var cats = new[] { ("Văn học", 30), ("Thiếu nhi", 25), ("Khoa học", 20), ("Lịch sử", 15), ("Khác", 10) };
-            foreach (var c in cats) content.Controls.Add(CreateDataLabel($"{c.Item1}: {c.Item2}%", Color.FromArgb(255, 152, 0)));
+            List<ThongKeOverviewDTO> bus = ThongKeBUS.Instance.GetTop5TheLoai();
+            var items = new List<(string Label, int Value, Color BarColor)>
+            {
+                (bus[0].TenTheLoai, bus[0].SoLanMuon, Color.FromArgb(33, 150, 243)),
+                (bus[1].TenTheLoai, bus[1].SoLanMuon, Color.FromArgb(156, 39, 176)),
+                (bus[2].TenTheLoai, bus[2].SoLanMuon, Color.FromArgb(76, 175, 80)),
+                (bus[3].TenTheLoai, bus[3].SoLanMuon, Color.FromArgb(255, 152, 0)),
+                (bus[4].TenTheLoai, bus[4].SoLanMuon, Color.FromArgb(158, 158, 158))
+            };
+
+            int maxValue = items.Max(x => x.Value);
+            if (maxValue == 0) maxValue = 1;
+
+            // Tính containerWidth từ panelCategory trừ padding, đảm bảo luôn có giá trị hợp lệ
+            int containerWidth = panelCategory.Width - panelCategory.Padding.Horizontal - 10;
+            if (containerWidth < 200) containerWidth = 280;
+
+            foreach (var item in items)
+            {
+                var card = CreateBarCard(item.Label, item.Value, maxValue, item.BarColor, "Lượt Mượn", containerWidth);
+                content.Controls.Add(card);
+            }
         }
 
-        private Label CreateDataLabel(string text, Color bulletColor)
+        private Panel CreateBarCard(string label, int value, int maxValue, Color barColor, string unit, int containerWidth)
         {
-            return new Label
+            int panelWidth = containerWidth - 30;
+            if (panelWidth < 200) panelWidth = 300;
+
+            var card = new Panel
             {
-                Text = "● " + text,
-                AutoSize = true,
-                Font = new Font("Segoe UI", 10F),
-                ForeColor = Color.FromArgb(66, 66, 66),
-                Margin = new Padding(0, 4, 0, 4)
+                Size = new Size(panelWidth, 32),
+                Margin = new Padding(2),
+                BackColor = Color.Transparent
             };
+
+            int labelWidth = 100;
+            int valueWidth = 90; // Tăng để hiển thị "lượt mượn"
+            int barStartX = labelWidth + 5;
+            int barMaxWidth = panelWidth - labelWidth - valueWidth - 20;
+            if (barMaxWidth < 50) barMaxWidth = 80;
+
+            var lblName = new Label
+            {
+                Text = label,
+                Location = new Point(0, 6),
+                Size = new Size(labelWidth, 20),
+                Font = new Font("Segoe UI", 9F),
+                ForeColor = Color.FromArgb(33, 33, 33),
+                TextAlign = ContentAlignment.MiddleLeft
+            };
+
+            double percent = maxValue > 0 ? (double)value / maxValue : 0;
+            int barWidth = (int)(barMaxWidth * percent);
+            if (barWidth < 2 && value > 0) barWidth = 2;
+
+            var pnlBarBg = new Panel
+            {
+                Location = new Point(barStartX, 8),
+                Size = new Size(barMaxWidth, 16),
+                BackColor = Color.FromArgb(230, 230, 230)
+            };
+
+            var pnlBar = new Panel
+            {
+                Location = new Point(0, 0),
+                Size = new Size(barWidth, 16),
+                BackColor = barColor
+            };
+            pnlBarBg.Controls.Add(pnlBar);
+
+            var lblValue = new Label
+            {
+                Text = value.ToString("N0") + " " + unit,
+                Location = new Point(barStartX + barMaxWidth + 5, 6),
+                Size = new Size(valueWidth, 20),
+                Font = new Font("Segoe UI", 9F, FontStyle.Bold),
+                ForeColor = barColor,
+                TextAlign = ContentAlignment.MiddleLeft
+            };
+
+            card.Controls.Add(lblName);
+            card.Controls.Add(pnlBarBg);
+            card.Controls.Add(lblValue);
+
+            return card;
         }
 
         private void UCMain_Load(object sender, EventArgs e)
@@ -274,6 +499,26 @@ namespace QuanLyThuVien.GUI.ThongKeGUI
             dtpFrom.Value = new DateTime(now.Year, 1, 1);
             dtpTo.Value = new DateTime(now.Year, 12, 31);
             BtnGenerate_Click(this, EventArgs.Empty);
+        }
+
+        private void lblKpi1Title_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void kpiBorrow_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void kpiBooks_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dtpFrom_ValueChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

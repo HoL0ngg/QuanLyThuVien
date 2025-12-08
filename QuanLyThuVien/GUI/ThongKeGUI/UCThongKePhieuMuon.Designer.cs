@@ -88,8 +88,8 @@
             this.panelKPI.Name = "panelKPI";
             this.panelKPI.Padding = new System.Windows.Forms.Padding(5);
             this.panelKPI.RowCount = 1;
-            this.panelKPI.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 100F));
-            this.panelKPI.Size = new System.Drawing.Size(1180, 110);
+            this.panelKPI.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.panelKPI.Size = new System.Drawing.Size(1180, 130);
             this.panelKPI.TabIndex = 0;
             // 
             // pnlKpi1
@@ -102,7 +102,7 @@
             this.pnlKpi1.Margin = new System.Windows.Forms.Padding(8);
             this.pnlKpi1.Name = "pnlKpi1";
             this.pnlKpi1.Padding = new System.Windows.Forms.Padding(12);
-            this.pnlKpi1.Size = new System.Drawing.Size(276, 84);
+            this.pnlKpi1.Size = new System.Drawing.Size(276, 104);
             this.pnlKpi1.TabIndex = 0;
             // 
             // lblTongPhieu
@@ -110,9 +110,9 @@
             this.lblTongPhieu.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblTongPhieu.Font = new System.Drawing.Font("Segoe UI", 28F, System.Drawing.FontStyle.Bold);
             this.lblTongPhieu.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
-            this.lblTongPhieu.Location = new System.Drawing.Point(12, 34);
+            this.lblTongPhieu.Location = new System.Drawing.Point(12, 37);
             this.lblTongPhieu.Name = "lblTongPhieu";
-            this.lblTongPhieu.Size = new System.Drawing.Size(252, 38);
+            this.lblTongPhieu.Size = new System.Drawing.Size(252, 55);
             this.lblTongPhieu.TabIndex = 0;
             this.lblTongPhieu.Text = "0";
             this.lblTongPhieu.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -124,7 +124,7 @@
             this.lblKpi1Title.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(117)))), ((int)(((byte)(117)))), ((int)(((byte)(117)))));
             this.lblKpi1Title.Location = new System.Drawing.Point(12, 12);
             this.lblKpi1Title.Name = "lblKpi1Title";
-            this.lblKpi1Title.Size = new System.Drawing.Size(252, 22);
+            this.lblKpi1Title.Size = new System.Drawing.Size(252, 25);
             this.lblKpi1Title.TabIndex = 1;
             this.lblKpi1Title.Text = "TỔNG SỐ PHIẾU MƯỢN";
             // 
@@ -138,7 +138,7 @@
             this.pnlKpi2.Margin = new System.Windows.Forms.Padding(8);
             this.pnlKpi2.Name = "pnlKpi2";
             this.pnlKpi2.Padding = new System.Windows.Forms.Padding(12);
-            this.pnlKpi2.Size = new System.Drawing.Size(276, 84);
+            this.pnlKpi2.Size = new System.Drawing.Size(276, 104);
             this.pnlKpi2.TabIndex = 1;
             // 
             // lblTongLuotSach
@@ -146,9 +146,9 @@
             this.lblTongLuotSach.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblTongLuotSach.Font = new System.Drawing.Font("Segoe UI", 28F, System.Drawing.FontStyle.Bold);
             this.lblTongLuotSach.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
-            this.lblTongLuotSach.Location = new System.Drawing.Point(12, 34);
+            this.lblTongLuotSach.Location = new System.Drawing.Point(12, 37);
             this.lblTongLuotSach.Name = "lblTongLuotSach";
-            this.lblTongLuotSach.Size = new System.Drawing.Size(252, 38);
+            this.lblTongLuotSach.Size = new System.Drawing.Size(252, 55);
             this.lblTongLuotSach.TabIndex = 0;
             this.lblTongLuotSach.Text = "0";
             this.lblTongLuotSach.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -160,7 +160,7 @@
             this.lblKpi2Title.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(117)))), ((int)(((byte)(117)))), ((int)(((byte)(117)))));
             this.lblKpi2Title.Location = new System.Drawing.Point(12, 12);
             this.lblKpi2Title.Name = "lblKpi2Title";
-            this.lblKpi2Title.Size = new System.Drawing.Size(252, 22);
+            this.lblKpi2Title.Size = new System.Drawing.Size(252, 25);
             this.lblKpi2Title.TabIndex = 1;
             this.lblKpi2Title.Text = "TỔNG LƯỢT SÁCH MƯỢN";
             // 
@@ -174,7 +174,7 @@
             this.pnlKpi3.Margin = new System.Windows.Forms.Padding(8);
             this.pnlKpi3.Name = "pnlKpi3";
             this.pnlKpi3.Padding = new System.Windows.Forms.Padding(12);
-            this.pnlKpi3.Size = new System.Drawing.Size(276, 84);
+            this.pnlKpi3.Size = new System.Drawing.Size(276, 104);
             this.pnlKpi3.TabIndex = 2;
             // 
             // lblDaTraHoanTat
@@ -182,9 +182,9 @@
             this.lblDaTraHoanTat.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblDaTraHoanTat.Font = new System.Drawing.Font("Segoe UI", 28F, System.Drawing.FontStyle.Bold);
             this.lblDaTraHoanTat.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(175)))), ((int)(((byte)(80)))));
-            this.lblDaTraHoanTat.Location = new System.Drawing.Point(12, 34);
+            this.lblDaTraHoanTat.Location = new System.Drawing.Point(12, 37);
             this.lblDaTraHoanTat.Name = "lblDaTraHoanTat";
-            this.lblDaTraHoanTat.Size = new System.Drawing.Size(252, 38);
+            this.lblDaTraHoanTat.Size = new System.Drawing.Size(252, 55);
             this.lblDaTraHoanTat.TabIndex = 0;
             this.lblDaTraHoanTat.Text = "0";
             this.lblDaTraHoanTat.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -194,9 +194,10 @@
             this.lblKpi3Title.Dock = System.Windows.Forms.DockStyle.Top;
             this.lblKpi3Title.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.lblKpi3Title.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(117)))), ((int)(((byte)(117)))), ((int)(((byte)(117)))));
+
             this.lblKpi3Title.Location = new System.Drawing.Point(12, 12);
             this.lblKpi3Title.Name = "lblKpi3Title";
-            this.lblKpi3Title.Size = new System.Drawing.Size(252, 22);
+            this.lblKpi3Title.Size = new System.Drawing.Size(252, 25);
             this.lblKpi3Title.TabIndex = 1;
             this.lblKpi3Title.Text = "PHIẾU ĐÃ TRẢ HOÀN TẤT";
             // 
@@ -210,7 +211,7 @@
             this.pnlKpi4.Margin = new System.Windows.Forms.Padding(8);
             this.pnlKpi4.Name = "pnlKpi4";
             this.pnlKpi4.Padding = new System.Windows.Forms.Padding(12);
-            this.pnlKpi4.Size = new System.Drawing.Size(278, 84);
+            this.pnlKpi4.Size = new System.Drawing.Size(278, 104);
             this.pnlKpi4.TabIndex = 3;
             // 
             // lblDangMoQuaHan
@@ -218,9 +219,9 @@
             this.lblDangMoQuaHan.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblDangMoQuaHan.Font = new System.Drawing.Font("Segoe UI", 28F, System.Drawing.FontStyle.Bold);
             this.lblDangMoQuaHan.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(152)))), ((int)(((byte)(0)))));
-            this.lblDangMoQuaHan.Location = new System.Drawing.Point(12, 34);
+            this.lblDangMoQuaHan.Location = new System.Drawing.Point(12, 37);
             this.lblDangMoQuaHan.Name = "lblDangMoQuaHan";
-            this.lblDangMoQuaHan.Size = new System.Drawing.Size(254, 38);
+            this.lblDangMoQuaHan.Size = new System.Drawing.Size(254, 55);
             this.lblDangMoQuaHan.TabIndex = 0;
             this.lblDangMoQuaHan.Text = "0";
             this.lblDangMoQuaHan.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -232,7 +233,7 @@
             this.lblKpi4Title.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(117)))), ((int)(((byte)(117)))), ((int)(((byte)(117)))));
             this.lblKpi4Title.Location = new System.Drawing.Point(12, 12);
             this.lblKpi4Title.Name = "lblKpi4Title";
-            this.lblKpi4Title.Size = new System.Drawing.Size(254, 22);
+            this.lblKpi4Title.Size = new System.Drawing.Size(254, 25);
             this.lblKpi4Title.TabIndex = 1;
             this.lblKpi4Title.Text = "PHIẾU ĐANG MỞ/QUÁ HẠN";
             // 
@@ -244,7 +245,7 @@
             this.panelCharts.Controls.Add(this.panelTrend, 0, 0);
             this.panelCharts.Controls.Add(this.panelTyLe, 1, 0);
             this.panelCharts.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelCharts.Location = new System.Drawing.Point(10, 120);
+            this.panelCharts.Location = new System.Drawing.Point(10, 140);
             this.panelCharts.Name = "panelCharts";
             this.panelCharts.Padding = new System.Windows.Forms.Padding(5);
             this.panelCharts.RowCount = 1;
@@ -339,7 +340,7 @@
             this.panelSearch.Controls.Add(this.btnSearch);
             this.panelSearch.Controls.Add(this.btnRefresh);
             this.panelSearch.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelSearch.Location = new System.Drawing.Point(10, 330);
+            this.panelSearch.Location = new System.Drawing.Point(10, 350);
             this.panelSearch.Name = "panelSearch";
             this.panelSearch.Padding = new System.Windows.Forms.Padding(10);
             this.panelSearch.Size = new System.Drawing.Size(1180, 50);
@@ -449,7 +450,7 @@
             this.panelTable.BackColor = System.Drawing.Color.White;
             this.panelTable.Controls.Add(this.dgvChiTiet);
             this.panelTable.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelTable.Location = new System.Drawing.Point(10, 380);
+            this.panelTable.Location = new System.Drawing.Point(10, 400);
             this.panelTable.Name = "panelTable";
             this.panelTable.Padding = new System.Windows.Forms.Padding(10);
             this.panelTable.Size = new System.Drawing.Size(1180, 410);
