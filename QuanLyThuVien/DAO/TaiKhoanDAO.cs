@@ -10,37 +10,42 @@ namespace QuanLyThuVien.DAO
     {
         public TaiKhoanDTO KiemTraDangNhap(string username, string password)
         {
-            // 1. Sửa truy vấn: JOIN với bảng nhom_quyen để lấy TenNhomQuyen (Chức vụ)
+            // Sửa truy vấn: JOIN với bảng nhom_quyen và kiểm tra TrangThai
             string query = @"
-                            SELECT 
-                                nv.*, 
-                                nq.TENNQ
-                            FROM 
-                                nhan_vien nv 
-                            JOIN 
-                                nhom_quyen nq ON nv.MaNhomQuyen = nq.MANQ
-                            WHERE 
-                                nv.TenDangNhap = @u AND nv.MatKhau = @p";
+                SELECT 
+                    nv.*, 
+                    nq.TENNQ
+                FROM 
+                    nhan_vien nv 
+                JOIN 
+                    nhom_quyen nq ON nv.MaNhomQuyen = nq.MANQ
+                WHERE 
+                    nv.TenDangNhap = @u AND nv.MatKhau = @p";
 
             var parameters = new Dictionary<string, object>
-                            {
-                                {"@u", username},
-                                {"@p", password}
-                            };
+            {
+                {"@u", username},
+                {"@p", password}
+            };
 
             DataTable dt = DataProvider.ExecuteQuery(query, parameters);
 
             if (dt.Rows.Count > 0)
             {
                 DataRow row = dt.Rows[0];
+                
+                // Kiểm tra trạng thái nhân viên
+                int trangThai = Convert.ToInt32(row["TrangThai"]);
+                
                 return new TaiKhoanDTO
                 {
                     TenNhanVien = row["TENNV"].ToString(),
                     TenDangNhap = row["TenDangNhap"].ToString(),
-                    MaNV = int.Parse(row["MaNV"].ToString()),
+                    MaNV = Convert.ToInt32(row["MaNV"]),
                     MatKhau = row["MatKhau"].ToString(),
                     ChucVu = row["TENNQ"].ToString(),
-                    MaNhomQuyen = int.Parse(row["MaNhomQuyen"].ToString())
+                    MaNhomQuyen = Convert.ToInt32(row["MaNhomQuyen"]),
+                    TrangThai = trangThai  // Thêm trạng thái
                 };
             }
 

@@ -1,4 +1,4 @@
-using QuanLyThuVien.DTO;
+﻿using QuanLyThuVien.DTO;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -22,7 +22,7 @@ namespace QuanLyThuVien.DAO
         private NhomQuyenDAO() { }
 
         /// <summary>
-        /// L?y t?t c? nh�m quy?n
+        /// Lấy tất cả nhóm quyền
         /// </summary>
         public List<NhomQuyenDTO> GetAllNhomQuyen()
         {
@@ -44,7 +44,7 @@ namespace QuanLyThuVien.DAO
         }
 
         /// <summary>
-        /// L?y t?t c? ch?c n?ng
+        /// Lấy tất cả chức năng
         /// </summary>
         public List<ChucNangDTO> GetAllChucNang()
         {
@@ -66,13 +66,12 @@ namespace QuanLyThuVien.DAO
         }
 
         /// <summary>
-        /// L?y quy?n c?a m?t nh�m quy?n tr�n t?t c? ch?c n?ng
+        /// Lấy quyền của một nhóm quyền trên tất cả chức năng
         /// </summary>
         public List<QuyenChucNangDTO> GetQuyenByNhomQuyen(int maNhomQuyen)
         {
             List<QuyenChucNangDTO> list = new List<QuyenChucNangDTO>();
 
-            // L?y t?t c? ch?c n?ng tr??c
             var danhSachChucNang = GetAllChucNang();
 
             foreach (var cn in danhSachChucNang)
@@ -88,7 +87,6 @@ namespace QuanLyThuVien.DAO
                     QuyenXoa = false
                 };
 
-                // Ki?m tra t?ng h�nh ??ng
                 string queryCheck = @"SELECT HanhDong FROM chucnang_nhomquyen 
                                       WHERE MaNhomQuyen = @MaNQ AND MaChucNang = @MaCN";
                 var parameters = new Dictionary<string, object>
@@ -118,7 +116,7 @@ namespace QuanLyThuVien.DAO
         }
 
         /// <summary>
-        /// C?p nh?t quy?n cho m?t nh�m quy?n tr�n m?t ch?c n?ng
+        /// Cập nhật quyền cho một nhóm quyền trên một chức năng
         /// </summary>
         public bool UpdateQuyen(int maNhomQuyen, int maChucNang, string hanhDong, bool coQuyen)
         {
@@ -131,23 +129,20 @@ namespace QuanLyThuVien.DAO
 
             if (coQuyen)
             {
-                // Ki?m tra xem ?� c� ch?a
                 string checkQuery = @"SELECT COUNT(*) FROM chucnang_nhomquyen 
                                       WHERE MaNhomQuyen = @MaNQ AND MaChucNang = @MaCN AND HanhDong = @HanhDong";
                 int count = Convert.ToInt32(DataProvider.ExecuteScalar(checkQuery, parameters));
 
                 if (count == 0)
                 {
-                    // Th�m m?i
                     string insertQuery = @"INSERT INTO chucnang_nhomquyen (MaNhomQuyen, MaChucNang, HanhDong) 
                                            VALUES (@MaNQ, @MaCN, @HanhDong)";
                     return DataProvider.ExecuteNonQuery(insertQuery, parameters) > 0;
                 }
-                return true; // ?� c� r?i
+                return true;
             }
             else
             {
-                // X�a quy?n
                 string deleteQuery = @"DELETE FROM chucnang_nhomquyen 
                                        WHERE MaNhomQuyen = @MaNQ AND MaChucNang = @MaCN AND HanhDong = @HanhDong";
                 DataProvider.ExecuteNonQuery(deleteQuery, parameters);
@@ -156,7 +151,7 @@ namespace QuanLyThuVien.DAO
         }
 
         /// <summary>
-        /// C?p nh?t t?t c? quy?n cho m?t nh�m quy?n tr�n m?t ch?c n?ng
+        /// Cập nhật tất cả quyền cho một nhóm quyền trên một chức năng
         /// </summary>
         public bool UpdateQuyenChucNang(QuyenChucNangDTO quyen)
         {
@@ -175,7 +170,7 @@ namespace QuanLyThuVien.DAO
         }
 
         /// <summary>
-        /// Th�m nh�m quy?n m?i
+        /// Thêm nhóm quyền mới
         /// </summary>
         public int InsertNhomQuyen(string tenNhomQuyen)
         {
@@ -189,7 +184,6 @@ namespace QuanLyThuVien.DAO
             
             if (result > 0)
             {
-                // L?y ID v?a insert
                 object lastId = DataProvider.ExecuteScalar("SELECT LAST_INSERT_ID()", null);
                 return Convert.ToInt32(lastId);
             }
@@ -198,18 +192,16 @@ namespace QuanLyThuVien.DAO
         }
 
         /// <summary>
-        /// X�a nh�m quy?n v� t?t c? quy?n li�n quan
+        /// Xóa nhóm quyền và tất cả quyền liên quan
         /// </summary>
         public bool DeleteNhomQuyen(int maNhomQuyen)
         {
             try
             {
-                // X�a t?t c? quy?n trong b?ng chucnang_nhomquyen tr??c
                 string deleteQuyen = "DELETE FROM chucnang_nhomquyen WHERE MaNhomQuyen = @MaNQ";
                 var param1 = new Dictionary<string, object> { { "@MaNQ", maNhomQuyen } };
                 DataProvider.ExecuteNonQuery(deleteQuyen, param1);
 
-                // X�a nh�m quy?n
                 string deleteNhom = "DELETE FROM nhom_quyen WHERE MANQ = @MaNQ";
                 return DataProvider.ExecuteNonQuery(deleteNhom, param1) > 0;
             }
@@ -220,7 +212,7 @@ namespace QuanLyThuVien.DAO
         }
 
         /// <summary>
-        /// L?y nh�m quy?n theo m�
+        /// Lấy nhóm quyền theo mã
         /// </summary>
         public NhomQuyenDTO GetNhomQuyenById(int maNhomQuyen)
         {
@@ -241,7 +233,6 @@ namespace QuanLyThuVien.DAO
                     TenNhomQuyen = row["TENNQ"].ToString()
                 };
 
-                // L?y danh s�ch quy?n
                 nhomQuyen.DanhSachQuyen = GetQuyenByNhomQuyen(maNhomQuyen);
 
                 return nhomQuyen;
@@ -251,20 +242,25 @@ namespace QuanLyThuVien.DAO
         }
 
         /// <summary>
-        /// Ki?m tra quy?n c?a m?t nh�m quy?n tr�n m?t ch?c n?ng
+        /// Kiểm tra quyền của một nhóm quyền trên một chức năng
+        /// Hỗ trợ tìm kiếm linh hoạt (LIKE) để tránh lỗi do tên không khớp chính xác
         /// </summary>
         public bool KiemTraQuyen(int maNhomQuyen, string tenChucNang, string hanhDong)
         {
+            // Chuẩn hóa tên chức năng: bỏ dấu cách, chuyển thường
+            string tenCNPattern = "%" + tenChucNang.Replace(" ", "%") + "%";
+            
             string query = @"SELECT COUNT(*) FROM chucnang_nhomquyen cnq
                              JOIN chuc_nang cn ON cnq.MaChucNang = cn.MACN
                              WHERE cnq.MaNhomQuyen = @MaNQ 
-                             AND cn.TENCN = @TenCN 
+                             AND (cn.TENCN = @TenCN OR cn.TENCN LIKE @TenCNPattern)
                              AND cnq.HanhDong = @HanhDong";
 
             var parameters = new Dictionary<string, object>
             {
                 { "@MaNQ", maNhomQuyen },
                 { "@TenCN", tenChucNang },
+                { "@TenCNPattern", tenCNPattern },
                 { "@HanhDong", hanhDong.ToUpper() }
             };
 
@@ -273,19 +269,24 @@ namespace QuanLyThuVien.DAO
         }
 
         /// <summary>
-        /// Ki?m tra c� �t nh?t 1 quy?n tr�n ch?c n?ng kh�ng
+        /// Kiểm tra có ít nhất 1 quyền trên chức năng không
+        /// Hỗ trợ tìm kiếm linh hoạt (LIKE) để tránh lỗi do tên không khớp chính xác
         /// </summary>
         public bool CoItNhatMotQuyen(int maNhomQuyen, string tenChucNang)
         {
+            // Chuẩn hóa tên chức năng: bỏ dấu cách, chuyển thường
+            string tenCNPattern = "%" + tenChucNang.Replace(" ", "%") + "%";
+            
             string query = @"SELECT COUNT(*) FROM chucnang_nhomquyen cnq
                              JOIN chuc_nang cn ON cnq.MaChucNang = cn.MACN
                              WHERE cnq.MaNhomQuyen = @MaNQ 
-                             AND cn.TENCN = @TenCN";
+                             AND (cn.TENCN = @TenCN OR cn.TENCN LIKE @TenCNPattern)";
 
             var parameters = new Dictionary<string, object>
             {
                 { "@MaNQ", maNhomQuyen },
-                { "@TenCN", tenChucNang }
+                { "@TenCN", tenChucNang },
+                { "@TenCNPattern", tenCNPattern }
             };
 
             int count = Convert.ToInt32(DataProvider.ExecuteScalar(query, parameters));

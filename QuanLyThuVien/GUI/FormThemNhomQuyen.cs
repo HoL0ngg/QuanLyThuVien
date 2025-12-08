@@ -1,4 +1,4 @@
-using QuanLyThuVien.BUS;
+Ôªøusing QuanLyThuVien.BUS;
 using QuanLyThuVien.DTO;
 using System;
 using System.Drawing;
@@ -19,7 +19,7 @@ namespace QuanLyThuVien.GUI
             {
                 if (string.IsNullOrWhiteSpace(txtTenNhomQuyen.Text))
                 {
-                    MessageBox.Show("Vui lÚng nh?p tÍn nhÛm quy?n!", "ThÙng b·o",
+                    MessageBox.Show("Vui l√≤ng nh·∫≠p t√™n nh√≥m quy·ªÅn!", "Th√¥ng b√°o",
                         MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     txtTenNhomQuyen.Focus();
                     return;
@@ -29,20 +29,20 @@ namespace QuanLyThuVien.GUI
 
                 if (maNhomQuyen > 0)
                 {
-                    MessageBox.Show("ThÍm nhÛm quy?n th‡nh cÙng!", "ThÙng b·o",
+                    MessageBox.Show("Th√™m nh√≥m quy·ªÅn th√†nh c√¥ng!", "Th√¥ng b√°o",
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
                     this.DialogResult = DialogResult.OK;
                     this.Close();
                 }
                 else
                 {
-                    MessageBox.Show("ThÍm nhÛm quy?n th?t b?i!", "L?i",
+                    MessageBox.Show("Th√™m nh√≥m quy·ªÅn th·∫•t b·∫°i!", "L?i",
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("L?i: " + ex.Message, "L?i",
+                MessageBox.Show("L·ªói: " + ex.Message, "L·ªói",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }

@@ -486,35 +486,35 @@ namespace QuanLyThuVien.GUI
             // Tên chức năng phải khớp với TENCN trong bảng chuc_nang
             
             // Phiếu Nhập
-            if (!NhomQuyenBUS.Instance.CoItNhatMotQuyen(maNhomQuyen, "Phieu Nhap"))
+            if (!NhomQuyenBUS.Instance.CoItNhatMotQuyen(maNhomQuyen, "Phiếu Nhập"))
                 panelPhieuNhap.Visible = false;
 
             // Phiếu Mượn
-            if (!NhomQuyenBUS.Instance.CoItNhatMotQuyen(maNhomQuyen, "Phieu Muon"))
+            if (!NhomQuyenBUS.Instance.CoItNhatMotQuyen(maNhomQuyen, "Phiếu Mượn"))
                 panelPhieuMuon.Visible = false;
 
             // Phiếu Trả
-            if (!NhomQuyenBUS.Instance.CoItNhatMotQuyen(maNhomQuyen, "Phieu Tra"))
+            if (!NhomQuyenBUS.Instance.CoItNhatMotQuyen(maNhomQuyen, "Phiếu Trả"))
                 panelPhieuTra.Visible = false;
 
             // Phiếu Phạt
-            if (!NhomQuyenBUS.Instance.CoItNhatMotQuyen(maNhomQuyen, "Phieu Phat"))
+            if (!NhomQuyenBUS.Instance.CoItNhatMotQuyen(maNhomQuyen, "Phiếu Phạt"))
                 panelPhieuPhat.Visible = false;
 
             // Đầu Sách
-            if (!NhomQuyenBUS.Instance.CoItNhatMotQuyen(maNhomQuyen, "Dau Sach"))
+            if (!NhomQuyenBUS.Instance.CoItNhatMotQuyen(maNhomQuyen, "Đầu Sách"))
                 panelDauSach.Visible = false;
 
             // Độc Giả
-            if (!NhomQuyenBUS.Instance.CoItNhatMotQuyen(maNhomQuyen, "Doc Gia"))
+            if (!NhomQuyenBUS.Instance.CoItNhatMotQuyen(maNhomQuyen, "Độc Giả"))
                 panelDocGia.Visible = false;
 
             // Nhân Viên
-            if (!NhomQuyenBUS.Instance.CoItNhatMotQuyen(maNhomQuyen, "Nhan Vien"))
+            if (!NhomQuyenBUS.Instance.CoItNhatMotQuyen(maNhomQuyen, "Nhân Viên"))
                 panelNhanVien.Visible = false;
 
             // Thống Kê
-            if (!NhomQuyenBUS.Instance.CoItNhatMotQuyen(maNhomQuyen, "Thong Ke"))
+            if (!NhomQuyenBUS.Instance.CoItNhatMotQuyen(maNhomQuyen, "Thống Kê"))
                 panelThongKe.Visible = false;
         }
 

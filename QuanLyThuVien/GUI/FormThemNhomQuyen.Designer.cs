@@ -1,4 +1,4 @@
-namespace QuanLyThuVien.GUI
+Ôªønamespace QuanLyThuVien.GUI
 {
     partial class FormThemNhomQuyen
     {
@@ -49,7 +49,7 @@ namespace QuanLyThuVien.GUI
             this.lblTitle.Name = "lblTitle";
             this.lblTitle.Size = new System.Drawing.Size(400, 60);
             this.lblTitle.TabIndex = 0;
-            this.lblTitle.Text = "ThÍm nhÛm quy?n m?i";
+            this.lblTitle.Text = "Th√™m nh√≥m quy·ªÅn m·ªõi";
             this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // panelBody
@@ -81,7 +81,7 @@ namespace QuanLyThuVien.GUI
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(156, 23);
             this.label1.TabIndex = 0;
-            this.label1.Text = "TÍn nhÛm quy?n: *";
+            this.label1.Text = "T√™n nh√≥m quy·ªÅn: *";
             // 
             // panelFooter
             // 
@@ -122,7 +122,7 @@ namespace QuanLyThuVien.GUI
             this.btnLuu.Name = "btnLuu";
             this.btnLuu.Size = new System.Drawing.Size(100, 40);
             this.btnLuu.TabIndex = 0;
-            this.btnLuu.Text = "L?u";
+            this.btnLuu.Text = "L∆∞u";
             this.btnLuu.UseVisualStyleBackColor = false;
             this.btnLuu.Click += new System.EventHandler(this.btnLuu_Click);
             // 
@@ -139,7 +139,7 @@ namespace QuanLyThuVien.GUI
             this.MinimizeBox = false;
             this.Name = "FormThemNhomQuyen";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "ThÍm nhÛm quy?n";
+            this.Text = "Th√™m nh√≥m quy?n";
             this.panelHeader.ResumeLayout(false);
             this.panelBody.ResumeLayout(false);
             this.panelBody.PerformLayout();

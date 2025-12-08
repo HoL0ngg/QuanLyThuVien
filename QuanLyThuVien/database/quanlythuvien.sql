@@ -395,7 +395,7 @@ INSERT INTO `nhan_vien` (`MANV`, `TENNV`, `GIOITINH`, `NGAYSINH`, `SDT`, `TenDan
 
 CREATE TABLE `nha_cung_cap` (
   `MANCC` int(11) NOT NULL,
-  `TENCC` varchar(100) NOT NULL,
+  `TENNCC` varchar(100) NOT NULL,
   `DIACHI` varchar(100) NOT NULL,
   `EMAIL` varchar(100) NOT NULL,
   `SDT` varchar(100) NOT NULL
@@ -405,7 +405,7 @@ CREATE TABLE `nha_cung_cap` (
 -- Đang đổ dữ liệu cho bảng `nha_cung_cap`
 --
 
-INSERT INTO `nha_cung_cap` (`MANCC`, `TENCC`, `DIACHI`, `EMAIL`, `SDT`) VALUES
+INSERT INTO `nha_cung_cap` (`MANCC`, `TENNCC`, `DIACHI`, `EMAIL`, `SDT`) VALUES
 (1, 'Công ty Sách Việt', 'Quận 1, TP. HCM', 'contact@sachviet.com', '0901112233'),
 (2, 'Nhà Xuất Bản Trẻ', 'Quận 3, TP. HCM', 'info@nxbtre.vn', '0902223344'),
 (3, 'Công ty Phát Hành Sách Minh Long', 'Quận Bình Thạnh, TP. HCM', 'minhlong@sach.com', '0903334455'),
@@ -457,7 +457,6 @@ CREATE TABLE `nhom_quyen` (
 --
 
 INSERT INTO `nhom_quyen` (`MANQ`, `TENNQ`) VALUES
-(0, 'Admin'),
 (1, 'Admin'),
 (2, 'Thủ thư'),
 (3, 'Quản lý kho');
@@ -775,7 +774,8 @@ ALTER TABLE `nha_xuat_ban`
 -- Chỉ mục cho bảng `nhom_quyen`
 --
 ALTER TABLE `nhom_quyen`
-  ADD PRIMARY KEY (`MANQ`);
+  ADD PRIMARY KEY (`MANQ`),
+  MODIFY `MANQ` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Chỉ mục cho bảng `phieu_muon`
