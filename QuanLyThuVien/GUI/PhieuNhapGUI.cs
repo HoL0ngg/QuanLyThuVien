@@ -14,12 +14,14 @@ namespace QuanLyThuVien.GUI
         PhieuNhapBUS bus = new PhieuNhapBUS();
         private FormThemPhieuNhap formThemPhieuNhap1;
         private CTPhieuNhapGUI ctPhieuNhapGUI1;
+        private MainForm main;
 
         public PhieuNhapGUI()
         {
             InitializeComponent();
             SetupComponents();
-            InitializeActionButtons();
+            ctPhieuNhapGUI1.OnChiTietClosed += CtPhieuNhapGUI1_OnChiTietClosed;
+            //InitializeActionButtons();
         }
 
         public PhieuNhapGUI(TaiKhoanDTO user) : this()
@@ -30,21 +32,21 @@ namespace QuanLyThuVien.GUI
         /// <summary>
         /// Khởi tạo ActionButtonsUC
         /// </summary>
-        private void InitializeActionButtons()
-        {
-            Panel panelActions = new Panel
-            {
-                Dock = DockStyle.Top,
-                Height = 60,
-                BackColor = Color.FromArgb(250, 250, 250),
-                Padding = new Padding(10, 5, 10, 5)
-            };
+        //private void InitializeActionButtons()
+        //{
+        //    Panel panelActions = new Panel
+        //    {
+        //        Dock = DockStyle.Top,
+        //        Height = 60,
+        //        BackColor = Color.FromArgb(250, 250, 250),
+        //        Padding = new Padding(10, 5, 10, 5)
+        //    };
             
-            this.Controls.Add(panelActions);
-            panelActions.BringToFront();
+        //    this.Controls.Add(panelActions);
+        //    panelActions.BringToFront();
             
-            CreateActionButtons(panelActions, DockStyle.Left);
-        }
+        //    CreateActionButtons(panelActions, DockStyle.Left);
+        //}
 
         private void SetupComponents()
         {
@@ -108,6 +110,12 @@ namespace QuanLyThuVien.GUI
         {
             if (dataGridView1.CurrentRow != null)
             {
+                MainForm mainForm = this.FindForm() as MainForm;
+                if (mainForm != null)
+                {
+                    mainForm.HideActionButtons();
+                }
+
                 int maPhieuChon = Convert.ToInt32(dataGridView1.CurrentRow.Cells["colMaPhieuNhap"].Value);
                 ctPhieuNhapGUI1.LoadChiTiet(maPhieuChon);
                 ctPhieuNhapGUI1.Visible = true;
@@ -117,6 +125,16 @@ namespace QuanLyThuVien.GUI
             {
                 MessageBox.Show("Vui long chon mot phieu nhap de xem chi tiet!");
             }
+        }
+        private void CtPhieuNhapGUI1_OnChiTietClosed(object sender, EventArgs e)
+        {
+            MainForm mainForm = this.FindForm() as MainForm;
+            if (mainForm != null)
+            {
+                mainForm.ShowActionButtons();
+            }
+
+            LoadDanhSach();
         }
 
         private void xoa(object sender, EventArgs e)
