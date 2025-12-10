@@ -39,5 +39,31 @@ namespace QuanLyThuVien.DTO
         public int TongLuotMuon { get; set; }
         public int NgayTuMuonCuoi { get; set; } // S? ngày t? l?n mý?n cu?i
         public string TinhTrang { get; set; } // "Có s?n", "Ðang mý?n", "Quá h?n", "T?n kho lâu"
+        public int TongDauSach { get; set; }
+        public int SachCoSan { get; set; }
+        public int SachHong { get; set; }
+    }
+    public class ThongKeSachDTO
+    {
+        public int MaDauSach { get; set; }
+        public string TenSach { get; set; }
+        public string TheLoai { get; set; }
+        public string TacGia { get; set; }
+        public int TongSoBan { get; set; }
+        public int SobanCoSan { get; set; }
+        public int SoBanDangMuon { get; set; }
+        public int TongLuotMuon { get; set; }
+        public int NgayTuMuonCuoi { get; set; } // S? ngày t? l?n mý?n cu?i
+        public string TinhTrang { get; set; } // "Có s?n", "Ðang mý?n", "Quá h?n", "T?n kho lâu"
+        public int TongDauSach { get; set; }
+        public int SachCoSan { get; set; }
+        public int SachHong { get; set; }
+        public string NamXuatBan { get; set; }
+        public decimal GiaTriUocTinh { get; set; }
+        public string TrangThai { get; set; }
+
+
+
+
     }
 }

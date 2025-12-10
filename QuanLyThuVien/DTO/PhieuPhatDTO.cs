@@ -19,6 +19,7 @@ namespace QuanLyThuVien.DTO
         public string TenDG { get; set; }
         public int MaDG { get; set; }
         public int MaCTPhieuTra { get; set; }
+        public string LydoPhat { get; set; }
         public string TrangThaiText
         {
             get

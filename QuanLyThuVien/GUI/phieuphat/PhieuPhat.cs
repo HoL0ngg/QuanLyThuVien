@@ -36,6 +36,47 @@ namespace QuanLyThuVien.GUI
 
         }
 
+        //private void btn_search_Click(object sender, EventArgs e)
+        //{
+        //    // Prevent textBox1_TextChanged handler from interfering while we update the grid.
+        //    isUserInput = false;
+        //    try
+        //    {DVG
+        //        DateTime begin = DTP_begin.Value;
+        //        DateTime end = DTP_end.Value.Date.AddDays(1);
+        //        if (begin > end)
+        //        {
+        //            MessageBox.Show("Ngày bắt đầu phải trước ngày kết thúc.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        //            return;
+        //        }
+
+        //        // Get records in date range first
+        //        List<PhieuPhatDTO> list = PhieuPhatBUS.Instance.GetByDateRange(begin, end);
+
+        //        // If there's a keyword, further filter the already retrieved list (client-side)
+        //        string keyword = tb_search.Text?.Trim();
+        //        if (!string.IsNullOrWhiteSpace(keyword))
+        //        {
+        //            int id;
+        //            bool isId = int.TryParse(keyword, out id);
+        //            string kwLower = keyword.ToLowerInvariant();
+
+        //            list = list.Where(p =>
+        //                (p.TenSach != null && p.TenSach.ToLowerInvariant().Contains(kwLower)) ||
+        //                (p.TenDG != null && p.TenDG.ToLowerInvariant().Contains(kwLower)) ||
+        //                (isId && p.MaPhieuPhat == id)
+        //            ).ToList();
+        //        }
+
+        //        dgvPhieuPhat.DataSource = list;
+        //    }
+        //    finally
+        //    {
+        //        // Always re-enable the text changed handler flag
+        //        isUserInput = true;
+        //    }
+        //}
+
         private void btn_search_Click(object sender, EventArgs e)
         {
             isUserInput = false;
@@ -98,6 +139,7 @@ namespace QuanLyThuVien.GUI
             colDG.DataPropertyName = "TenDG";
             colTien.DataPropertyName = "tienPhat";
             colTen.DataPropertyName = "TenSach";
+            colLyDo.DataPropertyName = "LydoPhat";
 
             List<PhieuPhatDTO> list = trangThaiLoc.HasValue
                 ? PhieuPhatBUS.Instance.GetTrangThaiPhieuPhat(trangThaiLoc.Value)

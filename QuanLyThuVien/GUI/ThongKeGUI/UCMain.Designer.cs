@@ -32,12 +32,6 @@
             this.panelTrend = new System.Windows.Forms.Panel();
             this.panelTop5 = new System.Windows.Forms.Panel();
             this.panelCategory = new System.Windows.Forms.Panel();
-            this.panelSummary = new System.Windows.Forms.Panel();
-            this.lblSummaryTitle = new System.Windows.Forms.Label();
-            this.lblTotalCount = new System.Windows.Forms.Label();
-            this.lblTotalAmount = new System.Windows.Forms.Label();
-            this.lblOutstanding = new System.Windows.Forms.Label();
-            this.lblUniqueReaders = new System.Windows.Forms.Label();
             this.panelKPI = new System.Windows.Forms.TableLayoutPanel();
             this.pnlKpi1 = new System.Windows.Forms.Panel();
             this.kpiBorrow = new System.Windows.Forms.Label();
@@ -72,7 +66,6 @@
             this.btn_tongquan.SuspendLayout();
             this.panelMain.SuspendLayout();
             this.panelCharts.SuspendLayout();
-            this.panelSummary.SuspendLayout();
             this.panelKPI.SuspendLayout();
             this.pnlKpi1.SuspendLayout();
             this.pnlKpi2.SuspendLayout();
@@ -111,7 +104,6 @@
             // panelMain
             // 
             this.panelMain.Controls.Add(this.panelCharts);
-            this.panelMain.Controls.Add(this.panelSummary);
             this.panelMain.Controls.Add(this.panelKPI);
             this.panelMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelMain.Location = new System.Drawing.Point(10, 90);
@@ -130,12 +122,12 @@
             this.panelCharts.Controls.Add(this.panelTop5, 1, 0);
             this.panelCharts.Controls.Add(this.panelCategory, 2, 0);
             this.panelCharts.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelCharts.Location = new System.Drawing.Point(10, 130);
+            this.panelCharts.Location = new System.Drawing.Point(10, 140);
             this.panelCharts.Name = "panelCharts";
             this.panelCharts.Padding = new System.Windows.Forms.Padding(0, 10, 0, 10);
             this.panelCharts.RowCount = 1;
             this.panelCharts.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 356F));
-            this.panelCharts.Size = new System.Drawing.Size(1053, 376);
+            this.panelCharts.Size = new System.Drawing.Size(1053, 446);
             this.panelCharts.TabIndex = 0;
             // 
             // panelTrend
@@ -146,7 +138,7 @@
             this.panelTrend.Margin = new System.Windows.Forms.Padding(8);
             this.panelTrend.Name = "panelTrend";
             this.panelTrend.Padding = new System.Windows.Forms.Padding(16);
-            this.panelTrend.Size = new System.Drawing.Size(331, 340);
+            this.panelTrend.Size = new System.Drawing.Size(331, 410);
             this.panelTrend.TabIndex = 0;
             // 
             // panelTop5
@@ -157,7 +149,7 @@
             this.panelTop5.Margin = new System.Windows.Forms.Padding(8);
             this.panelTop5.Name = "panelTop5";
             this.panelTop5.Padding = new System.Windows.Forms.Padding(16);
-            this.panelTop5.Size = new System.Drawing.Size(342, 340);
+            this.panelTop5.Size = new System.Drawing.Size(342, 410);
             this.panelTop5.TabIndex = 1;
             // 
             // panelCategory
@@ -168,78 +160,8 @@
             this.panelCategory.Margin = new System.Windows.Forms.Padding(8);
             this.panelCategory.Name = "panelCategory";
             this.panelCategory.Padding = new System.Windows.Forms.Padding(16);
-            this.panelCategory.Size = new System.Drawing.Size(332, 340);
+            this.panelCategory.Size = new System.Drawing.Size(332, 410);
             this.panelCategory.TabIndex = 2;
-            // 
-            // panelSummary
-            // 
-            this.panelSummary.BackColor = System.Drawing.Color.White;
-            this.panelSummary.Controls.Add(this.lblSummaryTitle);
-            this.panelSummary.Controls.Add(this.lblTotalCount);
-            this.panelSummary.Controls.Add(this.lblTotalAmount);
-            this.panelSummary.Controls.Add(this.lblOutstanding);
-            this.panelSummary.Controls.Add(this.lblUniqueReaders);
-            this.panelSummary.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelSummary.Location = new System.Drawing.Point(10, 506);
-            this.panelSummary.Name = "panelSummary";
-            this.panelSummary.Padding = new System.Windows.Forms.Padding(16);
-            this.panelSummary.Size = new System.Drawing.Size(1053, 80);
-            this.panelSummary.TabIndex = 1;
-            // 
-            // lblSummaryTitle
-            // 
-            this.lblSummaryTitle.AutoSize = true;
-            this.lblSummaryTitle.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
-            this.lblSummaryTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(117)))), ((int)(((byte)(117)))), ((int)(((byte)(117)))));
-            this.lblSummaryTitle.Location = new System.Drawing.Point(16, 8);
-            this.lblSummaryTitle.Name = "lblSummaryTitle";
-            this.lblSummaryTitle.Size = new System.Drawing.Size(75, 20);
-            this.lblSummaryTitle.TabIndex = 0;
-            this.lblSummaryTitle.Text = "TÓM TẮT";
-            // 
-            // lblTotalCount
-            // 
-            this.lblTotalCount.AutoSize = true;
-            this.lblTotalCount.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
-            this.lblTotalCount.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(33)))), ((int)(((byte)(33)))));
-            this.lblTotalCount.Location = new System.Drawing.Point(16, 36);
-            this.lblTotalCount.Name = "lblTotalCount";
-            this.lblTotalCount.Size = new System.Drawing.Size(111, 25);
-            this.lblTotalCount.TabIndex = 1;
-            this.lblTotalCount.Text = "Số phiếu: 0";
-            // 
-            // lblTotalAmount
-            // 
-            this.lblTotalAmount.AutoSize = true;
-            this.lblTotalAmount.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
-            this.lblTotalAmount.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(175)))), ((int)(((byte)(80)))));
-            this.lblTotalAmount.Location = new System.Drawing.Point(200, 36);
-            this.lblTotalAmount.Name = "lblTotalAmount";
-            this.lblTotalAmount.Size = new System.Drawing.Size(132, 25);
-            this.lblTotalAmount.TabIndex = 2;
-            this.lblTotalAmount.Text = "Tổng thu: 0 đ";
-            // 
-            // lblOutstanding
-            // 
-            this.lblOutstanding.AutoSize = true;
-            this.lblOutstanding.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
-            this.lblOutstanding.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(67)))), ((int)(((byte)(54)))));
-            this.lblOutstanding.Location = new System.Drawing.Point(420, 36);
-            this.lblOutstanding.Name = "lblOutstanding";
-            this.lblOutstanding.Size = new System.Drawing.Size(131, 25);
-            this.lblOutstanding.TabIndex = 3;
-            this.lblOutstanding.Text = "Chưa thu: 0 đ";
-            // 
-            // lblUniqueReaders
-            // 
-            this.lblUniqueReaders.AutoSize = true;
-            this.lblUniqueReaders.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
-            this.lblUniqueReaders.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
-            this.lblUniqueReaders.Location = new System.Drawing.Point(620, 36);
-            this.lblUniqueReaders.Name = "lblUniqueReaders";
-            this.lblUniqueReaders.Size = new System.Drawing.Size(188, 25);
-            this.lblUniqueReaders.TabIndex = 4;
-            this.lblUniqueReaders.Text = "Độc giả liên quan: 0";
             // 
             // panelKPI
             // 
@@ -257,8 +179,8 @@
             this.panelKPI.Name = "panelKPI";
             this.panelKPI.Padding = new System.Windows.Forms.Padding(0, 5, 0, 5);
             this.panelKPI.RowCount = 1;
-            this.panelKPI.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 110F));
-            this.panelKPI.Size = new System.Drawing.Size(1053, 120);
+            this.panelKPI.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 120F));
+            this.panelKPI.Size = new System.Drawing.Size(1053, 130);
             this.panelKPI.TabIndex = 2;
             // 
             // pnlKpi1
@@ -270,8 +192,8 @@
             this.pnlKpi1.Location = new System.Drawing.Point(8, 13);
             this.pnlKpi1.Margin = new System.Windows.Forms.Padding(8);
             this.pnlKpi1.Name = "pnlKpi1";
-            this.pnlKpi1.Padding = new System.Windows.Forms.Padding(16);
-            this.pnlKpi1.Size = new System.Drawing.Size(247, 94);
+            this.pnlKpi1.Padding = new System.Windows.Forms.Padding(16, 12, 16, 12);
+            this.pnlKpi1.Size = new System.Drawing.Size(247, 104);
             this.pnlKpi1.TabIndex = 0;
             // 
             // kpiBorrow
@@ -279,23 +201,25 @@
             this.kpiBorrow.Dock = System.Windows.Forms.DockStyle.Fill;
             this.kpiBorrow.Font = new System.Drawing.Font("Segoe UI", 28F, System.Drawing.FontStyle.Bold);
             this.kpiBorrow.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
-            this.kpiBorrow.Location = new System.Drawing.Point(16, 40);
+            this.kpiBorrow.Location = new System.Drawing.Point(16, 36);
             this.kpiBorrow.Name = "kpiBorrow";
-            this.kpiBorrow.Size = new System.Drawing.Size(215, 38);
+            this.kpiBorrow.Size = new System.Drawing.Size(215, 56);
             this.kpiBorrow.TabIndex = 0;
             this.kpiBorrow.Text = "0";
             this.kpiBorrow.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.kpiBorrow.Click += new System.EventHandler(this.kpiBorrow_Click);
             // 
             // lblKpi1Title
             // 
             this.lblKpi1Title.Dock = System.Windows.Forms.DockStyle.Top;
             this.lblKpi1Title.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.lblKpi1Title.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(117)))), ((int)(((byte)(117)))), ((int)(((byte)(117)))));
-            this.lblKpi1Title.Location = new System.Drawing.Point(16, 16);
+            this.lblKpi1Title.Location = new System.Drawing.Point(16, 12);
             this.lblKpi1Title.Name = "lblKpi1Title";
             this.lblKpi1Title.Size = new System.Drawing.Size(215, 24);
             this.lblKpi1Title.TabIndex = 1;
             this.lblKpi1Title.Text = "LƯỢT MƯỢN";
+            this.lblKpi1Title.Click += new System.EventHandler(this.lblKpi1Title_Click);
             // 
             // pnlKpi2
             // 
@@ -306,8 +230,8 @@
             this.pnlKpi2.Location = new System.Drawing.Point(271, 13);
             this.pnlKpi2.Margin = new System.Windows.Forms.Padding(8);
             this.pnlKpi2.Name = "pnlKpi2";
-            this.pnlKpi2.Padding = new System.Windows.Forms.Padding(16);
-            this.pnlKpi2.Size = new System.Drawing.Size(247, 94);
+            this.pnlKpi2.Padding = new System.Windows.Forms.Padding(16, 12, 16, 12);
+            this.pnlKpi2.Size = new System.Drawing.Size(247, 104);
             this.pnlKpi2.TabIndex = 1;
             // 
             // kpiBooks
@@ -315,19 +239,20 @@
             this.kpiBooks.Dock = System.Windows.Forms.DockStyle.Fill;
             this.kpiBooks.Font = new System.Drawing.Font("Segoe UI", 28F, System.Drawing.FontStyle.Bold);
             this.kpiBooks.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(175)))), ((int)(((byte)(80)))));
-            this.kpiBooks.Location = new System.Drawing.Point(16, 40);
+            this.kpiBooks.Location = new System.Drawing.Point(16, 36);
             this.kpiBooks.Name = "kpiBooks";
-            this.kpiBooks.Size = new System.Drawing.Size(215, 38);
+            this.kpiBooks.Size = new System.Drawing.Size(215, 56);
             this.kpiBooks.TabIndex = 0;
             this.kpiBooks.Text = "0";
             this.kpiBooks.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.kpiBooks.Click += new System.EventHandler(this.kpiBooks_Click);
             // 
             // lblKpi2Title
             // 
             this.lblKpi2Title.Dock = System.Windows.Forms.DockStyle.Top;
             this.lblKpi2Title.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.lblKpi2Title.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(117)))), ((int)(((byte)(117)))), ((int)(((byte)(117)))));
-            this.lblKpi2Title.Location = new System.Drawing.Point(16, 16);
+            this.lblKpi2Title.Location = new System.Drawing.Point(16, 12);
             this.lblKpi2Title.Name = "lblKpi2Title";
             this.lblKpi2Title.Size = new System.Drawing.Size(215, 24);
             this.lblKpi2Title.TabIndex = 1;
@@ -342,18 +267,18 @@
             this.pnlKpi3.Location = new System.Drawing.Point(534, 13);
             this.pnlKpi3.Margin = new System.Windows.Forms.Padding(8);
             this.pnlKpi3.Name = "pnlKpi3";
-            this.pnlKpi3.Padding = new System.Windows.Forms.Padding(16);
-            this.pnlKpi3.Size = new System.Drawing.Size(247, 94);
+            this.pnlKpi3.Padding = new System.Windows.Forms.Padding(16, 12, 16, 12);
+            this.pnlKpi3.Size = new System.Drawing.Size(247, 104);
             this.pnlKpi3.TabIndex = 2;
             // 
             // kpiOverdue
             // 
             this.kpiOverdue.Dock = System.Windows.Forms.DockStyle.Fill;
             this.kpiOverdue.Font = new System.Drawing.Font("Segoe UI", 28F, System.Drawing.FontStyle.Bold);
-            this.kpiOverdue.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(67)))), ((int)(((byte)(54)))));
-            this.kpiOverdue.Location = new System.Drawing.Point(16, 40);
+            this.kpiOverdue.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(67)))), ((int)(((byte)(54)))), ((int)(((byte)(54)))));
+            this.kpiOverdue.Location = new System.Drawing.Point(16, 36);
             this.kpiOverdue.Name = "kpiOverdue";
-            this.kpiOverdue.Size = new System.Drawing.Size(215, 38);
+            this.kpiOverdue.Size = new System.Drawing.Size(215, 56);
             this.kpiOverdue.TabIndex = 0;
             this.kpiOverdue.Text = "0";
             this.kpiOverdue.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -363,11 +288,11 @@
             this.lblKpi3Title.Dock = System.Windows.Forms.DockStyle.Top;
             this.lblKpi3Title.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.lblKpi3Title.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(117)))), ((int)(((byte)(117)))), ((int)(((byte)(117)))));
-            this.lblKpi3Title.Location = new System.Drawing.Point(16, 16);
+            this.lblKpi3Title.Location = new System.Drawing.Point(16, 12);
             this.lblKpi3Title.Name = "lblKpi3Title";
             this.lblKpi3Title.Size = new System.Drawing.Size(215, 24);
             this.lblKpi3Title.TabIndex = 1;
-            this.lblKpi3Title.Text = "QUÁ HẠN";
+            this.lblKpi3Title.Text = "Sách Hỏng/Mất";
             // 
             // pnlKpi4
             // 
@@ -378,8 +303,8 @@
             this.pnlKpi4.Location = new System.Drawing.Point(797, 13);
             this.pnlKpi4.Margin = new System.Windows.Forms.Padding(8);
             this.pnlKpi4.Name = "pnlKpi4";
-            this.pnlKpi4.Padding = new System.Windows.Forms.Padding(16);
-            this.pnlKpi4.Size = new System.Drawing.Size(248, 94);
+            this.pnlKpi4.Padding = new System.Windows.Forms.Padding(16, 12, 16, 12);
+            this.pnlKpi4.Size = new System.Drawing.Size(248, 104);
             this.pnlKpi4.TabIndex = 3;
             // 
             // kpiPenalty
@@ -387,9 +312,9 @@
             this.kpiPenalty.Dock = System.Windows.Forms.DockStyle.Fill;
             this.kpiPenalty.Font = new System.Drawing.Font("Segoe UI", 28F, System.Drawing.FontStyle.Bold);
             this.kpiPenalty.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(152)))), ((int)(((byte)(0)))));
-            this.kpiPenalty.Location = new System.Drawing.Point(16, 40);
+            this.kpiPenalty.Location = new System.Drawing.Point(16, 36);
             this.kpiPenalty.Name = "kpiPenalty";
-            this.kpiPenalty.Size = new System.Drawing.Size(216, 38);
+            this.kpiPenalty.Size = new System.Drawing.Size(216, 56);
             this.kpiPenalty.TabIndex = 0;
             this.kpiPenalty.Text = "0 đ";
             this.kpiPenalty.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -399,7 +324,7 @@
             this.lblKpi4Title.Dock = System.Windows.Forms.DockStyle.Top;
             this.lblKpi4Title.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.lblKpi4Title.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(117)))), ((int)(((byte)(117)))), ((int)(((byte)(117)))));
-            this.lblKpi4Title.Location = new System.Drawing.Point(16, 16);
+            this.lblKpi4Title.Location = new System.Drawing.Point(16, 12);
             this.lblKpi4Title.Name = "lblKpi4Title";
             this.lblKpi4Title.Size = new System.Drawing.Size(216, 24);
             this.lblKpi4Title.TabIndex = 1;
@@ -520,6 +445,7 @@
             this.dtpFrom.Name = "dtpFrom";
             this.dtpFrom.Size = new System.Drawing.Size(110, 27);
             this.dtpFrom.TabIndex = 6;
+            this.dtpFrom.ValueChanged += new System.EventHandler(this.dtpFrom_ValueChanged);
             // 
             // lblTo
             // 
@@ -583,6 +509,7 @@
             // 
             // btn_sach
             // 
+            this.btn_sach.AutoScroll = true;
             this.btn_sach.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
             this.btn_sach.Location = new System.Drawing.Point(4, 32);
             this.btn_sach.Name = "btn_sach";
@@ -590,7 +517,6 @@
             this.btn_sach.Size = new System.Drawing.Size(1093, 696);
             this.btn_sach.TabIndex = 1;
             this.btn_sach.Text = "Sách";
-            this.btn_sach.AutoScroll = true;
             // 
             // btn_phieuphat
             // 
@@ -630,8 +556,6 @@
             this.btn_tongquan.ResumeLayout(false);
             this.panelMain.ResumeLayout(false);
             this.panelCharts.ResumeLayout(false);
-            this.panelSummary.ResumeLayout(false);
-            this.panelSummary.PerformLayout();
             this.panelKPI.ResumeLayout(false);
             this.pnlKpi1.ResumeLayout(false);
             this.pnlKpi2.ResumeLayout(false);
@@ -681,11 +605,5 @@
         private System.Windows.Forms.Panel panelTrend;
         private System.Windows.Forms.Panel panelTop5;
         private System.Windows.Forms.Panel panelCategory;
-        private System.Windows.Forms.Panel panelSummary;
-        private System.Windows.Forms.Label lblSummaryTitle;
-        private System.Windows.Forms.Label lblTotalCount;
-        private System.Windows.Forms.Label lblTotalAmount;
-        private System.Windows.Forms.Label lblOutstanding;
-        private System.Windows.Forms.Label lblUniqueReaders;
     }
 }

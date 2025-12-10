@@ -606,7 +606,7 @@ namespace QuanLyThuVien.GUI
             this.panelThongKe.Controls.Add(this.pictureBox7);
             this.panelThongKe.Controls.Add(this.label13);
             this.panelThongKe.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.panelThongKe.Location = new System.Drawing.Point(11, 714);
+            this.panelThongKe.Location = new System.Drawing.Point(11, 719);
             this.panelThongKe.Margin = new System.Windows.Forms.Padding(0, 4, 0, 12);
             this.panelThongKe.Name = "panelThongKe";
             this.panelThongKe.Size = new System.Drawing.Size(427, 84);

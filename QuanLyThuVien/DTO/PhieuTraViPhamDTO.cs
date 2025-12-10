@@ -22,6 +22,7 @@ namespace QuanLyThuVien.DTO
         public string TenSach { get; set; }
         public string TenDocGia { get; set; }
         public bool QuaHan { get; set; }
+        public int GiaSach { get; set; }
 
         public int SoNgayTre
         {
@@ -32,5 +33,11 @@ namespace QuanLyThuVien.DTO
             }
         }
         public int TienPhat { get; set; }
+        
+        // Lý do phạt - tự động tính hoặc nhập tay
+        public string LyDo { get; set; }
+        
+        // Trạng thái sách do người dùng chọn (1: bình thường, 2: hỏng, 3: mất)
+        public int TrangThaiSachMoi { get; set; } = 1;
     }
 }

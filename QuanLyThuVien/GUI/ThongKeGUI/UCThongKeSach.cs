@@ -1,167 +1,233 @@
-﻿using System;
+﻿using QuanLyThuVien.BUS;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace QuanLyThuVien.GUI.ThongKeGUI
 {
     public partial class UCThongKeSach : UserControl
     {
+        private bool _isLoaded = false;
+
         public UCThongKeSach()
         {
+            this.SetStyle(ControlStyles.OptimizedDoubleBuffer | 
+                          ControlStyles.AllPaintingInWmPaint, true);
+            
             InitializeComponent();
-            LoadData();
+        }
+
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+            if (!_isLoaded)
+            {
+                _isLoaded = true;
+                LoadData();
+            }
         }
 
         public void LoadData()
         {
+            if (!_isLoaded && !this.IsHandleCreated)
+                return;
+
+            this.SuspendLayout();
             try
             {
-                // Load KPI - dữ liệu mẫu
-                lblTongDauSach.Text = "150";
-                lblTongBanSach.Text = "755";
-                lblSachCoSan.Text = "620";
-                lblSachBaoTri.Text = "12";
-
-                // Load Thể loại
+                LoadKPIs();
                 LoadTheLoai();
-
-                // Load Năm xuất bản
                 LoadNamXuatBan();
-
-                // Load bảng chi tiết
                 LoadChiTietSach();
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Lỗi: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            finally
+            {
+                this.ResumeLayout(true);
+            }
+        }
+
+        private void LoadKPIs()
+        {
+            ThongKeBUS bUS = ThongKeBUS.Instance;
+            lblTongDauSach.Text = bUS.GetTongDauSach().ToString("N0");
+            lblTongBanSach.Text = bUS.GetTongBanSach().ToString("N0");
+            lblSachCoSan.Text = bUS.GetSachSanSangChoMuon().ToString("N0");
+            lblSachBaoTri.Text = bUS.GetSoSachHongMat().ToString("N0");
         }
 
         private void LoadTheLoai()
         {
+            flpTheLoai.SuspendLayout();
             flpTheLoai.Controls.Clear();
+            ThongKeBUS bus = ThongKeBUS.Instance;
             
-            // Dữ liệu mẫu - Top 10 thể loại
-            var data = new List<(string ten, int soLuong, int max)>
+            var items = new List<(string Label, int Value, Color BarColor)>
             {
-                ("Văn học", 45, 45),
-                ("Truyện tranh", 38, 45),
-                ("Khoa học", 32, 45),
-                ("Lịch sử", 28, 45),
-                ("Kỹ năng sống", 25, 45),
-                ("Tiểu thuyết", 22, 45),
-                ("Triết học", 18, 45),
-                ("Kinh tế", 15, 45),
-                ("Công nghệ", 12, 45),
-                ("Nghệ thuật", 10, 45)
+                (bus.GetSoLuongSachTheoTheLoai()[0].TheLoai, bus.GetSoLuongSachTheoTheLoai()[0].TongSoBan, Color.FromArgb(33, 150, 243)),
+                (bus.GetSoLuongSachTheoTheLoai()[1].TheLoai, bus.GetSoLuongSachTheoTheLoai()[1].TongSoBan, Color.FromArgb(33, 150, 243)),
+                (bus.GetSoLuongSachTheoTheLoai()[2].TheLoai, bus.GetSoLuongSachTheoTheLoai()[2].TongSoBan, Color.FromArgb(33, 150, 243)),
+                (bus.GetSoLuongSachTheoTheLoai()[3].TheLoai, bus.GetSoLuongSachTheoTheLoai()[3].TongSoBan, Color.FromArgb(33, 150, 243)),
+                (bus.GetSoLuongSachTheoTheLoai()[4].TheLoai, bus.GetSoLuongSachTheoTheLoai()[4].TongSoBan, Color.FromArgb(33, 150, 243)),
+                (bus.GetSoLuongSachTheoTheLoai()[5].TheLoai, bus.GetSoLuongSachTheoTheLoai()[5].TongSoBan, Color.FromArgb(33, 150, 243)),
+                (bus.GetSoLuongSachTheoTheLoai()[6].TheLoai, bus.GetSoLuongSachTheoTheLoai()[6].TongSoBan, Color.FromArgb(33, 150, 243)),
+                (bus.GetSoLuongSachTheoTheLoai()[7].TheLoai, bus.GetSoLuongSachTheoTheLoai()[7].TongSoBan, Color.FromArgb(33, 150, 243)),
+                
+           
             };
 
-            foreach (var item in data)
+            int maxValue = 45;
+            foreach (var item in items)
             {
-                var card = CreateBarCard(item.ten, item.soLuong, item.max, Color.FromArgb(33, 150, 243));
+                var card = CreateBarCard(item.Label, item.Value, maxValue, item.BarColor, "đầu sách", flpTheLoai.Width);
                 flpTheLoai.Controls.Add(card);
             }
+
+            flpTheLoai.ResumeLayout(true);
         }
 
         private void LoadNamXuatBan()
         {
+            flpNamXB.SuspendLayout();
             flpNamXB.Controls.Clear();
 
-            // Dữ liệu mẫu - 5 năm gần nhất
-            var currentYear = DateTime.Now.Year;
-            var data = new List<(int nam, int soLuong, int max)>
-            {
-                (currentYear, 65, 65),
-                (currentYear - 1, 58, 65),
-                (currentYear - 2, 42, 65),
-                (currentYear - 3, 35, 65),
-                (currentYear - 4, 28, 65)
-            };
+            ThongKeBUS bus = ThongKeBUS.Instance;
+            var data = bus.GetSoLuongSachTheoNam(); // giả sử trả về List<SachTheoNamDTO>
 
+            // Tạo list items từ dữ liệu
+            var items = new List<(string Label, int Value, Color BarColor)>();
             foreach (var item in data)
             {
-                var card = CreateBarCard($"Năm {item.nam}", item.soLuong, item.max, Color.FromArgb(76, 175, 80));
+                items.Add((
+                    $"Năm {item.NamXuatBan}",
+                    item.TongSoBan,
+                    Color.FromArgb(76, 175, 80)
+                ));
+            }
+
+            // Tìm giá trị lớn nhất để chuẩn hóa chiều dài bar
+            int maxValue = items.Count > 0 ? items.Max(x => x.Value) : 0;
+
+            // Tạo card cho từng item
+            foreach (var item in items)
+            {
+                var card = CreateBarCard(item.Label, item.Value, maxValue, item.BarColor, "đầu sách", flpNamXB.Width);
                 flpNamXB.Controls.Add(card);
             }
+
+            flpNamXB.ResumeLayout(true);
         }
 
-        private Panel CreateBarCard(string label, int value, int maxValue, Color barColor)
+        private Panel CreateBarCard(string label, int value, int maxValue, Color barColor, string unit, int containerWidth)
         {
-            var panel = new Panel
+            int panelWidth = containerWidth - 30;
+            if (panelWidth < 200) panelWidth = 400;
+
+            var card = new Panel
             {
-                Width = flpTheLoai.Width - 30,
-                Height = 50,
-                Margin = new Padding(5, 3, 5, 3),
-                BackColor = Color.White
+                Size = new Size(panelWidth, 32),
+                Margin = new Padding(2),
+                BackColor = Color.Transparent
             };
+
+            int labelWidth = 120;
+            int valueWidth = 100;
+            int barStartX = labelWidth + 5;
+            int barMaxWidth = panelWidth - labelWidth - valueWidth - 15;
 
             var lblName = new Label
             {
                 Text = label,
-                Location = new Point(8, 8),
-                Width = 150,
-                Font = new Font("Segoe UI", 9F, FontStyle.Bold),
-                ForeColor = Color.FromArgb(33, 33, 33)
+                Location = new Point(0, 6),
+                Size = new Size(labelWidth, 20),
+                Font = new Font("Segoe UI", 9F),
+                ForeColor = Color.FromArgb(33, 33, 33),
+                TextAlign = ContentAlignment.MiddleLeft
             };
+
+            double percent = maxValue > 0 ? (double)value / maxValue : 0;
+            int barWidth = (int)(barMaxWidth * percent);
+            if (barWidth < 2 && value > 0) barWidth = 2;
+
+            var pnlBarBg = new Panel
+            {
+                Location = new Point(barStartX, 8),
+                Size = new Size(barMaxWidth, 16),
+                BackColor = Color.FromArgb(230, 230, 230)
+            };
+
+            var pnlBar = new Panel
+            {
+                Location = new Point(0, 0),
+                Size = new Size(barWidth, 16),
+                BackColor = barColor
+            };
+            pnlBarBg.Controls.Add(pnlBar);
 
             var lblValue = new Label
             {
-                Text = value.ToString("N0") + " đầu sách",
-                Location = new Point(8, 28),
-                Width = 150,
-                Font = new Font("Segoe UI", 8F),
-                ForeColor = Color.FromArgb(117, 117, 117)
+                Text = value.ToString("N0") + " " + unit,
+                Location = new Point(barStartX + barMaxWidth + 5, 6),
+                Size = new Size(valueWidth, 20),
+                Font = new Font("Segoe UI", 9F, FontStyle.Bold),
+                ForeColor = barColor,
+                TextAlign = ContentAlignment.MiddleLeft
             };
 
-            // Progress bar background
-            int barMaxWidth = panel.Width - 180;
-            int barWidth = maxValue > 0 ? (int)((double)value / maxValue * barMaxWidth) : 0;
-            
-            var progressBg = new Panel
-            {
-                Location = new Point(170, 15),
-                Width = barMaxWidth,
-                Height = 20,
-                BackColor = Color.FromArgb(230, 230, 230)
-            };
-            
-            var progressBar = new Panel
-            {
-                Location = new Point(0, 0),
-                Width = barWidth,
-                Height = 20,
-                BackColor = barColor
-            };
-            
-            progressBg.Controls.Add(progressBar);
-            panel.Controls.AddRange(new Control[] { lblName, lblValue, progressBg });
-            
-            return panel;
+            card.Controls.Add(lblName);
+            card.Controls.Add(pnlBarBg);
+            card.Controls.Add(lblValue);
+
+            return card;
         }
 
         private void LoadChiTietSach()
         {
-            // Dữ liệu mẫu cho bảng
-            var data = new List<object[]>
+            dgvChiTiet.SuspendLayout();
+            try
             {
-                new object[] { 1, "Harry Potter và Hòn đá Phù thủy", "Văn học", 10, 0, "Còn sử dụng", "5,000,000 đ" },
-                new object[] { 2, "Doraemon tập 1", "Truyện tranh", 15, 2, "Đã thanh lý 2 bản", "3,500,000 đ" },
-                new object[] { 3, "Đắc Nhân Tâm", "Kỹ năng sống", 8, 0, "Còn sử dụng", "2,400,000 đ" },
-                new object[] { 4, "Nhà Giả Kim", "Văn học", 5, 1, "Chờ thanh lý 1 bản", "1,800,000 đ" },
-                new object[] { 5, "Sapiens", "Khoa học", 6, 0, "Còn sử dụng", "3,000,000 đ" },
-                new object[] { 6, "Lập Trình C#", "Công nghệ", 4, 2, "Chờ thanh lý 2 bản", "1,200,000 đ" },
-                new object[] { 7, "Tuổi Thơ Dữ Dội", "Văn học", 7, 0, "Còn sử dụng", "2,100,000 đ" },
-                new object[] { 8, "One Piece tập 100", "Truyện tranh", 12, 3, "Đã thanh lý 3 bản", "2,700,000 đ" }
-            };
+                dgvChiTiet.Rows.Clear();
 
-            dgvChiTiet.Rows.Clear();
-            foreach (var row in data)
-            {
-                dgvChiTiet.Rows.Add(row);
+                // gọi BUS để lấy dữ liệu
+                var data = ThongKeBUS.Instance.GetChiTietSach();
+
+                int stt = 1; // biến số thứ tự
+
+                foreach (var item in data)
+                {
+                    dgvChiTiet.Rows.Add(
+                        stt, // thêm số thứ tự vào cột đầu tiên
+                        item.TenSach,
+                        item.TheLoai,
+                        item.TongSoBan,
+                        item.SachHong,
+                        item.TinhTrang,
+                        item.GiaTriUocTinh.ToString("N0") + " đ"
+                    );
+
+                    stt++; // tăng số thứ tự
+                }
+
+                ApplyRowStyles();
             }
+            finally
+            {
+                dgvChiTiet.ResumeLayout(true);
+            }
+        }
 
-            // Tô màu cột trạng thái
+        private void ApplyRowStyles()
+        {
+            var redColor = Color.FromArgb(244, 67, 54);
+            var greenColor = Color.FromArgb(76, 175, 80);
+            var orangeColor = Color.FromArgb(255, 152, 0);
+            var boldFont = new Font("Segoe UI", 9F, FontStyle.Bold);
+
             foreach (DataGridViewRow row in dgvChiTiet.Rows)
             {
                 var cell = row.Cells["colTrangThai"];
@@ -169,19 +235,18 @@ namespace QuanLyThuVien.GUI.ThongKeGUI
                 {
                     string tt = cell.Value.ToString();
                     if (tt.Contains("Còn sử dụng"))
-                        cell.Style.ForeColor = Color.FromArgb(76, 175, 80);
+                        cell.Style.ForeColor = greenColor;
                     else if (tt.Contains("Đã thanh lý"))
-                        cell.Style.ForeColor = Color.FromArgb(244, 67, 54);
+                        cell.Style.ForeColor = redColor;
                     else
-                        cell.Style.ForeColor = Color.FromArgb(255, 152, 0);
+                        cell.Style.ForeColor = orangeColor;
                 }
                 
-                // Highlight số bản hỏng
                 var hongCell = row.Cells["colSoBanHong"];
                 if (hongCell.Value != null && Convert.ToInt32(hongCell.Value) > 0)
                 {
-                    hongCell.Style.ForeColor = Color.FromArgb(244, 67, 54);
-                    hongCell.Style.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+                    hongCell.Style.ForeColor = redColor;
+                    hongCell.Style.Font = boldFont;
                 }
             }
         }
@@ -195,7 +260,6 @@ namespace QuanLyThuVien.GUI.ThongKeGUI
                 return;
             }
 
-            // Lọc theo keyword
             foreach (DataGridViewRow row in dgvChiTiet.Rows)
             {
                 bool visible = false;
@@ -215,6 +279,11 @@ namespace QuanLyThuVien.GUI.ThongKeGUI
         {
             txtSearch.Clear();
             LoadData();
+        }
+
+        private void lblKpi4Title_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
