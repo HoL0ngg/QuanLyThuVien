@@ -108,6 +108,7 @@
     <Compile Include="BUS\CTPhieuMuonBUS.cs" />
     <Compile Include="BUS\DocGiaBUS.cs" />
     <Compile Include="BUS\NhomQuyenBUS.cs" />
+    <Compile Include="BUS\SachBUS.cs" />
     <Compile Include="BUS\ThongKeBUS.cs" />
     <Compile Include="BUS\PhieuMuonBUS.cs" />
     <Compile Include="BUS\PhieuPhatBUS.cs" />
@@ -119,6 +120,7 @@
     <Compile Include="BUS\TacGiaBUS.cs" />
     <Compile Include="BUS\TaiKhoanBUS.cs" />
     <Compile Include="DAO\NhomQuyenDAO.cs" />
+    <Compile Include="DAO\SachDAO.cs" />
     <Compile Include="DAO\ThongKeDAO.cs" />
     <Compile Include="DAO\DocGiaDAO.cs" />
     <Compile Include="DAO\CTPhieuMuonDAO.cs" />
@@ -133,6 +135,7 @@
     <Compile Include="DAO\PhieuTraDAO.cs" />
     <Compile Include="DAO\TacGiaDAO.cs" />
     <Compile Include="DAO\TaiKhoanDAO.cs" />
+    <Compile Include="DTO\SachDTO.cs" />
     <Compile Include="DTO\ThongKePhieuPhatDTO.cs" />
     <Compile Include="DTO\ChucNangDTO.cs" />
     <Compile Include="DTO\CTPhieuTraDTO.cs" />
@@ -166,6 +169,9 @@
     </Compile>
     <Compile Include="GUI\Components\ActionButtonsUC.cs">
       <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\Components\CustomButton.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="GUI\CTPhieuNhapGUI.cs">
       <SubType>UserControl</SubType>

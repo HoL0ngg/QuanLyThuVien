@@ -37,7 +37,6 @@ namespace QuanLyThuVien.GUI
 
         private void InitializePhieuMuonGrid()
         {
-            bangPhieuMuon.AutoGenerateColumns = false;
             bangPhieuMuon.Columns.Clear();
 
             bangPhieuMuon.Columns.AddRange(new DataGridViewColumn[] {
@@ -49,16 +48,10 @@ namespace QuanLyThuVien.GUI
                 new DataGridViewTextBoxColumn { Name = "TenDocGia", HeaderText = "Ten doc gia", DataPropertyName = "TenDocGia" },
                 new DataGridViewTextBoxColumn { Name = "TenNhanVien", HeaderText = "Ten nhan vien", DataPropertyName = "TenNhanVien" }
             });
-            
-            bangPhieuMuon.ReadOnly = true;
-            bangPhieuMuon.EditMode = DataGridViewEditMode.EditProgrammatically;
-            bangPhieuMuon.AllowUserToAddRows = false;
-            bangPhieuMuon.AllowUserToDeleteRows = false;
         }
 
         private void InitializeChiTietGrid()
         {
-            bangCTPhieuMuon.AutoGenerateColumns = false;
             bangCTPhieuMuon.Columns.Clear();
 
             bangCTPhieuMuon.Columns.AddRange(new DataGridViewColumn[] {
@@ -69,25 +62,6 @@ namespace QuanLyThuVien.GUI
                 new DataGridViewTextBoxColumn { Name = "NamXuatBan", HeaderText = "Nam xuat ban", DataPropertyName = "NamXuatBan" },
                 new DataGridViewTextBoxColumn { Name = "NgonNgu", HeaderText = "Ngon ngu", DataPropertyName = "NgonNgu" }
             });
-
-            bangCTPhieuMuon.RowHeadersVisible = false;
-            bangCTPhieuMuon.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            bangCTPhieuMuon.ReadOnly = true;
-            bangCTPhieuMuon.EditMode = DataGridViewEditMode.EditProgrammatically;
-            bangCTPhieuMuon.AllowUserToAddRows = false;
-            bangCTPhieuMuon.AllowUserToDeleteRows = false;
-        }
-
-        private void ConfigureGrid()
-        {
-            bangPhieuMuon.RowHeadersVisible = false;
-            bangPhieuMuon.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            bangPhieuMuon.MultiSelect = false;
-            bangPhieuMuon.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            foreach (DataGridViewColumn c in bangPhieuMuon.Columns)
-            {
-                if (c.FillWeight == 0) c.FillWeight = 100;
-            }
         }
 
         private static string MapTrangThai(object value)
@@ -130,51 +104,52 @@ namespace QuanLyThuVien.GUI
         }
         public override void OnEdit()
         {
-            if (!CoQuyenSua)
-            {
-                MessageBox.Show("Ban khong co quyen sua phieu muon!", "Thong bao", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-            
-            if (bangPhieuMuon.CurrentRow == null)
-            {
-                MessageBox.Show("Vui long chon mot phieu muon de cap nhat.", "Thong bao", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
-            }
-            var idCell = bangPhieuMuon.CurrentRow.Cells["MaPhieuMuon"];
-            if (idCell?.Value == null || !int.TryParse(idCell.Value.ToString(), out int id)) return;
+            //if (!CoQuyenSua)
+            //{
+            //    MessageBox.Show("Ban khong co quyen sua phieu muon!", "Thong bao", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            //    return;
+            //}
 
-            DateTime ngayTraDuKien = DateTime.MinValue;
-            var ngayTraCell = bangPhieuMuon.CurrentRow.Cells["NgayTraDuKien"];
-            if (ngayTraCell?.Value != null)
-                DateTime.TryParse(ngayTraCell.Value.ToString(), out ngayTraDuKien);
+            //if (bangPhieuMuon.CurrentRow == null)
+            //{
+            //    MessageBox.Show("Vui long chon mot phieu muon de cap nhat.", "Thong bao", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //    return;
+            //}
+            //var idCell = bangPhieuMuon.CurrentRow.Cells["MaPhieuMuon"];
+            //if (idCell?.Value == null || !int.TryParse(idCell.Value.ToString(), out int id)) return;
 
-            int currentStatus = 0;
-            var trangThaiCell = bangPhieuMuon.CurrentRow.Cells["TrangThai"];
-            if (trangThaiCell?.Value != null)
-                int.TryParse(trangThaiCell.Value.ToString(), out currentStatus);
+            //DateTime ngayTraDuKien = DateTime.MinValue;
+            //var ngayTraCell = bangPhieuMuon.CurrentRow.Cells["NgayTraDuKien"];
+            //if (ngayTraCell?.Value != null)
+            //    DateTime.TryParse(ngayTraCell.Value.ToString(), out ngayTraDuKien);
 
-            if (currentStatus == 2 || currentStatus == 3)
-            {
-                MessageBox.Show("Phieu muon nay da duoc tra.", "Thong bao", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
-            }
+            //int currentStatus = 0;
+            //var trangThaiCell = bangPhieuMuon.CurrentRow.Cells["TrangThai"];
+            //if (trangThaiCell?.Value != null)
+            //    int.TryParse(trangThaiCell.Value.ToString(), out currentStatus);
 
-            var confirm = MessageBox.Show("Ban co muon cap nhat trang thai tra khong?", "Xac nhan", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (confirm != DialogResult.Yes) return;
+            //if (currentStatus == 2 || currentStatus == 3)
+            //{
+            //    MessageBox.Show("Phieu muon nay da duoc tra.", "Thong bao", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //    return;
+            //}
 
-            try
-            {
-                var today = DateTime.Today;
-                int newStatus = today > ngayTraDuKien.Date ? 3 : 2;
-                var pm = new PhieuMuonDTO { MaPhieuMuon = id, TrangThai = newStatus };
-                if (bus.Update(pm)) LoadData();
-                else MessageBox.Show("Cap nhat trang thai khong thanh cong.", "Thong bao", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Loi khi cap nhat trang thai: " + ex.Message, "Loi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            //var confirm = MessageBox.Show("Ban co muon cap nhat trang thai tra khong?", "Xac nhan", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            //if (confirm != DialogResult.Yes) return;
+
+            //try
+            //{
+            //    var today = DateTime.Today;
+            //    int newStatus = today > ngayTraDuKien.Date ? 3 : 2;
+            //    var pm = new PhieuMuonDTO { MaPhieuMuon = id, TrangThai = newStatus };
+            //    if (bus.Update(pm)) LoadData();
+            //    else MessageBox.Show("Cap nhat trang thai khong thanh cong.", "Thong bao", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show("Loi khi cap nhat trang thai: " + ex.Message, "Loi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //}
+            MessageBox.Show("Không thể sửa phiếu mượn", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         public override void OnDelete()
@@ -206,7 +181,10 @@ namespace QuanLyThuVien.GUI
             }
         }
 
-        public override void OnDetails() { }
+        public override void OnDetails() 
+        {
+            MessageBox.Show("Nhấn vào phiếu mượn bên dưới để xem", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
 
         public override void LoadData()
         {
@@ -214,7 +192,6 @@ namespace QuanLyThuVien.GUI
             {
                 InitializePhieuMuonGrid();
                 bangPhieuMuon.DataSource = bus.GetAll();
-                ConfigureGrid();
                 InitializeChiTietGrid();
                 bangCTPhieuMuon.DataSource = null;
             }
@@ -300,7 +277,6 @@ namespace QuanLyThuVien.GUI
             {
                 InitializePhieuMuonGrid();
                 bangPhieuMuon.DataSource = bus.Search(maPhieu, ngayFrom, ngayTo, trangThai, maDocGia, maNhanVien);
-                ConfigureGrid();
                 InitializeChiTietGrid();
                 bangCTPhieuMuon.DataSource = null;
             }
