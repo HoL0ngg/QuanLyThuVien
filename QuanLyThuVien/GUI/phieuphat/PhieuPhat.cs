@@ -1,16 +1,11 @@
 ﻿using QuanLyThuVien.BUS;
 using QuanLyThuVien.DTO;
+using QuanLyThuVien.GUI.Components;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace QuanLyThuVien.GUI
 {
@@ -24,6 +19,7 @@ namespace QuanLyThuVien.GUI
         {
             InitializeComponent();
             this.Load += PhieuPhat_Load;
+            InitializeActionButtons();
         }
 
         public PhieuPhat(TaiKhoanDTO user) : this()
@@ -31,10 +27,26 @@ namespace QuanLyThuVien.GUI
             this.CurrentUser = user;
         }
 
-        private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
+        /// <summary>
+        /// Khởi tạo ActionButtonsUC
+        /// </summary>
+        private void InitializeActionButtons()
         {
-
+            Panel panelActions = new Panel
+            {
+                Dock = DockStyle.Top,
+                Height = 60,
+                BackColor = Color.FromArgb(250, 250, 250),
+                Padding = new Padding(10, 5, 10, 5)
+            };
+            
+            this.Controls.Add(panelActions);
+            panelActions.BringToFront();
+            
+            CreateActionButtons(panelActions, DockStyle.Left);
         }
+
+        private void dateTimePicker1_ValueChanged(object sender, EventArgs e) { }
 
         //private void btn_search_Click(object sender, EventArgs e)
         //{
@@ -119,19 +131,11 @@ namespace QuanLyThuVien.GUI
             }
         }
 
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void dgvPhieuPhat_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
+        private void panel1_Paint(object sender, PaintEventArgs e) { }
+        private void dgvPhieuPhat_CellContentClick(object sender, DataGridViewCellEventArgs e) { }
         
         private void LoadPhieuPhat(int? trangThaiLoc = null)
         {
-            Console.WriteLine("Loading PhieuPhat");
             dgvPhieuPhat.AutoGenerateColumns = false;
             colID.DataPropertyName = "MaPhieuPhat";
             colNgayPhat.DataPropertyName = "NgayPhat";
@@ -152,21 +156,17 @@ namespace QuanLyThuVien.GUI
             LoadPhieuPhat(null);
         }
 
-        private void PhieuPhat_Load_1(object sender, EventArgs e)
-        {
-
-        }
+        private void PhieuPhat_Load_1(object sender, EventArgs e) { }
 
         private void cbbPhieuPhat_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // Neu chua co ket qua hien tai (chua bam tim), fallback sang lay toan bo
             var baseList = _currentResult != null && _currentResult.Count > 0
                 ? _currentResult
                 : PhieuPhatBUS.Instance.GetAllPhieuPhat();
 
             int? trangThai = null;
-            if (cbbPhieuPhat.SelectedIndex == 1) trangThai = 0; // Chua dong
-            else if (cbbPhieuPhat.SelectedIndex == 2) trangThai = 1; // Da dong
+            if (cbbPhieuPhat.SelectedIndex == 1) trangThai = 0;
+            else if (cbbPhieuPhat.SelectedIndex == 2) trangThai = 1;
 
             var filtered = trangThai.HasValue
                 ? baseList.Where(p => p.TrangThai == trangThai.Value).ToList()
@@ -175,10 +175,7 @@ namespace QuanLyThuVien.GUI
             dgvPhieuPhat.DataSource = filtered;
         }
 
-        private void lb_dateEnd_Click(object sender, EventArgs e)
-        {
-
-        }
+        private void lb_dateEnd_Click(object sender, EventArgs e) { }
 
         private void btn_resest_Click(object sender, EventArgs e)
         {
@@ -194,47 +191,33 @@ namespace QuanLyThuVien.GUI
             {
                 cbbPhieuPhat.SelectedIndex = 0;
                 int ind = cbbPhieuPhat.FindStringExact("Tat ca");
-                if (ind >= 0)
-                {
-                    cbbPhieuPhat.SelectedIndex = ind;
-                }
+                if (ind >= 0) cbbPhieuPhat.SelectedIndex = ind;
             }
         }
 
-        private void DTP_begin_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
+        private void DTP_begin_ValueChanged(object sender, EventArgs e) { }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            if (!isUserInput) return; // Bo qua neu khong phai user input
-
+            if (!isUserInput) return;
             string keyword = tb_search.Text;
             List<PhieuPhatDTO> list = PhieuPhatBUS.Instance.GetByKeyword(keyword);
             dgvPhieuPhat.DataSource = list;
         }
 
-        private void btn(object sender, EventArgs e)
-        {
-
-        }
+        private void btn(object sender, EventArgs e) { }
 
         public override void OnAdd()
         {
             if (!CoQuyenThem)
             {
-                MessageBox.Show("Ban khong co quyen them phieu phat!", "Thong bao",
-                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Ban khong co quyen them phieu phat!", "Thong bao", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
             using (var dlg = new FormAddPhieuPhat())
             {
                 var result = dlg.ShowDialog();
-                if (result == DialogResult.OK)
-                {
-                    LoadPhieuPhat(null);
-                }
+                if (result == DialogResult.OK) LoadPhieuPhat(null);
             }
         }
 
@@ -242,40 +225,27 @@ namespace QuanLyThuVien.GUI
         {
             if (!CoQuyenXoa)
             {
-                MessageBox.Show("Ban khong co quyen xoa phieu phat!", "Thong bao",
-                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Ban khong co quyen xoa phieu phat!", "Thong bao", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            // 1. Kiem tra da chon dong chua
             if (dgvPhieuPhat.SelectedRows.Count == 0)
             {
                 MessageBox.Show("Vui long chon phieu phat can xoa.", "Thong bao", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            // 2. Lay Ma phieu phat (ID) tu dong dang chon
             var cellValue = dgvPhieuPhat.SelectedRows[0].Cells["colID"].Value;
-
             if (cellValue == null) return;
             int maPhieuPhat = Convert.ToInt32(cellValue);
 
-            // 3. Hoi xac nhan
-            var result = MessageBox.Show(
-                "Ban co chac chan muon xoa (an) phieu phat so " + maPhieuPhat + " khong?",
-                "Xac nhan xoa",
-                MessageBoxButtons.YesNo,
-                MessageBoxIcon.Question);
+            var result = MessageBox.Show("Ban co chac chan muon xoa (an) phieu phat so " + maPhieuPhat + " khong?", "Xac nhan xoa", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
             if (result == DialogResult.Yes)
             {
-                // 4. Goi BUS de chuyen trang thai sang 0 (Soft Delete)
                 bool isSuccess = PhieuPhatBUS.Instance.XoaPhieuPhat(maPhieuPhat);
-
                 if (isSuccess)
                 {
                     MessageBox.Show("Da xoa thanh cong!", "Thong bao", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                    // 5. Tai lai du lieu
                     LoadPhieuPhat(null);
                 }
                 else

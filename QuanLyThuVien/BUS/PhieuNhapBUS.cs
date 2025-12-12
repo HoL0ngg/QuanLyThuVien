@@ -11,6 +11,7 @@ namespace QuanLyThuVien.BUS
     public class PhieuNhapBUS
     {
         private PhieuNhapDAO dao = new PhieuNhapDAO();
+        private CTPhieuNhapBUS ctBus = new CTPhieuNhapBUS();
 
         // lay danh sach phieu nhap
         public List<PhieuNhapDTO> GetALL()
@@ -37,11 +38,19 @@ namespace QuanLyThuVien.BUS
         }
         public bool Delete(int maPhieuNhap)
         {
-            if (maPhieuNhap <= 0)
+            try
             {
-                throw new Exception("Mã phiếu nhập không hợp lệ");
+                if (!ctBus.DeleteAllDetailsByMaPhieuNhap(maPhieuNhap))
+                {
+                    return false;
+                }
+
+                return dao.Delete(maPhieuNhap);
             }
-            return dao.Delete(maPhieuNhap);
+            catch (Exception ex)
+            {
+                throw new Exception("Lỗi khi xóa Phiếu nhập: " + ex.Message);
+            }
         }
         public PhieuNhapDTO GetById(int maPhieuNhap)
         {

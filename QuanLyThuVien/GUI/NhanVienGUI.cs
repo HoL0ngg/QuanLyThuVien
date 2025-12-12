@@ -1,5 +1,6 @@
 ﻿using QuanLyThuVien.BUS;
 using QuanLyThuVien.DTO;
+using QuanLyThuVien.GUI.Components;
 using System;
 using System.Data;
 using System.Drawing;
@@ -27,7 +28,27 @@ namespace QuanLyThuVien.GUI
         {
             SetupDataGridView();
             SetupButtonPhanQuyen();
+            InitializeActionButtons();
             LoadData();
+        }
+
+        /// <summary>
+        /// Khởi tạo ActionButtonsUC
+        /// </summary>
+        private void InitializeActionButtons()
+        {
+            Panel panelActions = new Panel
+            {
+                Dock = DockStyle.Top,
+                Height = 60,
+                BackColor = Color.FromArgb(250, 250, 250),
+                Padding = new Padding(10, 5, 10, 5)
+            };
+            
+            this.Controls.Add(panelActions);
+            panelActions.BringToFront();
+            
+            CreateActionButtons(panelActions, DockStyle.Left);
         }
 
         private void SetupButtonPhanQuyen()

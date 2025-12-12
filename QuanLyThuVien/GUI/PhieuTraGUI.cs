@@ -1,5 +1,6 @@
 ﻿using QuanLyThuVien.BUS;
 using QuanLyThuVien.DTO;
+using QuanLyThuVien.GUI.Components;
 using QuanLyThuVien.GUI.phieutra;
 using System;
 using System.Collections.Generic;
@@ -13,11 +14,13 @@ namespace QuanLyThuVien.GUI
     {
         private List<PhieuTraDTO> danhSachTatCaPhieuTra; 
         private ThemPhieuTra ucThemPhieuTra;
+        private int maNhanVien;
 
         public PhieuTraGUI()
         {
             InitializeComponent();
             SetupComponents();
+            InitializeActionButtons();
         }
 
         //public PhieuTraGUI(TaiKhoanDTO user) : this()
@@ -28,6 +31,25 @@ namespace QuanLyThuVien.GUI
         //        maNhanVien = user.MaNV;
         //    }
         //}
+
+        /// <summary>
+        /// Khởi tạo ActionButtonsUC
+        /// </summary>
+        private void InitializeActionButtons()
+        {
+            Panel panelActions = new Panel
+            {
+                Dock = DockStyle.Top,
+                Height = 60,
+                BackColor = Color.FromArgb(250, 250, 250),
+                Padding = new Padding(10, 5, 10, 5)
+            };
+            
+            this.Controls.Add(panelActions);
+            panelActions.BringToFront();
+            
+            CreateActionButtons(panelActions, DockStyle.Left);
+        }
 
         private void SetupComponents()
         {

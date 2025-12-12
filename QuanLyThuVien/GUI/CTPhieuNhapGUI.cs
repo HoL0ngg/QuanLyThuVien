@@ -17,7 +17,8 @@ namespace QuanLyThuVien.GUI
     public partial class CTPhieuNhapGUI : UserControl
     {
         private CTPhieuNhapBUS bus = new CTPhieuNhapBUS();
-        private int MaPhieuHienTai; 
+        private int MaPhieuHienTai;
+        public event EventHandler OnChiTietClosed;
         public CTPhieuNhapGUI()
         {
             InitializeComponent();
@@ -287,6 +288,7 @@ namespace QuanLyThuVien.GUI
         }
         private void Cancel(object sender, EventArgs e)
         {
+            OnChiTietClosed?.Invoke(this, EventArgs.Empty);
             this.Visible = false;
         }
         private void CTPhieuNhapGUI_Load(object sender, EventArgs e)

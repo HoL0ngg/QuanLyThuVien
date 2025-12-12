@@ -1,13 +1,7 @@
 ﻿using QuanLyThuVien.BUS;
 using QuanLyThuVien.DTO;
+using QuanLyThuVien.GUI.Components;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace QuanLyThuVien.GUI
@@ -25,6 +19,9 @@ namespace QuanLyThuVien.GUI
         protected bool CoQuyenThem { get; set; } = true;
         protected bool CoQuyenSua { get; set; } = true;
         protected bool CoQuyenXoa { get; set; } = true;
+
+        // ActionButtons UserControl (optional)
+        protected ActionButtonsUC ActionButtons { get; private set; }
 
         public BaseModuleUC()
         {
@@ -52,14 +49,65 @@ namespace QuanLyThuVien.GUI
                 CoQuyenThem = true;
                 CoQuyenSua = true;
                 CoQuyenXoa = true;
-                return;
+            }
+            else
+            {
+                // Kiểm tra từng quyền cho các nhóm quyền khác
+                CoQuyenXem = NhomQuyenBUS.Instance.KiemTraQuyen(user.MaNhomQuyen, tenChucNang, "XEM");
+                CoQuyenThem = NhomQuyenBUS.Instance.KiemTraQuyen(user.MaNhomQuyen, tenChucNang, "THEM");
+                CoQuyenSua = NhomQuyenBUS.Instance.KiemTraQuyen(user.MaNhomQuyen, tenChucNang, "SUA");
+                CoQuyenXoa = NhomQuyenBUS.Instance.KiemTraQuyen(user.MaNhomQuyen, tenChucNang, "XOA");
             }
 
-            // Kiểm tra từng quyền cho các nhóm quyền khác
-            CoQuyenXem = NhomQuyenBUS.Instance.KiemTraQuyen(user.MaNhomQuyen, tenChucNang, "XEM");
-            CoQuyenThem = NhomQuyenBUS.Instance.KiemTraQuyen(user.MaNhomQuyen, tenChucNang, "THEM");
-            CoQuyenSua = NhomQuyenBUS.Instance.KiemTraQuyen(user.MaNhomQuyen, tenChucNang, "SUA");
-            CoQuyenXoa = NhomQuyenBUS.Instance.KiemTraQuyen(user.MaNhomQuyen, tenChucNang, "XOA");
+            // Cập nhật quyền cho ActionButtons nếu có
+            UpdateActionButtonsPermission();
+        }
+
+        /// <summary>
+        /// Tạo và thêm ActionButtonsUC vào module
+        /// </summary>
+        /// <param name="parent">Panel/Control chứa ActionButtons</param>
+        /// <param name="dock">Dock style (mặc định Top)</param>
+        protected void CreateActionButtons(Control parent, DockStyle dock = DockStyle.Top)
+        {
+            if (ActionButtons != null)
+            {
+                parent.Controls.Remove(ActionButtons);
+                ActionButtons.Dispose();
+            }
+
+            ActionButtons = new ActionButtonsUC
+            {
+                Dock = dock,
+                Height = 55
+            };
+
+            // Gán sự kiện
+            ActionButtons.OnAddClick += (s, e) => OnAdd();
+            ActionButtons.OnEditClick += (s, e) => OnEdit();
+            ActionButtons.OnDeleteClick += (s, e) => OnDelete();
+            ActionButtons.OnDetailClick += (s, e) => OnDetails();
+
+            parent.Controls.Add(ActionButtons);
+            ActionButtons.BringToFront();
+
+            // Cập nhật quyền
+            UpdateActionButtonsPermission();
+        }
+
+        /// <summary>
+        /// Cập nhật trạng thái enable/disable của ActionButtons dựa trên quyền
+        /// </summary>
+        protected void UpdateActionButtonsPermission()
+        {
+            if (ActionButtons == null) return;
+
+            ActionButtons.SetPermissions(
+                canAdd: CoQuyenThem,
+                canEdit: CoQuyenSua,
+                canDelete: CoQuyenXoa,
+                canView: CoQuyenXem
+            );
         }
 
         /// <summary>
@@ -122,7 +170,6 @@ namespace QuanLyThuVien.GUI
             // Mặc định không làm gì - để lớp con override
         }
 
-        // Bạn cũng có thể thêm các hàm chung khác như Tải dữ liệu, Tìm kiếm...
         public virtual void LoadData()
         {
             // Mặc định không làm gì
@@ -130,7 +177,6 @@ namespace QuanLyThuVien.GUI
 
         private void BaseModuleUC_Load(object sender, EventArgs e)
         {
-
         }
     }
 }

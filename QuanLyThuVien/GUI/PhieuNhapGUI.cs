@@ -1,14 +1,10 @@
 ﻿using QuanLyThuVien.BUS;
 using QuanLyThuVien.DAO;
 using QuanLyThuVien.DTO;
+using QuanLyThuVien.GUI.Components;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace QuanLyThuVien.GUI
@@ -18,17 +14,39 @@ namespace QuanLyThuVien.GUI
         PhieuNhapBUS bus = new PhieuNhapBUS();
         private FormThemPhieuNhap formThemPhieuNhap1;
         private CTPhieuNhapGUI ctPhieuNhapGUI1;
+        private MainForm main;
 
         public PhieuNhapGUI()
         {
             InitializeComponent();
             SetupComponents();
+            ctPhieuNhapGUI1.OnChiTietClosed += CtPhieuNhapGUI1_OnChiTietClosed;
+            //InitializeActionButtons();
         }
 
         public PhieuNhapGUI(TaiKhoanDTO user) : this()
         {
             this.CurrentUser = user;
         }
+
+        /// <summary>
+        /// Khởi tạo ActionButtonsUC
+        /// </summary>
+        //private void InitializeActionButtons()
+        //{
+        //    Panel panelActions = new Panel
+        //    {
+        //        Dock = DockStyle.Top,
+        //        Height = 60,
+        //        BackColor = Color.FromArgb(250, 250, 250),
+        //        Padding = new Padding(10, 5, 10, 5)
+        //    };
+            
+        //    this.Controls.Add(panelActions);
+        //    panelActions.BringToFront();
+            
+        //    CreateActionButtons(panelActions, DockStyle.Left);
+        //}
 
         private void SetupComponents()
         {
@@ -87,10 +105,17 @@ namespace QuanLyThuVien.GUI
             formThemPhieuNhap2.Visible = true;
             formThemPhieuNhap2.BringToFront();
         }
+
         private void chitiet(object sender, EventArgs e)
         {
             if (dataGridView1.CurrentRow != null)
             {
+                MainForm mainForm = this.FindForm() as MainForm;
+                if (mainForm != null)
+                {
+                    mainForm.HideActionButtons();
+                }
+
                 int maPhieuChon = Convert.ToInt32(dataGridView1.CurrentRow.Cells["colMaPhieuNhap"].Value);
                 ctPhieuNhapGUI1.LoadChiTiet(maPhieuChon);
                 ctPhieuNhapGUI1.Visible = true;
@@ -100,6 +125,16 @@ namespace QuanLyThuVien.GUI
             {
                 MessageBox.Show("Vui long chon mot phieu nhap de xem chi tiet!");
             }
+        }
+        private void CtPhieuNhapGUI1_OnChiTietClosed(object sender, EventArgs e)
+        {
+            MainForm mainForm = this.FindForm() as MainForm;
+            if (mainForm != null)
+            {
+                mainForm.ShowActionButtons();
+            }
+
+            LoadDanhSach();
         }
 
         private void xoa(object sender, EventArgs e)
@@ -153,29 +188,25 @@ namespace QuanLyThuVien.GUI
                 MessageBox.Show("Cap nhat that bai. Vui long thu lai.", "Loi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
         private void btnSearch_Click(object sender, EventArgs e)
         {
             string keyword = txtSearch.Text.Trim();
             var result = bus.Search(keyword);
             if (result == null || result.Count == 0)
             {
-                MessageBox.Show("Khong tim thay phieu nhap nao phu hop voi tu khoa",
-                                "Thong bao",
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Information);
-
+                MessageBox.Show("Khong tim thay phieu nhap nao phu hop voi tu khoa", "Thong bao", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 dataGridView1.DataSource = null;
                 return;
             }
             dataGridView1.DataSource = result;
         }
+
         private void LoadNhanVien()
         {
             string query = "SELECT MANV, TENNV FROM nhan_vien";
             DataTable dt = DataProvider.ExecuteQuery(query);
-
             dt.Columns.Add("MATEN", typeof(string), "MANV + ' - ' + TENNV");
-
             cbMaNV.DataSource = dt;
             cbMaNV.DisplayMember = "MATEN";
             cbMaNV.ValueMember = "MANV";
@@ -195,8 +226,7 @@ namespace QuanLyThuVien.GUI
         {
             if (!CoQuyenThem)
             {
-                MessageBox.Show("Ban khong co quyen them phieu nhap!", "Thong bao",
-                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Ban khong co quyen them phieu nhap!", "Thong bao", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
             them(this, EventArgs.Empty);
@@ -206,8 +236,7 @@ namespace QuanLyThuVien.GUI
         {
             if (!CoQuyenSua)
             {
-                MessageBox.Show("Ban khong co quyen sua phieu nhap!", "Thong bao",
-                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Ban khong co quyen sua phieu nhap!", "Thong bao", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
             sua(this, EventArgs.Empty);
@@ -217,8 +246,7 @@ namespace QuanLyThuVien.GUI
         {
             if (!CoQuyenXoa)
             {
-                MessageBox.Show("Ban khong co quyen xoa phieu nhap!", "Thong bao",
-                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Ban khong co quyen xoa phieu nhap!", "Thong bao", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
             xoa(this, EventArgs.Empty);
@@ -228,8 +256,7 @@ namespace QuanLyThuVien.GUI
         {
             if (!CoQuyenXem)
             {
-                MessageBox.Show("Ban khong co quyen xem chi tiet phieu nhap!", "Thong bao",
-                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Ban khong co quyen xem chi tiet phieu nhap!", "Thong bao", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
             chitiet(this, EventArgs.Empty);
@@ -252,12 +279,7 @@ namespace QuanLyThuVien.GUI
 
         private void panel1_Paint(object sender, PaintEventArgs e) { }
         private void formThemPhieuNhap2_Load(object sender, EventArgs e) { }
-
-        private void btnSearch_Click_1(object sender, EventArgs e)
-        {
-            btnSearch_Click(this, EventArgs.Empty);
-        }
-
+        private void btnSearch_Click_1(object sender, EventArgs e) { btnSearch_Click(this, EventArgs.Empty); }
         private void txtSearch_TextChanged(object sender, EventArgs e) { }
     }
 }
