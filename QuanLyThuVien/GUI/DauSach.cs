@@ -189,41 +189,84 @@ namespace QuanLyThuVien.GUI
 
         private void CustomizeColumns()
         {
-            if (dgvDauSach.Columns.Contains("MaDauSach"))
+            var colMa = new DataGridViewTextBoxColumn { Name = "MaDauSach", HeaderText = "Mã đầu sách", DataPropertyName = "MaDauSach" };
+            var colTenDauSach = new DataGridViewTextBoxColumn { Name = "TenDauSach", HeaderText = "Tên đầu sách", DataPropertyName = "TenDauSach" };
+            var colNhaXuatBan = new DataGridViewTextBoxColumn { Name = "NhaXuatBan", HeaderText = "Nhà xuất bản", DataPropertyName = "NhaXuatBan" };
+            var colNamXuatBan = new DataGridViewTextBoxColumn { Name = "NamXuatBan", HeaderText = "Năm xuất bản", DataPropertyName = "NamXuatBan" };
+            var colNgonNgu = new DataGridViewTextBoxColumn { Name = "NgonNgu", HeaderText = "Ngôn ngữ", DataPropertyName = "NgonNgu" };
+            var colSoLuong = new DataGridViewTextBoxColumn { Name = "SoLuong", HeaderText = "Số lượng", DataPropertyName = "SoLuong" };
+
+            dgvDauSach.Columns.AddRange(new DataGridViewColumn[] { colMa, colTenDauSach, colNhaXuatBan, colNamXuatBan, colNgonNgu, colSoLuong });
+            // LINQ: Thêm tooltip cho từng dòng
+            foreach (DataGridViewRow row in dgvDauSach.Rows)
             {
-                dgvDauSach.Columns["MaDauSach"].HeaderText = "Mã đầu sách";
-                dgvDauSach.Columns["MaDauSach"].Width = 100;
+                if (row.Cells["TenDauSach"].Value != null)
+                {
+                    row.Cells["TenDauSach"].ToolTipText = "Nhấn đúp để xem danh sách sách";
+                }
             }
-            if (dgvDauSach.Columns.Contains("TenDauSach"))
-            {
-                dgvDauSach.Columns["TenDauSach"].HeaderText = "Tên đầu sách";
-                dgvDauSach.Columns["TenDauSach"].Width = 250;
-            }
-            if (dgvDauSach.Columns.Contains("NhaXuatBan"))
-            {
-                dgvDauSach.Columns["NhaXuatBan"].HeaderText = "Nhà xuất bản";
-                dgvDauSach.Columns["NhaXuatBan"].Width = 200;
-            }
-            if (dgvDauSach.Columns.Contains("NamXuatBan"))
-            {
-                dgvDauSach.Columns["NamXuatBan"].HeaderText = "Năm XB";
-                dgvDauSach.Columns["NamXuatBan"].Width = 80;
-            }
-            if (dgvDauSach.Columns.Contains("NgonNgu"))
-            {
-                dgvDauSach.Columns["NgonNgu"].HeaderText = "Ngôn ngữ";
-                dgvDauSach.Columns["NgonNgu"].Width = 120;
-            }
-            if (dgvDauSach.Columns.Contains("SoLuong"))
-            {
-                dgvDauSach.Columns["SoLuong"].HeaderText = "Số lượng";
-                dgvDauSach.Columns["SoLuong"].Width = 90;
-            }
+        }
+
+        private void UpdateStatistics()
+        {
+            if (_currentDataTable == null || _currentDataTable.Rows.Count == 0)
+                return;
+
+            int tongDauSach = _currentDataTable.Rows.Count;
             
-            if (dgvDauSach.Columns.Contains("HinhAnh"))
-                dgvDauSach.Columns["HinhAnh"].Visible = false;
-            if (dgvDauSach.Columns.Contains("TenTacGia"))
-                dgvDauSach.Columns["TenTacGia"].Visible = false;
+            int tongSoLuong = _currentDataTable.AsEnumerable()
+                .Sum(row => row.Field<int>("SoLuong"));
+
+            int hetHang = _currentDataTable.AsEnumerable()
+                .Count(row => row.Field<int>("SoLuong") == 0);
+
+            var ngonNguList = _currentDataTable.AsEnumerable()
+                .Select(row => row.Field<string>("NgonNgu"))
+                .Distinct()
+                .ToList();
+
+            Console.WriteLine($"Tổng đầu sách: {tongDauSach}, Tổng số lượng: {tongSoLuong}, Hết hàng: {hetHang}");
+        }
+
+        private void FilterDataOnUI(string keyword)
+        {
+            if (_currentDataTable == null)
+                return;
+
+            if (string.IsNullOrWhiteSpace(keyword))
+            {
+                dgvDauSach.DataSource = _currentDataTable;
+                return;
+            }
+
+            string searchTerm = keyword.ToLower();
+
+            var filteredRows = _currentDataTable.AsEnumerable()
+                .Where(row =>
+                    row.Field<string>("TenDauSach")?.ToLower().Contains(searchTerm) == true ||
+                    row.Field<string>("NhaXuatBan")?.ToLower().Contains(searchTerm) == true ||
+                    row.Field<string>("NgonNgu")?.ToLower().Contains(searchTerm) == true ||
+                    row.Field<int>("NamXuatBan").ToString().Contains(searchTerm));
+
+            if (filteredRows.Any())
+            {
+                DataTable filteredTable = filteredRows.CopyToDataTable();
+                dgvDauSach.DataSource = filteredTable;
+            }
+            else
+            {
+                dgvDauSach.DataSource = _currentDataTable.Clone();
+            }
+
+            CustomizeColumns();
+        }
+
+        private List<int> GetSelectedDauSachIDs()
+        {
+            return dgvDauSach.SelectedRows
+                .Cast<DataGridViewRow>()
+                .Select(row => Convert.ToInt32(row.Cells["MaDauSach"].Value))
+                .ToList();
         }
 
         #endregion

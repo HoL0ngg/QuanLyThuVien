@@ -28,6 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.splitContainerMain = new System.Windows.Forms.SplitContainer();
             this.groupBoxList = new System.Windows.Forms.GroupBox();
             this.bangPhieuMuon = new QuanLyThuVien.GUI.CustomDataGridView();
@@ -76,8 +82,8 @@
             // splitContainerMain.Panel2
             // 
             this.splitContainerMain.Panel2.Controls.Add(this.groupBoxDetails);
-            this.splitContainerMain.Size = new System.Drawing.Size(1028, 563);
-            this.splitContainerMain.SplitterDistance = 273;
+            this.splitContainerMain.Size = new System.Drawing.Size(1270, 590);
+            this.splitContainerMain.SplitterDistance = 286;
             this.splitContainerMain.TabIndex = 2;
             // 
             // groupBoxList
@@ -86,18 +92,50 @@
             this.groupBoxList.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBoxList.Location = new System.Drawing.Point(0, 0);
             this.groupBoxList.Name = "groupBoxList";
-            this.groupBoxList.Size = new System.Drawing.Size(1028, 273);
+            this.groupBoxList.Size = new System.Drawing.Size(1270, 286);
             this.groupBoxList.TabIndex = 0;
             this.groupBoxList.TabStop = false;
             this.groupBoxList.Text = "Danh sách phiếu mượn";
             // 
             // bangPhieuMuon
             // 
+            this.bangPhieuMuon.AllowUserToAddRows = false;
+            this.bangPhieuMuon.AllowUserToDeleteRows = false;
+            this.bangPhieuMuon.AllowUserToResizeColumns = false;
+            this.bangPhieuMuon.AllowUserToResizeRows = false;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
+            this.bangPhieuMuon.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            this.bangPhieuMuon.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.bangPhieuMuon.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.bangPhieuMuon.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.bangPhieuMuon.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.bangPhieuMuon.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI", 9F);
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(181)))), ((int)(((byte)(246)))));
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.bangPhieuMuon.DefaultCellStyle = dataGridViewCellStyle3;
             this.bangPhieuMuon.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.bangPhieuMuon.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            this.bangPhieuMuon.EnableHeadersVisualStyles = false;
+            this.bangPhieuMuon.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.bangPhieuMuon.Location = new System.Drawing.Point(3, 16);
+            this.bangPhieuMuon.MultiSelect = false;
             this.bangPhieuMuon.Name = "bangPhieuMuon";
-            this.bangPhieuMuon.Size = new System.Drawing.Size(1022, 254);
+            this.bangPhieuMuon.ReadOnly = true;
+            this.bangPhieuMuon.RowHeadersVisible = false;
+            this.bangPhieuMuon.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.bangPhieuMuon.Size = new System.Drawing.Size(1264, 267);
             this.bangPhieuMuon.TabIndex = 0;
             // 
             // groupBoxDetails
@@ -106,18 +144,50 @@
             this.groupBoxDetails.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBoxDetails.Location = new System.Drawing.Point(0, 0);
             this.groupBoxDetails.Name = "groupBoxDetails";
-            this.groupBoxDetails.Size = new System.Drawing.Size(1028, 286);
+            this.groupBoxDetails.Size = new System.Drawing.Size(1270, 300);
             this.groupBoxDetails.TabIndex = 0;
             this.groupBoxDetails.TabStop = false;
             this.groupBoxDetails.Text = "Chi tiết phiếu mượn";
             // 
             // bangCTPhieuMuon
             // 
+            this.bangCTPhieuMuon.AllowUserToAddRows = false;
+            this.bangCTPhieuMuon.AllowUserToDeleteRows = false;
+            this.bangCTPhieuMuon.AllowUserToResizeColumns = false;
+            this.bangCTPhieuMuon.AllowUserToResizeRows = false;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
+            this.bangCTPhieuMuon.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
+            this.bangCTPhieuMuon.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.bangCTPhieuMuon.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.bangCTPhieuMuon.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.bangCTPhieuMuon.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
             this.bangCTPhieuMuon.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Segoe UI", 9F);
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(181)))), ((int)(((byte)(246)))));
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.bangCTPhieuMuon.DefaultCellStyle = dataGridViewCellStyle6;
             this.bangCTPhieuMuon.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.bangCTPhieuMuon.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            this.bangCTPhieuMuon.EnableHeadersVisualStyles = false;
+            this.bangCTPhieuMuon.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.bangCTPhieuMuon.Location = new System.Drawing.Point(3, 16);
+            this.bangCTPhieuMuon.MultiSelect = false;
             this.bangCTPhieuMuon.Name = "bangCTPhieuMuon";
-            this.bangCTPhieuMuon.Size = new System.Drawing.Size(1022, 267);
+            this.bangCTPhieuMuon.ReadOnly = true;
+            this.bangCTPhieuMuon.RowHeadersVisible = false;
+            this.bangCTPhieuMuon.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.bangCTPhieuMuon.Size = new System.Drawing.Size(1264, 281);
             this.bangCTPhieuMuon.TabIndex = 0;
             // 
             // groupBoxInfo
@@ -140,7 +210,7 @@
             this.groupBoxInfo.Controls.Add(this.btnTimKiem);
             this.groupBoxInfo.Location = new System.Drawing.Point(6, 6);
             this.groupBoxInfo.Name = "groupBoxInfo";
-            this.groupBoxInfo.Size = new System.Drawing.Size(1028, 99);
+            this.groupBoxInfo.Size = new System.Drawing.Size(1270, 99);
             this.groupBoxInfo.TabIndex = 1;
             this.groupBoxInfo.TabStop = false;
             this.groupBoxInfo.Text = "Tìm kiếm phiếu mượn";
@@ -149,7 +219,7 @@
             // btnClearFilters
             // 
             this.btnClearFilters.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnClearFilters.Location = new System.Drawing.Point(843, 22);
+            this.btnClearFilters.Location = new System.Drawing.Point(1085, 22);
             this.btnClearFilters.Name = "btnClearFilters";
             this.btnClearFilters.Size = new System.Drawing.Size(110, 25);
             this.btnClearFilters.TabIndex = 13;
@@ -264,7 +334,7 @@
             // btnTimKiem
             // 
             this.btnTimKiem.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnTimKiem.Location = new System.Drawing.Point(843, 58);
+            this.btnTimKiem.Location = new System.Drawing.Point(1085, 58);
             this.btnTimKiem.Name = "btnTimKiem";
             this.btnTimKiem.Size = new System.Drawing.Size(110, 25);
             this.btnTimKiem.TabIndex = 12;
@@ -290,7 +360,7 @@
             this.Controls.Add(this.groupBoxInfo);
             this.Controls.Add(this.addPhieuMuon);
             this.Name = "PhieuMuon";
-            this.Size = new System.Drawing.Size(1040, 723);
+            this.Size = new System.Drawing.Size(1282, 750);
             this.Load += new System.EventHandler(this.PhieuMuon_Load);
             this.splitContainerMain.Panel1.ResumeLayout(false);
             this.splitContainerMain.Panel2.ResumeLayout(false);
@@ -310,9 +380,7 @@
 
         private System.Windows.Forms.SplitContainer splitContainerMain;
         private System.Windows.Forms.GroupBox groupBoxList;
-        private System.Windows.Forms.DataGridView bangPhieuMuon;
         private System.Windows.Forms.GroupBox groupBoxDetails;
-        private System.Windows.Forms.DataGridView bangCTPhieuMuon;
         private System.Windows.Forms.GroupBox groupBoxInfo;
         private System.Windows.Forms.Button btnClearFilters;
         private System.Windows.Forms.Label label1;
@@ -329,5 +397,7 @@
         private System.Windows.Forms.TextBox txtMaNhanVien;
         private System.Windows.Forms.Button btnTimKiem;
         private System.Windows.Forms.Button addPhieuMuon;
+        private CustomDataGridView bangPhieuMuon;
+        private CustomDataGridView bangCTPhieuMuon;
     }
 }

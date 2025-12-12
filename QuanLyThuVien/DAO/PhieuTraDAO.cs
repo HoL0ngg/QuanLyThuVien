@@ -64,30 +64,29 @@ namespace QuanLyThuVien.DAO
         public List<CTPhieuTraDTO> GetCTPhieuTraById(int maPhieuTra)
         {
             List<CTPhieuTraDTO> list = new List<CTPhieuTraDTO>();
-            string query = @"
-        SELECT 
-            CTPT.MaCTPhieuTra,
-            CTPT.MaPhieuTra,
-            CTPT.MaSach,
-            CTPT.TrangThai,
-            DS.TenDauSach AS TenSach,
-            MIN(TG.TenTacGia) AS TenTacGia 
-        FROM 
-            ctphieu_tra AS CTPT
-        JOIN 
-            sach AS S ON CTPT.MaSach = S.MaSach
-        JOIN 
-            dau_sach AS DS ON S.MaDauSach = DS.MaDauSach
-        LEFT JOIN
-            tacgia_dausach AS TGDS ON DS.MaDauSach = TGDS.MaDauSach
-        LEFT JOIN
-            tac_gia AS TG ON TGDS.MaTacGia = TG.MaTacGia
-        WHERE 
-            CTPT.MaPhieuTra = @MaPhieuTra
-        GROUP BY
-            CTPT.MaCTPhieuTra, CTPT.MaPhieuTra, CTPT.MaSach, DS.TenDauSach
-        ORDER BY
-            CTPT.MaSach";
+            string query = @"SELECT 
+                                 CTPT.MaCTPhieuTra,
+                                 CTPT.MaPhieuTra,
+                                 CTPT.MaSach,
+                                 CTPT.TrangThai,
+                                 DS.TenDauSach AS TenSach,
+                                 MIN(TG.TenTacGia) AS TenTacGia 
+                             FROM 
+                                 ctphieu_tra AS CTPT
+                             JOIN 
+                                 sach AS S ON CTPT.MaSach = S.MaSach
+                             JOIN 
+                                 dau_sach AS DS ON S.MaDauSach = DS.MaDauSach
+                             LEFT JOIN
+                                 tacgia_dausach AS TGDS ON DS.MaDauSach = TGDS.MaDauSach
+                             LEFT JOIN
+                                 tac_gia AS TG ON TGDS.MaTacGia = TG.MaTacGia
+                             WHERE 
+                                 CTPT.MaPhieuTra = @MaPhieuTra
+                             GROUP BY
+                                 CTPT.MaCTPhieuTra, CTPT.MaPhieuTra, CTPT.MaSach, DS.TenDauSach
+                             ORDER BY
+                                 CTPT.MaSach";
 
             var parameters = new Dictionary<string, object>
             {
