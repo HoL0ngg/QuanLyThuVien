@@ -1,6 +1,5 @@
 ﻿using QuanLyThuVien.BUS;
 using QuanLyThuVien.DTO;
-using QuanLyThuVien.GUI.Components;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -20,7 +19,6 @@ namespace QuanLyThuVien.GUI.ThongKeGUI
         {
             InitializeComponent();
             SetupUI();
-            InitializeActionButtons();
 
             this.tabControlTK.SelectedIndexChanged += TabControlTK_SelectedIndexChanged;
             this.tabControlTK.Selecting += TabControlTK_Selecting;
@@ -35,31 +33,6 @@ namespace QuanLyThuVien.GUI.ThongKeGUI
         public UCMain(TaiKhoanDTO user) : this()
         {
             this.CurrentUser = user;
-        }
-
-        /// <summary>
-        /// Khởi tạo ActionButtonsUC - Ẩn tất cả các nút vì Thống kê không cần CRUD
-        /// </summary>
-        private void InitializeActionButtons()
-        {
-            Panel panelActions = new Panel
-            {
-                Dock = DockStyle.Top,
-                Height = 60,
-                BackColor = Color.FromArgb(250, 250, 250),
-                Padding = new Padding(10, 5, 10, 5)
-            };
-            
-            this.Controls.Add(panelActions);
-            panelActions.BringToFront();
-            
-            CreateActionButtons(panelActions, DockStyle.Left);
-            
-            // Ẩn tất cả nút vì Thống kê không cần CRUD
-            if (ActionButtons != null)
-            {
-                ActionButtons.HideAllButtons();
-            }
         }
 
         private void Btn_docgia_Enter(object sender, EventArgs e) => EnsureThongKeDocGiaLoaded();
@@ -134,9 +107,9 @@ namespace QuanLyThuVien.GUI.ThongKeGUI
             if (this.btn_tongquan == null) return;
             if (this.dtpTo != null) this.dtpTo.Value = DateTime.Now.Date;
             if (this.dtpFrom != null) this.dtpFrom.Value = DateTime.Now.Date.AddDays(-7);
-            SetupChartPanel(panelTrend, "📊 XU HƯỚNG MƯỢN/TRẢ");
-            SetupChartPanel(panelTop5, "🏆 TOP 5 SÁCH MƯỢN NHIỀU");
-            SetupChartPanel(panelCategory, "📚 CƠ CẤU THỂ LOẠI");
+            SetupChartPanel(panelTrend, "XU HUONG MUON/TRA");
+            SetupChartPanel(panelTop5, "TOP 5 SACH MUON NHIEU");
+            SetupChartPanel(panelCategory, "CO CAU THE LOAI");
             BtnGenerate_Click(this, EventArgs.Empty);
         }
 
@@ -180,7 +153,7 @@ namespace QuanLyThuVien.GUI.ThongKeGUI
                     if (kpiBorrow != null) kpiBorrow.Text = overview.TongLuotMuon.ToString("N0");
                     if (kpiBooks != null) kpiBooks.Text = overview.TongSachTrongKho.ToString("N0");
                     if (kpiOverdue != null) kpiOverdue.Text = overview.SachMatHong.ToString("N0");
-                    if (kpiPenalty != null) kpiPenalty.Text = overview.TongThuPhiPhat.ToString("N0") + " đ";
+                    if (kpiPenalty != null) kpiPenalty.Text = overview.TongThuPhiPhat.ToString("N0") + " d";
                 }
                 
                 if (this.IsHandleCreated)
@@ -217,7 +190,7 @@ namespace QuanLyThuVien.GUI.ThongKeGUI
             var items = new List<(string Label, int Muon, int Tra)>();
             for (int i = 0; i < 12; i++)
             {
-                items.Add(("Tháng " + (i + 1), trendData[i].TongMuon, trendData[i].TongTra));
+                items.Add(("Thang " + (i + 1), trendData[i].TongMuon, trendData[i].TongTra));
             }
 
             int maxValue = items.Max(x => Math.Max(x.Muon, x.Tra));
@@ -254,7 +227,7 @@ namespace QuanLyThuVien.GUI.ThongKeGUI
             var pnlBarMuon = new Panel { Location = new Point(0, 0), Size = new Size(barWidthMuon, 16), BackColor = Color.FromArgb(33, 150, 243) };
             pnlBarBgMuon.Controls.Add(pnlBarMuon);
 
-            var lblMuon = new Label { Text = muon.ToString("N0") + " mượn", Location = new Point(barStartX + barMaxWidth + 5, 5), Size = new Size(valueWidth, 16), Font = new Font("Segoe UI", 8F, FontStyle.Bold), ForeColor = Color.FromArgb(33, 150, 243), TextAlign = ContentAlignment.MiddleLeft };
+            var lblMuon = new Label { Text = muon.ToString("N0") + " muon", Location = new Point(barStartX + barMaxWidth + 5, 5), Size = new Size(valueWidth, 16), Font = new Font("Segoe UI", 8F, FontStyle.Bold), ForeColor = Color.FromArgb(33, 150, 243), TextAlign = ContentAlignment.MiddleLeft };
 
             double percentTra = maxValue > 0 ? (double)tra / maxValue : 0;
             int barWidthTra = (int)(barMaxWidth * percentTra);
@@ -264,7 +237,7 @@ namespace QuanLyThuVien.GUI.ThongKeGUI
             var pnlBarTra = new Panel { Location = new Point(0, 0), Size = new Size(barWidthTra, 16), BackColor = Color.FromArgb(76, 175, 80) };
             pnlBarBgTra.Controls.Add(pnlBarTra);
 
-            var lblTra = new Label { Text = tra.ToString("N0") + " trả", Location = new Point(barStartX + barMaxWidth + 5, 28), Size = new Size(valueWidth, 16), Font = new Font("Segoe UI", 8F, FontStyle.Bold), ForeColor = Color.FromArgb(76, 175, 80), TextAlign = ContentAlignment.MiddleLeft };
+            var lblTra = new Label { Text = tra.ToString("N0") + " tra", Location = new Point(barStartX + barMaxWidth + 5, 28), Size = new Size(valueWidth, 16), Font = new Font("Segoe UI", 8F, FontStyle.Bold), ForeColor = Color.FromArgb(76, 175, 80), TextAlign = ContentAlignment.MiddleLeft };
 
             card.Controls.AddRange(new Control[] { lblName, pnlBarBgMuon, lblMuon, pnlBarBgTra, lblTra });
             return card;
@@ -294,7 +267,7 @@ namespace QuanLyThuVien.GUI.ThongKeGUI
 
             foreach (var item in items)
             {
-                var card = CreateBarCard(item.Label, item.Value, maxValue, item.BarColor, "lượt mượn", containerWidth);
+                var card = CreateBarCard(item.Label, item.Value, maxValue, item.BarColor, "luot muon", containerWidth);
                 content.Controls.Add(card);
             }
         }
@@ -323,7 +296,7 @@ namespace QuanLyThuVien.GUI.ThongKeGUI
 
             foreach (var item in items)
             {
-                var card = CreateBarCard(item.Label, item.Value, maxValue, item.BarColor, "Lượt Mượn", containerWidth);
+                var card = CreateBarCard(item.Label, item.Value, maxValue, item.BarColor, "Luot Muon", containerWidth);
                 content.Controls.Add(card);
             }
         }
