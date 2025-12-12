@@ -1,12 +1,12 @@
-﻿using QuanLyThuVien.BUS;
-using QuanLyThuVien.DTO;
-using QuanLyThuVien.GUI.Components;
-using QuanLyThuVien.GUI.phieutra;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using QuanLyThuVien.BUS;
+using QuanLyThuVien.DTO;
+using QuanLyThuVien.GUI.Components;
+using QuanLyThuVien.GUI.phieutra;
 
 namespace QuanLyThuVien.GUI
 {
@@ -16,11 +16,15 @@ namespace QuanLyThuVien.GUI
         private ThemPhieuTra ucThemPhieuTra;
         private int maNhanVien;
 
-        public PhieuTraGUI()
+        public PhieuTraGUI(TaiKhoanDTO user)
         {
+            this.CurrentUser = user;
+            if (user != null)
+            {
+                maNhanVien = user.MaNV;
+            }
             InitializeComponent();
             SetupComponents();
-            //InitializeActionButtons();
         }
 
         public PhieuTraGUI(TaiKhoanDTO user) : this()
@@ -55,7 +59,7 @@ namespace QuanLyThuVien.GUI
         {
             LoadDanhSachPhieuTra();
 
-            ucThemPhieuTra = new ThemPhieuTra
+            ucThemPhieuTra = new ThemPhieuTra(maNhanVien)
             {
                 Dock = DockStyle.Fill,
                 Visible = false
@@ -69,101 +73,44 @@ namespace QuanLyThuVien.GUI
 
         private void LoadDanhSachPhieuTra()
         {
-            try
+            var danhSachTatCaPhieuTra = PhieuTraBUS.Instance.GetAllPhieuTra();
+            dataGridView1.Columns.Clear();
+
+            dataGridView1.Columns.AddRange(new DataGridViewColumn[]
             {
-                danhSachTatCaPhieuTra = PhieuTraBUS.Instance.GetAllPhieuTra();
+                new DataGridViewTextBoxColumn { Name = "MaPhieuTra", HeaderText = "Mã Phiếu Trả", DataPropertyName = "MaPhieuTra", Width = 70 },
+                new DataGridViewTextBoxColumn { Name = "NgayMuon", HeaderText = "Ngày Mượn", DataPropertyName = "NgayMuon", DefaultCellStyle = new DataGridViewCellStyle { Format = "dd/MM/yyyy" }, Width = 100 },
+                new DataGridViewTextBoxColumn { Name = "NgayTraDuKien", HeaderText = "Hạn Trả", DataPropertyName = "NgayTraDuKien", DefaultCellStyle = new DataGridViewCellStyle { Format = "dd/MM/yyyy" }, Width = 100 },
+                new DataGridViewTextBoxColumn { Name = "NgayTra", HeaderText = "Ngày Trả", DataPropertyName = "NgayTra", DefaultCellStyle = new DataGridViewCellStyle { Format = "dd/MM/yyyy" }, Width = 100 },
+                new DataGridViewTextBoxColumn { Name = "MaPhieuMuon", HeaderText = "Mã Phiếu Mượn", DataPropertyName = "MaPhieuMuon", Width = 70 },
+                new DataGridViewTextBoxColumn { Name = "TENNV", HeaderText = "Nhân Viên", DataPropertyName = "TENNV", Width = 150 },
+                new DataGridViewTextBoxColumn { Name = "MADG", HeaderText = "Mã Độc Giả", DataPropertyName = "MADG", Width = 70 },
+                new DataGridViewTextBoxColumn { Name = "TENDG", HeaderText = "Tên Độc Giả", DataPropertyName = "TENDG", Width = 180 }
+            });
 
-                dataGridView1.DataSource = danhSachTatCaPhieuTra;
-
-                dataGridView1.Columns["MaPhieuTra"].HeaderText = "Mã PT";
-                dataGridView1.Columns["MaPhieuTra"].Width = 70;
-
-                dataGridView1.Columns["NgayMuon"].HeaderText = "Ngay Muon";
-                dataGridView1.Columns["NgayMuon"].DefaultCellStyle.Format = "dd/MM/yyyy";
-                dataGridView1.Columns["NgayMuon"].Width = 100;
-
-                dataGridView1.Columns["NgayTraDuKien"].HeaderText = "Han Tra";
-                dataGridView1.Columns["NgayTraDuKien"].DefaultCellStyle.Format = "dd/MM/yyyy";
-                dataGridView1.Columns["NgayTraDuKien"].Width = 100;
-
-                dataGridView1.Columns["NgayTra"].HeaderText = "Ngay Tra";
-                dataGridView1.Columns["NgayTra"].DefaultCellStyle.Format = "dd/MM/yyyy";
-                dataGridView1.Columns["NgayTra"].Width = 100;
-
-                dataGridView1.Columns["MaPhieuMuon"].HeaderText = "Ma PM";
-                dataGridView1.Columns["MaPhieuMuon"].Width = 70;
-
-                dataGridView1.Columns["TENNV"].HeaderText = "Nhan Vien";
-                dataGridView1.Columns["TENNV"].Width = 150;
-
-                dataGridView1.Columns["MADG"].HeaderText = "Mã ĐG";
-                dataGridView1.Columns["MADG"].Width = 70;
-
-                dataGridView1.Columns["TENDG"].HeaderText = "Độc Giả";
-                dataGridView1.Columns["TENDG"].Width = 180;
-
-                // Ẩn cột không cần thiết (nếu có)
-                if (dataGridView1.Columns.Contains("MaNV"))
-                    dataGridView1.Columns["MaNV"].Visible = false;
-
-                // Cấu hình grid chung
-                dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-                dataGridView1.MultiSelect = false;
-                dataGridView1.ReadOnly = true;
-                dataGridView1.RowHeadersVisible = false;
-                dataGridView1.AutoGenerateColumns = false;
-                dataGridView1.SelectionChanged += dataGridView1_SelectionChanged;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Loi khi tai danh sach phieu tra: " + ex.Message, "Loi",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            // Bind data
+            dataGridView1.DataSource = danhSachTatCaPhieuTra;
+            dataGridView1.SelectionChanged += dataGridView1_SelectionChanged;
         }
 
         private void LoadChiTietPhieuTra(int maPhieuTra)
         {
-            try
+            var chiTietList = PhieuTraBUS.Instance.GetCTPhieuTraById(maPhieuTra);
+            dataGridView2.Columns.Clear();
+
+            dataGridView2.Columns.AddRange(new DataGridViewColumn[]
             {
-                var chiTietList = PhieuTraBUS.Instance.GetCTPhieuTraById(maPhieuTra);
-                dataGridView2.DataSource = chiTietList;
+                new DataGridViewTextBoxColumn { Name = "MaSach", HeaderText = "Mã Sách", DataPropertyName = "MaSach" },
+                new DataGridViewTextBoxColumn { Name = "TenSach", HeaderText = "Tên Sách", DataPropertyName = "TenSach" },
+                new DataGridViewTextBoxColumn { Name = "TenTacGia", HeaderText = "Tác Giả", DataPropertyName = "TenTacGia" },
+                new DataGridViewTextBoxColumn { Name = "TrangThai", HeaderText = "Trạng Thái", DataPropertyName = "TrangThai" }
+            });
 
-                dataGridView2.RowHeadersVisible = false;
-                dataGridView2.ReadOnly = true;
-                dataGridView2.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-                dataGridView2.MultiSelect = false;
-                dataGridView2.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(248, 252, 255);
+            dataGridView2.DataSource = chiTietList;
 
-                if (dataGridView2.Columns.Contains("MaCTPhieuTra"))
-                    dataGridView2.Columns["MaCTPhieuTra"].Visible = false;
-                if (dataGridView2.Columns.Contains("MaPhieuTra"))
-                    dataGridView2.Columns["MaPhieuTra"].Visible = false;
-
-                if (dataGridView2.Columns.Contains("MaSach"))
-                {
-                    dataGridView2.Columns["MaSach"].HeaderText = "Mã Sách";
-                    dataGridView2.Columns["MaSach"].Width = 80;
-                }
-                if (dataGridView2.Columns.Contains("TenSach"))
-                {
-                    dataGridView2.Columns["TenSach"].HeaderText = "Tên Sách";
-                    dataGridView2.Columns["TenSach"].Width = 280;
-                }
-                if (dataGridView2.Columns.Contains("TenTacGia"))
-                {
-                    dataGridView2.Columns["TenTacGia"].HeaderText = "Tác Giả";
-                    dataGridView2.Columns["TenTacGia"].Width = 150;
-                }
-
-                if (chiTietList == null || chiTietList.Count == 0)
-                {
-                    dataGridView2.DataSource = null;
-                }
-            }
-            catch (Exception ex)
+            if (chiTietList == null || chiTietList.Count == 0)
             {
-                MessageBox.Show("Loi khi tai chi tiet phieu tra: " + ex.Message, "Loi",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                dataGridView2.DataSource = null;
             }
         }
 
@@ -203,7 +150,7 @@ namespace QuanLyThuVien.GUI
             if (string.IsNullOrEmpty(input))
             {
                 ketQua = danhSachTatCaPhieuTra;
-                label1.Text = "Mã độc giả:";
+                label1.Text = "Ma doc gia:";
             }
             else if (int.TryParse(input, out int maDG))
             {
@@ -213,21 +160,20 @@ namespace QuanLyThuVien.GUI
 
                 if (ketQua.Count == 0)
                 {
-                    MessageBox.Show($"Không tìm thấy phiếu trả nào của độc giả có mã {maDG}",
-                                    "Không có kết quả", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Khong tim thay phieu tra nao cua doc gia co ma " + maDG,
+                                    "Khong co ket qua", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
-                label1.Text = $"Mã độc giả: {maDG} ({ketQua.Count} phiếu)";
+                label1.Text = "Ma doc gia: " + maDG + " (" + ketQua.Count + " phieu)";
             }
             else
             {
-                MessageBox.Show("Vui lòng nhập mã độc giả là số nguyên!", "Sai định dạng",
+                MessageBox.Show("Vui long nhap ma doc gia la so nguyen!", "Sai dinh dang",
                                 MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             dataGridView1.DataSource = ketQua;
             dataGridView1.Refresh();
-
             dataGridView2.DataSource = null;
         }
 
@@ -242,17 +188,73 @@ namespace QuanLyThuVien.GUI
             ToggleView(true);
         }
 
+        public override void OnDelete()
+        {
+            if (!CoQuyenXoa)
+            {
+                MessageBox.Show("Ban khong co quyen xoa phieu tra!", "Thong bao", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (dataGridView1.CurrentRow == null)
+            {
+                MessageBox.Show("Vui long chon mot phieu tra de xoa.", "Thong bao", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            var idCell = dataGridView1.CurrentRow.Cells["MaPhieuTra"];
+            if (idCell?.Value == null || !int.TryParse(idCell.Value.ToString(), out int id)) return;
+
+            var confirm = MessageBox.Show("Ban co chac muon xoa phieu tra co ID " + id + " khong?", "Xac nhan xoa", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (confirm != DialogResult.Yes) return;
+            try
+            {
+                if (PhieuTraBUS.Instance.Delete(id)) LoadData();
+                else MessageBox.Show("Xoa khong thanh cong.", "Thong bao", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Loi khi xoa: " + ex.Message, "Loi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private static string MapTrangThai(object value)
+        {
+            if (value == null || !int.TryParse(value.ToString(), out int v)) return string.Empty;
+            switch (v)
+            {
+                case 1: return "Tra dung han";
+                case 2: return "Tra muon";
+                case 3: return "Lam hong";
+                case 4: return "Lam mat";
+                default: return v.ToString();
+            }
+        }
+
+        private void BangPhieuMuon_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (e.RowIndex < 0) return;
+            if (dataGridView2.Columns[e.ColumnIndex].Name == "TrangThai")
+            {
+                e.Value = MapTrangThai(e.Value);
+                e.FormattingApplied = true;
+            }
+        }
+
         private void ToggleView(bool showThem)
         {
-            groupBox1.Visible = !showThem;
-            groupBox2.Visible = !showThem;
-            groupBox3.Visible = !showThem;
-            ucThemPhieuTra.Visible = showThem;
+            // With the new layout: show/hide the top search group and the split container list/detail
+            groupBoxInfo.Visible = !showThem;
+            splitContainerMain.Visible = !showThem;
 
+            ucThemPhieuTra.Visible = showThem;
             if (showThem)
+            {
                 ucThemPhieuTra.BringToFront();
+            }
             else
+            {
                 ucThemPhieuTra.SendToBack();
+            }
         }
 
         private void UcThemPhieuTra_CloseRequested()
@@ -261,9 +263,14 @@ namespace QuanLyThuVien.GUI
             LoadDanhSachPhieuTra(); 
         }
 
-        public void LoadData()
+        public override void LoadData()
         {
             LoadDanhSachPhieuTra();
+        }
+
+        private void flowLayoutPanel1_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

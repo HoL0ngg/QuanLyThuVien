@@ -1,9 +1,7 @@
 ﻿using QuanLyThuVien.BUS;
 using QuanLyThuVien.DTO;
-using QuanLyThuVien.GUI.Components;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -12,38 +10,17 @@ namespace QuanLyThuVien.GUI
     public partial class PhieuPhat : BaseModuleUC
     {
         private bool isUserInput = true;
-        private const string PLACEHOLDER_TEXT = "Tim kiem...";
         private List<PhieuPhatDTO> _currentResult = new List<PhieuPhatDTO>();
 
         public PhieuPhat()
         {
             InitializeComponent();
             this.Load += PhieuPhat_Load;
-            //InitializeActionButtons();
         }
 
         public PhieuPhat(TaiKhoanDTO user) : this()
         {
             this.CurrentUser = user;
-        }
-
-        /// <summary>
-        /// Khởi tạo ActionButtonsUC
-        /// </summary>
-        private void InitializeActionButtons()
-        {
-            Panel panelActions = new Panel
-            {
-                Dock = DockStyle.Top,
-                Height = 60,
-                BackColor = Color.FromArgb(250, 250, 250),
-                Padding = new Padding(10, 5, 10, 5)
-            };
-            
-            this.Controls.Add(panelActions);
-            panelActions.BringToFront();
-            
-            CreateActionButtons(panelActions, DockStyle.Left);
         }
 
         private void dateTimePicker1_ValueChanged(object sender, EventArgs e) { }
@@ -303,81 +280,66 @@ namespace QuanLyThuVien.GUI
         {
             if (!CoQuyenSua)
             {
-                MessageBox.Show("Bạn không có quyền sửa phiếu phạt!", "Thông báo",
-                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Ban khong co quyen sua phieu phat!", "Thong bao", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            // 1. Kiểm tra đã chọn dòng chưa
             if (dgvPhieuPhat.SelectedRows.Count == 0)
             {
-                MessageBox.Show("Vui lòng chọn phiếu phạt cần thay đổi trạng thái.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Vui long chon phieu phat can thay doi trang thai.", "Thong bao", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            // 2. Lấy phiếu phạt từ dòng đang chọn
             var phieu = dgvPhieuPhat.SelectedRows[0].DataBoundItem as PhieuPhatDTO;
             if (phieu == null) return;
 
-            // 3. Xác định trạng thái hiện tại và trạng thái mới
             int trangThaiHienTai = phieu.TrangThai;
-            int trangThaiMoi = trangThaiHienTai == 0 ? 1 : 0; // Toggle: 0->1 hoặc 1->0
+            int trangThaiMoi = trangThaiHienTai == 0 ? 1 : 0;
             
-            string trangThaiCu = trangThaiHienTai == 0 ? "Chưa đóng" : "Đã đóng";
-            string trangThaiNew = trangThaiMoi == 0 ? "Chưa đóng" : "Đã đóng";
+            string trangThaiCu = trangThaiHienTai == 0 ? "Chua dong" : "Da dong";
+            string trangThaiNew = trangThaiMoi == 0 ? "Chua dong" : "Da dong";
 
-            // 4. Hỏi xác nhận
             var result = MessageBox.Show(
-                $"Bạn có muốn chuyển phiếu phạt #{phieu.MaPhieuPhat}\nTừ trạng thái '{trangThaiCu}' sang '{trangThaiNew}' không?",
-                "Xác nhận thay đổi trạng thái",
+                "Ban co muon chuyen phieu phat #" + phieu.MaPhieuPhat + "\nTu trang thai '" + trangThaiCu + "' sang '" + trangThaiNew + "' khong?",
+                "Xac nhan thay doi trang thai",
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Question);
 
             if (result == DialogResult.Yes)
             {
-                // 5. Gọi BUS để cập nhật trạng thái
                 bool isSuccess = PhieuPhatBUS.Instance.SetTrangThai(phieu.MaPhieuPhat, trangThaiMoi);
 
                 if (isSuccess)
                 {
-                    MessageBox.Show($"Đã chuyển sang trạng thái '{trangThaiNew}' thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    
-                    // 6. Tải lại dữ liệu
+                    MessageBox.Show("Da chuyen sang trang thai '" + trangThaiNew + "' thanh cong!", "Thong bao", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     LoadPhieuPhat(null);
                 }
                 else
                 {
-                    MessageBox.Show("Có lỗi xảy ra, không thể cập nhật trạng thái.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Co loi xay ra, khong the cap nhat trang thai.", "Loi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
 
         public override void OnDetails()
         {
-            // 1. Kiểm tra quyền hạn
             if (!CoQuyenXem)
             {
-                MessageBox.Show("Bạn không có quyền xem chi tiết phiếu phạt!", "Thông báo",
-                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Ban khong co quyen xem chi tiet phieu phat!", "Thong bao", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            // 2. Kiểm tra đã chọn dòng chưa
             if (dgvPhieuPhat.SelectedRows.Count == 0)
             {
-                MessageBox.Show("Vui lòng chọn phiếu phạt cần xem chi tiết.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Vui long chon phieu phat can xem chi tiet.", "Thong bao", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            // 3. Lấy đối tượng PhieuPhatDTO từ dòng đang chọn
             var phieu = dgvPhieuPhat.SelectedRows[0].DataBoundItem as PhieuPhatDTO;
-
             if (phieu == null) return;
 
-            // 4. Mở form chi tiết (Luôn là chế độ Lịch sử)
             try
             {
-                // Truyền MaPhieuPhat và true (isHistory = true)
                 using (var dlg = new FormChiTietPhieuPhat(phieu.MaPhieuPhat, true))
                 {
                     dlg.ShowDialog();
@@ -385,7 +347,7 @@ namespace QuanLyThuVien.GUI
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Lỗi mở chi tiết: " + ex.Message);
+                MessageBox.Show("Loi mo chi tiet: " + ex.Message);
             }
         }
 

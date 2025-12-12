@@ -391,6 +391,9 @@
     <EmbeddedResource Include="GUI\ChonTacGiaDialog.resx">
       <DependentUpon>ChonTacGiaDialog.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="GUI\Components\ActionButtonsUC.resx">
+      <DependentUpon>ActionButtonsUC.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GUI\CTPhieuNhapGUI.resx">
       <DependentUpon>CTPhieuNhapGUI.cs</DependentUpon>
     </EmbeddedResource>

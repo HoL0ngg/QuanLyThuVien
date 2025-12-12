@@ -1,6 +1,5 @@
 ﻿using QuanLyThuVien.BUS;
 using QuanLyThuVien.DTO;
-using QuanLyThuVien.GUI.Components;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -19,33 +18,11 @@ namespace QuanLyThuVien.GUI
         {
             InitializeComponent();
             CustomizeDataGridView();
-            //InitializeActionButtons();
         }
 
         public DauSach(TaiKhoanDTO user) : this()
         {
             this.CurrentUser = user;
-        }
-
-        /// <summary>
-        /// Khởi tạo ActionButtonsUC
-        /// </summary>
-        private void InitializeActionButtons()
-        {
-            // Tạo panel chứa ActionButtons ở phía trên
-            Panel panelTop = new Panel
-            {
-                Dock = DockStyle.Top,
-                Height = 60,
-                BackColor = Color.FromArgb(250, 250, 250),
-                Padding = new Padding(10, 5, 10, 5)
-            };
-            
-            this.Controls.Add(panelTop);
-            panelTop.BringToFront();
-            
-            // Tạo ActionButtons
-            CreateActionButtons(panelTop, DockStyle.Left);
         }
 
         private void CustomizeDataGridView()
@@ -204,7 +181,6 @@ namespace QuanLyThuVien.GUI
 
             dgvDauSach.DataSource = _currentDataTable;
             CustomizeColumns();
-            UpdateStatistics();
         }
 
         #endregion
@@ -213,42 +189,15 @@ namespace QuanLyThuVien.GUI
 
         private void CustomizeColumns()
         {
-            if (dgvDauSach.Columns.Contains("MaDauSach"))
-            {
-                dgvDauSach.Columns["MaDauSach"].HeaderText = "Mã đầu sách";
-                dgvDauSach.Columns["MaDauSach"].Width = 100;
-            }
-            if (dgvDauSach.Columns.Contains("TenDauSach"))
-            {
-                dgvDauSach.Columns["TenDauSach"].HeaderText = "Tên đầu sách";
-                dgvDauSach.Columns["TenDauSach"].Width = 250;
-            }
-            if (dgvDauSach.Columns.Contains("NhaXuatBan"))
-            {
-                dgvDauSach.Columns["NhaXuatBan"].HeaderText = "Nhà xuất bản";
-                dgvDauSach.Columns["NhaXuatBan"].Width = 200;
-            }
-            if (dgvDauSach.Columns.Contains("NamXuatBan"))
-            {
-                dgvDauSach.Columns["NamXuatBan"].HeaderText = "Năm XB";
-                dgvDauSach.Columns["NamXuatBan"].Width = 80;
-            }
-            if (dgvDauSach.Columns.Contains("NgonNgu"))
-            {
-                dgvDauSach.Columns["NgonNgu"].HeaderText = "Ngôn ngữ";
-                dgvDauSach.Columns["NgonNgu"].Width = 120;
-            }
-            if (dgvDauSach.Columns.Contains("SoLuong"))
-            {
-                dgvDauSach.Columns["SoLuong"].HeaderText = "Số lượng";
-                dgvDauSach.Columns["SoLuong"].Width = 90;
-            }
-            
-            if (dgvDauSach.Columns.Contains("HinhAnh"))
-                dgvDauSach.Columns["HinhAnh"].Visible = false;
-            if (dgvDauSach.Columns.Contains("TenTacGia"))
-                dgvDauSach.Columns["TenTacGia"].Visible = false;
+            var colMa = new DataGridViewTextBoxColumn { Name = "MaDauSach", HeaderText = "Mã đầu sách", DataPropertyName = "MaDauSach" };
+            var colTenDauSach = new DataGridViewTextBoxColumn { Name = "TenDauSach", HeaderText = "Tên đầu sách", DataPropertyName = "TenDauSach" };
+            var colNhaXuatBan = new DataGridViewTextBoxColumn { Name = "NhaXuatBan", HeaderText = "Nhà xuất bản", DataPropertyName = "NhaXuatBan" };
+            var colNamXuatBan = new DataGridViewTextBoxColumn { Name = "NamXuatBan", HeaderText = "Năm xuất bản", DataPropertyName = "NamXuatBan" };
+            var colNgonNgu = new DataGridViewTextBoxColumn { Name = "NgonNgu", HeaderText = "Ngôn ngữ", DataPropertyName = "NgonNgu" };
+            var colSoLuong = new DataGridViewTextBoxColumn { Name = "SoLuong", HeaderText = "Số lượng", DataPropertyName = "SoLuong" };
 
+            dgvDauSach.Columns.AddRange(new DataGridViewColumn[] { colMa, colTenDauSach, colNhaXuatBan, colNamXuatBan, colNgonNgu, colSoLuong });
+            // LINQ: Thêm tooltip cho từng dòng
             foreach (DataGridViewRow row in dgvDauSach.Rows)
             {
                 if (row.Cells["TenDauSach"].Value != null)
@@ -326,7 +275,6 @@ namespace QuanLyThuVien.GUI
 
         private void DauSach_Load_1(object sender, EventArgs e)
         {
-            Console.WriteLine("DauSach Loaded");
             LoadData();
         }
 

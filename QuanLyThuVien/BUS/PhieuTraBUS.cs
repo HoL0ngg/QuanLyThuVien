@@ -58,5 +58,11 @@ namespace QuanLyThuVien.BUS
             }
             return false;
         }
+
+        public bool Delete(int maPhieuTra)
+        {
+
+            return PhieuTraDAO.Instance.Delete(maPhieuTra);
+        }
     }
 }

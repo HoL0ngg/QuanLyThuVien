@@ -19,16 +19,17 @@ namespace QuanLyThuVien.GUI.phieutra
         private CTPhieuMuonDAO ctDAO = new CTPhieuMuonDAO();
         private static readonly DateTime NgayMuonMacDinh = new DateTime(2000, 1, 1);
         public event Action CloseRequested;
-        private int maNhanVien = 1;
+        private int maNhanVien;
         
 
-        public ThemPhieuTra()
+        public ThemPhieuTra(int maNV)
         {
             InitializeComponent();
             bangPhieuMuon.CellClick += BangPhieuMuon_CellClick;
             bangPhieuMuon.CellFormatting += BangPhieuMuon_CellFormatting;
             btnClearFilters.Click += BtnClearFilters_Click;
             btnTimKiem.Click += BtnTimKiem_Click;
+            maNhanVien = maNV;
         }
 
         private void InitializePhieuMuonGrid()
@@ -216,62 +217,15 @@ namespace QuanLyThuVien.GUI.phieutra
 
         private void button2_Click(object sender, EventArgs e)
         {
-            //if (bangPhieuMuon.SelectedRows.Count > 0)
-            //{
-
-            //    int maPhieuMuon = Convert.ToInt32(bangPhieuMuon.SelectedRows[0].Cells["MaPhieuMuon"].Value);
-            //    var pm = bus.GetById(maPhieuMuon);
-            //    var list = ctDAO.GetByPhieuMuon(maPhieuMuon);
-
-            //    PhieuTraDTO pt = new PhieuTraDTO();
-            //    pt.MaPhieuMuon = pm.MaPhieuMuon;
-            //    pt.MaNV = maNhanVien;
-            //    pt.NgayTra = DateTime.Today;
-            //    pt.NgayTraDuKien = pm.NgayTraDuKien;
-
-
-            //    foreach (var item in list)
-            //    {
-            //        pt.list.Add(new CTPhieuTraDTO
-            //        {
-            //            MaSach = item.MaSach,
-            //        });
-            //    }
-
-            //    DialogResult result = MessageBox.Show(
-            //       $"Bạn có chắc muốn tạo phiếu trả sách cho phiếu mượn mã:{pm.MaPhieuMuon} không?",  
-            //       "Xác nhận",                               
-            //       MessageBoxButtons.YesNo,                      
-            //       MessageBoxIcon.Question);                     
-
-            //    if (result == DialogResult.Yes)
-            //    {
-            //        var rs = PhieuTraBUS.Instance.InSertPhieuTra(pt);
-
-            //        if (rs)
-            //        {
-            //            MessageBox.Show("Trả sách thành công");
-            //            LoadData();
-            //        }
-            //        else
-            //        {
-            //            MessageBox.Show("Trả sách thất bại");
-            //        }
-            //    }
-
-
-
-            //}
             int maPhieuMuon = Convert.ToInt32(bangPhieuMuon.SelectedRows[0].Cells["MaPhieuMuon"].Value);
             var pm = bus.GetById(maPhieuMuon);
-
-            using (var frm = new TraForm(pm))
+            using (var frm = new TraForm(pm, maNhanVien))
             {
                 frm.StartPosition = FormStartPosition.CenterParent;
 
                 if (frm.ShowDialog(this) == DialogResult.OK)
                 {
-                    
+                    LoadData();
                 }
             }
         }

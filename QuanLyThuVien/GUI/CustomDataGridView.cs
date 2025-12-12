@@ -32,7 +32,7 @@ namespace QuanLyThuVien.GUI
 
             // Row styles
             this.RowTemplate.Height = 35;
-            this.DefaultCellStyle.Font = new Font("Segoe UI", 9F);
+            this.DefaultCellStyle.Font = new Font("Segoe UI", 9F); 
             this.DefaultCellStyle.SelectionBackColor = Color.FromArgb(100, 181, 246);
             this.DefaultCellStyle.SelectionForeColor = Color.White;
             this.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(250, 250, 250);
@@ -48,7 +48,8 @@ namespace QuanLyThuVien.GUI
             this.RowHeadersVisible = false;
             this.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             this.MultiSelect = false;
-
+            this.AutoGenerateColumns = false;
+            this.Columns.Clear();
             this.ReadOnly = true;
             this.EditMode = DataGridViewEditMode.EditProgrammatically;
             this.AllowUserToAddRows = false;
