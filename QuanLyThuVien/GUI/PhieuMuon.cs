@@ -1,9 +1,7 @@
 ﻿using QuanLyThuVien.BUS;
 using QuanLyThuVien.DAO;
 using QuanLyThuVien.DTO;
-using QuanLyThuVien.GUI.Components;
 using System;
-using System.Drawing;
 using System.Windows.Forms;
 
 namespace QuanLyThuVien.GUI
@@ -19,7 +17,6 @@ namespace QuanLyThuVien.GUI
         public PhieuMuon(TaiKhoanDTO taikhoan)
         {
             InitializeComponent();
-            InitializeActionButtons();
             
             bangPhieuMuon.CellClick += BangPhieuMuon_CellClick;
             bangPhieuMuon.CellFormatting += BangPhieuMuon_CellFormatting;
@@ -38,38 +35,19 @@ namespace QuanLyThuVien.GUI
             ucThemPhieu.BringToFront();
         }
 
-        /// <summary>
-        /// Khởi tạo ActionButtonsUC
-        /// </summary>
-        private void InitializeActionButtons()
-        {
-            Panel panelActions = new Panel
-            {
-                Dock = DockStyle.Top,
-                Height = 60,
-                BackColor = Color.FromArgb(250, 250, 250),
-                Padding = new Padding(10, 5, 10, 5)
-            };
-            
-            this.Controls.Add(panelActions);
-            panelActions.BringToFront();
-            
-            CreateActionButtons(panelActions, DockStyle.Left);
-        }
-
         private void InitializePhieuMuonGrid()
         {
             bangPhieuMuon.AutoGenerateColumns = false;
             bangPhieuMuon.Columns.Clear();
 
             bangPhieuMuon.Columns.AddRange(new DataGridViewColumn[] {
-                new DataGridViewTextBoxColumn { Name = "MaPhieuMuon", HeaderText = "Mã", DataPropertyName = "MaPhieuMuon", FillWeight = 40 },
-                new DataGridViewTextBoxColumn { Name = "NgayMuon", HeaderText = "Ngày mượn", DataPropertyName = "NgayMuon", DefaultCellStyle = new DataGridViewCellStyle { Format = "dd/MM/yyyy" } },
-                new DataGridViewTextBoxColumn { Name = "NgayTraDuKien", HeaderText = "Trả dự kiến", DataPropertyName = "NgayTraDuKien", DefaultCellStyle = new DataGridViewCellStyle { Format = "dd/MM/yyyy" } },
-                new DataGridViewTextBoxColumn { Name = "TrangThai", HeaderText = "Trạng thái", DataPropertyName = "TrangThai" },
-                new DataGridViewTextBoxColumn { Name = "MaDocGia", HeaderText = "Mã độc giả", DataPropertyName = "MaDocGia" },
-                new DataGridViewTextBoxColumn { Name = "TenDocGia", HeaderText = "Tên độc giả", DataPropertyName = "TenDocGia" },
-                new DataGridViewTextBoxColumn { Name = "TenNhanVien", HeaderText = "Tên nhân viên", DataPropertyName = "TenNhanVien" }
+                new DataGridViewTextBoxColumn { Name = "MaPhieuMuon", HeaderText = "Ma", DataPropertyName = "MaPhieuMuon", FillWeight = 40 },
+                new DataGridViewTextBoxColumn { Name = "NgayMuon", HeaderText = "Ngay muon", DataPropertyName = "NgayMuon", DefaultCellStyle = new DataGridViewCellStyle { Format = "dd/MM/yyyy" } },
+                new DataGridViewTextBoxColumn { Name = "NgayTraDuKien", HeaderText = "Tra du kien", DataPropertyName = "NgayTraDuKien", DefaultCellStyle = new DataGridViewCellStyle { Format = "dd/MM/yyyy" } },
+                new DataGridViewTextBoxColumn { Name = "TrangThai", HeaderText = "Trang thai", DataPropertyName = "TrangThai" },
+                new DataGridViewTextBoxColumn { Name = "MaDocGia", HeaderText = "Ma doc gia", DataPropertyName = "MaDocGia" },
+                new DataGridViewTextBoxColumn { Name = "TenDocGia", HeaderText = "Ten doc gia", DataPropertyName = "TenDocGia" },
+                new DataGridViewTextBoxColumn { Name = "TenNhanVien", HeaderText = "Ten nhan vien", DataPropertyName = "TenNhanVien" }
             });
             
             bangPhieuMuon.ReadOnly = true;
@@ -84,12 +62,12 @@ namespace QuanLyThuVien.GUI
             bangCTPhieuMuon.Columns.Clear();
 
             bangCTPhieuMuon.Columns.AddRange(new DataGridViewColumn[] {
-                new DataGridViewTextBoxColumn { Name = "MaSach", HeaderText = "Mã sách", DataPropertyName = "MaSach" },
-                new DataGridViewTextBoxColumn { Name = "MaDauSach", HeaderText = "Mã đầu sách", DataPropertyName = "MaDauSach" },
-                new DataGridViewTextBoxColumn { Name = "TenDauSach", HeaderText = "Tên đầu sách", DataPropertyName = "TenDauSach" },
-                new DataGridViewTextBoxColumn { Name = "TenNXB", HeaderText = "Nhà xuất bản", DataPropertyName = "NhaXuatBan" },
-                new DataGridViewTextBoxColumn { Name = "NamXuatBan", HeaderText = "Năm xuất bản", DataPropertyName = "NamXuatBan" },
-                new DataGridViewTextBoxColumn { Name = "NgonNgu", HeaderText = "Ngôn ngữ", DataPropertyName = "NgonNgu" }
+                new DataGridViewTextBoxColumn { Name = "MaSach", HeaderText = "Ma sach", DataPropertyName = "MaSach" },
+                new DataGridViewTextBoxColumn { Name = "MaDauSach", HeaderText = "Ma dau sach", DataPropertyName = "MaDauSach" },
+                new DataGridViewTextBoxColumn { Name = "TenDauSach", HeaderText = "Ten dau sach", DataPropertyName = "TenDauSach" },
+                new DataGridViewTextBoxColumn { Name = "TenNXB", HeaderText = "Nha xuat ban", DataPropertyName = "NhaXuatBan" },
+                new DataGridViewTextBoxColumn { Name = "NamXuatBan", HeaderText = "Nam xuat ban", DataPropertyName = "NamXuatBan" },
+                new DataGridViewTextBoxColumn { Name = "NgonNgu", HeaderText = "Ngon ngu", DataPropertyName = "NgonNgu" }
             });
 
             bangCTPhieuMuon.RowHeadersVisible = false;
@@ -117,9 +95,9 @@ namespace QuanLyThuVien.GUI
             if (value == null || !int.TryParse(value.ToString(), out int v)) return string.Empty;
             switch (v)
             {
-                case 1: return "Chưa Trả";
-                case 2: return "Đã Trả";
-                case 3: return "Trả Muộn";
+                case 1: return "Chua Tra";
+                case 2: return "Da Tra";
+                case 3: return "Tra Muon";
                 default: return v.ToString();
             }
         }
@@ -145,23 +123,22 @@ namespace QuanLyThuVien.GUI
         {
             if (!CoQuyenThem)
             {
-                MessageBox.Show("Bạn không có quyền thêm phiếu mượn!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Ban khong co quyen them phieu muon!", "Thong bao", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            // Ẩn giao diện danh sách, hiển thị UC thêm
             ToggleView(true);
         }
         public override void OnEdit()
         {
             if (!CoQuyenSua)
             {
-                MessageBox.Show("Bạn không có quyền sửa phiếu mượn!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Ban khong co quyen sua phieu muon!", "Thong bao", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
             
             if (bangPhieuMuon.CurrentRow == null)
             {
-                MessageBox.Show("Vui lòng chọn một phiếu mượn để cập nhật.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Vui long chon mot phieu muon de cap nhat.", "Thong bao", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
             var idCell = bangPhieuMuon.CurrentRow.Cells["MaPhieuMuon"];
@@ -179,11 +156,11 @@ namespace QuanLyThuVien.GUI
 
             if (currentStatus == 2 || currentStatus == 3)
             {
-                MessageBox.Show("Phiếu mượn này đã được trả.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Phieu muon nay da duoc tra.", "Thong bao", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
-            var confirm = MessageBox.Show("Bạn có muốn cập nhật trạng thái trả không?", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            var confirm = MessageBox.Show("Ban co muon cap nhat trang thai tra khong?", "Xac nhan", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (confirm != DialogResult.Yes) return;
 
             try
@@ -192,11 +169,11 @@ namespace QuanLyThuVien.GUI
                 int newStatus = today > ngayTraDuKien.Date ? 3 : 2;
                 var pm = new PhieuMuonDTO { MaPhieuMuon = id, TrangThai = newStatus };
                 if (bus.Update(pm)) LoadData();
-                else MessageBox.Show("Cập nhật trạng thái không thành công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                else MessageBox.Show("Cap nhat trang thai khong thanh cong.", "Thong bao", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Lỗi khi cập nhật trạng thái: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Loi khi cap nhat trang thai: " + ex.Message, "Loi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -204,28 +181,28 @@ namespace QuanLyThuVien.GUI
         {
             if (!CoQuyenXoa)
             {
-                MessageBox.Show("Bạn không có quyền xóa phiếu mượn!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Ban khong co quyen xoa phieu muon!", "Thong bao", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
             
             if (bangPhieuMuon.CurrentRow == null)
             {
-                MessageBox.Show("Vui lòng chọn một phiếu mượn để xóa.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Vui long chon mot phieu muon de xoa.", "Thong bao", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
             var idCell = bangPhieuMuon.CurrentRow.Cells["MaPhieuMuon"];
             if (idCell?.Value == null || !int.TryParse(idCell.Value.ToString(), out int id)) return;
 
-            var confirm = MessageBox.Show($"Bạn có chắc muốn xóa phiếu mượn có ID {id} không?", "Xác nhận xóa", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            var confirm = MessageBox.Show("Ban co chac muon xoa phieu muon co ID " + id + " khong?", "Xac nhan xoa", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (confirm != DialogResult.Yes) return;
             try
             {
                 if (bus.Delete(id)) LoadData();
-                else MessageBox.Show("Xóa không thành công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                else MessageBox.Show("Xoa khong thanh cong.", "Thong bao", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Lỗi khi xóa: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Loi khi xoa: " + ex.Message, "Loi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -243,7 +220,7 @@ namespace QuanLyThuVien.GUI
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Lỗi khi tải dữ liệu phiếu mượn: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Loi khi tai du lieu phieu muon: " + ex.Message, "Loi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -284,7 +261,7 @@ namespace QuanLyThuVien.GUI
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Lỗi hiển thị chi tiết: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Loi hien thi chi tiet: " + ex.Message, "Loi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -304,16 +281,16 @@ namespace QuanLyThuVien.GUI
             int? maPhieu = null; if (int.TryParse(txtMaPhieuMuon.Text.Trim(), out var mp)) maPhieu = mp;
             DateTime? ngayFrom = dtpNgayMuon.Value.Date;
             DateTime? ngayTo = dtpNgayTraDuKien.Value.Date;
-            if (ngayFrom > ngayTo) (ngayTo, ngayFrom) = (ngayFrom, ngayTo);
+            if (ngayFrom > ngayTo) { var temp = ngayTo; ngayTo = ngayFrom; ngayFrom = temp; }
             
             int? trangThai = null;
-            if (cmbTrangThai.SelectedItem != null && cmbTrangThai.SelectedItem.ToString() != "Tất cả")
+            if (cmbTrangThai.SelectedItem != null && cmbTrangThai.SelectedItem.ToString() != "Tat ca")
             {
                 switch (cmbTrangThai.SelectedItem.ToString())
                 {
-                    case "Chưa trả": trangThai = 1; break;
-                    case "Đã trả": trangThai = 2; break;
-                    case "Trả muộn": trangThai = 3; break;
+                    case "Chua tra": trangThai = 1; break;
+                    case "Da tra": trangThai = 2; break;
+                    case "Tra muon": trangThai = 3; break;
                 }
             }
             int? maDocGia = null; if (int.TryParse(txtMaDocGia.Text.Trim(), out var mdg)) maDocGia = mdg;
@@ -329,7 +306,7 @@ namespace QuanLyThuVien.GUI
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Lỗi tìm kiếm: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Loi tim kiem: " + ex.Message, "Loi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

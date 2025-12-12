@@ -1,6 +1,5 @@
 ﻿using QuanLyThuVien.BUS;
 using QuanLyThuVien.DTO;
-using QuanLyThuVien.GUI.Components;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -19,33 +18,11 @@ namespace QuanLyThuVien.GUI
         {
             InitializeComponent();
             CustomizeDataGridView();
-            InitializeActionButtons();
         }
 
         public DauSach(TaiKhoanDTO user) : this()
         {
             this.CurrentUser = user;
-        }
-
-        /// <summary>
-        /// Khởi tạo ActionButtonsUC
-        /// </summary>
-        private void InitializeActionButtons()
-        {
-            // Tạo panel chứa ActionButtons ở phía trên
-            Panel panelTop = new Panel
-            {
-                Dock = DockStyle.Top,
-                Height = 60,
-                BackColor = Color.FromArgb(250, 250, 250),
-                Padding = new Padding(10, 5, 10, 5)
-            };
-            
-            this.Controls.Add(panelTop);
-            panelTop.BringToFront();
-            
-            // Tạo ActionButtons
-            CreateActionButtons(panelTop, DockStyle.Left);
         }
 
         private void CustomizeDataGridView()
@@ -204,7 +181,6 @@ namespace QuanLyThuVien.GUI
 
             dgvDauSach.DataSource = _currentDataTable;
             CustomizeColumns();
-            UpdateStatistics();
         }
 
         #endregion
@@ -248,76 +224,6 @@ namespace QuanLyThuVien.GUI
                 dgvDauSach.Columns["HinhAnh"].Visible = false;
             if (dgvDauSach.Columns.Contains("TenTacGia"))
                 dgvDauSach.Columns["TenTacGia"].Visible = false;
-
-            foreach (DataGridViewRow row in dgvDauSach.Rows)
-            {
-                if (row.Cells["TenDauSach"].Value != null)
-                {
-                    row.Cells["TenDauSach"].ToolTipText = "Nhấn đúp để xem danh sách sách";
-                }
-            }
-        }
-
-        private void UpdateStatistics()
-        {
-            if (_currentDataTable == null || _currentDataTable.Rows.Count == 0)
-                return;
-
-            int tongDauSach = _currentDataTable.Rows.Count;
-            
-            int tongSoLuong = _currentDataTable.AsEnumerable()
-                .Sum(row => row.Field<int>("SoLuong"));
-
-            int hetHang = _currentDataTable.AsEnumerable()
-                .Count(row => row.Field<int>("SoLuong") == 0);
-
-            var ngonNguList = _currentDataTable.AsEnumerable()
-                .Select(row => row.Field<string>("NgonNgu"))
-                .Distinct()
-                .ToList();
-
-            Console.WriteLine($"Tổng đầu sách: {tongDauSach}, Tổng số lượng: {tongSoLuong}, Hết hàng: {hetHang}");
-        }
-
-        private void FilterDataOnUI(string keyword)
-        {
-            if (_currentDataTable == null)
-                return;
-
-            if (string.IsNullOrWhiteSpace(keyword))
-            {
-                dgvDauSach.DataSource = _currentDataTable;
-                return;
-            }
-
-            string searchTerm = keyword.ToLower();
-
-            var filteredRows = _currentDataTable.AsEnumerable()
-                .Where(row =>
-                    row.Field<string>("TenDauSach")?.ToLower().Contains(searchTerm) == true ||
-                    row.Field<string>("NhaXuatBan")?.ToLower().Contains(searchTerm) == true ||
-                    row.Field<string>("NgonNgu")?.ToLower().Contains(searchTerm) == true ||
-                    row.Field<int>("NamXuatBan").ToString().Contains(searchTerm));
-
-            if (filteredRows.Any())
-            {
-                DataTable filteredTable = filteredRows.CopyToDataTable();
-                dgvDauSach.DataSource = filteredTable;
-            }
-            else
-            {
-                dgvDauSach.DataSource = _currentDataTable.Clone();
-            }
-
-            CustomizeColumns();
-        }
-
-        private List<int> GetSelectedDauSachIDs()
-        {
-            return dgvDauSach.SelectedRows
-                .Cast<DataGridViewRow>()
-                .Select(row => Convert.ToInt32(row.Cells["MaDauSach"].Value))
-                .ToList();
         }
 
         #endregion
@@ -326,7 +232,6 @@ namespace QuanLyThuVien.GUI
 
         private void DauSach_Load_1(object sender, EventArgs e)
         {
-            Console.WriteLine("DauSach Loaded");
             LoadData();
         }
 

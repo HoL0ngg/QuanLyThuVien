@@ -1,6 +1,5 @@
 ﻿using QuanLyThuVien.BUS;
 using QuanLyThuVien.DTO;
-using QuanLyThuVien.GUI.Components;
 using QuanLyThuVien.GUI.phieutra;
 using System;
 using System.Collections.Generic;
@@ -25,36 +24,7 @@ namespace QuanLyThuVien.GUI
             }
             InitializeComponent();
             SetupComponents();
-            InitializeActionButtons();
             dataGridView2.CellFormatting += BangPhieuMuon_CellFormatting;
-        }
-
-        //public PhieuTraGUI(TaiKhoanDTO user) : this()
-        //{
-        //    this.CurrentUser = user;
-        //    if (user != null)
-        //    {
-        //        maNhanVien = user.MaNV;
-        //    }
-        //}
-
-        /// <summary>
-        /// Khởi tạo ActionButtonsUC
-        /// </summary>
-        private void InitializeActionButtons()
-        {
-            Panel panelActions = new Panel
-            {
-                Dock = DockStyle.Top,
-                Height = 60,
-                BackColor = Color.FromArgb(250, 250, 250),
-                Padding = new Padding(10, 5, 10, 5)
-            };
-            
-            this.Controls.Add(panelActions);
-            panelActions.BringToFront();
-            
-            CreateActionButtons(panelActions, DockStyle.Left);
         }
 
         private void SetupComponents()
@@ -78,10 +48,9 @@ namespace QuanLyThuVien.GUI
             try
             {
                 danhSachTatCaPhieuTra = PhieuTraBUS.Instance.GetAllPhieuTra();
-
                 dataGridView1.DataSource = danhSachTatCaPhieuTra;
 
-                dataGridView1.Columns["MaPhieuTra"].HeaderText = "Mã PT";
+                dataGridView1.Columns["MaPhieuTra"].HeaderText = "Ma PT";
                 dataGridView1.Columns["MaPhieuTra"].Width = 70;
 
                 dataGridView1.Columns["NgayMuon"].HeaderText = "Ngay Muon";
@@ -102,17 +71,15 @@ namespace QuanLyThuVien.GUI
                 dataGridView1.Columns["TENNV"].HeaderText = "Nhan Vien";
                 dataGridView1.Columns["TENNV"].Width = 150;
 
-                dataGridView1.Columns["MADG"].HeaderText = "Mã ĐG";
+                dataGridView1.Columns["MADG"].HeaderText = "Ma DG";
                 dataGridView1.Columns["MADG"].Width = 70;
 
-                dataGridView1.Columns["TENDG"].HeaderText = "Độc Giả";
+                dataGridView1.Columns["TENDG"].HeaderText = "Doc Gia";
                 dataGridView1.Columns["TENDG"].Width = 180;
 
-                // Ẩn cột không cần thiết (nếu có)
                 if (dataGridView1.Columns.Contains("MaNV"))
                     dataGridView1.Columns["MaNV"].Visible = false;
 
-                // Cấu hình grid chung
                 dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
                 dataGridView1.MultiSelect = false;
                 dataGridView1.ReadOnly = true;
@@ -147,17 +114,17 @@ namespace QuanLyThuVien.GUI
 
                 if (dataGridView2.Columns.Contains("MaSach"))
                 {
-                    dataGridView2.Columns["MaSach"].HeaderText = "Mã Sách";
+                    dataGridView2.Columns["MaSach"].HeaderText = "Ma Sach";
                     dataGridView2.Columns["MaSach"].Width = 80;
                 }
                 if (dataGridView2.Columns.Contains("TenSach"))
                 {
-                    dataGridView2.Columns["TenSach"].HeaderText = "Tên Sách";
+                    dataGridView2.Columns["TenSach"].HeaderText = "Ten Sach";
                     dataGridView2.Columns["TenSach"].Width = 280;
                 }
                 if (dataGridView2.Columns.Contains("TenTacGia"))
                 {
-                    dataGridView2.Columns["TenTacGia"].HeaderText = "Tác Giả";
+                    dataGridView2.Columns["TenTacGia"].HeaderText = "Tac Gia";
                     dataGridView2.Columns["TenTacGia"].Width = 150;
                 }
 
@@ -209,7 +176,7 @@ namespace QuanLyThuVien.GUI
             if (string.IsNullOrEmpty(input))
             {
                 ketQua = danhSachTatCaPhieuTra;
-                label1.Text = "Mã độc giả:";
+                label1.Text = "Ma doc gia:";
             }
             else if (int.TryParse(input, out int maDG))
             {
@@ -219,21 +186,20 @@ namespace QuanLyThuVien.GUI
 
                 if (ketQua.Count == 0)
                 {
-                    MessageBox.Show($"Không tìm thấy phiếu trả nào của độc giả có mã {maDG}",
-                                    "Không có kết quả", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Khong tim thay phieu tra nao cua doc gia co ma " + maDG,
+                                    "Khong co ket qua", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
-                label1.Text = $"Mã độc giả: {maDG} ({ketQua.Count} phiếu)";
+                label1.Text = "Ma doc gia: " + maDG + " (" + ketQua.Count + " phieu)";
             }
             else
             {
-                MessageBox.Show("Vui lòng nhập mã độc giả là số nguyên!", "Sai định dạng",
+                MessageBox.Show("Vui long nhap ma doc gia la so nguyen!", "Sai dinh dang",
                                 MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             dataGridView1.DataSource = ketQua;
             dataGridView1.Refresh();
-
             dataGridView2.DataSource = null;
         }
 
@@ -252,28 +218,28 @@ namespace QuanLyThuVien.GUI
         {
             if (!CoQuyenXoa)
             {
-                MessageBox.Show("Bạn không có quyền xóa phiếu mượn!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Ban khong co quyen xoa phieu tra!", "Thong bao", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             if (dataGridView1.CurrentRow == null)
             {
-                MessageBox.Show("Vui lòng chọn một phiếu trả để xóa.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Vui long chon mot phieu tra de xoa.", "Thong bao", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
             var idCell = dataGridView1.CurrentRow.Cells["MaPhieuTra"];
             if (idCell?.Value == null || !int.TryParse(idCell.Value.ToString(), out int id)) return;
 
-            var confirm = MessageBox.Show($"Bạn có chắc muốn xóa phiếu trả có ID {id} không?", "Xác nhận xóa", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            var confirm = MessageBox.Show("Ban co chac muon xoa phieu tra co ID " + id + " khong?", "Xac nhan xoa", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (confirm != DialogResult.Yes) return;
             try
             {
                 if (PhieuTraBUS.Instance.Delete(id)) LoadData();
-                else MessageBox.Show("Xóa không thành công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                else MessageBox.Show("Xoa khong thanh cong.", "Thong bao", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Lỗi khi xóa: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Loi khi xoa: " + ex.Message, "Loi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -282,10 +248,10 @@ namespace QuanLyThuVien.GUI
             if (value == null || !int.TryParse(value.ToString(), out int v)) return string.Empty;
             switch (v)
             {
-                case 1: return "Trả đúng hạn";
-                case 2: return "Trả muộn";
-                case 3: return "Làm hỏng";
-                case 4: return "Làm mất";
+                case 1: return "Tra dung han";
+                case 2: return "Tra muon";
+                case 3: return "Lam hong";
+                case 4: return "Lam mat";
                 default: return v.ToString();
             }
         }
@@ -302,7 +268,6 @@ namespace QuanLyThuVien.GUI
 
         private void ToggleView(bool showThem)
         {   
-            
             groupBox1.Visible = !showThem;
             groupBox2.Visible = !showThem;
             groupBox3.Visible = !showThem;
@@ -320,7 +285,7 @@ namespace QuanLyThuVien.GUI
             LoadDanhSachPhieuTra(); 
         }
 
-        public void LoadData()
+        public override void LoadData()
         {
             LoadDanhSachPhieuTra();
         }
