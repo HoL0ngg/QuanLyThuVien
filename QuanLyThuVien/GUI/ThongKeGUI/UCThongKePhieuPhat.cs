@@ -351,5 +351,15 @@ namespace QuanLyThuVien.GUI.ThongKeGUI
         {
 
         }
+
+        private void UCThongKePhieuPhat_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dgvChiTiet_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
     }
 }

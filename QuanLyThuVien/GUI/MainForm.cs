@@ -593,8 +593,8 @@ namespace QuanLyThuVien.GUI
             }
             else if (clickedPanel.Name == "panelPhieuTra")
             {
-                var module = new PhieuTraGUI(currentUser);
-                LoadModule(module, "Phieu Tra");
+                //var module = new PhieuTraGUI(currentUser);
+                //LoadModule(module, "Phieu Tra");
             }
             else if (clickedPanel.Name == "panelDauSach")
             {

@@ -3,6 +3,7 @@ using QuanLyThuVien.DTO;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -10,7 +11,8 @@ using System.Windows.Forms;
 namespace QuanLyThuVien.GUI
 {
     public partial class FormAddPhieuPhat : Form
-    {
+    {   private int _id;        // Lưu Mã Phiếu Trả (nếu chưa lưu) HOẶC Mã Phiếu Phạt (nếu đã lưu)
+    private bool _isHistory;
         private List<PhieuTraViPhamDTO> allItems = new List<PhieuTraViPhamDTO>();
         private List<PhieuTraViPhamDTO> selectedItems = new List<PhieuTraViPhamDTO>();
         private bool editMode = false;
@@ -81,7 +83,7 @@ namespace QuanLyThuVien.GUI
             DataGridViewCheckBoxColumn checkColumn = new DataGridViewCheckBoxColumn
             {
                 Name = "colCheck",
-                HeaderText = "Phạt",
+                HeaderText = "",
                 Width = 50,
                 ReadOnly = false,
                 FillWeight = 6
@@ -96,22 +98,22 @@ namespace QuanLyThuVien.GUI
             // Mã chi tiết
             dgvChonPP.Columns.Add(new DataGridViewTextBoxColumn
             {
-                Name = "colMaCT",
-                HeaderText = "Mã",
-                DataPropertyName = "MaCTPhieuTra",
+                Name = "colMaPT",
+                HeaderText = "Mã Phiếu Trả",
+                DataPropertyName = "MaPhieuTra",
                 ReadOnly = true,
-                FillWeight = 6,
+                FillWeight = 15,
                 DefaultCellStyle = { Alignment = DataGridViewContentAlignment.MiddleCenter }
             });
 
             // Tên sách
             dgvChonPP.Columns.Add(new DataGridViewTextBoxColumn
             {
-                Name = "colTenSach",
-                HeaderText = "Tên Sách",
-                DataPropertyName = "TenSach",
+                Name = "colMaDG",
+                HeaderText = "Mã Độc Giả",
+                DataPropertyName = "MaDG",
                 ReadOnly = true,
-                FillWeight = 20,
+                FillWeight = 10,
                 DefaultCellStyle = { WrapMode = DataGridViewTriState.True }
             });
 
@@ -122,52 +124,9 @@ namespace QuanLyThuVien.GUI
                 HeaderText = "Độc Giả",
                 DataPropertyName = "TenDocGia",
                 ReadOnly = true,
-                FillWeight = 14
-            });
-
-            // Ngày dự kiến
-            dgvChonPP.Columns.Add(new DataGridViewTextBoxColumn
-            {
-                Name = "colNgayTraDuKien",
-                HeaderText = "Hạn Trả",
-                DataPropertyName = "NgayTraDuKien",
-                ReadOnly = true,
-                FillWeight = 10,
-                DefaultCellStyle = { Format = "dd/MM/yyyy", Alignment = DataGridViewContentAlignment.MiddleCenter }
-            });
-
-            // Ngày thực tế
-            dgvChonPP.Columns.Add(new DataGridViewTextBoxColumn
-            {
-                Name = "colNgayTra",
-                HeaderText = "Ngày Trả",
-                DataPropertyName = "NgayTra",
-                ReadOnly = true,
-                FillWeight = 10,
-                DefaultCellStyle = { Format = "dd/MM/yyyy", Alignment = DataGridViewContentAlignment.MiddleCenter }
-            });
-
-            // Số ngày trễ
-            dgvChonPP.Columns.Add(new DataGridViewTextBoxColumn
-            {
-                Name = "colSoNgayTre",
-                HeaderText = "Ngày Trễ",
-                DataPropertyName = "SoNgayTre",
-                ReadOnly = true,
-                FillWeight = 8,
-                DefaultCellStyle = { Alignment = DataGridViewContentAlignment.MiddleCenter }
-            });
-
-            // Trạng thái sách - text hiển thị (đã lưu trong DB)
-            dgvChonPP.Columns.Add(new DataGridViewTextBoxColumn
-            {
-                Name = "colTrangThaiSach",
-                HeaderText = "Tình Trạng",
-                ReadOnly = true,
-                FillWeight = 10,
-                DefaultCellStyle = { Alignment = DataGridViewContentAlignment.MiddleCenter }
-            });
-
+                FillWeight = 15
+            });         
+         
             // Tiền phạt
             dgvChonPP.Columns.Add(new DataGridViewTextBoxColumn
             {
@@ -180,15 +139,7 @@ namespace QuanLyThuVien.GUI
                     ForeColor = Color.FromArgb(211, 47, 47), Font = new Font("Segoe UI", 9F, FontStyle.Bold) }
             });
 
-            // Lý do
-            dgvChonPP.Columns.Add(new DataGridViewTextBoxColumn
-            {
-                Name = "colLyDo",
-                HeaderText = "Lý Do Phạt",
-                DataPropertyName = "LyDo",
-                ReadOnly = true,
-                FillWeight = 16
-            });
+          
 
             dgvChonPP.DefaultCellStyle.SelectionBackColor = Color.FromArgb(187, 222, 251);
             dgvChonPP.DefaultCellStyle.SelectionForeColor = Color.Black;
@@ -208,33 +159,14 @@ namespace QuanLyThuVien.GUI
             var item = row.DataBoundItem as PhieuTraViPhamDTO;
             if (item == null) return;
 
-            // Highlight dòng có vi phạm
+            // Highlight dòng có vi phạm (dùng dữ liệu DTO chứ không truy vấn cột cụ thể)
             if (item.QuaHan || item.TrangThai == 2 || item.TrangThai == 3)
             {
                 row.DefaultCellStyle.BackColor = Color.FromArgb(255, 243, 224);
             }
 
-            // Màu cho cột số ngày trễ
-            if (dgvChonPP.Columns[e.ColumnIndex].Name == "colSoNgayTre" && item.SoNgayTre > 0)
-            {
-                e.CellStyle.ForeColor = Color.Red;
-                e.CellStyle.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            }
-
-            // Màu cho cột tình trạng
-            if (dgvChonPP.Columns[e.ColumnIndex].Name == "colTrangThaiSach")
-            {
-                if (item.TrangThai == 2)
-                {
-                    e.CellStyle.ForeColor = Color.Orange;
-                    e.CellStyle.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-                }
-                else if (item.TrangThai == 3)
-                {
-                    e.CellStyle.ForeColor = Color.Red;
-                    e.CellStyle.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-                }
-            }
+            // Nếu muốn tô màu cho ô hiển thị "Tiền Phạt" đã được bind, giữ logic format mặc định (DataPropertyName = TienPhat)
+            // Không truy cập các cột không tồn tại như colSoNgayTre hoặc colTrangThaiSach ở đây.
         }
 
         private void DgvChonPP_CellValueChanged(object sender, DataGridViewCellEventArgs e)
@@ -263,8 +195,12 @@ namespace QuanLyThuVien.GUI
 
                 foreach (var item in allItems)
                 {
+                    // 1. Tạo lý do tự động (Giữ nguyên)
                     item.LyDo = GenerateLyDoAuto(item);
-                    item.TienPhat = CalculateFinePreview(item);
+
+                    // 2. THAY ĐỔI Ở ĐÂY: Không dùng CalculateFinePreview nữa
+                    // Gọi hàm lấy chi tiết chúng ta đã viết để tính tổng tiền chính xác
+                    item.TienPhat = GetExactTotalFine(item.MaPhieuTra);
                 }
 
                 ApplyFilter();
@@ -276,8 +212,35 @@ namespace QuanLyThuVien.GUI
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Lỗi khi tải dữ liệu: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Lỗi: " + ex.Message);
             }
+        }
+        private int GetExactTotalFine(int maPhieuTra)
+        {
+            int tongTien = 0;
+            try
+            {
+                // Gọi lại hàm GetChiTietPhieuPhat từ BUS mà bạn đã viết ở bước trước
+                DataTable dt = PhieuPhatBUS.Instance.GetChiTietPhieuPhat(maPhieuTra);
+
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    // Duyệt qua DataTable để cộng dồn cột "TongTienPhat"
+                    foreach (DataRow row in dt.Rows)
+                    {
+                        if (row["TongTienPhat"] != DBNull.Value)
+                        {
+                            tongTien += Convert.ToInt32(row["TongTienPhat"]);
+                        }
+                    }
+                }
+            }
+            catch
+            {
+                // Nếu lỗi thì trả về 0 hoặc xử lý tùy ý
+                tongTien = 0;
+            }
+            return tongTien;
         }
 
         private void ApplyFilter()
@@ -296,13 +259,12 @@ namespace QuanLyThuVien.GUI
             bs.DataSource = filteredList;
             dgvChonPP.DataSource = bs;
 
+            // Không gán vào cột không tồn tại. Nếu muốn hiển thị text trạng thái, thêm 1 column bindable hoặc xử lý qua template.
             foreach (DataGridViewRow row in dgvChonPP.Rows)
             {
                 var item = row.DataBoundItem as PhieuTraViPhamDTO;
                 if (item != null)
                 {
-                    row.Cells["colTrangThaiSach"].Value = GetTrangThaiText(item.TrangThai);
-                    
                     // Tự động tick nếu có vi phạm
                     if (item.QuaHan || item.TrangThai == 2 || item.TrangThai == 3)
                     {
@@ -407,15 +369,12 @@ namespace QuanLyThuVien.GUI
             {
                 int rowIndex = dgvChonPP.Rows.Add();
                 dgvChonPP.Rows[rowIndex].Cells["colCheck"].Value = false;
-                dgvChonPP.Rows[rowIndex].Cells["colMaCT"].Value = item.MaCTPhieuPhat;
-                dgvChonPP.Rows[rowIndex].Cells["colTenSach"].Value = item.TenSach;
+
+                // Map tới các cột thực sự có trong SetupDataGridView()
+                dgvChonPP.Rows[rowIndex].Cells["colMaPT"].Value = item.MaPhieuPhat;
+                dgvChonPP.Rows[rowIndex].Cells["colMaDG"].Value = item.MaDG;
                 dgvChonPP.Rows[rowIndex].Cells["colTenDG"].Value = item.TenDG;
-                dgvChonPP.Rows[rowIndex].Cells["colNgayTraDuKien"].Value = item.NgayPhat;
-                dgvChonPP.Rows[rowIndex].Cells["colNgayTra"].Value = item.NgayTra == DateTime.MinValue ? (object)"" : item.NgayTra;
-                dgvChonPP.Rows[rowIndex].Cells["colSoNgayTre"].Value = 0;
-                dgvChonPP.Rows[rowIndex].Cells["colTrangThaiSach"].Value = "Bình thường";
                 dgvChonPP.Rows[rowIndex].Cells["colTienPhat"].Value = item.tienPhat;
-                dgvChonPP.Rows[rowIndex].Cells["colLyDo"].Value = item.LydoPhat ?? "";
                 dgvChonPP.Rows[rowIndex].Tag = item;
             }
 
@@ -440,6 +399,64 @@ namespace QuanLyThuVien.GUI
             this.DialogResult = DialogResult.Cancel;
             this.Close();
         }
+        private void btnDetail_Click(object sender, EventArgs e)
+        {
+            // 1. Lấy dòng đang chọn (Ưu tiên SelectedRows, sau đó đến CurrentRow)
+            DataGridViewRow row = null;
+            if (dgvChonPP.SelectedRows != null && dgvChonPP.SelectedRows.Count > 0)
+                row = dgvChonPP.SelectedRows[0];
+            else if (dgvChonPP.CurrentRow != null)
+                row = dgvChonPP.CurrentRow;
+
+            if (row == null)
+            {
+                MessageBox.Show("Vui lòng chọn một hàng để xem chi tiết.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            // 2. Xác định ID và Chế độ (Xem trước hay Xem đã lưu)
+            int id = 0;
+            bool isHistory = false; // Mặc định là xem trước (chưa lưu)
+
+            // Kiểm tra xem dòng đó chứa dữ liệu gì
+            var dataItem = row.DataBoundItem ?? row.Tag;
+
+            if (dataItem is PhieuTraViPhamDTO phieuTra)
+            {
+                // Trường hợp: Dữ liệu lấy từ bảng Phiếu Trả (Chưa lưu thành phạt)
+                id = phieuTra.MaPhieuTra;
+                isHistory = false; // -> Mode False: Tính toán xem trước
+            }
+            else if (dataItem is PhieuPhatDTO phieuPhat)
+            {
+                // Trường hợp: Dữ liệu là Phiếu Phạt đã tồn tại (Chế độ sửa)
+                id = phieuPhat.MaPhieuPhat;
+                isHistory = true;  // -> Mode True: Lấy từ DB
+            }
+
+            // 3. Kiểm tra ID hợp lệ
+            if (id <= 0)
+            {
+                MessageBox.Show("Không tìm được mã phiếu hợp lệ để xem chi tiết.", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // 4. Mở FormChiTietPhieuPhat với tham số đúng
+            try
+            {
+                // Truyền ID và biến cờ isHistory vào Constructor
+                using (var f = new FormChiTietPhieuPhat(id, isHistory))
+                {
+                    f.ShowDialog(this);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi mở chi tiết: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+
 
         private void btnLuuCPP_Click(object sender, EventArgs e)
         {
@@ -565,10 +582,23 @@ namespace QuanLyThuVien.GUI
 
         private void HeaderCheckBox_CheckedChanged(object sender, EventArgs e)
         {
+            // Commit any active edit so the first row's checkbox isn't left in edit state
+            if (dgvChonPP.IsCurrentCellInEditMode)
+            {
+                try { dgvChonPP.EndEdit(); } catch { }
+            }
+
+            bool isChecked = headerCheckBox.Checked;
+
+            dgvChonPP.SuspendLayout();
             foreach (DataGridViewRow row in dgvChonPP.Rows)
             {
-                row.Cells["colCheck"].Value = headerCheckBox.Checked;
+                if (row.IsNewRow) continue; // skip new row if allowed
+                row.Cells["colCheck"].Value = isChecked;
             }
+            dgvChonPP.ResumeLayout();
+            dgvChonPP.Refresh();
+
             UpdateTongTien();
         }
     }

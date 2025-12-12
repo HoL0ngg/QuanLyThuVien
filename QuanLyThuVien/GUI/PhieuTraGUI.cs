@@ -20,14 +20,14 @@ namespace QuanLyThuVien.GUI
             SetupComponents();
         }
 
-        public PhieuTraGUI(TaiKhoanDTO user) : this()
-        {
-            this.CurrentUser = user;
-            if (user != null)
-            {
-                maNhanVien = user.MaNV;
-            }
-        }
+        //public PhieuTraGUI(TaiKhoanDTO user) : this()
+        //{
+        //    this.CurrentUser = user;
+        //    if (user != null)
+        //    {
+        //        maNhanVien = user.MaNV;
+        //    }
+        //}
 
         private void SetupComponents()
         {

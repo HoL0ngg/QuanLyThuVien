@@ -47,8 +47,6 @@
             this.colTen = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colTien = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colNgayPhat = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colDG = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colLyDo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colTrangThai = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panelTop.SuspendLayout();
             this.panelContentPhieuPhat.SuspendLayout();
@@ -214,8 +212,6 @@
             this.colTen,
             this.colTien,
             this.colNgayPhat,
-            this.colDG,
-            this.colLyDo,
             this.colTrangThai});
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
@@ -252,7 +248,7 @@
             // colTen
             // 
             this.colTen.FillWeight = 130F;
-            this.colTen.HeaderText = "Tên Sách";
+            this.colTen.HeaderText = "Độc Giả";
             this.colTen.MinimumWidth = 6;
             this.colTen.Name = "colTen";
             this.colTen.ReadOnly = true;
@@ -272,22 +268,6 @@
             this.colNgayPhat.MinimumWidth = 6;
             this.colNgayPhat.Name = "colNgayPhat";
             this.colNgayPhat.ReadOnly = true;
-            // 
-            // colDG
-            // 
-            this.colDG.FillWeight = 110F;
-            this.colDG.HeaderText = "Độc Giả";
-            this.colDG.MinimumWidth = 6;
-            this.colDG.Name = "colDG";
-            this.colDG.ReadOnly = true;
-            // 
-            // colLyDo
-            // 
-            this.colLyDo.FillWeight = 130F;
-            this.colLyDo.HeaderText = "Lý Do Phạt";
-            this.colLyDo.MinimumWidth = 6;
-            this.colLyDo.Name = "colLyDo";
-            this.colLyDo.ReadOnly = true;
             // 
             // colTrangThai
             // 
@@ -332,8 +312,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn colTen;
         private System.Windows.Forms.DataGridViewTextBoxColumn colTien;
         private System.Windows.Forms.DataGridViewTextBoxColumn colNgayPhat;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colDG;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colLyDo;
         private System.Windows.Forms.DataGridViewTextBoxColumn colTrangThai;
     }
 }

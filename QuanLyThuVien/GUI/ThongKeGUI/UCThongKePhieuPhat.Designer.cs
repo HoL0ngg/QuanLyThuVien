@@ -83,7 +83,7 @@
             this.panelKPI.Padding = new System.Windows.Forms.Padding(5);
             this.panelKPI.RowCount = 1;
             this.panelKPI.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.panelKPI.Size = new System.Drawing.Size(1798, 130);
+            this.panelKPI.Size = new System.Drawing.Size(1777, 130);
             this.panelKPI.TabIndex = 0;
             // 
             // pnlKpi1
@@ -96,7 +96,7 @@
             this.pnlKpi1.Margin = new System.Windows.Forms.Padding(8);
             this.pnlKpi1.Name = "pnlKpi1";
             this.pnlKpi1.Padding = new System.Windows.Forms.Padding(12);
-            this.pnlKpi1.Size = new System.Drawing.Size(431, 104);
+            this.pnlKpi1.Size = new System.Drawing.Size(425, 104);
             this.pnlKpi1.TabIndex = 0;
             // 
             // lblTongPhieu
@@ -106,7 +106,7 @@
             this.lblTongPhieu.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
             this.lblTongPhieu.Location = new System.Drawing.Point(12, 37);
             this.lblTongPhieu.Name = "lblTongPhieu";
-            this.lblTongPhieu.Size = new System.Drawing.Size(407, 55);
+            this.lblTongPhieu.Size = new System.Drawing.Size(401, 55);
             this.lblTongPhieu.TabIndex = 0;
             this.lblTongPhieu.Text = "0";
             this.lblTongPhieu.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -119,7 +119,7 @@
             this.lblKpi1Title.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(117)))), ((int)(((byte)(117)))), ((int)(((byte)(117)))));
             this.lblKpi1Title.Location = new System.Drawing.Point(12, 12);
             this.lblKpi1Title.Name = "lblKpi1Title";
-            this.lblKpi1Title.Size = new System.Drawing.Size(407, 25);
+            this.lblKpi1Title.Size = new System.Drawing.Size(401, 25);
             this.lblKpi1Title.TabIndex = 1;
             this.lblKpi1Title.Text = "TONG SO PHIEU PHAT";
             // 
@@ -129,11 +129,11 @@
             this.pnlKpi2.Controls.Add(this.lblTongPhiPhat);
             this.pnlKpi2.Controls.Add(this.lblKpi2Title);
             this.pnlKpi2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlKpi2.Location = new System.Drawing.Point(460, 13);
+            this.pnlKpi2.Location = new System.Drawing.Point(454, 13);
             this.pnlKpi2.Margin = new System.Windows.Forms.Padding(8);
             this.pnlKpi2.Name = "pnlKpi2";
             this.pnlKpi2.Padding = new System.Windows.Forms.Padding(12);
-            this.pnlKpi2.Size = new System.Drawing.Size(431, 104);
+            this.pnlKpi2.Size = new System.Drawing.Size(425, 104);
             this.pnlKpi2.TabIndex = 1;
             // 
             // lblTongPhiPhat
@@ -143,7 +143,7 @@
             this.lblTongPhiPhat.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(67)))), ((int)(((byte)(54)))));
             this.lblTongPhiPhat.Location = new System.Drawing.Point(12, 37);
             this.lblTongPhiPhat.Name = "lblTongPhiPhat";
-            this.lblTongPhiPhat.Size = new System.Drawing.Size(407, 55);
+            this.lblTongPhiPhat.Size = new System.Drawing.Size(401, 55);
             this.lblTongPhiPhat.TabIndex = 0;
             this.lblTongPhiPhat.Text = "0";
             this.lblTongPhiPhat.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -155,7 +155,7 @@
             this.lblKpi2Title.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(117)))), ((int)(((byte)(117)))), ((int)(((byte)(117)))));
             this.lblKpi2Title.Location = new System.Drawing.Point(12, 12);
             this.lblKpi2Title.Name = "lblKpi2Title";
-            this.lblKpi2Title.Size = new System.Drawing.Size(407, 25);
+            this.lblKpi2Title.Size = new System.Drawing.Size(401, 25);
             this.lblKpi2Title.TabIndex = 1;
             this.lblKpi2Title.Text = "TONG PHI PHAT";
             // 
@@ -165,11 +165,11 @@
             this.pnlKpi3.Controls.Add(this.lblDaThu);
             this.pnlKpi3.Controls.Add(this.lblKpi3Title);
             this.pnlKpi3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlKpi3.Location = new System.Drawing.Point(907, 13);
+            this.pnlKpi3.Location = new System.Drawing.Point(895, 13);
             this.pnlKpi3.Margin = new System.Windows.Forms.Padding(8);
             this.pnlKpi3.Name = "pnlKpi3";
             this.pnlKpi3.Padding = new System.Windows.Forms.Padding(12);
-            this.pnlKpi3.Size = new System.Drawing.Size(431, 104);
+            this.pnlKpi3.Size = new System.Drawing.Size(425, 104);
             this.pnlKpi3.TabIndex = 2;
             // 
             // lblDaThu
@@ -179,7 +179,7 @@
             this.lblDaThu.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(175)))), ((int)(((byte)(80)))));
             this.lblDaThu.Location = new System.Drawing.Point(12, 37);
             this.lblDaThu.Name = "lblDaThu";
-            this.lblDaThu.Size = new System.Drawing.Size(407, 55);
+            this.lblDaThu.Size = new System.Drawing.Size(401, 55);
             this.lblDaThu.TabIndex = 0;
             this.lblDaThu.Text = "0";
             this.lblDaThu.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -191,7 +191,7 @@
             this.lblKpi3Title.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(117)))), ((int)(((byte)(117)))), ((int)(((byte)(117)))));
             this.lblKpi3Title.Location = new System.Drawing.Point(12, 12);
             this.lblKpi3Title.Name = "lblKpi3Title";
-            this.lblKpi3Title.Size = new System.Drawing.Size(407, 25);
+            this.lblKpi3Title.Size = new System.Drawing.Size(401, 25);
             this.lblKpi3Title.TabIndex = 1;
             this.lblKpi3Title.Text = "TONG THU THUC TE";
             // 
@@ -201,11 +201,11 @@
             this.pnlKpi4.Controls.Add(this.lblChuaThu);
             this.pnlKpi4.Controls.Add(this.lblKpi4Title);
             this.pnlKpi4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlKpi4.Location = new System.Drawing.Point(1354, 13);
+            this.pnlKpi4.Location = new System.Drawing.Point(1336, 13);
             this.pnlKpi4.Margin = new System.Windows.Forms.Padding(8);
             this.pnlKpi4.Name = "pnlKpi4";
             this.pnlKpi4.Padding = new System.Windows.Forms.Padding(12);
-            this.pnlKpi4.Size = new System.Drawing.Size(431, 104);
+            this.pnlKpi4.Size = new System.Drawing.Size(428, 104);
             this.pnlKpi4.TabIndex = 3;
             // 
             // lblChuaThu
@@ -215,7 +215,7 @@
             this.lblChuaThu.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(152)))), ((int)(((byte)(0)))));
             this.lblChuaThu.Location = new System.Drawing.Point(12, 37);
             this.lblChuaThu.Name = "lblChuaThu";
-            this.lblChuaThu.Size = new System.Drawing.Size(407, 55);
+            this.lblChuaThu.Size = new System.Drawing.Size(404, 55);
             this.lblChuaThu.TabIndex = 0;
             this.lblChuaThu.Text = "0";
             this.lblChuaThu.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -227,7 +227,7 @@
             this.lblKpi4Title.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(117)))), ((int)(((byte)(117)))), ((int)(((byte)(117)))));
             this.lblKpi4Title.Location = new System.Drawing.Point(12, 12);
             this.lblKpi4Title.Name = "lblKpi4Title";
-            this.lblKpi4Title.Size = new System.Drawing.Size(407, 25);
+            this.lblKpi4Title.Size = new System.Drawing.Size(404, 25);
             this.lblKpi4Title.TabIndex = 1;
             this.lblKpi4Title.Text = "PHI CHUA THU";
             // 
@@ -244,7 +244,7 @@
             this.panelCharts.Padding = new System.Windows.Forms.Padding(5);
             this.panelCharts.RowCount = 1;
             this.panelCharts.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 270F));
-            this.panelCharts.Size = new System.Drawing.Size(1798, 280);
+            this.panelCharts.Size = new System.Drawing.Size(1777, 280);
             this.panelCharts.TabIndex = 1;
             // 
             // panelLyDo
@@ -257,7 +257,7 @@
             this.panelLyDo.Margin = new System.Windows.Forms.Padding(8);
             this.panelLyDo.Name = "panelLyDo";
             this.panelLyDo.Padding = new System.Windows.Forms.Padding(12);
-            this.panelLyDo.Size = new System.Drawing.Size(878, 254);
+            this.panelLyDo.Size = new System.Drawing.Size(867, 254);
             this.panelLyDo.TabIndex = 0;
             // 
             // flpLyDo
@@ -269,7 +269,7 @@
             this.flpLyDo.Location = new System.Drawing.Point(12, 42);
             this.flpLyDo.Name = "flpLyDo";
             this.flpLyDo.Padding = new System.Windows.Forms.Padding(5);
-            this.flpLyDo.Size = new System.Drawing.Size(854, 200);
+            this.flpLyDo.Size = new System.Drawing.Size(843, 200);
             this.flpLyDo.TabIndex = 0;
             this.flpLyDo.WrapContents = false;
             // 
@@ -280,7 +280,7 @@
             this.lblLyDoTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(66)))), ((int)(((byte)(66)))));
             this.lblLyDoTitle.Location = new System.Drawing.Point(12, 12);
             this.lblLyDoTitle.Name = "lblLyDoTitle";
-            this.lblLyDoTitle.Size = new System.Drawing.Size(854, 30);
+            this.lblLyDoTitle.Size = new System.Drawing.Size(843, 30);
             this.lblLyDoTitle.TabIndex = 1;
             this.lblLyDoTitle.Text = "CO CAU LY DO PHAT";
             // 
@@ -290,11 +290,11 @@
             this.panelTopDocGia.Controls.Add(this.flpTopDocGia);
             this.panelTopDocGia.Controls.Add(this.lblTopDocGiaTitle);
             this.panelTopDocGia.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelTopDocGia.Location = new System.Drawing.Point(907, 13);
+            this.panelTopDocGia.Location = new System.Drawing.Point(896, 13);
             this.panelTopDocGia.Margin = new System.Windows.Forms.Padding(8);
             this.panelTopDocGia.Name = "panelTopDocGia";
             this.panelTopDocGia.Padding = new System.Windows.Forms.Padding(12);
-            this.panelTopDocGia.Size = new System.Drawing.Size(878, 254);
+            this.panelTopDocGia.Size = new System.Drawing.Size(868, 254);
             this.panelTopDocGia.TabIndex = 1;
             // 
             // flpTopDocGia
@@ -306,7 +306,7 @@
             this.flpTopDocGia.Location = new System.Drawing.Point(12, 42);
             this.flpTopDocGia.Name = "flpTopDocGia";
             this.flpTopDocGia.Padding = new System.Windows.Forms.Padding(5);
-            this.flpTopDocGia.Size = new System.Drawing.Size(854, 200);
+            this.flpTopDocGia.Size = new System.Drawing.Size(844, 200);
             this.flpTopDocGia.TabIndex = 0;
             this.flpTopDocGia.WrapContents = false;
             // 
@@ -317,7 +317,7 @@
             this.lblTopDocGiaTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(66)))), ((int)(((byte)(66)))));
             this.lblTopDocGiaTitle.Location = new System.Drawing.Point(12, 12);
             this.lblTopDocGiaTitle.Name = "lblTopDocGiaTitle";
-            this.lblTopDocGiaTitle.Size = new System.Drawing.Size(854, 30);
+            this.lblTopDocGiaTitle.Size = new System.Drawing.Size(844, 30);
             this.lblTopDocGiaTitle.TabIndex = 1;
             this.lblTopDocGiaTitle.Text = "TOP 5 DOC GIA BI PHAT NHIEU NHAT";
             // 
@@ -329,7 +329,7 @@
             this.panelTable.Location = new System.Drawing.Point(10, 470);
             this.panelTable.Name = "panelTable";
             this.panelTable.Padding = new System.Windows.Forms.Padding(10);
-            this.panelTable.Size = new System.Drawing.Size(1798, 420);
+            this.panelTable.Size = new System.Drawing.Size(1777, 420);
             this.panelTable.TabIndex = 3;
             // 
             // dgvChiTiet
@@ -374,8 +374,9 @@
             this.dgvChiTiet.RowHeadersWidth = 51;
             this.dgvChiTiet.RowTemplate.Height = 35;
             this.dgvChiTiet.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvChiTiet.Size = new System.Drawing.Size(1778, 400);
+            this.dgvChiTiet.Size = new System.Drawing.Size(1757, 400);
             this.dgvChiTiet.TabIndex = 0;
+            this.dgvChiTiet.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvChiTiet_CellContentClick);
             // 
             // colMaPhieu
             // 
@@ -383,6 +384,7 @@
             this.colMaPhieu.MinimumWidth = 6;
             this.colMaPhieu.Name = "colMaPhieu";
             this.colMaPhieu.ReadOnly = true;
+            this.colMaPhieu.Width = 125;
             // 
             // colDocGia
             // 
@@ -445,7 +447,7 @@
             this.panelSearch.Location = new System.Drawing.Point(10, 420);
             this.panelSearch.Name = "panelSearch";
             this.panelSearch.Padding = new System.Windows.Forms.Padding(10);
-            this.panelSearch.Size = new System.Drawing.Size(1798, 50);
+            this.panelSearch.Size = new System.Drawing.Size(1777, 50);
             this.panelSearch.TabIndex = 2;
             // 
             // lblTableTitle
@@ -532,7 +534,8 @@
             this.Controls.Add(this.panelKPI);
             this.Name = "UCThongKePhieuPhat";
             this.Padding = new System.Windows.Forms.Padding(10);
-            this.Size = new System.Drawing.Size(1818, 900);
+            this.Size = new System.Drawing.Size(1797, 900);
+            this.Load += new System.EventHandler(this.UCThongKePhieuPhat_Load);
             this.panelKPI.ResumeLayout(false);
             this.pnlKpi1.ResumeLayout(false);
             this.pnlKpi2.ResumeLayout(false);
