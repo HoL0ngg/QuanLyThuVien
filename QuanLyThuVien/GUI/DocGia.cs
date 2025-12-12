@@ -1,9 +1,11 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using QuanLyThuVien.DTO;
 using QuanLyThuVien.BUS;
+using QuanLyThuVien.GUI.Components;
 
 namespace QuanLyThuVien.GUI
 {
@@ -16,6 +18,7 @@ namespace QuanLyThuVien.GUI
         {
             InitializeComponent();
             if (LicenseManager.UsageMode == LicenseUsageMode.Designtime) return;
+            InitializeActionButtons();
             LoadData();
             btnTimKiem.Click += BtnTimKiem_Click;
             btnClearFilters.Click += BtnClearFilters_Click;
@@ -24,6 +27,25 @@ namespace QuanLyThuVien.GUI
         public DocGia(TaiKhoanDTO user) : this()
         {
             this.CurrentUser = user;
+        }
+
+        /// <summary>
+        /// Khởi tạo ActionButtonsUC
+        /// </summary>
+        private void InitializeActionButtons()
+        {
+            Panel panelTop = new Panel
+            {
+                Dock = DockStyle.Top,
+                Height = 60,
+                BackColor = Color.FromArgb(250, 250, 250),
+                Padding = new Padding(10, 5, 10, 5)
+            };
+            
+            this.Controls.Add(panelTop);
+            panelTop.BringToFront();
+            
+            CreateActionButtons(panelTop, DockStyle.Left);
         }
 
         public override void LoadData()
@@ -99,14 +121,12 @@ namespace QuanLyThuVien.GUI
                 return;
             }
 
-            DocGiaDTO selected = null;
-
             var idCell = dgvDocGia.CurrentRow.Cells["MaDG"];
             var tenCell = dgvDocGia.CurrentRow.Cells["TenDG"];
             var sdtCell = dgvDocGia.CurrentRow.Cells["SDT"];
             var dcCell = dgvDocGia.CurrentRow.Cells["DiaChi"];
             int id = 0; int.TryParse(idCell?.Value?.ToString(), out id);
-            selected = new DocGiaDTO
+            var selected = new DocGiaDTO
             {
                 MaDG = id,
                 TenDG = tenCell?.Value?.ToString(),

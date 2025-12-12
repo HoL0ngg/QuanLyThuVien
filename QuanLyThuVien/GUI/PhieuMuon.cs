@@ -1,6 +1,7 @@
 ﻿using QuanLyThuVien.BUS;
 using QuanLyThuVien.DAO;
 using QuanLyThuVien.DTO;
+using QuanLyThuVien.GUI.Components;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
@@ -18,11 +19,15 @@ namespace QuanLyThuVien.GUI
         public PhieuMuon(TaiKhoanDTO taikhoan)
         {
             InitializeComponent();
+            InitializeActionButtons();
+            
             bangPhieuMuon.CellClick += BangPhieuMuon_CellClick;
             bangPhieuMuon.CellFormatting += BangPhieuMuon_CellFormatting;
             btnClearFilters.Click += BtnClearFilters_Click;
             btnTimKiem.Click += BtnTimKiem_Click;
             tk = taikhoan;
+            this.CurrentUser = taikhoan;
+            
             ucThemPhieu = new FormThemPhieuMuon(tk)
             {
                 Dock = DockStyle.Fill,
@@ -33,20 +38,40 @@ namespace QuanLyThuVien.GUI
             ucThemPhieu.BringToFront();
         }
 
+        /// <summary>
+        /// Khởi tạo ActionButtonsUC
+        /// </summary>
+        private void InitializeActionButtons()
+        {
+            Panel panelActions = new Panel
+            {
+                Dock = DockStyle.Top,
+                Height = 60,
+                BackColor = Color.FromArgb(250, 250, 250),
+                Padding = new Padding(10, 5, 10, 5)
+            };
+            
+            this.Controls.Add(panelActions);
+            panelActions.BringToFront();
+            
+            CreateActionButtons(panelActions, DockStyle.Left);
+        }
+
         private void InitializePhieuMuonGrid()
         {
             bangPhieuMuon.AutoGenerateColumns = false;
             bangPhieuMuon.Columns.Clear();
 
-            var colMa = new DataGridViewTextBoxColumn { Name = "MaPhieuMuon", HeaderText = "Mã", DataPropertyName = "MaPhieuMuon", FillWeight = 40 };
-            var colNgayMuon = new DataGridViewTextBoxColumn { Name = "NgayMuon", HeaderText = "Ngày mượn", DataPropertyName = "NgayMuon", DefaultCellStyle = new DataGridViewCellStyle { Format = "dd/MM/yyyy" } };
-            var colNgayTra = new DataGridViewTextBoxColumn { Name = "NgayTraDuKien", HeaderText = "Trả dự kiến", DataPropertyName = "NgayTraDuKien", DefaultCellStyle = new DataGridViewCellStyle { Format = "dd/MM/yyyy" } };
-            var colTrangThai = new DataGridViewTextBoxColumn { Name = "TrangThai", HeaderText = "Trạng thái", DataPropertyName = "TrangThai" };
-            var colMaDocGia = new DataGridViewTextBoxColumn { Name = "MaDocGia", HeaderText = "Mã độc giả", DataPropertyName = "MaDocGia" };
-            var colTenDocGia = new DataGridViewTextBoxColumn { Name = "TenDocGia", HeaderText = "Tên độc giả", DataPropertyName = "TenDocGia" };
-            var colTenNhanVien = new DataGridViewTextBoxColumn { Name = "TenNhanVien", HeaderText = "Tên nhân viên", DataPropertyName = "TenNhanVien" };
-
-            bangPhieuMuon.Columns.AddRange(new DataGridViewColumn[] { colMa, colNgayMuon, colNgayTra, colTrangThai, colMaDocGia, colTenDocGia, colTenNhanVien });
+            bangPhieuMuon.Columns.AddRange(new DataGridViewColumn[] {
+                new DataGridViewTextBoxColumn { Name = "MaPhieuMuon", HeaderText = "Mã", DataPropertyName = "MaPhieuMuon", FillWeight = 40 },
+                new DataGridViewTextBoxColumn { Name = "NgayMuon", HeaderText = "Ngày mượn", DataPropertyName = "NgayMuon", DefaultCellStyle = new DataGridViewCellStyle { Format = "dd/MM/yyyy" } },
+                new DataGridViewTextBoxColumn { Name = "NgayTraDuKien", HeaderText = "Trả dự kiến", DataPropertyName = "NgayTraDuKien", DefaultCellStyle = new DataGridViewCellStyle { Format = "dd/MM/yyyy" } },
+                new DataGridViewTextBoxColumn { Name = "TrangThai", HeaderText = "Trạng thái", DataPropertyName = "TrangThai" },
+                new DataGridViewTextBoxColumn { Name = "MaDocGia", HeaderText = "Mã độc giả", DataPropertyName = "MaDocGia" },
+                new DataGridViewTextBoxColumn { Name = "TenDocGia", HeaderText = "Tên độc giả", DataPropertyName = "TenDocGia" },
+                new DataGridViewTextBoxColumn { Name = "TenNhanVien", HeaderText = "Tên nhân viên", DataPropertyName = "TenNhanVien" }
+            });
+            
             bangPhieuMuon.ReadOnly = true;
             bangPhieuMuon.EditMode = DataGridViewEditMode.EditProgrammatically;
             bangPhieuMuon.AllowUserToAddRows = false;
@@ -58,16 +83,15 @@ namespace QuanLyThuVien.GUI
             bangCTPhieuMuon.AutoGenerateColumns = false;
             bangCTPhieuMuon.Columns.Clear();
 
-            var colMaSach = new DataGridViewTextBoxColumn { Name = "MaSach", HeaderText = "Mã sách", DataPropertyName = "MaSach" };
-            var colMaDauSach = new DataGridViewTextBoxColumn { Name = "MaDauSach", HeaderText = "Mã đầu sách", DataPropertyName = "MaDauSach" };
-            var colTenDauSach = new DataGridViewTextBoxColumn { Name = "TenDauSach", HeaderText = "Tên đầu sách", DataPropertyName = "TenDauSach" };
-            var colNXB = new DataGridViewTextBoxColumn { Name = "TenNXB", HeaderText = "Nhà xuất bản", DataPropertyName = "NhaXuatBan" };
-            var colNamXB = new DataGridViewTextBoxColumn { Name = "NamXuatBan", HeaderText = "Năm xuất bản", DataPropertyName = "NamXuatBan" };
-            var colNgonNgu = new DataGridViewTextBoxColumn { Name = "NgonNgu", HeaderText = "Ngôn ngữ", DataPropertyName = "NgonNgu" };
+            bangCTPhieuMuon.Columns.AddRange(new DataGridViewColumn[] {
+                new DataGridViewTextBoxColumn { Name = "MaSach", HeaderText = "Mã sách", DataPropertyName = "MaSach" },
+                new DataGridViewTextBoxColumn { Name = "MaDauSach", HeaderText = "Mã đầu sách", DataPropertyName = "MaDauSach" },
+                new DataGridViewTextBoxColumn { Name = "TenDauSach", HeaderText = "Tên đầu sách", DataPropertyName = "TenDauSach" },
+                new DataGridViewTextBoxColumn { Name = "TenNXB", HeaderText = "Nhà xuất bản", DataPropertyName = "NhaXuatBan" },
+                new DataGridViewTextBoxColumn { Name = "NamXuatBan", HeaderText = "Năm xuất bản", DataPropertyName = "NamXuatBan" },
+                new DataGridViewTextBoxColumn { Name = "NgonNgu", HeaderText = "Ngôn ngữ", DataPropertyName = "NgonNgu" }
+            });
 
-            bangCTPhieuMuon.Columns.AddRange(new DataGridViewColumn[] { colMaSach, colMaDauSach, colTenDauSach, colNXB, colNamXB, colNgonNgu });
-
-            // Style và khóa sửa
             bangCTPhieuMuon.RowHeadersVisible = false;
             bangCTPhieuMuon.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             bangCTPhieuMuon.ReadOnly = true;
@@ -112,7 +136,6 @@ namespace QuanLyThuVien.GUI
 
         private void UcThemPhieu_CloseRequested()
         {
-            // Quay trở lại giao diện danh sách
             ToggleView(false);
             LoadData();
         }
@@ -120,11 +143,22 @@ namespace QuanLyThuVien.GUI
         // Mở form thêm phiếu mượn
         public override void OnAdd()
         {
+            if (!CoQuyenThem)
+            {
+                MessageBox.Show("Bạn không có quyền thêm phiếu mượn!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
             // Ẩn giao diện danh sách, hiển thị UC thêm
             ToggleView(true);
         }
         public override void OnEdit()
         {
+            if (!CoQuyenSua)
+            {
+                MessageBox.Show("Bạn không có quyền sửa phiếu mượn!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            
             if (bangPhieuMuon.CurrentRow == null)
             {
                 MessageBox.Show("Vui lòng chọn một phiếu mượn để cập nhật.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -136,16 +170,13 @@ namespace QuanLyThuVien.GUI
             DateTime ngayTraDuKien = DateTime.MinValue;
             var ngayTraCell = bangPhieuMuon.CurrentRow.Cells["NgayTraDuKien"];
             if (ngayTraCell?.Value != null)
-            {
                 DateTime.TryParse(ngayTraCell.Value.ToString(), out ngayTraDuKien);
-            }
 
             int currentStatus = 0;
             var trangThaiCell = bangPhieuMuon.CurrentRow.Cells["TrangThai"];
             if (trangThaiCell?.Value != null)
-            {
                 int.TryParse(trangThaiCell.Value.ToString(), out currentStatus);
-            }
+
             if (currentStatus == 2 || currentStatus == 3)
             {
                 MessageBox.Show("Phiếu mượn này đã được trả.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -158,16 +189,10 @@ namespace QuanLyThuVien.GUI
             try
             {
                 var today = DateTime.Today;
-                int newStatus = today > ngayTraDuKien.Date ? 3 : 2; 
+                int newStatus = today > ngayTraDuKien.Date ? 3 : 2;
                 var pm = new PhieuMuonDTO { MaPhieuMuon = id, TrangThai = newStatus };
-                if (bus.Update(pm))
-                {
-                    LoadData();
-                }
-                else
-                {
-                    MessageBox.Show("Cập nhật trạng thái không thành công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
+                if (bus.Update(pm)) LoadData();
+                else MessageBox.Show("Cập nhật trạng thái không thành công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
@@ -177,27 +202,26 @@ namespace QuanLyThuVien.GUI
 
         public override void OnDelete()
         {
+            if (!CoQuyenXoa)
+            {
+                MessageBox.Show("Bạn không có quyền xóa phiếu mượn!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            
             if (bangPhieuMuon.CurrentRow == null)
             {
                 MessageBox.Show("Vui lòng chọn một phiếu mượn để xóa.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
             var idCell = bangPhieuMuon.CurrentRow.Cells["MaPhieuMuon"];
-            if (idCell?.Value == null) return;
-            if (!int.TryParse(idCell.Value.ToString(), out int id)) return;
+            if (idCell?.Value == null || !int.TryParse(idCell.Value.ToString(), out int id)) return;
 
             var confirm = MessageBox.Show($"Bạn có chắc muốn xóa phiếu mượn có ID {id} không?", "Xác nhận xóa", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (confirm != DialogResult.Yes) return;
             try
             {
-                if (bus.Delete(id))
-                {
-                    LoadData();
-                }
-                else
-                {
-                    MessageBox.Show("Xóa không thành công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
+                if (bus.Delete(id)) LoadData();
+                else MessageBox.Show("Xóa không thành công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
@@ -214,9 +238,8 @@ namespace QuanLyThuVien.GUI
                 InitializePhieuMuonGrid();
                 bangPhieuMuon.DataSource = bus.GetAll();
                 ConfigureGrid();
-
                 InitializeChiTietGrid();
-                bangCTPhieuMuon.DataSource = null; // clear chi tiết khi reload
+                bangCTPhieuMuon.DataSource = null;
             }
             catch (Exception ex)
             {
@@ -231,30 +254,20 @@ namespace QuanLyThuVien.GUI
             splitContainerMain.Visible = !showThem;
 
             ucThemPhieu.Visible = showThem;
-            if (showThem)
-            {
-                ucThemPhieu.BringToFront();
-            }
-            else
-            {
-                ucThemPhieu.SendToBack();
-            }
+            if (showThem) ucThemPhieu.BringToFront();
+            else ucThemPhieu.SendToBack();
         }
 
         private void PhieuMuon_Load(object sender, EventArgs e)
         {
             if (cmbTrangThai != null && cmbTrangThai.Items.Count > 0)
-                cmbTrangThai.SelectedIndex = 0; 
-            dtpNgayMuon.Value = NgayMuonMacDinh; 
-            dtpNgayTraDuKien.Value = DateTime.Today; 
+                cmbTrangThai.SelectedIndex = 0;
+            dtpNgayMuon.Value = NgayMuonMacDinh;
+            dtpNgayTraDuKien.Value = DateTime.Today;
             LoadData();
         }
 
-        private void Button1_Click(object sender, EventArgs e)
-        {
-            OnAdd();
-        }
-
+        private void Button1_Click(object sender, EventArgs e) => OnAdd();
         private void GroupBoxInfo_Enter(object sender, EventArgs e) { }
 
         private void BangPhieuMuon_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -278,7 +291,7 @@ namespace QuanLyThuVien.GUI
         private void BtnClearFilters_Click(object sender, EventArgs e)
         {
             txtMaPhieuMuon.Text = string.Empty;
-            dtpNgayMuon.Value = NgayMuonMacDinh; // reset về 01/01/2000
+            dtpNgayMuon.Value = NgayMuonMacDinh;
             dtpNgayTraDuKien.Value = DateTime.Today;
             cmbTrangThai.SelectedIndex = 0;
             txtMaDocGia.Text = string.Empty;
@@ -291,9 +304,8 @@ namespace QuanLyThuVien.GUI
             int? maPhieu = null; if (int.TryParse(txtMaPhieuMuon.Text.Trim(), out var mp)) maPhieu = mp;
             DateTime? ngayFrom = dtpNgayMuon.Value.Date;
             DateTime? ngayTo = dtpNgayTraDuKien.Value.Date;
-            if (ngayFrom > ngayTo) {
-                (ngayTo, ngayFrom) = (ngayFrom, ngayTo);
-            }
+            if (ngayFrom > ngayTo) (ngayTo, ngayFrom) = (ngayFrom, ngayTo);
+            
             int? trangThai = null;
             if (cmbTrangThai.SelectedItem != null && cmbTrangThai.SelectedItem.ToString() != "Tất cả")
             {
@@ -306,11 +318,11 @@ namespace QuanLyThuVien.GUI
             }
             int? maDocGia = null; if (int.TryParse(txtMaDocGia.Text.Trim(), out var mdg)) maDocGia = mdg;
             int? maNhanVien = null; if (int.TryParse(txtMaNhanVien.Text.Trim(), out var mnv)) maNhanVien = mnv;
+            
             try
             {
                 InitializePhieuMuonGrid();
-                var data = bus.Search(maPhieu, ngayFrom, ngayTo, trangThai, maDocGia, maNhanVien);
-                bangPhieuMuon.DataSource = data;
+                bangPhieuMuon.DataSource = bus.Search(maPhieu, ngayFrom, ngayTo, trangThai, maDocGia, maNhanVien);
                 ConfigureGrid();
                 InitializeChiTietGrid();
                 bangCTPhieuMuon.DataSource = null;

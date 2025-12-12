@@ -82,6 +82,19 @@ namespace QuanLyThuVien.DAO
             };
             return DataProvider.ExecuteNonQuery(query, param) > 0;
         }
+        // xoa chi thiet phieu nhap theo ma phieu nhap
+        public bool DeleteAllDetailsByMaPhieuNhap(int maPhieuNhap)
+        {
+            string query = "DELETE FROM ctphieu_nhap WHERE MaPhieuNhap = @MaPhieuNhap";
+
+            var param = new Dictionary<string, object>
+            {
+                { "@MaPhieuNhap", maPhieuNhap }
+            };
+            int rowsAffected = DataProvider.ExecuteNonQuery(query, param);
+
+            return rowsAffected >= 0;
+        }
         // sua ct phieu
         public bool Update(CTPhieuNhapDTO ct)
         {

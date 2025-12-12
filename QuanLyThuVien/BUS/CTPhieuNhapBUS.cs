@@ -49,6 +49,15 @@ namespace QuanLyThuVien.BUS
                 throw new Exception("Ma phieu nhap khong hop le");
             return dao.DeletePhieuNhap(maPhieuNhap,maDauSach);
         }
+        // PHƯƠNG THỨC MỚI: Xóa TẤT CẢ chi tiết dựa trên Mã Phiếu Nhập
+        public bool DeleteAllDetailsByMaPhieuNhap(int maPhieuNhap)
+        {
+            if (maPhieuNhap <= 0)
+                throw new Exception("Ma phieu nhap khong hop le");
+
+            // Gọi đến hàm DAO để thực thi việc xóa hàng loạt
+            return dao.DeleteAllDetailsByMaPhieuNhap(maPhieuNhap);
+        }
 
         // tinh tong so luong sach trong phieu nhap
         public int TinhTongSoLuong(int maPhieuNhap)

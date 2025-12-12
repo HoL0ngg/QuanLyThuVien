@@ -164,6 +164,9 @@
     <Compile Include="GUI\ChonTacGiaDialog.Designer.cs">
       <DependentUpon>ChonTacGiaDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="GUI\Components\ActionButtonsUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="GUI\CTPhieuNhapGUI.cs">
       <SubType>UserControl</SubType>
     </Compile>

@@ -1,5 +1,6 @@
 ﻿using QuanLyThuVien.BUS;
 using QuanLyThuVien.DTO;
+using QuanLyThuVien.GUI.Components;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -11,7 +12,6 @@ namespace QuanLyThuVien.GUI
 {
     public partial class DauSach : BaseModuleUC
     {
-        // Cache dữ liệu để sử dụng với LINQ
         private List<DauSachDTO> _allDauSach;
         private DataTable _currentDataTable;
 
@@ -19,6 +19,7 @@ namespace QuanLyThuVien.GUI
         {
             InitializeComponent();
             CustomizeDataGridView();
+            InitializeActionButtons();
         }
 
         public DauSach(TaiKhoanDTO user) : this()
@@ -26,9 +27,29 @@ namespace QuanLyThuVien.GUI
             this.CurrentUser = user;
         }
 
+        /// <summary>
+        /// Khởi tạo ActionButtonsUC
+        /// </summary>
+        private void InitializeActionButtons()
+        {
+            // Tạo panel chứa ActionButtons ở phía trên
+            Panel panelTop = new Panel
+            {
+                Dock = DockStyle.Top,
+                Height = 60,
+                BackColor = Color.FromArgb(250, 250, 250),
+                Padding = new Padding(10, 5, 10, 5)
+            };
+            
+            this.Controls.Add(panelTop);
+            panelTop.BringToFront();
+            
+            // Tạo ActionButtons
+            CreateActionButtons(panelTop, DockStyle.Left);
+        }
+
         private void CustomizeDataGridView()
         {
-            // Tùy chỉnh header
             dgvDauSach.EnableHeadersVisualStyles = false;
             dgvDauSach.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(33, 150, 243);
             dgvDauSach.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
@@ -36,19 +57,15 @@ namespace QuanLyThuVien.GUI
             dgvDauSach.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dgvDauSach.ColumnHeadersHeight = 40;
             
-            // Tùy chỉnh rows
             dgvDauSach.RowTemplate.Height = 35;
             dgvDauSach.DefaultCellStyle.Font = new Font("Segoe UI", 9F);
             dgvDauSach.DefaultCellStyle.SelectionBackColor = Color.FromArgb(100, 181, 246);
             dgvDauSach.DefaultCellStyle.SelectionForeColor = Color.White;
             dgvDauSach.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(250, 250, 250);
             
-            // Border
             dgvDauSach.BorderStyle = BorderStyle.None;
             dgvDauSach.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             dgvDauSach.GridColor = Color.FromArgb(224, 224, 224);
-            
-            // Thêm tooltip
             dgvDauSach.ShowCellToolTips = true;
         }
 
@@ -117,7 +134,6 @@ namespace QuanLyThuVien.GUI
                 return;
             }
             
-            // LINQ: Lấy thông tin đầu sách được chọn
             int selectedDauSachID = Convert.ToInt32(dgvDauSach.SelectedRows[0].Cells["MaDauSach"].Value);
             string tenDauSach = dgvDauSach.SelectedRows[0].Cells["TenDauSach"].Value?.ToString() ?? "";
             
@@ -179,22 +195,15 @@ namespace QuanLyThuVien.GUI
 
             if (string.IsNullOrEmpty(searchTerm))
             {
-                // Tải tất cả dữ liệu
                 _currentDataTable = DauSachBUS.Instance.GetAllDauSach();
             }
             else
             {
-                // Tìm kiếm theo từ khóa
                 _currentDataTable = DauSachBUS.Instance.SearchDauSach(searchTerm);
             }
 
-            // Bind dữ liệu lên DataGridView
             dgvDauSach.DataSource = _currentDataTable;
-            
-            // Đổi tên cột hiển thị
             CustomizeColumns();
-            
-            // Cập nhật thông tin thống kê
             UpdateStatistics();
         }
 
@@ -202,9 +211,6 @@ namespace QuanLyThuVien.GUI
 
         #region Private Methods
 
-        /// <summary>
-        /// Tùy chỉnh cột hiển thị
-        /// </summary>
         private void CustomizeColumns()
         {
             var colMa = new DataGridViewTextBoxColumn { Name = "MaDauSach", HeaderText = "Mã đầu sách", DataPropertyName = "MaDauSach" };
@@ -225,37 +231,27 @@ namespace QuanLyThuVien.GUI
             }
         }
 
-        /// <summary>
-        /// Cập nhật thông tin thống kê - sử dụng LINQ
-        /// </summary>
         private void UpdateStatistics()
         {
             if (_currentDataTable == null || _currentDataTable.Rows.Count == 0)
                 return;
 
-            // LINQ: Thống kê từ DataTable
             int tongDauSach = _currentDataTable.Rows.Count;
             
             int tongSoLuong = _currentDataTable.AsEnumerable()
                 .Sum(row => row.Field<int>("SoLuong"));
 
-            // LINQ: Đếm số đầu sách hết trong kho
             int hetHang = _currentDataTable.AsEnumerable()
                 .Count(row => row.Field<int>("SoLuong") == 0);
 
-            // LINQ: Lấy danh sách ngôn ngữ duy nhất
             var ngonNguList = _currentDataTable.AsEnumerable()
                 .Select(row => row.Field<string>("NgonNgu"))
                 .Distinct()
                 .ToList();
 
             Console.WriteLine($"Tổng đầu sách: {tongDauSach}, Tổng số lượng: {tongSoLuong}, Hết hàng: {hetHang}");
-            Console.WriteLine($"Ngôn ngữ: {string.Join(", ", ngonNguList)}");
         }
 
-        /// <summary>
-        /// Lọc dữ liệu trên UI với LINQ (không gọi lại database)
-        /// </summary>
         private void FilterDataOnUI(string keyword)
         {
             if (_currentDataTable == null)
@@ -269,7 +265,6 @@ namespace QuanLyThuVien.GUI
 
             string searchTerm = keyword.ToLower();
 
-            // LINQ: Lọc DataTable
             var filteredRows = _currentDataTable.AsEnumerable()
                 .Where(row =>
                     row.Field<string>("TenDauSach")?.ToLower().Contains(searchTerm) == true ||
@@ -277,7 +272,6 @@ namespace QuanLyThuVien.GUI
                     row.Field<string>("NgonNgu")?.ToLower().Contains(searchTerm) == true ||
                     row.Field<int>("NamXuatBan").ToString().Contains(searchTerm));
 
-            // LINQ: Tạo DataTable mới từ kết quả lọc
             if (filteredRows.Any())
             {
                 DataTable filteredTable = filteredRows.CopyToDataTable();
@@ -285,48 +279,14 @@ namespace QuanLyThuVien.GUI
             }
             else
             {
-                dgvDauSach.DataSource = _currentDataTable.Clone(); // Empty table
+                dgvDauSach.DataSource = _currentDataTable.Clone();
             }
 
             CustomizeColumns();
         }
 
-        /// <summary>
-        /// Sắp xếp dữ liệu với LINQ
-        /// </summary>
-        private void SortData(string columnName, bool ascending)
-        {
-            if (_currentDataTable == null)
-                return;
-
-            // LINQ: Sắp xếp DataTable
-            IEnumerable<DataRow> sortedRows;
-            
-            if (ascending)
-            {
-                sortedRows = _currentDataTable.AsEnumerable()
-                    .OrderBy(row => row[columnName]);
-            }
-            else
-            {
-                sortedRows = _currentDataTable.AsEnumerable()
-                    .OrderByDescending(row => row[columnName]);
-            }
-
-            if (sortedRows.Any())
-            {
-                DataTable sortedTable = sortedRows.CopyToDataTable();
-                dgvDauSach.DataSource = sortedTable;
-                CustomizeColumns();
-            }
-        }
-
-        /// <summary>
-        /// Lấy danh sách mã đầu sách được chọn - sử dụng LINQ
-        /// </summary>
         private List<int> GetSelectedDauSachIDs()
         {
-            // LINQ: Lấy danh sách mã từ các dòng được chọn
             return dgvDauSach.SelectedRows
                 .Cast<DataGridViewRow>()
                 .Select(row => Convert.ToInt32(row.Cells["MaDauSach"].Value))
