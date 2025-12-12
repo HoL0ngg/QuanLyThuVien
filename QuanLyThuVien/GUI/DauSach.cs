@@ -205,6 +205,16 @@ namespace QuanLyThuVien.GUI
                     row.Cells["TenDauSach"].ToolTipText = "Nhấn đúp để xem danh sách sách";
                 }
             }
+
+            CustomizeColumns();
+        }
+
+        private List<int> GetSelectedDauSachIDs()
+        {
+            return dgvDauSach.SelectedRows
+                .Cast<DataGridViewRow>()
+                .Select(row => Convert.ToInt32(row.Cells["MaDauSach"].Value))
+                .ToList();
         }
 
         #endregion
