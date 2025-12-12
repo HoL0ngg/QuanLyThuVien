@@ -36,20 +36,21 @@
             this.panelGrid = new System.Windows.Forms.Panel();
             this.dgvChonPP = new System.Windows.Forms.DataGridView();
             this.panelBottom = new System.Windows.Forms.Panel();
-            this.panelTongTien = new System.Windows.Forms.Panel();
-            this.lblTongTienValue = new System.Windows.Forms.Label();
-            this.lblTongTien = new System.Windows.Forms.Label();
-            this.lblSoLuongChon = new System.Windows.Forms.Label();
             this.panelButtons = new System.Windows.Forms.Panel();
+            this.btnDetail = new System.Windows.Forms.Button();
             this.btnHuy = new System.Windows.Forms.Button();
             this.btnLuuCPP = new System.Windows.Forms.Button();
+            this.panelTongTien = new System.Windows.Forms.Panel();
+            this.lblSoLuongChon = new System.Windows.Forms.Label();
+            this.lblTongTienValue = new System.Windows.Forms.Label();
+            this.lblTongTien = new System.Windows.Forms.Label();
             this.panelTop.SuspendLayout();
             this.panelFilter.SuspendLayout();
             this.panelGrid.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvChonPP)).BeginInit();
             this.panelBottom.SuspendLayout();
-            this.panelTongTien.SuspendLayout();
             this.panelButtons.SuspendLayout();
+            this.panelTongTien.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelTop
@@ -93,7 +94,7 @@
             this.chkChiHienViPham.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.chkChiHienViPham.Location = new System.Drawing.Point(180, 10);
             this.chkChiHienViPham.Name = "chkChiHienViPham";
-            this.chkChiHienViPham.Size = new System.Drawing.Size(250, 24);
+            this.chkChiHienViPham.Size = new System.Drawing.Size(298, 24);
             this.chkChiHienViPham.TabIndex = 1;
             this.chkChiHienViPham.Text = "Chỉ hiện sách có vi phạm (trễ/hỏng/mất)";
             this.chkChiHienViPham.UseVisualStyleBackColor = true;
@@ -106,7 +107,7 @@
             this.lblFilter.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(66)))), ((int)(((byte)(66)))));
             this.lblFilter.Location = new System.Drawing.Point(15, 11);
             this.lblFilter.Name = "lblFilter";
-            this.lblFilter.Size = new System.Drawing.Size(150, 20);
+            this.lblFilter.Size = new System.Drawing.Size(165, 20);
             this.lblFilter.TabIndex = 0;
             this.lblFilter.Text = "Danh sách sách đã trả:";
             // 
@@ -122,12 +123,12 @@
             // 
             // dgvChonPP
             // 
-            this.dgvChonPP.Name = "dgvChonPP";
-            this.dgvChonPP.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvChonPP.AllowUserToAddRows = false;
-            this.dgvChonPP.RowHeadersVisible = false;
             this.dgvChonPP.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvChonPP.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvChonPP.Location = new System.Drawing.Point(15, 5);
+            this.dgvChonPP.Name = "dgvChonPP";
+            this.dgvChonPP.RowHeadersVisible = false;
             this.dgvChonPP.RowHeadersWidth = 51;
             this.dgvChonPP.RowTemplate.Height = 28;
             this.dgvChonPP.Size = new System.Drawing.Size(920, 370);
@@ -143,6 +144,61 @@
             this.panelBottom.Name = "panelBottom";
             this.panelBottom.Size = new System.Drawing.Size(950, 110);
             this.panelBottom.TabIndex = 3;
+            // 
+            // panelButtons
+            // 
+            this.panelButtons.Controls.Add(this.btnDetail);
+            this.panelButtons.Controls.Add(this.btnHuy);
+            this.panelButtons.Controls.Add(this.btnLuuCPP);
+            this.panelButtons.Location = new System.Drawing.Point(514, 15);
+            this.panelButtons.Name = "panelButtons";
+            this.panelButtons.Size = new System.Drawing.Size(421, 80);
+            this.panelButtons.TabIndex = 1;
+            // 
+            // btnDetail
+            // 
+            this.btnDetail.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(158)))), ((int)(((byte)(158)))));
+            this.btnDetail.FlatAppearance.BorderSize = 0;
+            this.btnDetail.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDetail.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.btnDetail.ForeColor = System.Drawing.Color.White;
+            this.btnDetail.Location = new System.Drawing.Point(3, 20);
+            this.btnDetail.Name = "btnDetail";
+            this.btnDetail.Size = new System.Drawing.Size(110, 40);
+            this.btnDetail.TabIndex = 0;
+            this.btnDetail.Text = "Chi Tiết";
+            this.btnDetail.UseVisualStyleBackColor = false;
+            this.btnDetail.Click += new System.EventHandler(this.btnDetail_Click);
+            // 
+            // btnHuy
+            // 
+            this.btnHuy.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(158)))), ((int)(((byte)(158)))));
+            this.btnHuy.FlatAppearance.BorderSize = 0;
+            this.btnHuy.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnHuy.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.btnHuy.ForeColor = System.Drawing.Color.White;
+            this.btnHuy.Location = new System.Drawing.Point(136, 20);
+            this.btnHuy.Name = "btnHuy";
+            this.btnHuy.Size = new System.Drawing.Size(110, 40);
+            this.btnHuy.TabIndex = 0;
+            this.btnHuy.Text = "Hủy";
+            this.btnHuy.UseVisualStyleBackColor = false;
+            this.btnHuy.Click += new System.EventHandler(this.btnHuy_Click);
+            // 
+            // btnLuuCPP
+            // 
+            this.btnLuuCPP.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(175)))), ((int)(((byte)(80)))));
+            this.btnLuuCPP.FlatAppearance.BorderSize = 0;
+            this.btnLuuCPP.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnLuuCPP.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.btnLuuCPP.ForeColor = System.Drawing.Color.White;
+            this.btnLuuCPP.Location = new System.Drawing.Point(261, 20);
+            this.btnLuuCPP.Name = "btnLuuCPP";
+            this.btnLuuCPP.Size = new System.Drawing.Size(140, 40);
+            this.btnLuuCPP.TabIndex = 1;
+            this.btnLuuCPP.Text = "Lưu phiếu phạt";
+            this.btnLuuCPP.UseVisualStyleBackColor = false;
+            this.btnLuuCPP.Click += new System.EventHandler(this.btnLuuCPP_Click);
             // 
             // panelTongTien
             // 
@@ -163,7 +219,7 @@
             this.lblSoLuongChon.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(66)))), ((int)(((byte)(66)))));
             this.lblSoLuongChon.Location = new System.Drawing.Point(12, 52);
             this.lblSoLuongChon.Name = "lblSoLuongChon";
-            this.lblSoLuongChon.Size = new System.Drawing.Size(100, 20);
+            this.lblSoLuongChon.Size = new System.Drawing.Size(112, 20);
             this.lblSoLuongChon.TabIndex = 2;
             this.lblSoLuongChon.Text = "Đã chọn: 0 sách";
             // 
@@ -174,7 +230,7 @@
             this.lblTongTienValue.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(175)))), ((int)(((byte)(80)))));
             this.lblTongTienValue.Location = new System.Drawing.Point(140, 8);
             this.lblTongTienValue.Name = "lblTongTienValue";
-            this.lblTongTienValue.Size = new System.Drawing.Size(60, 46);
+            this.lblTongTienValue.Size = new System.Drawing.Size(71, 46);
             this.lblTongTienValue.TabIndex = 1;
             this.lblTongTienValue.Text = "0 đ";
             // 
@@ -185,48 +241,9 @@
             this.lblTongTien.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(66)))), ((int)(((byte)(66)))));
             this.lblTongTien.Location = new System.Drawing.Point(12, 16);
             this.lblTongTien.Name = "lblTongTien";
-            this.lblTongTien.Size = new System.Drawing.Size(120, 28);
+            this.lblTongTien.Size = new System.Drawing.Size(125, 28);
             this.lblTongTien.TabIndex = 0;
             this.lblTongTien.Text = "TỔNG TIỀN:";
-            // 
-            // panelButtons
-            // 
-            this.panelButtons.Controls.Add(this.btnHuy);
-            this.panelButtons.Controls.Add(this.btnLuuCPP);
-            this.panelButtons.Location = new System.Drawing.Point(560, 15);
-            this.panelButtons.Name = "panelButtons";
-            this.panelButtons.Size = new System.Drawing.Size(375, 80);
-            this.panelButtons.TabIndex = 1;
-            // 
-            // btnHuy
-            // 
-            this.btnHuy.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(158)))), ((int)(((byte)(158)))));
-            this.btnHuy.FlatAppearance.BorderSize = 0;
-            this.btnHuy.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnHuy.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.btnHuy.ForeColor = System.Drawing.Color.White;
-            this.btnHuy.Location = new System.Drawing.Point(100, 20);
-            this.btnHuy.Name = "btnHuy";
-            this.btnHuy.Size = new System.Drawing.Size(110, 40);
-            this.btnHuy.TabIndex = 0;
-            this.btnHuy.Text = "Hủy";
-            this.btnHuy.UseVisualStyleBackColor = false;
-            this.btnHuy.Click += new System.EventHandler(this.btnHuy_Click);
-            // 
-            // btnLuuCPP
-            // 
-            this.btnLuuCPP.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(175)))), ((int)(((byte)(80)))));
-            this.btnLuuCPP.FlatAppearance.BorderSize = 0;
-            this.btnLuuCPP.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnLuuCPP.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.btnLuuCPP.ForeColor = System.Drawing.Color.White;
-            this.btnLuuCPP.Location = new System.Drawing.Point(225, 20);
-            this.btnLuuCPP.Name = "btnLuuCPP";
-            this.btnLuuCPP.Size = new System.Drawing.Size(140, 40);
-            this.btnLuuCPP.TabIndex = 1;
-            this.btnLuuCPP.Text = "Lưu phiếu phạt";
-            this.btnLuuCPP.UseVisualStyleBackColor = false;
-            this.btnLuuCPP.Click += new System.EventHandler(this.btnLuuCPP_Click);
             // 
             // FormAddPhieuPhat
             // 
@@ -250,9 +267,9 @@
             this.panelGrid.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvChonPP)).EndInit();
             this.panelBottom.ResumeLayout(false);
+            this.panelButtons.ResumeLayout(false);
             this.panelTongTien.ResumeLayout(false);
             this.panelTongTien.PerformLayout();
-            this.panelButtons.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -273,6 +290,7 @@
         private System.Windows.Forms.Label lblTongTien;
         private System.Windows.Forms.Panel panelButtons;
         private System.Windows.Forms.Button btnHuy;
+        private System.Windows.Forms.Button btnDetail;
         private System.Windows.Forms.Button btnLuuCPP;
     }
 }

@@ -20,35 +20,15 @@ namespace QuanLyThuVien.GUI
         {
             InitializeComponent();
             SetupComponents();
-            InitializeActionButtons();
         }
 
         public PhieuTraGUI(TaiKhoanDTO user) : this()
         {
-            //this.CurrentUser = user;
-            //if (user != null)
-            //{
-            //    maNhanVien = user.MaNV;
-            //}
-        }
-
-        /// <summary>
-        /// Khởi tạo ActionButtonsUC
-        /// </summary>
-        private void InitializeActionButtons()
-        {
-            Panel panelActions = new Panel
+            this.CurrentUser = user;
+            if (user != null)
             {
-                Dock = DockStyle.Top,
-                Height = 60,
-                BackColor = Color.FromArgb(250, 250, 250),
-                Padding = new Padding(10, 5, 10, 5)
-            };
-            
-            this.Controls.Add(panelActions);
-            panelActions.BringToFront();
-            
-            CreateActionButtons(panelActions, DockStyle.Left);
+                maNhanVien = user.MaNV;
+            }
         }
 
         private void SetupComponents()

@@ -19,33 +19,11 @@ namespace QuanLyThuVien.GUI
         {
             InitializeComponent();
             CustomizeDataGridView();
-            InitializeActionButtons();
         }
 
         public DauSach(TaiKhoanDTO user) : this()
         {
             this.CurrentUser = user;
-        }
-
-        /// <summary>
-        /// Khởi tạo ActionButtonsUC
-        /// </summary>
-        private void InitializeActionButtons()
-        {
-            // Tạo panel chứa ActionButtons ở phía trên
-            Panel panelTop = new Panel
-            {
-                Dock = DockStyle.Top,
-                Height = 60,
-                BackColor = Color.FromArgb(250, 250, 250),
-                Padding = new Padding(10, 5, 10, 5)
-            };
-            
-            this.Controls.Add(panelTop);
-            panelTop.BringToFront();
-            
-            // Tạo ActionButtons
-            CreateActionButtons(panelTop, DockStyle.Left);
         }
 
         private void CustomizeDataGridView()

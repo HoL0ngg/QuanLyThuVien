@@ -230,6 +230,12 @@
     <Compile Include="GUI\NhanVienGUI.Designer.cs">
       <DependentUpon>NhanVienGUI.cs</DependentUpon>
     </Compile>
+    <Compile Include="GUI\phieuphat\FormChiTietPhieuPhat.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\phieuphat\FormChiTietPhieuPhat.Designer.cs">
+      <DependentUpon>FormChiTietPhieuPhat.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI\phieuphat\FormAddPhieuPhat.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -283,12 +289,6 @@
     </Compile>
     <Compile Include="GUI\PhieuTraGUI.Designer.cs">
       <DependentUpon>PhieuTraGUI.cs</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\phieuphat\FormChiTietPhieuPhat.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GUI\phieuphat\FormChiTietPhieuPhat.Designer.cs">
-      <DependentUpon>FormChiTietPhieuPhat.cs</DependentUpon>
     </Compile>
     <Compile Include="GUI\phieutra\ThemPhieuTra.cs">
       <SubType>UserControl</SubType>

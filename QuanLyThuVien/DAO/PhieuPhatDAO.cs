@@ -1,12 +1,13 @@
 ﻿using MySql.Data.MySqlClient;
+using QuanLyThuVien.DTO;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using QuanLyThuVien.DTO;
-using System.Data;
 namespace QuanLyThuVien.DAO
 {
     internal class PhieuPhatDAO
@@ -33,19 +34,15 @@ namespace QuanLyThuVien.DAO
                     pp.MaPhieuPhat,
                     pp.NgayPhat,
                     pp.TrangThai,
-                    ct.MaCTPhieuPhat,
                     pp.Ngaytra AS NgayTra,
-                    ct.TienPhat,
-                    ct.lydoPhat,
-                    ds.TenDauSach AS TenSach,
+                    SUM(ct.TienPhat) AS TienPhat,
                     dg.TenDG,
                     pp.MaDG
                 FROM phieu_phat pp
                 JOIN ctphieu_phat ct ON ct.MaPhieuPhat = pp.MaPhieuPhat
-                JOIN sach s           ON s.MaSach       = ct.MaSach
-                JOIN dau_sach ds      ON ds.MaDauSach   = s.MaDauSach
-                JOIN doc_gia dg       ON pp.MaDG = dg.MaDG
-                ORDER BY pp.MaPhieuPhat DESC, ct.MaCTPhieuPhat DESC;";
+                JOIN doc_gia dg ON pp.MaDG = dg.MaDG
+                GROUP BY pp.MaPhieuPhat, pp.NgayPhat, pp.TrangThai, pp.Ngaytra, dg.TenDG, pp.MaDG
+                ORDER BY pp.MaPhieuPhat DESC;";
 
             DataTable dt = DataProvider.ExecuteQuery(sql);
             var list = new List<PhieuPhatDTO>();
@@ -57,43 +54,37 @@ namespace QuanLyThuVien.DAO
                     MaPhieuPhat = Convert.ToInt32(r["MaPhieuPhat"]),
                     NgayPhat = Convert.ToDateTime(r["NgayPhat"]),
                     TrangThai = Convert.ToInt32(r["TrangThai"]),
-                    MaCTPhieuPhat = Convert.ToInt32(r["MaCTPhieuPhat"]),
                     NgayTra = r["NgayTra"] == DBNull.Value ? DateTime.MinValue : Convert.ToDateTime(r["NgayTra"]),
                     tienPhat = Convert.ToInt32(r["TienPhat"]),
-                    LydoPhat = r["lydoPhat"]?.ToString(),
-                    TenSach = r["TenSach"]?.ToString(),
                     TenDG = r["TenDG"]?.ToString(),
                     MaDG = Convert.ToInt32(r["MaDG"])
                 });
             }
             return list;
         }
+
         public List<PhieuPhatDTO> GetByTrangThai(int trangThai)
         {
             const string sql = @"
-        SELECT
+                SELECT
                     pp.MaPhieuPhat,
                     pp.NgayPhat,
                     pp.TrangThai,
-                    ct.MaCTPhieuPhat,
                     pp.Ngaytra AS NgayTra,
-                    ct.TienPhat,
-                    ct.lydoPhat,
-                    ds.TenDauSach AS TenSach,
+                    SUM(ct.TienPhat) AS TienPhat,
                     dg.TenDG,
                     pp.MaDG
                 FROM phieu_phat pp
                 JOIN ctphieu_phat ct ON ct.MaPhieuPhat = pp.MaPhieuPhat
-                JOIN sach s           ON s.MaSach       = ct.MaSach
-                JOIN dau_sach ds      ON ds.MaDauSach   = s.MaDauSach
-                JOIN doc_gia dg       ON pp.MaDG = dg.MaDG
-        WHERE @TrangThai IS NULL OR pp.TrangThai = @TrangThai
-        ORDER BY pp.MaPhieuPhat DESC, ct.MaCTPhieuPhat DESC;";
+                JOIN doc_gia dg ON pp.MaDG = dg.MaDG
+                WHERE @TrangThai IS NULL OR pp.TrangThai = @TrangThai
+                GROUP BY pp.MaPhieuPhat, pp.NgayPhat, pp.TrangThai, pp.Ngaytra, dg.TenDG, pp.MaDG
+                ORDER BY pp.MaPhieuPhat DESC;";
 
             var parameters = new Dictionary<string, object>
-    {
-        { "@TrangThai", trangThai }
-    };
+            {
+                { "@TrangThai", trangThai }
+            };
 
             DataTable dt = DataProvider.ExecuteQuery(sql, parameters);
             var list = new List<PhieuPhatDTO>();
@@ -105,17 +96,15 @@ namespace QuanLyThuVien.DAO
                     MaPhieuPhat = Convert.ToInt32(r["MaPhieuPhat"]),
                     NgayPhat = Convert.ToDateTime(r["NgayPhat"]),
                     TrangThai = Convert.ToInt32(r["TrangThai"]),
-                    MaCTPhieuPhat = Convert.ToInt32(r["MaCTPhieuPhat"]),
                     NgayTra = r["NgayTra"] == DBNull.Value ? DateTime.MinValue : Convert.ToDateTime(r["NgayTra"]),
                     tienPhat = Convert.ToInt32(r["TienPhat"]),
-                    LydoPhat = r["lydoPhat"]?.ToString(),
-                    TenSach = r["TenSach"]?.ToString(),
                     TenDG = r["TenDG"]?.ToString(),
                     MaDG = Convert.ToInt32(r["MaDG"])
                 });
             }
             return list;
         }
+
         public List<PhieuPhatDTO> GetByDateRange(DateTime begin, DateTime end)
         {
             const string sql = @"
@@ -123,20 +112,16 @@ namespace QuanLyThuVien.DAO
                     pp.MaPhieuPhat,
                     pp.NgayPhat,
                     pp.TrangThai,
-                    ct.MaCTPhieuPhat,
                     pp.Ngaytra AS NgayTra,
-                    ct.TienPhat,
-                    ct.lydoPhat,
-                    ds.TenDauSach AS TenSach,
+                    SUM(ct.TienPhat) AS TienPhat,
                     dg.TenDG,
                     pp.MaDG
                 FROM phieu_phat pp
                 JOIN ctphieu_phat ct ON ct.MaPhieuPhat = pp.MaPhieuPhat
-                JOIN sach s           ON s.MaSach       = ct.MaSach
-                JOIN dau_sach ds      ON ds.MaDauSach   = s.MaDauSach
-                JOIN doc_gia dg       ON pp.MaDG = dg.MaDG
+                JOIN doc_gia dg ON pp.MaDG = dg.MaDG
                 WHERE pp.NgayPhat BETWEEN @Begin AND @End
-                ORDER BY pp.MaPhieuPhat DESC, ct.MaCTPhieuPhat DESC;";
+                GROUP BY pp.MaPhieuPhat, pp.NgayPhat, pp.TrangThai, pp.Ngaytra, dg.TenDG, pp.MaDG
+                ORDER BY pp.MaPhieuPhat DESC;";
 
             var parameters = new Dictionary<string, object>
             {
@@ -154,17 +139,15 @@ namespace QuanLyThuVien.DAO
                     MaPhieuPhat = Convert.ToInt32(r["MaPhieuPhat"]),
                     NgayPhat = Convert.ToDateTime(r["NgayPhat"]),
                     TrangThai = Convert.ToInt32(r["TrangThai"]),
-                    MaCTPhieuPhat = Convert.ToInt32(r["MaCTPhieuPhat"]),
                     NgayTra = r["NgayTra"] == DBNull.Value ? DateTime.MinValue : Convert.ToDateTime(r["NgayTra"]),
                     tienPhat = Convert.ToInt32(r["TienPhat"]),
-                    LydoPhat = r["lydoPhat"]?.ToString(),
-                    TenSach = r["TenSach"]?.ToString(),
                     TenDG = r["TenDG"]?.ToString(),
                     MaDG = Convert.ToInt32(r["MaDG"])
                 });
             }
             return list;
         }
+
         public List<PhieuPhatDTO> GetByKeyword(string keyword)
         {
             const string sql = @"
@@ -172,20 +155,16 @@ namespace QuanLyThuVien.DAO
                     pp.MaPhieuPhat,
                     pp.NgayPhat,
                     pp.TrangThai,
-                    ct.MaCTPhieuPhat,
                     pp.Ngaytra AS NgayTra,
-                    ct.TienPhat,
-                    ct.lydoPhat,
-                    ds.TenDauSach AS TenSach,
+                    SUM(ct.TienPhat) AS TienPhat,
                     dg.TenDG,
                     pp.MaDG
                 FROM phieu_phat pp
                 JOIN ctphieu_phat ct ON ct.MaPhieuPhat = pp.MaPhieuPhat
-                JOIN sach s           ON s.MaSach       = ct.MaSach
-                JOIN dau_sach ds      ON ds.MaDauSach   = s.MaDauSach
-                JOIN doc_gia dg       ON pp.MaDG = dg.MaDG
-                WHERE ds.TenDauSach LIKE @kw OR dg.TenDG LIKE @kw OR pp.MaPhieuPhat = @Id
-                ORDER BY pp.MaPhieuPhat DESC, ct.MaCTPhieuPhat DESC;";
+                JOIN doc_gia dg ON pp.MaDG = dg.MaDG
+                WHERE dg.TenDG LIKE @kw OR pp.MaPhieuPhat = @Id
+                GROUP BY pp.MaPhieuPhat, pp.NgayPhat, pp.TrangThai, pp.Ngaytra, dg.TenDG, pp.MaDG
+                ORDER BY pp.MaPhieuPhat DESC;";
 
             int id = -1;
             if (!int.TryParse(keyword, out id))
@@ -209,11 +188,8 @@ namespace QuanLyThuVien.DAO
                     MaPhieuPhat = Convert.ToInt32(r["MaPhieuPhat"]),
                     NgayPhat = Convert.ToDateTime(r["NgayPhat"]),
                     TrangThai = Convert.ToInt32(r["TrangThai"]),
-                    MaCTPhieuPhat = Convert.ToInt32(r["MaCTPhieuPhat"]),
                     NgayTra = r["NgayTra"] == DBNull.Value ? DateTime.MinValue : Convert.ToDateTime(r["NgayTra"]),
                     tienPhat = Convert.ToInt32(r["TienPhat"]),
-                    LydoPhat = r["lydoPhat"]?.ToString(),
-                    TenSach = r["TenSach"]?.ToString(),
                     TenDG = r["TenDG"]?.ToString(),
                     MaDG = Convert.ToInt32(r["MaDG"])
                 });
@@ -221,8 +197,8 @@ namespace QuanLyThuVien.DAO
             return list;
         }
 
-    
-        
+
+
 
         public bool Update(PhieuPhatDTO phieuPhat)
         {
@@ -271,7 +247,7 @@ namespace QuanLyThuVien.DAO
         }
 
 
-      
+
         /// <summary>
         /// Lấy tất cả sách đã trả chưa có phiếu phạt
         /// Hiển thị cả số ngày trễ nếu trả muộn
@@ -280,64 +256,47 @@ namespace QuanLyThuVien.DAO
         {
             const string sql = @"
         SELECT 
-            ct.MaCTPhieuTra, 
-            ct.TrangThai, 
-            ct.MaPhieuTra, 
-            ct.MaSach, 
-            pt.NgayTra, 
-            pm.NgayTraDuKien, 
-            ds.TenDauSach AS TenSach,
-            ds.Gia AS GiaSach,
-            dg.TENDG AS TenDocGia,
-            dg.MADG,
-            CASE 
-                WHEN pt.NgayTra > pm.NgayTraDuKien THEN DATEDIFF(pt.NgayTra, pm.NgayTraDuKien)
-                ELSE 0 
-            END AS SoNgayTre
-        FROM ctphieu_tra ct
-        JOIN phieu_tra pt ON ct.MaPhieuTra = pt.MaPhieuTra
+            pt.MaPhieuTra,
+            pm.MaDocGia AS MaDG,
+            dg.TenDG AS TenDocGia
+        FROM phieu_tra pt
         JOIN phieu_muon pm ON pt.MaPhieuMuon = pm.MaPhieuMuon
-        JOIN sach s ON ct.MaSach = s.MaSach
-        JOIN dau_sach ds ON s.MaDauSach = ds.MaDauSach
-        JOIN doc_gia dg ON pm.MaDocGia = dg.MADG
-        LEFT JOIN phieu_phat pp_exist ON pp_exist.MaCTPhieuTra = ct.MaCTPhieuTra
-        WHERE pp_exist.MaPhieuPhat IS NULL
-        ORDER BY pt.NgayTra DESC;";
+        JOIN doc_gia dg ON pm.MaDocGia = dg.MaDG
+        WHERE 
+            (
+                -- Có ít nhất một chi tiết hỏng/mất
+                EXISTS (
+                    SELECT 1 
+                    FROM ctphieu_tra ct
+                    WHERE ct.MaPhieuTra = pt.MaPhieuTra
+                      AND ct.TrangThai IN (2,3)
+                )
+                -- Hoặc phiếu trả bị trễ hạn
+                OR pt.NgayTra > pm.NgayTraDuKien
+            )
+            -- Chưa có phiếu phạt cho phiếu trả này
+            AND NOT EXISTS (
+                SELECT 1 
+                FROM phieu_phat pp 
+                WHERE pp.MaPhieuTra = pt.MaPhieuTra
+            )
+        ORDER BY pt.NgayTra DESC;
+    ";
 
             DataTable dt = DataProvider.ExecuteQuery(sql);
             var list = new List<PhieuTraViPhamDTO>();
 
             foreach (DataRow r in dt.Rows)
             {
-                DateTime ngayTra = Convert.ToDateTime(r["NgayTra"]);
-                DateTime ngayTraDuKien = Convert.ToDateTime(r["NgayTraDuKien"]);
-                int soNgayTre = r["SoNgayTre"] != DBNull.Value ? Convert.ToInt32(r["SoNgayTre"]) : 0;
-                int giaSach = r["GiaSach"] != DBNull.Value ? Convert.ToInt32(r["GiaSach"]) : 0;
-
                 var item = new PhieuTraViPhamDTO
                 {
-                    MaCTPhieuTra = Convert.ToInt32(r["MaCTPhieuTra"]),
-                    TrangThai = Convert.ToInt32(r["TrangThai"]),
                     MaPhieuTra = Convert.ToInt32(r["MaPhieuTra"]),
-                    MaSach = Convert.ToInt32(r["MaSach"]),
-                    MaDG = Convert.ToInt32(r["MADG"]),
-                    NgayTra = ngayTra,
-                    NgayTraDuKien = ngayTraDuKien,
-                    TenSach = r["TenSach"]?.ToString(),
+                    MaDG = Convert.ToInt32(r["MaDG"]),
                     TenDocGia = r["TenDocGia"]?.ToString(),
-                    QuaHan = soNgayTre > 0,
-                    GiaSach = giaSach
                 };
-
-                // Tính tiền phạt trễ hạn tự động (5000đ/ngày)
-                if (soNgayTre > 0)
-                {
-                    item.TienPhat = soNgayTre * 5000;
-                    item.LyDo = $"Trả trễ {soNgayTre} ngày";
-                }
-
                 list.Add(item);
             }
+
             return list;
         }
 
@@ -359,22 +318,45 @@ namespace QuanLyThuVien.DAO
 
                             foreach (var item in items)
                             {
-                                cmd.Parameters.Clear();
-                                cmd.CommandText = @"INSERT INTO phieu_phat 
-                                           (NgayPhat, TrangThai, MaCTPhieuTra, Ngaytra, MaDG) 
-                                           VALUES 
-                                           (@NgayPhat, @TrangThai, @MaCTPhieuTra, @NgayTra, @MaDG);";
+                                // 1. Lấy MaSach TỪ ctphieu_tra để đảm bảo tồn tại trong bảng sach
+                                int maSach;
+                                using (var cmdGet = conn.CreateCommand())
+                                {
+                                    cmdGet.Transaction = trans;
+                                    cmdGet.CommandText = @"
+                                SELECT ct.MaSach
+                                FROM ctphieu_tra ct
+                                WHERE ct.MaPhieuTra = @MaPhieuTra
+                                LIMIT 1;";
+                                    cmdGet.Parameters.AddWithValue("@MaPhieuTra", item.MaPhieuTra);
 
-                                cmd.Parameters.AddWithValue("@NgayPhat", DateTime.Now.Date);
-                                cmd.Parameters.AddWithValue("@TrangThai", 1);
-                                cmd.Parameters.AddWithValue("@MaCTPhieuTra", item.MaCTPhieuTra);
-                                cmd.Parameters.AddWithValue("@NgayTra", item.NgayTra == DateTime.MinValue ? (object)DBNull.Value : item.NgayTra);
+                                    object obj = cmdGet.ExecuteScalar();
+                                    if (obj == null || obj == DBNull.Value)
+                                        throw new Exception("Không tìm được MaSach tương ứng với MaPhieuTra = " + item.MaPhieuTra);
+
+                                    maSach = Convert.ToInt32(obj);
+                                }
+
+                                // 2. INSERT phieu_phat - SET Ngaytra = ngày hiện tại (ngày đóng phiếu)
+                                cmd.Parameters.Clear();
+                                cmd.CommandText = @"
+                            INSERT INTO phieu_phat 
+                                (NgayPhat, TrangThai, MaPhieuTra, Ngaytra, MaDG) 
+                            VALUES 
+                                (@NgayPhat, @TrangThai, @MaPhieuTra, @NgayTra, @MaDG);";
+
+                                DateTime ngayHienTai = DateTime.Now.Date;
+                                
+                                cmd.Parameters.AddWithValue("@NgayPhat", ngayHienTai);
+                                cmd.Parameters.AddWithValue("@TrangThai", 1); // Trạng thái = 1 (Đã đóng)
+                                cmd.Parameters.AddWithValue("@MaPhieuTra", item.MaPhieuTra);
+                                cmd.Parameters.AddWithValue("@NgayTra", ngayHienTai); // SET ngày trả = ngày hiện tại
                                 cmd.Parameters.AddWithValue("@MaDG", item.MaDG);
 
                                 cmd.ExecuteNonQuery();
                                 long newPhieuPhatId = cmd.LastInsertedId;
 
-                                // --- PHẦN TÍNH TIỀN PHẠT ---
+                                // 3. TÍNH TOÁN TIỀN PHẠT
                                 int tienPhat = item.TienPhat;
                                 if (tienPhat == 0)
                                 {
@@ -385,8 +367,13 @@ namespace QuanLyThuVien.DAO
                                         using (MySqlCommand cmdPrice = conn.CreateCommand())
                                         {
                                             cmdPrice.Transaction = trans;
-                                            cmdPrice.CommandText = "SELECT ds.Gia FROM sach s JOIN dau_sach ds ON s.MaDauSach = ds.MaDauSach WHERE s.MaSach = @MaSach LIMIT 1";
-                                            cmdPrice.Parameters.AddWithValue("@MaSach", item.MaSach);
+                                            cmdPrice.CommandText = @"
+                                        SELECT ds.Gia 
+                                        FROM sach s 
+                                        JOIN dau_sach ds ON s.MaDauSach = ds.MaDauSach 
+                                        WHERE s.MaSach = @MaSach 
+                                        LIMIT 1";
+                                            cmdPrice.Parameters.AddWithValue("@MaSach", maSach);
                                             object obj = cmdPrice.ExecuteScalar();
                                             if (obj != null && obj != DBNull.Value)
                                             {
@@ -397,13 +384,18 @@ namespace QuanLyThuVien.DAO
                                     }
                                 }
 
-                                // --- INSERT CHI TIẾT PHIẾU PHẠT VỚI LÝ DO ---
+                                // 4. INSERT ctphieu_phat – dùng maSach lấy được ở bước 1
                                 cmd.Parameters.Clear();
-                                cmd.CommandText = "INSERT INTO ctphieu_phat (TienPhat, MaSach, MaPhieuPhat, lydoPhat) VALUES (@TienPhat, @MaSach, @MaPhieuPhat, @LydoPhat);";
+                                cmd.CommandText = @"
+                            INSERT INTO ctphieu_phat 
+                                (TienPhat, MaSach, MaPhieuPhat, TrangThai) 
+                            VALUES 
+                                (@TienPhat, @MaSach, @MaPhieuPhat, @TrangThaiSach);";
+
                                 cmd.Parameters.AddWithValue("@TienPhat", tienPhat);
-                                cmd.Parameters.AddWithValue("@MaSach", item.MaSach);
+                                cmd.Parameters.AddWithValue("@MaSach", maSach);
                                 cmd.Parameters.AddWithValue("@MaPhieuPhat", newPhieuPhatId);
-                                cmd.Parameters.AddWithValue("@LydoPhat", string.IsNullOrEmpty(item.LyDo) ? (object)DBNull.Value : item.LyDo);
+                                cmd.Parameters.AddWithValue("@TrangThaiSach", item.TrangThai);
 
                                 cmd.ExecuteNonQuery();
                             }
@@ -424,343 +416,124 @@ namespace QuanLyThuVien.DAO
         public bool Add(PhieuPhatDTO phieuPhat)
         {
             const string sql = @"
-        INSERT INTO phieu_phat (NgayPhat, TrangThai, MaCTPhieuTra, Ngaytra, MaDG)
-        VALUES (@NgayPhat, @TrangThai, @MaCTPhieuTra, @NgayTra, @MaDG);";
+        INSERT INTO phieu_phat (NgayPhat, TrangThai, MaPhieuTra, Ngaytra, MaDG)
+        VALUES (@NgayPhat, @TrangThai, @MaPhieuTra, @NgayTra, @MaDG);";
+
+            // Nếu NgayTra chưa được set, tự động set = ngày hiện tại
+            DateTime ngayTra = phieuPhat.NgayTra;
+            if (ngayTra == DateTime.MinValue)
+            {
+                ngayTra = DateTime.Now.Date;
+            }
 
             var parameters = new Dictionary<string, object>
-    {
-        { "@NgayPhat", phieuPhat.NgayPhat },
-        { "@TrangThai", phieuPhat.TrangThai },
-        
-        // [SỬA] Sử dụng đúng thuộc tính MaCTPhieuTra
-        { "@MaCTPhieuTra", phieuPhat.MaCTPhieuTra },
-
-        { "@NgayTra", phieuPhat.NgayTra == DateTime.MinValue ? (object)DBNull.Value : phieuPhat.NgayTra },
-        { "@MaDG", phieuPhat.MaDG }
-    };
+            {
+                { "@NgayPhat", phieuPhat.NgayPhat },
+                { "@TrangThai", phieuPhat.TrangThai },
+                { "@MaPhieuTra", phieuPhat.MaPhieuTra },
+                { "@NgayTra", ngayTra },
+                { "@MaDG", phieuPhat.MaDG }
+            };
 
             return DataProvider.ExecuteNonQuery(sql, parameters) > 0;
         }
+
+        // Add this method inside the PhieuPhatDAO class
+        public DataTable GetChiTietPhieuPhat(int maPhieuTra)
+        {
+            // Cú pháp SQL dành cho MySQL (DATEDIFF chỉ 2 tham số)
+            string query = @"
+                SELECT 
+                    pt.MaPhieuTra,
+                    ds.TenDauSach,
+                    pt.NgayTra,
+                    pm.NgayTraDuKien,
+                    
+                    -- 1. Số ngày trễ: MySQL dùng DATEDIFF(Date1, Date2) -> Date1 - Date2
+                    GREATEST(DATEDIFF(pt.NgayTra, pm.NgayTraDuKien), 0) AS SoNgayTre,
+
+                    -- 2. Tình trạng sách
+                    CASE 
+                        WHEN ctpt.TrangThai = 1 THEN 'Bình thường'
+                        WHEN ctpt.TrangThai = 2 THEN 'Hỏng'
+                        WHEN ctpt.TrangThai = 3 THEN 'Mất'
+                        ELSE 'Khác'
+                    END AS TinhTrangSach,
+
+                    -- 3. Tính Tiền Phạt
+                    ROUND(
+                        CASE 
+                            -- MẤT (3): Phạt 100% giá, KHÔNG tính ngày trễ
+                            WHEN ctpt.TrangThai = 3 THEN ds.Gia
+                            
+                            -- HỎNG (2): Phạt 50% giá + Tiền ngày trễ (nếu có)
+                            WHEN ctpt.TrangThai = 2 THEN 
+                                (ds.Gia * 0.5) + 
+                                (GREATEST(DATEDIFF(pt.NgayTra, pm.NgayTraDuKien), 0) * ds.Gia * 0.02)
+                            
+                            -- BÌNH THƯỜNG (1): Chỉ phạt Tiền ngày trễ (nếu có)
+                            ELSE 
+                                (GREATEST(DATEDIFF(pt.NgayTra, pm.NgayTraDuKien), 0) * ds.Gia * 0.02)
+                        END
+                    ) AS TongTienPhat
+
+                FROM ctphieu_tra ctpt
+                JOIN phieu_tra pt ON ctpt.MaPhieuTra = pt.MaPhieuTra
+                JOIN sach s ON ctpt.MaSach = s.MaSach
+                JOIN dau_sach ds ON s.MaDauSach = ds.MaDauSach
+                JOIN phieu_muon pm ON pt.MaPhieuMuon = pm.MaPhieuMuon
+
+                WHERE 
+                    pt.MaPhieuTra = @MaPhieuTra 
+                    AND (ctpt.TrangThai IN (2, 3) OR pt.NgayTra > pm.NgayTraDuKien)";
+
+            // Tạo danh sách tham số để truyền vào DataProvider
+            Dictionary<string, object> parameters = new Dictionary<string, object>();
+            parameters.Add("@MaPhieuTra", maPhieuTra);
+
+            // Gọi DataProvider để thực thi
+            return DataProvider.ExecuteQuery(query, parameters);
+        
     }
+        public DataTable GetListChiTietDaLuu(int maPhieuPhat)
+        {
+            string query = @"
+                SELECT 
+                    ctpp.MaCTPhieuPhat,
+                    ds.TenDauSach,
+                    pt.NgayTra,
+                    pm.NgayTraDuKien,
+
+                    -- 1. Số ngày trễ (Tính dựa trên ngày trả và ngày dự kiến)
+                    GREATEST(DATEDIFF(pt.NgayTra, pm.NgayTraDuKien), 0) AS SoNgayTre,
+
+                    -- 2. Tình trạng sách (Lấy từ cột TrangThai đã lưu trong chi tiết phạt)
+                    CASE 
+                        WHEN ctpp.TrangThai = 2 THEN 'Hỏng'
+                        WHEN ctpp.TrangThai = 3 THEN 'Mất'
+                        WHEN GREATEST(DATEDIFF(pt.NgayTra, pm.NgayTraDuKien), 0) > 0 THEN 'Quá hạn'
+                        ELSE 'Khác'
+                    END AS TinhTrangSach,
+
+                    -- 3. Tiền Phạt (Lấy trực tiếp số tiền ĐÃ LƯU trong DB, không tính lại)
+                    ctpp.TienPhat AS TongTienPhat
+                    
+
+                FROM ctphieu_phat ctpp
+                JOIN phieu_phat pp ON ctpp.MaPhieuPhat = pp.MaPhieuPhat
+                JOIN phieu_tra pt ON pp.MaPhieuTra = pt.MaPhieuTra
+                JOIN phieu_muon pm ON pt.MaPhieuMuon = pm.MaPhieuMuon
+                JOIN sach s ON ctpp.MaSach = s.MaSach
+                JOIN dau_sach ds ON s.MaDauSach = ds.MaDauSach
+
+                WHERE ctpp.MaPhieuPhat = @MaPhieuPhat"; ;
+
+            Dictionary<string, object> parameters = new Dictionary<string, object>();
+            parameters.Add("@MaPhieuPhat", maPhieuPhat);
+
+            return DataProvider.ExecuteQuery(query, parameters);
+        }
+
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+}
 

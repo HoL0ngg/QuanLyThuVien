@@ -2,6 +2,7 @@
 using QuanLyThuVien.DTO;
 using System;
 using System.Collections.Generic;
+using System.Data;
 
 namespace QuanLyThuVien.BUS
 {
@@ -69,6 +70,12 @@ namespace QuanLyThuVien.BUS
             return PhieuPhatDAO.Instance.SetTrangThai(maPhieuPhat, 1);
         }
 
+        // Set TrangThai tùy chỉnh (0 hoặc 1)
+        public bool SetTrangThai(int maPhieuPhat, int trangThai)
+        {
+            return PhieuPhatDAO.Instance.SetTrangThai(maPhieuPhat, trangThai);
+        }
+
         public List<PhieuTraViPhamDTO> GetDanhSachViPham()
         {
             return PhieuPhatDAO.Instance.GetDanhSachViPham();
@@ -78,6 +85,16 @@ namespace QuanLyThuVien.BUS
         {
             if (items == null || items.Count == 0) return false;
             return PhieuPhatDAO.Instance.CreatePhieuPhatFromViolations(items);
+        }
+
+        // Add this helper in PhieuPhatBUS
+        public DataTable GetChiTietPhieuPhat(int maPhieuTra)
+        {
+            return PhieuPhatDAO.Instance.GetChiTietPhieuPhat(maPhieuTra);
+        }
+        public DataTable GetChiTietPhieuPhatDaLuu(int maPhieuPhat)
+        {
+            return PhieuPhatDAO.Instance.GetListChiTietDaLuu(maPhieuPhat);
         }
     }
 }

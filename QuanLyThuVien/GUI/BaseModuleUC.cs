@@ -26,6 +26,8 @@ namespace QuanLyThuVien.GUI
         public BaseModuleUC()
         {
             InitializeComponent();
+            // Ensure every module fills its parent container by default
+            this.Dock = DockStyle.Fill;
         }
 
         /// <summary>
