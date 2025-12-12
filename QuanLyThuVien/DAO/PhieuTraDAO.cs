@@ -184,5 +184,15 @@ namespace QuanLyThuVien.DAO
             };
             DataProvider.ExecuteNonQuery(query, parameters);
         }
+
+        public bool Delete(int maPhieuTra)
+        {
+            string query = "DELETE FROM phieu_tra WHERE MaPhieuTra = @MaPhieuTra";
+            var parameters = new Dictionary<string, object>
+            {
+                {"@MaPhieuTra", maPhieuTra}
+            };
+            return DataProvider.ExecuteNonQuery(query, parameters) > 0;
+        }
     }
 }

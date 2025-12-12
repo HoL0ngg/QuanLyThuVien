@@ -16,11 +16,17 @@ namespace QuanLyThuVien.GUI
         private ThemPhieuTra ucThemPhieuTra;
         private int maNhanVien;
 
-        public PhieuTraGUI()
+        public PhieuTraGUI(TaiKhoanDTO user)
         {
+            this.CurrentUser = user;
+            if (user != null)
+            {
+                maNhanVien = user.MaNV;
+            }
             InitializeComponent();
             SetupComponents();
             InitializeActionButtons();
+            dataGridView2.CellFormatting += BangPhieuMuon_CellFormatting;
         }
 
         //public PhieuTraGUI(TaiKhoanDTO user) : this()
@@ -55,7 +61,7 @@ namespace QuanLyThuVien.GUI
         {
             LoadDanhSachPhieuTra();
 
-            ucThemPhieuTra = new ThemPhieuTra
+            ucThemPhieuTra = new ThemPhieuTra(maNhanVien)
             {
                 Dock = DockStyle.Fill,
                 Visible = false
@@ -242,13 +248,66 @@ namespace QuanLyThuVien.GUI
             ToggleView(true);
         }
 
-        private void ToggleView(bool showThem)
+        public override void OnDelete()
         {
+            if (!CoQuyenXoa)
+            {
+                MessageBox.Show("Bạn không có quyền xóa phiếu mượn!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (dataGridView1.CurrentRow == null)
+            {
+                MessageBox.Show("Vui lòng chọn một phiếu trả để xóa.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            var idCell = dataGridView1.CurrentRow.Cells["MaPhieuTra"];
+            if (idCell?.Value == null || !int.TryParse(idCell.Value.ToString(), out int id)) return;
+
+            var confirm = MessageBox.Show($"Bạn có chắc muốn xóa phiếu trả có ID {id} không?", "Xác nhận xóa", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (confirm != DialogResult.Yes) return;
+            try
+            {
+                if (PhieuTraBUS.Instance.Delete(id)) LoadData();
+                else MessageBox.Show("Xóa không thành công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi xóa: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private static string MapTrangThai(object value)
+        {
+            if (value == null || !int.TryParse(value.ToString(), out int v)) return string.Empty;
+            switch (v)
+            {
+                case 1: return "Trả đúng hạn";
+                case 2: return "Trả muộn";
+                case 3: return "Làm hỏng";
+                case 4: return "Làm mất";
+                default: return v.ToString();
+            }
+        }
+
+        private void BangPhieuMuon_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (e.RowIndex < 0) return;
+            if (dataGridView2.Columns[e.ColumnIndex].Name == "TrangThai")
+            {
+                e.Value = MapTrangThai(e.Value);
+                e.FormattingApplied = true;
+            }
+        }
+
+        private void ToggleView(bool showThem)
+        {   
+            
             groupBox1.Visible = !showThem;
             groupBox2.Visible = !showThem;
             groupBox3.Visible = !showThem;
             ucThemPhieuTra.Visible = showThem;
-
+            
             if (showThem)
                 ucThemPhieuTra.BringToFront();
             else
