@@ -1,10 +1,8 @@
 ﻿using QuanLyThuVien.BUS;
 using QuanLyThuVien.DAO;
 using QuanLyThuVien.DTO;
-using QuanLyThuVien.GUI.Components;
 using System;
 using System.Data;
-using System.Drawing;
 using System.Windows.Forms;
 
 namespace QuanLyThuVien.GUI
@@ -14,7 +12,6 @@ namespace QuanLyThuVien.GUI
         PhieuNhapBUS bus = new PhieuNhapBUS();
         private FormThemPhieuNhap formThemPhieuNhap1;
         private CTPhieuNhapGUI ctPhieuNhapGUI1;
-        private MainForm main;
 
         public PhieuNhapGUI()
         {
@@ -106,6 +103,7 @@ namespace QuanLyThuVien.GUI
                 MessageBox.Show("Vui long chon mot phieu nhap de xem chi tiet!");
             }
         }
+
         private void CtPhieuNhapGUI1_OnChiTietClosed(object sender, EventArgs e)
         {
             MainForm mainForm = this.FindForm() as MainForm;
@@ -113,13 +111,13 @@ namespace QuanLyThuVien.GUI
             {
                 mainForm.ShowActionButtons();
             }
-
             LoadDanhSach();
         }
 
         private void xoa(object sender, EventArgs e)
         {
-            if(dataGridView1.CurrentRow == null) {
+            if(dataGridView1.CurrentRow == null)
+            {
                 MessageBox.Show("Vui long chon mot phieu nhap de xoa!", "Thong bao", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }

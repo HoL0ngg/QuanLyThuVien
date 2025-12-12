@@ -1,6 +1,5 @@
 ﻿using QuanLyThuVien.BUS;
 using QuanLyThuVien.DTO;
-using QuanLyThuVien.GUI.Components;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -182,7 +181,6 @@ namespace QuanLyThuVien.GUI
 
             dgvDauSach.DataSource = _currentDataTable;
             CustomizeColumns();
-            UpdateStatistics();
         }
 
         #endregion
@@ -277,7 +275,6 @@ namespace QuanLyThuVien.GUI
 
         private void DauSach_Load_1(object sender, EventArgs e)
         {
-            Console.WriteLine("DauSach Loaded");
             LoadData();
         }
 

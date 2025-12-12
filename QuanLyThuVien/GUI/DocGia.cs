@@ -1,11 +1,9 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using QuanLyThuVien.DTO;
 using QuanLyThuVien.BUS;
-using QuanLyThuVien.GUI.Components;
 
 namespace QuanLyThuVien.GUI
 {
