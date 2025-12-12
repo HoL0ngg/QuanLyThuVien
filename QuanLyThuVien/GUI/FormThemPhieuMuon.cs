@@ -46,16 +46,17 @@ namespace QuanLyThuVien.GUI
         private void BtnTimSach_Click(object sender, EventArgs e)
         {
             string keyword = txtTuKhoaSach.Text.Trim();
-            DataTable dt = string.IsNullOrEmpty(keyword) ? DauSachBUS.Instance.GetAllDauSach() : DauSachBUS.Instance.SearchDauSach(keyword);
+            var results = SachBUS.Instance.SearchSachNotBorrow(keyword);
             
-            if (dt == null || dt.Rows.Count == 0)
+            if (results == null || results.Count == 0)
             {
                 dgvKetQuaSach.DataSource = null;
                 MessageBox.Show("Không tìm thấy sách phù hợp.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
-            dgvKetQuaSach.DataSource = dt;
+            dgvKetQuaSach.AutoGenerateColumns = false; // chúng ta đã set cột thủ công
+            dgvKetQuaSach.DataSource = results;
             AddButtonColumn(dgvKetQuaSach, AddColumnName, "Thêm", "+", Color.DarkGreen);
         }
 
@@ -102,6 +103,7 @@ namespace QuanLyThuVien.GUI
                     MaNhanVien = tk.MaNV
                 };
                 PhieuMuonBUS pmBUS = new PhieuMuonBUS();
+                SachBUS sachBUS = new SachBUS();
                 pmBUS.Create(pm);
                 CTPhieuMuonBUS ctpmBUS = new CTPhieuMuonBUS();
                 int newId = pmBUS.GetLastInsertedId();
@@ -113,9 +115,18 @@ namespace QuanLyThuVien.GUI
                         MaSach = item.MaSach
                     };
                     ctpmBUS.Create(ctpm);
+
+                    SachDTO s = new SachDTO
+                    {
+                        MaSach = item.MaSach,
+                        MaDauSach = item.MaDauSach,
+                        TrangThai = 0
+                    };
+                    sachBUS.Update(s);
                 }
                 ctList.Clear();
                 MessageBox.Show($"Tạo phiếu mượn thành công.", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                dgvKetQuaSach.DataSource = null;
 
             }
             catch (Exception ex) 
@@ -153,41 +164,30 @@ namespace QuanLyThuVien.GUI
 
         private void InitializeTimSachGrid()
         {
-            dgvKetQuaSach.AutoGenerateColumns = false;
             dgvKetQuaSach.Columns.Clear();
 
+            var colMaSach = new DataGridViewTextBoxColumn { Name = "MaSach", HeaderText = "Mã sách", DataPropertyName = "MaSach" };
             var colMaDauSach = new DataGridViewTextBoxColumn { Name = "MaDauSach", HeaderText = "Mã đầu sách", DataPropertyName = "MaDauSach" };
             var colTenDauSach = new DataGridViewTextBoxColumn { Name = "TenDauSach", HeaderText = "Tên đầu sách ", DataPropertyName = "TenDauSach" };
             var colNhaXuatBan = new DataGridViewTextBoxColumn { Name = "NhaXuatBan", HeaderText = "Nhà xuất bản", DataPropertyName = "NhaXuatBan" };
             var colNamXuatBan = new DataGridViewTextBoxColumn { Name = "NamXuatBan", HeaderText = "Năm xuất bản", DataPropertyName = "NamXuatBan" };
             var colNgonNgu = new DataGridViewTextBoxColumn { Name = "NgonNgu", HeaderText = "Ngôn ngữ", DataPropertyName = "NgonNgu" };
-            var colSoLuong = new DataGridViewTextBoxColumn { Name = "SoLuong", HeaderText = "Số lượng", DataPropertyName = "SoLuong" };
 
-            dgvKetQuaSach.Columns.AddRange(new DataGridViewColumn[] { colMaDauSach, colTenDauSach, colNhaXuatBan, colNamXuatBan, colNgonNgu, colSoLuong });
-            dgvKetQuaSach.ReadOnly = true;
-            dgvKetQuaSach.EditMode = DataGridViewEditMode.EditProgrammatically;
-            dgvKetQuaSach.AllowUserToAddRows = false;
-            dgvKetQuaSach.AllowUserToDeleteRows = false;
-            ConfigureGrid(dgvCT);
+            dgvKetQuaSach.Columns.AddRange(new DataGridViewColumn[] { colMaSach, colMaDauSach, colTenDauSach, colNhaXuatBan, colNamXuatBan, colNgonNgu });
         }
 
         private void InitializeChiTietGrid()
         {
-            dgvCT.AutoGenerateColumns = false;
             dgvCT.Columns.Clear();
 
+            var colMaSach = new DataGridViewTextBoxColumn { Name = "MaSach", HeaderText = "Mã sách", DataPropertyName = "MaSach" };
             var colMaDauSach = new DataGridViewTextBoxColumn { Name = "MaDauSach", HeaderText = "Mã đầu sách", DataPropertyName = "MaDauSach" };
             var colTenDauSach = new DataGridViewTextBoxColumn { Name = "TenDauSach", HeaderText = "Tên đầu sách ", DataPropertyName = "TenDauSach" };
             var colNhaXuatBan = new DataGridViewTextBoxColumn { Name = "NhaXuatBan", HeaderText = "Nhà xuất bản", DataPropertyName = "NhaXuatBan" };
             var colNamXuatBan = new DataGridViewTextBoxColumn { Name = "NamXuatBan", HeaderText = "Năm xuất bản", DataPropertyName = "NamXuatBan" };
             var colNgonNgu = new DataGridViewTextBoxColumn { Name = "NgonNgu", HeaderText = "Ngôn ngữ", DataPropertyName = "NgonNgu" };
          
-            dgvCT.Columns.AddRange(new DataGridViewColumn[] { colMaDauSach, colTenDauSach, colNhaXuatBan, colNamXuatBan, colNgonNgu });
-            dgvCT.ReadOnly = true;
-            dgvCT.EditMode = DataGridViewEditMode.EditProgrammatically;
-            dgvCT.AllowUserToAddRows = false;
-            dgvCT.AllowUserToDeleteRows = false;
-            ConfigureGrid(dgvKetQuaSach);
+            dgvCT.Columns.AddRange(new DataGridViewColumn[] { colMaSach, colMaDauSach, colTenDauSach, colNhaXuatBan, colNamXuatBan, colNgonNgu });
         }
 
         private void DgvKetQuaSach_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -195,16 +195,19 @@ namespace QuanLyThuVien.GUI
             if (e.RowIndex < 0 || dgvKetQuaSach.Columns[e.ColumnIndex].Name != AddColumnName) return;
             var row = dgvKetQuaSach.Rows[e.RowIndex];
             
-            // Lấy mã đầu sách từ cột đã binding đúng
+            // Lấy mã sách từ cột đã binding đúng
+            int? maSach = null;
+            if (row.Cells["MaSach"]?.Value != null && int.TryParse(row.Cells["MaSach"].Value.ToString(), out var id1)) 
+                maSach = id1;
             int? maDauSach = null;
-            if (row.Cells["MaDauSach"]?.Value != null && int.TryParse(row.Cells["MaDauSach"].Value.ToString(), out var id1)) 
-                maDauSach = id1;
-            
-            if (!maDauSach.HasValue || ctList.Any(c => c.MaSach == maDauSach.Value)) return;
+            if (row.Cells["MaDauSach"]?.Value != null && int.TryParse(row.Cells["MaDauSach"].Value.ToString(), out var id2))
+                maDauSach = id2;
+
+            if (!maDauSach.HasValue || ctList.Any(c => c.MaDauSach == maDauSach.Value)) return;
             
             ctList.Add(new CTPhieuMuonDTO
             {
-                MaSach = maDauSach.Value,
+                MaSach = maSach.Value,
                 MaDauSach = maDauSach.Value,
                 TenDauSach = row.Cells["TenDauSach"]?.Value?.ToString() ?? string.Empty,
                 NhaXuatBan = row.Cells["NhaXuatBan"]?.Value?.ToString() ?? string.Empty,
@@ -227,22 +230,6 @@ namespace QuanLyThuVien.GUI
             var col = new DataGridViewButtonColumn { Name = name, HeaderText = header, Text = text, UseColumnTextForButtonValue = true, AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells };
             grid.Columns.Add(col);
             col.DisplayIndex = grid.Columns.Count - 1;
-        }
-
-        private void ConfigureGrid(DataGridView grid)
-        {
-            grid.RowHeadersVisible = false;
-            grid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            grid.AllowUserToAddRows = false;
-            foreach (DataGridViewColumn c in grid.Columns)
-            {
-                if (c.Name == AddColumnName || c.Name == DeleteColumnName)
-                {
-                    c.FillWeight = 30;
-                    c.DefaultCellStyle = new DataGridViewCellStyle { Alignment = DataGridViewContentAlignment.MiddleCenter, ForeColor = c.Name == DeleteColumnName ? Color.Red : Color.DarkGreen, SelectionForeColor = c.Name == DeleteColumnName ? Color.Red : Color.DarkGreen };
-                }
-                else c.FillWeight = 100;
-            }
         }
     }
 }
