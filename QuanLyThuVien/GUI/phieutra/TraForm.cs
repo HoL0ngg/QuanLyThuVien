@@ -15,7 +15,8 @@ namespace QuanLyThuVien.GUI.phieutra
     public partial class TraForm : Form
     {   
         private PhieuMuonDTO phieuMuonDTO;
-        public TraForm(PhieuMuonDTO dto)
+        private int maNhanVien;
+        public TraForm(PhieuMuonDTO dto, int maNV)
         {
             InitializeComponent();
             setUpTable();
@@ -26,6 +27,7 @@ namespace QuanLyThuVien.GUI.phieutra
             ngaytraLb.Text = phieuMuonDTO.NgayTraDuKien.ToShortDateString();
             nhanvienLb.Text = phieuMuonDTO.TenNhanVien;
             docgiaLb.Text = phieuMuonDTO.TenDocGia;
+            this.maNhanVien = maNV;
         }
 
         public void setUpTable()
@@ -58,7 +60,7 @@ namespace QuanLyThuVien.GUI.phieutra
         {
             PhieuTraDTO pt = new PhieuTraDTO();
             pt.MaPhieuMuon = phieuMuonDTO.MaPhieuMuon;
-            pt.MaNV = 1;
+            pt.MaNV = maNhanVien;
             pt.NgayTra = DateTime.Today;
             pt.NgayTraDuKien = phieuMuonDTO.NgayTraDuKien;
 
@@ -92,7 +94,7 @@ namespace QuanLyThuVien.GUI.phieutra
             }
             else
             {
-                MessageBox.Show("Trả sách thất bại");
+                MessageBox.Show("Trả sách thất bại" + maNhanVien);
             }
 
             this.DialogResult = DialogResult.OK;
