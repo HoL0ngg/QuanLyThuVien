@@ -61,15 +61,16 @@
             this.panelMain.Margin = new System.Windows.Forms.Padding(2);
             this.panelMain.Name = "panelMain";
             this.panelMain.Padding = new System.Windows.Forms.Padding(8);
-            this.panelMain.Size = new System.Drawing.Size(782, 592);
+            this.panelMain.Size = new System.Drawing.Size(1040, 723);
             this.panelMain.TabIndex = 1;
             // 
             // flowLayoutPanel1
             // 
             this.flowLayoutPanel1.Controls.Add(this.tableLayoutPanel1);
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 3);
+            this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(8, 8);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(776, 586);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(1024, 707);
             this.flowLayoutPanel1.TabIndex = 0;
             // 
             // tableLayoutPanel1
@@ -95,6 +96,7 @@
             this.groupBox1.Controls.Add(this.searchButton);
             this.groupBox1.Controls.Add(this.textBox1);
             this.groupBox1.Controls.Add(this.label1);
+            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(3, 3);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(767, 64);
@@ -129,9 +131,10 @@
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.dataGridView1);
+            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox2.Location = new System.Drawing.Point(3, 73);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(767, 288);
+            this.groupBox2.Size = new System.Drawing.Size(767, 300);
             this.groupBox2.TabIndex = 3;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Danh sách phiếu trả";
@@ -147,9 +150,10 @@
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.dataGridView2);
+            this.groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox3.Location = new System.Drawing.Point(3, 379);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(767, 181);
+            this.groupBox3.Size = new System.Drawing.Size(767, 201);
             this.groupBox3.TabIndex = 4;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Chi tiết phiếu trả";
@@ -171,9 +175,10 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScroll = true;
             this.Controls.Add(this.panelMain);
             this.Name = "PhieuTraGUI";
-            this.Size = new System.Drawing.Size(782, 592);
+            this.Size = new System.Drawing.Size(1040, 723);
             this.panelMain.ResumeLayout(false);
             this.flowLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
