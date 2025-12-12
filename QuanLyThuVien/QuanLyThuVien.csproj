@@ -457,6 +457,9 @@
     <EmbeddedResource Include="GUI\ThongKeGUI\UCMain.resx">
       <DependentUpon>UCMain.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="GUI\ThongKeGUI\UCThongKePhieuMuon.resx">
+      <DependentUpon>UCThongKePhieuMuon.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GUI\ThongKeGUI\UCThongKePhieuPhat.resx">
       <DependentUpon>UCThongKePhieuPhat.cs</DependentUpon>
     </EmbeddedResource>

@@ -39,7 +39,7 @@ namespace QuanLyThuVien.GUI.ThongKeGUI
         private void DataLoader_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
         {
             this.UseWaitCursor = false;
-            
+
             if (e.Error != null)
             {
                 MessageBox.Show("Lỗi tải thống kê phiếu mượn: " + e.Error.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -62,7 +62,7 @@ namespace QuanLyThuVien.GUI.ThongKeGUI
         public void LoadData()
         {
             if (_dataLoader.IsBusy) return;
-            
+
             // Show loading indicator
             this.UseWaitCursor = true;
             _dataLoader.RunWorkerAsync();
@@ -70,7 +70,8 @@ namespace QuanLyThuVien.GUI.ThongKeGUI
 
         private void InitFilters()
         {
-            dtpFrom.Value = new DateTime(2025, 1, 1);
+            // Default start date for statistics set to 01/01/2024
+            dtpFrom.Value = new DateTime(2024, 1, 1);
             dtpTo.Value = DateTime.Now.Date;
             cboTrangThai.Items.Clear();
             cboTrangThai.Items.Add("Tất cả");
@@ -87,6 +88,23 @@ namespace QuanLyThuVien.GUI.ThongKeGUI
         {
             DateTime from = dtpFrom.Value.Date;
             DateTime to = dtpTo.Value.Date.AddDays(1);
+
+            // Validate date range: from must be <= (to - 1 day) and to (end date) must not be in the future
+            DateTime selectedToDate = dtpTo.Value.Date;
+            DateTime today = DateTime.Now.Date;
+            if (from > selectedToDate)
+            {
+                MessageBox.Show("Ngày bắt đầu phải nhỏ hơn hoặc bằng ngày kết thúc. Vui lòng nhập lại.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                dtpFrom.Focus();
+                return;
+            }
+            if (selectedToDate > today)
+            {
+                MessageBox.Show("Ngày kết thúc không được lớn hơn ngày hiện tại. Vui lòng nhập lại.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                dtpTo.Focus();
+                return;
+            }
+
             int? tt = null;
             switch (cboTrangThai.SelectedIndex)
             {
@@ -103,10 +121,10 @@ namespace QuanLyThuVien.GUI.ThongKeGUI
         private void BindGrid(List<PhieuMuonDTO> list)
         {
             dgvChiTiet.Rows.Clear();
-            
+
             // Limit rows to prevent UI freeze, show only first 1000 rows
             var displayList = list.Take(1000).ToList();
-            
+
             foreach (var pm in displayList)
             {
                 int i = dgvChiTiet.Rows.Add();
@@ -119,7 +137,7 @@ namespace QuanLyThuVien.GUI.ThongKeGUI
                 row.Cells["colTrangThai"].Value = MapTrangThai(pm.TrangThai);
                 row.Cells["colSachQuaHan"].Value = ComputeQuaHanCount(pm);
             }
-            
+
             // Show message if there are more rows
             if (list.Count > 1000)
             {
@@ -179,7 +197,7 @@ namespace QuanLyThuVien.GUI.ThongKeGUI
             try
             {
                 DataTable trendData = ThongKeBUS.Instance.GetPhieuMuonTrend(from, to);
-                
+
                 if (trendData == null || trendData.Rows.Count == 0)
                 {
                     // Dùng dữ liệu mẫu nếu không có dữ liệu từ DB

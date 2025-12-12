@@ -18,7 +18,7 @@ namespace QuanLyThuVien.GUI
         {
             InitializeComponent();
             if (LicenseManager.UsageMode == LicenseUsageMode.Designtime) return;
-            InitializeActionButtons();
+            //InitializeActionButtons();
             LoadData();
             btnTimKiem.Click += BtnTimKiem_Click;
             btnClearFilters.Click += BtnClearFilters_Click;

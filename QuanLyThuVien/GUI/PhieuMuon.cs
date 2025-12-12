@@ -19,7 +19,7 @@ namespace QuanLyThuVien.GUI
         public PhieuMuon(TaiKhoanDTO taikhoan)
         {
             InitializeComponent();
-            InitializeActionButtons();
+            //InitializeActionButtons();
             
             bangPhieuMuon.CellClick += BangPhieuMuon_CellClick;
             bangPhieuMuon.CellFormatting += BangPhieuMuon_CellFormatting;

@@ -20,17 +20,17 @@ namespace QuanLyThuVien.GUI
         {
             InitializeComponent();
             SetupComponents();
-            InitializeActionButtons();
+            //InitializeActionButtons();
         }
 
-        //public PhieuTraGUI(TaiKhoanDTO user) : this()
-        //{
-        //    this.CurrentUser = user;
-        //    if (user != null)
-        //    {
-        //        maNhanVien = user.MaNV;
-        //    }
-        //}
+        public PhieuTraGUI(TaiKhoanDTO user) : this()
+        {
+            this.CurrentUser = user;
+            if (user != null)
+            {
+                maNhanVien = user.MaNV;
+            }
+        }
 
         /// <summary>
         /// Khởi tạo ActionButtonsUC

@@ -19,7 +19,7 @@ namespace QuanLyThuVien.GUI
         {
             InitializeComponent();
             this.Load += PhieuPhat_Load;
-            InitializeActionButtons();
+            //InitializeActionButtons();
         }
 
         public PhieuPhat(TaiKhoanDTO user) : this()
@@ -48,86 +48,89 @@ namespace QuanLyThuVien.GUI
 
         private void dateTimePicker1_ValueChanged(object sender, EventArgs e) { }
 
-        //private void btn_search_Click(object sender, EventArgs e)
-        //{
-        //    // Prevent textBox1_TextChanged handler from interfering while we update the grid.
-        //    isUserInput = false;
-        //    try
-        //    {DVG
-        //        DateTime begin = DTP_begin.Value;
-        //        DateTime end = DTP_end.Value.Date.AddDays(1);
-        //        if (begin > end)
-        //        {
-        //            MessageBox.Show("Ngày bắt đầu phải trước ngày kết thúc.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        //            return;
-        //        }
-
-        //        // Get records in date range first
-        //        List<PhieuPhatDTO> list = PhieuPhatBUS.Instance.GetByDateRange(begin, end);
-
-        //        // If there's a keyword, further filter the already retrieved list (client-side)
-        //        string keyword = tb_search.Text?.Trim();
-        //        if (!string.IsNullOrWhiteSpace(keyword))
-        //        {
-        //            int id;
-        //            bool isId = int.TryParse(keyword, out id);
-        //            string kwLower = keyword.ToLowerInvariant();
-
-        //            list = list.Where(p =>
-        //                (p.TenSach != null && p.TenSach.ToLowerInvariant().Contains(kwLower)) ||
-        //                (p.TenDG != null && p.TenDG.ToLowerInvariant().Contains(kwLower)) ||
-        //                (isId && p.MaPhieuPhat == id)
-        //            ).ToList();
-        //        }
-
-        //        dgvPhieuPhat.DataSource = list;
-        //    }
-        //    finally
-        //    {
-        //        // Always re-enable the text changed handler flag
-        //        isUserInput = true;
-        //    }
-        //}
-
         private void btn_search_Click(object sender, EventArgs e)
         {
+            // Disable text-change reactions while performing search triggered by button
             isUserInput = false;
             try
             {
-                DateTime begin = DTP_begin.Value.Date;
-                DateTime end = DTP_end.Value.Date.AddDays(1); // toi het ngay
-
-                if (begin > end)
-                {
-                    MessageBox.Show("Ngay bat dau phai truoc ngay ket thuc.", "Loi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-
-                var list = PhieuPhatBUS.Instance.GetByDateRange(begin, end);
-
-                // keyword filter (client-side)
-                string keyword = tb_search.Text?.Trim();
-                if (!string.IsNullOrWhiteSpace(keyword))
-                {
-                    int id;
-                    bool isId = int.TryParse(keyword, out id);
-                    string kwLower = keyword.ToLowerInvariant();
-
-                    list = list.Where(p =>
-                        (p.TenSach != null && p.TenSach.ToLowerInvariant().Contains(kwLower)) ||
-                        (p.TenDG != null && p.TenDG.ToLowerInvariant().Contains(kwLower)) ||
-                        (isId && p.MaPhieuPhat == id)
-                    ).ToList();
-                }
-
-                // Luu lai ket qua hien tai
-                _currentResult = list;
-
-                dgvPhieuPhat.DataSource = _currentResult;
+                ApplyFilters();
             }
             finally
             {
                 isUserInput = true;
+            }
+        }
+
+        // Unified filter application: date range + combobox (status) + keyword
+        private void ApplyFilters()
+        {
+            DateTime beginDate = DTP_begin.Value.Date;
+            DateTime endDate = DTP_end.Value.Date; // inclusive
+            DateTime today = DateTime.Now.Date;
+
+            // Validate date range and future end date
+            if (beginDate > endDate)
+            {
+                MessageBox.Show("Ngày bắt đầu phải nhỏ hơn hoặc bằng ngày kết thúc. Vui lòng nhập lại.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                DTP_begin.Focus();
+                return;
+            }
+            if (endDate > today)
+            {
+                MessageBox.Show("Ngày kết thúc không được lớn hơn ngày hiện tại. Vui lòng nhập lại.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                DTP_end.Focus();
+                return;
+            }
+
+            DateTime endExclusive = endDate.AddDays(1);
+
+            // Get base list from BUS by date range (server-side filtering)
+            List<PhieuPhatDTO> list = PhieuPhatBUS.Instance.GetByDateRange(beginDate, endExclusive);
+
+            // Filter by combobox status selection (if set)
+            int? trangThai = null;
+            if (cbbPhieuPhat != null)
+            {
+                // Expected combobox items: index 0 = all, 1 = Chua dong (0), 2 = Da dong (1)
+                if (cbbPhieuPhat.SelectedIndex == 1) trangThai = 0;
+                else if (cbbPhieuPhat.SelectedIndex == 2) trangThai = 1;
+            }
+            if (trangThai.HasValue)
+            {
+                list = list.Where(p => p.TrangThai == trangThai.Value).ToList();
+            }
+
+            // Keyword filter (client-side)
+            string keyword = tb_search?.Text?.Trim();
+            if (!string.IsNullOrWhiteSpace(keyword))
+            {
+                int id;
+                bool isId = int.TryParse(keyword, out id);
+                string kwLower = keyword.ToLowerInvariant();
+
+                list = list.Where(p =>
+                    (p.TenSach != null && p.TenSach.ToLowerInvariant().Contains(kwLower)) ||
+                    (p.TenDG != null && p.TenDG.ToLowerInvariant().Contains(kwLower)) ||
+                    (isId && p.MaPhieuPhat == id)
+                ).ToList();
+            }
+
+            // Save and bind
+            _currentResult = list ?? new List<PhieuPhatDTO>();
+
+            // Ensure we do not auto-generate columns and avoid double columns
+            try
+            {
+                dgvPhieuPhat.AutoGenerateColumns = false;
+                // Clear existing binding to avoid duplication or leftover autogenerated columns
+                dgvPhieuPhat.DataSource = null;
+                dgvPhieuPhat.DataSource = _currentResult;
+            }
+            catch
+            {
+                // fallback: set source directly
+                dgvPhieuPhat.DataSource = _currentResult;
             }
         }
 
@@ -136,23 +139,67 @@ namespace QuanLyThuVien.GUI
         
         private void LoadPhieuPhat(int? trangThaiLoc = null)
         {
+            // Ensure we don't auto-generate columns and avoid duplicates
+            dgvPhieuPhat.SuspendLayout();
             dgvPhieuPhat.AutoGenerateColumns = false;
-            colID.DataPropertyName = "MaPhieuPhat";
-            colNgayPhat.DataPropertyName = "NgayPhat";
-            colTrangThai.DataPropertyName = "TrangThaiText";
-            colTien.DataPropertyName = "tienPhat";
-            colTen.DataPropertyName = "TenDG";
-            
+
+            // Helper to add column if not exists
+            Action<string, string, string> ensureColumn = (name, dataProp, header) =>
+            {
+                if (!dgvPhieuPhat.Columns.Contains(name))
+                {
+                    var col = new DataGridViewTextBoxColumn()
+                    {
+                        Name = name,
+                        DataPropertyName = dataProp,
+                        HeaderText = header,
+                        ReadOnly = true,
+                        AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+                    };
+                    dgvPhieuPhat.Columns.Add(col);
+                }
+                else
+                {
+                    var col = dgvPhieuPhat.Columns[name];
+                    col.DataPropertyName = dataProp;
+                    col.HeaderText = header;
+                }
+            };
+
+            ensureColumn("colID", "MaPhieuPhat", "Mã");
+            ensureColumn("colNgayPhat", "NgayPhat", "Ngày phạt");
+            ensureColumn("colTrangThai", "TrangThaiText", "Trạng thái");
+            ensureColumn("colTien", "tienPhat", "Tiền phạt");
+            ensureColumn("colTen", "TenDG", "Tên độc giả");
 
             List<PhieuPhatDTO> list = trangThaiLoc.HasValue
                 ? PhieuPhatBUS.Instance.GetTrangThaiPhieuPhat(trangThaiLoc.Value)
                 : PhieuPhatBUS.Instance.GetAllPhieuPhat();
 
+            // Bind safely
+            dgvPhieuPhat.DataSource = null;
             dgvPhieuPhat.DataSource = list;
+
+            dgvPhieuPhat.ResumeLayout();
         }
 
         private void PhieuPhat_Load(object sender, EventArgs e)
         {
+            // Set default date range start to 01/01/2024
+            try
+            {
+                DTP_begin.Value = new DateTime(2024, 1, 1);
+            }
+            catch { }
+            DTP_end.Value = DateTime.Now.Date;
+
+            // Ensure combobox default selection
+            if (cbbPhieuPhat != null && cbbPhieuPhat.Items.Count > 0)
+            {
+                int ind = cbbPhieuPhat.FindStringExact("Tat ca");
+                cbbPhieuPhat.SelectedIndex = ind >= 0 ? ind : 0;
+            }
+
             LoadPhieuPhat(null);
         }
 
@@ -160,19 +207,8 @@ namespace QuanLyThuVien.GUI
 
         private void cbbPhieuPhat_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var baseList = _currentResult != null && _currentResult.Count > 0
-                ? _currentResult
-                : PhieuPhatBUS.Instance.GetAllPhieuPhat();
-
-            int? trangThai = null;
-            if (cbbPhieuPhat.SelectedIndex == 1) trangThai = 0;
-            else if (cbbPhieuPhat.SelectedIndex == 2) trangThai = 1;
-
-            var filtered = trangThai.HasValue
-                ? baseList.Where(p => p.TrangThai == trangThai.Value).ToList()
-                : baseList;
-
-            dgvPhieuPhat.DataSource = filtered;
+            // When status selection changes, re-apply combined filters
+            ApplyFilters();
         }
 
         private void lb_dateEnd_Click(object sender, EventArgs e) { }
@@ -185,13 +221,22 @@ namespace QuanLyThuVien.GUI
 
         private void ResetFiltersToDefaults()
         {
-            DTP_begin.Value = DateTime.Now;
-            DTP_end.Value = DateTime.Now;
-            if (cbbPhieuPhat.Items.Count > 0)
+            // Default begin date set to 01/01/2024
+            try
             {
-                cbbPhieuPhat.SelectedIndex = 0;
+                DTP_begin.Value = new DateTime(2024, 1, 1);
+            }
+            catch { DTP_begin.Value = DateTime.Now; }
+            DTP_end.Value = DateTime.Now.Date;
+
+            // Clear keyword
+            if (tb_search != null) tb_search.Text = string.Empty;
+
+            // Reset combobox to 'Tất cả' if exists
+            if (cbbPhieuPhat != null && cbbPhieuPhat.Items.Count > 0)
+            {
                 int ind = cbbPhieuPhat.FindStringExact("Tat ca");
-                if (ind >= 0) cbbPhieuPhat.SelectedIndex = ind;
+                cbbPhieuPhat.SelectedIndex = ind >= 0 ? ind : 0;
             }
         }
 
@@ -200,9 +245,8 @@ namespace QuanLyThuVien.GUI
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
             if (!isUserInput) return;
-            string keyword = tb_search.Text;
-            List<PhieuPhatDTO> list = PhieuPhatBUS.Instance.GetByKeyword(keyword);
-            dgvPhieuPhat.DataSource = list;
+            // User typed in keyword -> reapply combined filters
+            ApplyFilters();
         }
 
         private void btn(object sender, EventArgs e) { }

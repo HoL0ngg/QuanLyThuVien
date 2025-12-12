@@ -19,7 +19,7 @@ namespace QuanLyThuVien.GUI
         {
             InitializeComponent();
             CustomizeDataGridView();
-            InitializeActionButtons();
+            //InitializeActionButtons();
         }
 
         public DauSach(TaiKhoanDTO user) : this()

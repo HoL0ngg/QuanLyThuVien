@@ -20,7 +20,7 @@ namespace QuanLyThuVien.GUI.ThongKeGUI
         {
             InitializeComponent();
             SetupUI();
-            InitializeActionButtons();
+            //InitializeActionButtons();
 
             this.tabControlTK.SelectedIndexChanged += TabControlTK_SelectedIndexChanged;
             this.tabControlTK.Selecting += TabControlTK_Selecting;
@@ -133,7 +133,8 @@ namespace QuanLyThuVien.GUI.ThongKeGUI
         {
             if (this.btn_tongquan == null) return;
             if (this.dtpTo != null) this.dtpTo.Value = DateTime.Now.Date;
-            if (this.dtpFrom != null) this.dtpFrom.Value = DateTime.Now.Date.AddDays(-7);
+            // Set default start date for all statistics to 01/01/2024
+            if (this.dtpFrom != null) this.dtpFrom.Value = new DateTime(2024, 1, 1);
             SetupChartPanel(panelTrend, "📊 XU HƯỚNG MƯỢN/TRẢ");
             SetupChartPanel(panelTop5, "🏆 TOP 5 SÁCH MƯỢN NHIỀU");
             SetupChartPanel(panelCategory, "📚 CƠ CẤU THỂ LOẠI");
@@ -173,6 +174,21 @@ namespace QuanLyThuVien.GUI.ThongKeGUI
             {
                 DateTime from = (this.dtpFrom != null) ? this.dtpFrom.Value.Date : DateTime.Now.Date.AddMonths(-1);
                 DateTime to = (this.dtpTo != null) ? this.dtpTo.Value.Date : DateTime.Now.Date;
+
+                // Validate date range: from must be <= to, and to must not be in the future
+                DateTime today = DateTime.Now.Date;
+                if (from > to)
+                {
+                    MessageBox.Show("Ngày bắt đầu phải nhỏ hơn hoặc bằng ngày kết thúc. Vui lòng nhập lại.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    if (this.dtpFrom != null) this.dtpFrom.Focus();
+                    return;
+                }
+                if (to > today)
+                {
+                    MessageBox.Show("Ngày kết thúc không được lớn hơn ngày hiện tại. Vui lòng nhập lại.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    if (this.dtpTo != null) this.dtpTo.Focus();
+                    return;
+                }
                 
                 var overview = ThongKeBUS.Instance.GetOverviewOptimized(from, to);
                 if (overview != null)

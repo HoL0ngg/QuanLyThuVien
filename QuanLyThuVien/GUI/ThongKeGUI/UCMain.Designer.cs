@@ -56,8 +56,6 @@
             this.lblTo = new System.Windows.Forms.Label();
             this.dtpTo = new System.Windows.Forms.DateTimePicker();
             this.btnGenerate = new System.Windows.Forms.Button();
-            this.txtSearch = new System.Windows.Forms.TextBox();
-            this.btnSearch = new System.Windows.Forms.Button();
             this.btn_sach = new System.Windows.Forms.TabPage();
             this.btn_phieuphat = new System.Windows.Forms.TabPage();
             this.btn_docgia = new System.Windows.Forms.TabPage();
@@ -126,7 +124,7 @@
             this.panelCharts.Name = "panelCharts";
             this.panelCharts.Padding = new System.Windows.Forms.Padding(0, 10, 0, 10);
             this.panelCharts.RowCount = 1;
-            this.panelCharts.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 356F));
+            this.panelCharts.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 426F));
             this.panelCharts.Size = new System.Drawing.Size(1053, 446);
             this.panelCharts.TabIndex = 0;
             // 
@@ -343,8 +341,6 @@
             this.panelTop.Controls.Add(this.lblTo);
             this.panelTop.Controls.Add(this.dtpTo);
             this.panelTop.Controls.Add(this.btnGenerate);
-            this.panelTop.Controls.Add(this.txtSearch);
-            this.panelTop.Controls.Add(this.btnSearch);
             this.panelTop.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelTop.Location = new System.Drawing.Point(10, 10);
             this.panelTop.Name = "panelTop";
@@ -482,31 +478,6 @@
             this.btnGenerate.UseVisualStyleBackColor = false;
             this.btnGenerate.Click += new System.EventHandler(this.BtnGenerate_Click);
             // 
-            // txtSearch
-            // 
-            this.txtSearch.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtSearch.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.txtSearch.Location = new System.Drawing.Point(770, 34);
-            this.txtSearch.Name = "txtSearch";
-            this.txtSearch.Size = new System.Drawing.Size(180, 27);
-            this.txtSearch.TabIndex = 10;
-            // 
-            // btnSearch
-            // 
-            this.btnSearch.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(175)))), ((int)(((byte)(80)))));
-            this.btnSearch.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnSearch.FlatAppearance.BorderSize = 0;
-            this.btnSearch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSearch.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.btnSearch.ForeColor = System.Drawing.Color.White;
-            this.btnSearch.Location = new System.Drawing.Point(955, 32);
-            this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(60, 32);
-            this.btnSearch.TabIndex = 11;
-            this.btnSearch.Text = "Tìm";
-            this.btnSearch.UseVisualStyleBackColor = false;
-            this.btnSearch.Click += new System.EventHandler(this.BtnGenerate_Click);
-            // 
             // btn_sach
             // 
             this.btn_sach.AutoScroll = true;
@@ -585,8 +556,6 @@
         private System.Windows.Forms.Label lblTo;
         private System.Windows.Forms.DateTimePicker dtpTo;
         private System.Windows.Forms.Button btnGenerate;
-        private System.Windows.Forms.TextBox txtSearch;
-        private System.Windows.Forms.Button btnSearch;
         private System.Windows.Forms.Panel panelMain;
         private System.Windows.Forms.TableLayoutPanel panelKPI;
         private System.Windows.Forms.Panel pnlKpi1;

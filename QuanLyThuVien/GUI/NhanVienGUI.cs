@@ -28,7 +28,7 @@ namespace QuanLyThuVien.GUI
         {
             SetupDataGridView();
             SetupButtonPhanQuyen();
-            InitializeActionButtons();
+            //InitializeActionButtons();
             LoadData();
         }
 
