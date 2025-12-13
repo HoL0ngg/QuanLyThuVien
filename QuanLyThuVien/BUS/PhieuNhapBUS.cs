@@ -12,6 +12,7 @@ namespace QuanLyThuVien.BUS
     {
         private PhieuNhapDAO dao = new PhieuNhapDAO();
         private CTPhieuNhapBUS ctBus = new CTPhieuNhapBUS();
+        private DauSachBUS dauSachBus = DauSachBUS.Instance;
 
         // lay danh sach phieu nhap
         public List<PhieuNhapDTO> GetALL()
@@ -38,18 +39,38 @@ namespace QuanLyThuVien.BUS
         }
         public bool Delete(int maPhieuNhap)
         {
+            if (maPhieuNhap <= 0)
+            {
+                throw new ArgumentException("Mã Phiếu Nhập không hợp lệ.");
+            }
+            List<CTPhieuNhapDTO> listDetails = ctBus.GetByPhieuNhap(maPhieuNhap);
+
+            if (listDetails == null || listDetails.Count == 0)
+            {
+                return dao.Delete(maPhieuNhap);
+            }
+
             try
             {
+                foreach (var detail in listDetails)
+                {
+                    int soLuongGiam = -detail.SoLuong;
+
+                    if (!dauSachBus.CapNhatSoLuongTon(detail.MaDauSach, soLuongGiam))
+                    {
+                        
+                        throw new Exception($"Không thể giảm tồn kho cho Đầu sách ID {detail.MaDauSach}.");
+                    }
+                }
                 if (!ctBus.DeleteAllDetailsByMaPhieuNhap(maPhieuNhap))
                 {
-                    return false;
+                    throw new Exception("Lỗi khi xóa các chi tiết Phiếu nhập.");
                 }
-
                 return dao.Delete(maPhieuNhap);
             }
             catch (Exception ex)
             {
-                throw new Exception("Lỗi khi xóa Phiếu nhập: " + ex.Message);
+                throw new Exception("Lỗi khi xóa Phiếu nhập và cập nhật tồn kho: " + ex.Message);
             }
         }
         public PhieuNhapDTO GetById(int maPhieuNhap)

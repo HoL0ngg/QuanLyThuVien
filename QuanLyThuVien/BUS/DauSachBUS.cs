@@ -60,7 +60,34 @@ namespace QuanLyThuVien.BUS
                 return new List<TacGiaDTO>();
             return DauSachDAO.Instance.GetTacGiaByDauSachID(dauSachID);
         }
+        public bool CapNhatSoLuongTon(int maDauSach, int soLuong)
+        {
+            if (maDauSach <= 0)
+                throw new ArgumentException("Mã đầu sách không hợp lệ.");
 
+            if (soLuong < 0)
+            {
+                DauSachDTO currentBook = GetDauSachByID(maDauSach);
+
+                if (currentBook == null)
+                {
+                    throw new Exception("Không tìm thấy Đầu sách để cập nhật tồn kho.");
+                }
+
+                if (currentBook.SoLuong + soLuong < 0)
+                {
+                    throw new Exception($"Không thể giảm tồn kho cho Đầu sách ID {maDauSach} vì số lượng hiện tại ({currentBook.SoLuong}) không đủ.");
+                }
+            }
+
+            return DauSachDAO.Instance.UpdateSoLuongTonKho(maDauSach, soLuong);
+        }
+        public bool CapNhatDonGia(int maDauSach, double donGia)
+        {
+            if (maDauSach <= 0 || donGia <= 0)
+                throw new ArgumentException("Thông tin Mã Đầu Sách hoặc Đơn Giá không hợp lệ.");
+            return DauSachDAO.Instance.UpdateGiaDauSach(maDauSach, donGia);
+        }
         #endregion
 
         #region Tìm kiếm với LINQ

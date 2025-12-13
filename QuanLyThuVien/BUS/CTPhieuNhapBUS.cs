@@ -11,6 +11,7 @@ namespace QuanLyThuVien.BUS
     public class CTPhieuNhapBUS
     {
         private CTPhieuNhapDAO dao = new CTPhieuNhapDAO();
+        private DauSachBUS dauSachBus = DauSachBUS.Instance;
 
         // lay danh sach ct phieu nhap
         public List<CTPhieuNhapDTO> GetALL()
@@ -39,7 +40,22 @@ namespace QuanLyThuVien.BUS
                 throw new Exception("Thong tin khong hop le");
             if (ct.SoLuong <= 0)
                 throw new Exception("So luong phai lon hon 0");
-            return dao.Insert(ct);
+            if (dao.Insert(ct))
+            {
+                try
+                {
+                    dauSachBus.CapNhatSoLuongTon(ct.MaDauSach, ct.SoLuong);
+
+                    dauSachBus.CapNhatDonGia(ct.MaDauSach, ct.DonGia);
+
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("Lỗi khi cập nhật tồn kho sau khi nhập sách: " + ex.Message);
+                }
+            }
+            return false;
         }
 
         // xoa ct phieu nhap theo ma phieu nhap
@@ -47,9 +63,26 @@ namespace QuanLyThuVien.BUS
         {
             if (maPhieuNhap <= 0  && maDauSach <= 0)
                 throw new Exception("Ma phieu nhap khong hop le");
-            return dao.DeletePhieuNhap(maPhieuNhap,maDauSach);
+            CTPhieuNhapDTO ctCu = dao.GetDetail(maPhieuNhap, maDauSach);
+
+            if (ctCu == null)
+            {
+                return true;
+            }
+            if (dao.DeletePhieuNhap(maPhieuNhap, maDauSach))
+            {
+                try
+                {
+                    return dauSachBus.CapNhatSoLuongTon(ctCu.MaDauSach, -ctCu.SoLuong);
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("Lỗi khi cập nhật tồn kho sau khi xóa chi tiết phiếu: " + ex.Message);
+                }
+            }
+
+            return false;
         }
-        // PHƯƠNG THỨC MỚI: Xóa TẤT CẢ chi tiết dựa trên Mã Phiếu Nhập
         public bool DeleteAllDetailsByMaPhieuNhap(int maPhieuNhap)
         {
             if (maPhieuNhap <= 0)
