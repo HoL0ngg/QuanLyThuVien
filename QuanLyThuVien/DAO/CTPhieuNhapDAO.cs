@@ -141,6 +141,35 @@ namespace QuanLyThuVien.DAO
             }
             return ls;
         }
+        public CTPhieuNhapDTO GetDetail(int maPhieuNhap, int maDauSach)
+        {
+            string query = @"
+                SELECT ct.MaPhieuNhap, ct.MaDauSach, ct.SoLuong, ct.DonGia, ds.TenDauSach
+                FROM ctphieu_nhap ct
+                JOIN dau_sach ds ON ct.MaDauSach = ds.MaDauSach
+                WHERE ct.MaPhieuNhap = @MaPhieuNhap AND ct.MaDauSach = @MaDauSach";
+
+            var param = new Dictionary<string, object>
+            {
+                { "@MaPhieuNhap", maPhieuNhap },
+                { "@MaDauSach", maDauSach }
+            };
+
+            DataTable dt = DataProvider.ExecuteQuery(query, param);
+
+            if (dt.Rows.Count == 0)
+                return null;
+
+            DataRow row = dt.Rows[0];
+            return new CTPhieuNhapDTO
+            {
+                MaPhieuNhap = Convert.ToInt32(row["MaPhieuNhap"]),
+                MaDauSach = Convert.ToInt32(row["MaDauSach"]),
+                SoLuong = Convert.ToInt32(row["SoLuong"]),
+                DonGia = Convert.ToDouble(row["DonGia"]),
+                TenSach = row["TenDauSach"].ToString()
+            };
+        }
 
     }
 }
