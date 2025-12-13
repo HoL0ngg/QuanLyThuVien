@@ -205,58 +205,6 @@ namespace QuanLyThuVien.GUI
                     row.Cells["TenDauSach"].ToolTipText = "Nhấn đúp để xem danh sách sách";
                 }
             }
-        }
-
-        private void UpdateStatistics()
-        {
-            if (_currentDataTable == null || _currentDataTable.Rows.Count == 0)
-                return;
-
-            int tongDauSach = _currentDataTable.Rows.Count;
-            
-            int tongSoLuong = _currentDataTable.AsEnumerable()
-                .Sum(row => row.Field<int>("SoLuong"));
-
-            int hetHang = _currentDataTable.AsEnumerable()
-                .Count(row => row.Field<int>("SoLuong") == 0);
-
-            var ngonNguList = _currentDataTable.AsEnumerable()
-                .Select(row => row.Field<string>("NgonNgu"))
-                .Distinct()
-                .ToList();
-
-            Console.WriteLine($"Tổng đầu sách: {tongDauSach}, Tổng số lượng: {tongSoLuong}, Hết hàng: {hetHang}");
-        }
-
-        private void FilterDataOnUI(string keyword)
-        {
-            if (_currentDataTable == null)
-                return;
-
-            if (string.IsNullOrWhiteSpace(keyword))
-            {
-                dgvDauSach.DataSource = _currentDataTable;
-                return;
-            }
-
-            string searchTerm = keyword.ToLower();
-
-            var filteredRows = _currentDataTable.AsEnumerable()
-                .Where(row =>
-                    row.Field<string>("TenDauSach")?.ToLower().Contains(searchTerm) == true ||
-                    row.Field<string>("NhaXuatBan")?.ToLower().Contains(searchTerm) == true ||
-                    row.Field<string>("NgonNgu")?.ToLower().Contains(searchTerm) == true ||
-                    row.Field<int>("NamXuatBan").ToString().Contains(searchTerm));
-
-            if (filteredRows.Any())
-            {
-                DataTable filteredTable = filteredRows.CopyToDataTable();
-                dgvDauSach.DataSource = filteredTable;
-            }
-            else
-            {
-                dgvDauSach.DataSource = _currentDataTable.Clone();
-            }
 
             CustomizeColumns();
         }

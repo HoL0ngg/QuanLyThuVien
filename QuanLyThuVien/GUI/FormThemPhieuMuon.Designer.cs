@@ -30,14 +30,14 @@
             this.dtpNgayTraDuKien = new System.Windows.Forms.DateTimePicker();
             this.groupTimSach = new System.Windows.Forms.GroupBox();
             this.dgvKetQuaSach = new QuanLyThuVien.GUI.CustomDataGridView();
-            this.btnTimSach = new System.Windows.Forms.Button();
+            this.btnTimSach = new QuanLyThuVien.GUI.Components.CustomButton("Tìm sách", "blue");
             this.txtTuKhoaSach = new System.Windows.Forms.TextBox();
             this.lblTuKhoa = new System.Windows.Forms.Label();
             this.groupChiTiet = new System.Windows.Forms.GroupBox();
             this.dgvCT = new QuanLyThuVien.GUI.CustomDataGridView();
             this.panelBottom = new System.Windows.Forms.Panel();
-            this.btnHuy = new System.Windows.Forms.Button();
-            this.btnThem = new System.Windows.Forms.Button();
+            this.btnHuy = new QuanLyThuVien.GUI.Components.CustomButton("Hủy", "red");
+            this.btnThem = new QuanLyThuVien.GUI.Components.CustomButton("Thêm", "green");
             this.groupThongTin.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupTimSach.SuspendLayout();
