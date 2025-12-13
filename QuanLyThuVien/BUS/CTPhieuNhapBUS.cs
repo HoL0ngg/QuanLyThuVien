@@ -102,9 +102,32 @@ namespace QuanLyThuVien.BUS
             return sum;
         }
         //sua chi tiet
-        public bool Update(CTPhieuNhapDTO cT)
+        public bool Update(CTPhieuNhapDTO ctMoi)
         {
-            return dao.Update(cT);
+            CTPhieuNhapDTO ctCu = dao.GetDetail(ctMoi.MaPhieuNhap, ctMoi.MaDauSach);
+
+            if (ctCu == null)
+            {
+                throw new Exception("Không tìm thấy chi tiết phiếu nhập cũ để so sánh.");
+            }
+            if (dao.Update(ctMoi))
+            {
+                try
+                {
+                    int soLuongThayDoi = ctMoi.SoLuong - ctCu.SoLuong;
+
+                    if (soLuongThayDoi != 0)
+                    {
+                        dauSachBus.CapNhatSoLuongTon(ctMoi.MaDauSach, soLuongThayDoi);
+                    }
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("Lỗi khi cập nhật tồn kho sau khi sửa chi tiết phiếu: " + ex.Message);
+                }
+            }
+            return false;
         }
     }
 }
