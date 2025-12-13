@@ -165,8 +165,7 @@ namespace QuanLyThuVien.GUI
                 row.DefaultCellStyle.BackColor = Color.FromArgb(255, 243, 224);
             }
 
-            // Nếu muốn tô màu cho ô hiển thị "Tiền Phạt" đã được bind, giữ logic format mặc định (DataPropertyName = TienPhat)
-            // Không truy cập các cột không tồn tại như colSoNgayTre hoặc colTrangThaiSach ở đây.
+            
         }
 
         private void DgvChonPP_CellValueChanged(object sender, DataGridViewCellEventArgs e)
@@ -253,6 +252,7 @@ namespace QuanLyThuVien.GUI
             }
             else
             {
+
                 filteredList = allItems.ToList();
             }
 

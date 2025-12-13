@@ -32,15 +32,15 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panelTop = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
-            this.tb_search = new System.Windows.Forms.TextBox();
-            this.lb_datebegin = new System.Windows.Forms.Label();
-            this.DTP_begin = new System.Windows.Forms.DateTimePicker();
-            this.lb_dateEnd = new System.Windows.Forms.Label();
-            this.DTP_end = new System.Windows.Forms.DateTimePicker();
-            this.cbbPhieuPhat = new System.Windows.Forms.ComboBox();
-            this.btn_search = new System.Windows.Forms.Button();
             this.btn_resest = new System.Windows.Forms.Button();
+            this.btn_search = new System.Windows.Forms.Button();
+            this.cbbPhieuPhat = new System.Windows.Forms.ComboBox();
+            this.DTP_end = new System.Windows.Forms.DateTimePicker();
+            this.lb_dateEnd = new System.Windows.Forms.Label();
+            this.DTP_begin = new System.Windows.Forms.DateTimePicker();
+            this.lb_datebegin = new System.Windows.Forms.Label();
+            this.tb_search = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.panelContentPhieuPhat = new System.Windows.Forms.Panel();
             this.dgvPhieuPhat = new QuanLyThuVien.GUI.CustomDataGridView();
             this.colID = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -69,67 +69,36 @@
             this.panelTop.Location = new System.Drawing.Point(0, 0);
             this.panelTop.Name = "panelTop";
             this.panelTop.Padding = new System.Windows.Forms.Padding(15, 10, 15, 10);
-            this.panelTop.Size = new System.Drawing.Size(1142, 100);
+            this.panelTop.Size = new System.Drawing.Size(1332, 100);
             this.panelTop.TabIndex = 0;
             // 
-            // label1
+            // btn_resest
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.label1.Location = new System.Drawing.Point(15, 15);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(63, 20);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Tìm kiếm:";
+            this.btn_resest.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(175)))), ((int)(((byte)(80)))));
+            this.btn_resest.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_resest.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.btn_resest.ForeColor = System.Drawing.Color.White;
+            this.btn_resest.Location = new System.Drawing.Point(215, 55);
+            this.btn_resest.Name = "btn_resest";
+            this.btn_resest.Size = new System.Drawing.Size(120, 35);
+            this.btn_resest.TabIndex = 8;
+            this.btn_resest.Text = "Làm mới";
+            this.btn_resest.UseVisualStyleBackColor = false;
+            this.btn_resest.Click += new System.EventHandler(this.btn_resest_Click);
             // 
-            // tb_search
+            // btn_search
             // 
-            this.tb_search.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.tb_search.Location = new System.Drawing.Point(85, 12);
-            this.tb_search.Name = "tb_search";
-            this.tb_search.Size = new System.Drawing.Size(250, 27);
-            this.tb_search.TabIndex = 1;
-            this.tb_search.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
-            // 
-            // lb_datebegin
-            // 
-            this.lb_datebegin.AutoSize = true;
-            this.lb_datebegin.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.lb_datebegin.Location = new System.Drawing.Point(360, 15);
-            this.lb_datebegin.Name = "lb_datebegin";
-            this.lb_datebegin.Size = new System.Drawing.Size(63, 20);
-            this.lb_datebegin.TabIndex = 2;
-            this.lb_datebegin.Text = "Từ ngày:";
-            // 
-            // DTP_begin
-            // 
-            this.DTP_begin.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.DTP_begin.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.DTP_begin.Location = new System.Drawing.Point(430, 12);
-            this.DTP_begin.Name = "DTP_begin";
-            this.DTP_begin.Size = new System.Drawing.Size(150, 27);
-            this.DTP_begin.TabIndex = 3;
-            this.DTP_begin.ValueChanged += new System.EventHandler(this.DTP_begin_ValueChanged);
-            // 
-            // lb_dateEnd
-            // 
-            this.lb_dateEnd.AutoSize = true;
-            this.lb_dateEnd.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.lb_dateEnd.Location = new System.Drawing.Point(600, 15);
-            this.lb_dateEnd.Name = "lb_dateEnd";
-            this.lb_dateEnd.Size = new System.Drawing.Size(72, 20);
-            this.lb_dateEnd.TabIndex = 4;
-            this.lb_dateEnd.Text = "Đến ngày:";
-            this.lb_dateEnd.Click += new System.EventHandler(this.lb_dateEnd_Click);
-            // 
-            // DTP_end
-            // 
-            this.DTP_end.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.DTP_end.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.DTP_end.Location = new System.Drawing.Point(680, 12);
-            this.DTP_end.Name = "DTP_end";
-            this.DTP_end.Size = new System.Drawing.Size(150, 27);
-            this.DTP_end.TabIndex = 5;
+            this.btn_search.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
+            this.btn_search.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_search.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.btn_search.ForeColor = System.Drawing.Color.White;
+            this.btn_search.Location = new System.Drawing.Point(85, 55);
+            this.btn_search.Name = "btn_search";
+            this.btn_search.Size = new System.Drawing.Size(120, 35);
+            this.btn_search.TabIndex = 7;
+            this.btn_search.Text = "Tìm kiếm";
+            this.btn_search.UseVisualStyleBackColor = false;
+            this.btn_search.Click += new System.EventHandler(this.btn_search_Click);
             // 
             // cbbPhieuPhat
             // 
@@ -146,35 +115,64 @@
             this.cbbPhieuPhat.TabIndex = 6;
             this.cbbPhieuPhat.SelectedIndexChanged += new System.EventHandler(this.cbbPhieuPhat_SelectedIndexChanged);
             // 
-            // btn_search
+            // DTP_end
             // 
-            this.btn_search.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
-
-            this.btn_search.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_search.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
-            this.btn_search.ForeColor = System.Drawing.Color.White;
-            this.btn_search.Location = new System.Drawing.Point(85, 55);
-            this.btn_search.Name = "btn_search";
-            this.btn_search.Size = new System.Drawing.Size(120, 35);
-            this.btn_search.TabIndex = 7;
-            this.btn_search.Text = "Tìm kiếm";
-            this.btn_search.UseVisualStyleBackColor = false;
-            this.btn_search.Click += new System.EventHandler(this.btn_search_Click);
+            this.DTP_end.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.DTP_end.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.DTP_end.Location = new System.Drawing.Point(680, 12);
+            this.DTP_end.Name = "DTP_end";
+            this.DTP_end.Size = new System.Drawing.Size(150, 27);
+            this.DTP_end.TabIndex = 5;
             // 
-            // btn_resest
+            // lb_dateEnd
             // 
-            this.btn_resest.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(175)))), ((int)(((byte)(80)))));
-
-            this.btn_resest.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_resest.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
-            this.btn_resest.ForeColor = System.Drawing.Color.White;
-            this.btn_resest.Location = new System.Drawing.Point(215, 55);
-            this.btn_resest.Name = "btn_resest";
-            this.btn_resest.Size = new System.Drawing.Size(120, 35);
-            this.btn_resest.TabIndex = 8;
-            this.btn_resest.Text = "Làm mới";
-            this.btn_resest.UseVisualStyleBackColor = false;
-            this.btn_resest.Click += new System.EventHandler(this.btn_resest_Click);
+            this.lb_dateEnd.AutoSize = true;
+            this.lb_dateEnd.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.lb_dateEnd.Location = new System.Drawing.Point(600, 15);
+            this.lb_dateEnd.Name = "lb_dateEnd";
+            this.lb_dateEnd.Size = new System.Drawing.Size(75, 20);
+            this.lb_dateEnd.TabIndex = 4;
+            this.lb_dateEnd.Text = "Đến ngày:";
+            this.lb_dateEnd.Click += new System.EventHandler(this.lb_dateEnd_Click);
+            // 
+            // DTP_begin
+            // 
+            this.DTP_begin.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.DTP_begin.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.DTP_begin.Location = new System.Drawing.Point(430, 12);
+            this.DTP_begin.Name = "DTP_begin";
+            this.DTP_begin.Size = new System.Drawing.Size(150, 27);
+            this.DTP_begin.TabIndex = 3;
+            this.DTP_begin.ValueChanged += new System.EventHandler(this.DTP_begin_ValueChanged);
+            // 
+            // lb_datebegin
+            // 
+            this.lb_datebegin.AutoSize = true;
+            this.lb_datebegin.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.lb_datebegin.Location = new System.Drawing.Point(360, 15);
+            this.lb_datebegin.Name = "lb_datebegin";
+            this.lb_datebegin.Size = new System.Drawing.Size(65, 20);
+            this.lb_datebegin.TabIndex = 2;
+            this.lb_datebegin.Text = "Từ ngày:";
+            // 
+            // tb_search
+            // 
+            this.tb_search.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.tb_search.Location = new System.Drawing.Point(85, 12);
+            this.tb_search.Name = "tb_search";
+            this.tb_search.Size = new System.Drawing.Size(250, 27);
+            this.tb_search.TabIndex = 1;
+            this.tb_search.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.label1.Location = new System.Drawing.Point(15, 15);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(73, 20);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Tìm kiếm:";
             // 
             // panelContentPhieuPhat
             // 
@@ -183,7 +181,7 @@
             this.panelContentPhieuPhat.Location = new System.Drawing.Point(0, 100);
             this.panelContentPhieuPhat.Name = "panelContentPhieuPhat";
             this.panelContentPhieuPhat.Padding = new System.Windows.Forms.Padding(15, 10, 15, 15);
-            this.panelContentPhieuPhat.Size = new System.Drawing.Size(1142, 625);
+            this.panelContentPhieuPhat.Size = new System.Drawing.Size(1332, 585);
             this.panelContentPhieuPhat.TabIndex = 1;
             // 
             // dgvPhieuPhat
@@ -207,6 +205,7 @@
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dgvPhieuPhat.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.dgvPhieuPhat.ColumnHeadersHeight = 40;
+            this.dgvPhieuPhat.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgvPhieuPhat.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.colID,
             this.colTen,
@@ -233,7 +232,7 @@
             this.dgvPhieuPhat.RowHeadersWidth = 51;
             this.dgvPhieuPhat.RowTemplate.Height = 35;
             this.dgvPhieuPhat.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvPhieuPhat.Size = new System.Drawing.Size(1112, 600);
+            this.dgvPhieuPhat.Size = new System.Drawing.Size(1302, 560);
             this.dgvPhieuPhat.TabIndex = 0;
             this.dgvPhieuPhat.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvPhieuPhat_CellContentClick);
             // 
@@ -263,7 +262,6 @@
             // 
             // colNgayPhat
             // 
-            this.colNgayPhat.FillWeight = 100F;
             this.colNgayPhat.HeaderText = "Ngày Phạt";
             this.colNgayPhat.MinimumWidth = 6;
             this.colNgayPhat.Name = "colNgayPhat";
@@ -284,7 +282,7 @@
             this.Controls.Add(this.panelContentPhieuPhat);
             this.Controls.Add(this.panelTop);
             this.Name = "PhieuPhat";
-            this.Size = new System.Drawing.Size(1142, 725);
+            this.Size = new System.Drawing.Size(1332, 685);
             this.Load += new System.EventHandler(this.PhieuPhat_Load);
             this.panelTop.ResumeLayout(false);
             this.panelTop.PerformLayout();

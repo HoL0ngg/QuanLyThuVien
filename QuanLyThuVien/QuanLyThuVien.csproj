@@ -392,7 +392,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="assets\img\" />
     <Folder Include="Fonts\" />
     <Folder Include="SQL\" />
   </ItemGroup>
@@ -490,6 +489,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="assets\img\library.png" />
     <Content Include="database\quanlythuvien.sql" />
     <None Include="Resources\nhanvien.png" />
     <None Include="Resources\phanquyen.png" />

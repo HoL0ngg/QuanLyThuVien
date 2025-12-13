@@ -205,8 +205,6 @@ namespace QuanLyThuVien.GUI
                     row.Cells["TenDauSach"].ToolTipText = "Nhấn đúp để xem danh sách sách";
                 }
             }
-
-            CustomizeColumns();
         }
 
         private List<int> GetSelectedDauSachIDs()
