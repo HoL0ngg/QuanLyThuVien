@@ -27,14 +27,14 @@ namespace QuanLyThuVien.GUI
             SetupComponents();
         }
 
-        public PhieuTraGUI(TaiKhoanDTO user) : this()
-        {
-            this.CurrentUser = user;
-            if (user != null)
-            {
-                maNhanVien = user.MaNV;
-            }
-        }
+        //public PhieuTraGUI(TaiKhoanDTO user) : this()
+        //{
+        //    this.CurrentUser = user;
+        //    if (user != null)
+        //    {
+        //        maNhanVien = user.MaNV;
+        //    }
+        //}
 
         /// <summary>
         /// Khởi tạo ActionButtonsUC
@@ -105,6 +105,10 @@ namespace QuanLyThuVien.GUI
                 new DataGridViewTextBoxColumn { Name = "TenTacGia", HeaderText = "Tác Giả", DataPropertyName = "TenTacGia" },
                 new DataGridViewTextBoxColumn { Name = "TrangThai", HeaderText = "Trạng Thái", DataPropertyName = "TrangThai" }
             });
+
+            // Ensure the CellFormatting event is attached so that numeric trang thai values are shown as text
+            dataGridView2.CellFormatting -= BangPhieuMuon_CellFormatting;
+            dataGridView2.CellFormatting += BangPhieuMuon_CellFormatting;
 
             dataGridView2.DataSource = chiTietList;
 
@@ -222,10 +226,9 @@ namespace QuanLyThuVien.GUI
             if (value == null || !int.TryParse(value.ToString(), out int v)) return string.Empty;
             switch (v)
             {
-                case 1: return "Tra dung han";
-                case 2: return "Tra muon";
-                case 3: return "Lam hong";
-                case 4: return "Lam mat";
+                case 1: return "Bình thường";
+                case 2: return "Hỏng";
+                case 3: return "Mất";
                 default: return v.ToString();
             }
         }

@@ -56,64 +56,88 @@ namespace QuanLyThuVien.GUI
         }
         private void FormChiTietPhieuPhat_Load(object sender, EventArgs e)
         {
+            // Đảm bảo Grid tự động tạo cột nếu chưa có cấu hình
+            dgv.AutoGenerateColumns = true;
             LoadData();
         }
+
         private void LoadData()
         {
             try
             {
                 DataTable dt;
-
                 if (_isHistory)
                 {
-                    // TRƯỜNG HỢP 1: ĐÃ LƯU -> Gọi BUS lấy từ bảng ctphieu_phat
+                    // Lấy phiếu phạt đã lưu
                     dt = PhieuPhatBUS.Instance.GetChiTietPhieuPhatDaLuu(_id);
                 }
                 else
                 {
-                    // TRƯỜNG HỢP 2: CHƯA LƯU -> Gọi BUS tính toán từ phieu_tra
+                    // Xem trước phiếu phạt (từ phiếu trả)
                     dt = PhieuPhatBUS.Instance.GetChiTietPhieuPhat(_id);
                 }
 
+                // Kiểm tra xem có dữ liệu không
+                if (dt == null || dt.Rows.Count == 0)
+                {
+                    // Nếu không có lỗi vi phạm nào, thông báo và không làm gì thêm
+                    if (!_isHistory) MessageBox.Show("Phiếu trả này không có lỗi vi phạm nào cần phạt.", "Thông báo");
+                    dgv.DataSource = null;
+                    return;
+                }
+
                 dgv.DataSource = dt;
-                FormatGrid(dt); // Gọi hàm format giao diện (code hàm này ở dưới)
+                FormatGrid(dt); // Format lại tên cột cho đẹp
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Lỗi tải dữ liệu: " + ex.Message);
             }
         }
+
         private void FormatGrid(DataTable dt)
         {
-            if (dt == null || dt.Rows.Count == 0) return;
-
-            dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
+            // Cấu hình giao diện bảng
+            dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill; // Giãn đều cột
             dgv.ColumnHeadersHeight = 40;
 
-            // Ẩn các cột ID hệ thống
-            string[] hiddenCols = { "MaPhieuTra", "MaPhieuPhat", "MaCTPhieuPhat" };
+            // 1. Ẩn các cột ID hệ thống (Nếu cột đó tồn tại)
+            string[] hiddenCols = { "MaPhieuTra", "MaPhieuPhat", "MaCTPhieuPhat", "MaSach" };
             foreach (string col in hiddenCols)
             {
                 if (dgv.Columns.Contains(col)) dgv.Columns[col].Visible = false;
             }
 
-            // Đặt tên cột hiển thị
-            if (dgv.Columns.Contains("TenDauSach")) dgv.Columns["TenDauSach"].HeaderText = "Tên Sách";
-            if (dgv.Columns.Contains("NgayTra")) dgv.Columns["NgayTra"].HeaderText = "Ngày Trả";
-            if (dgv.Columns.Contains("NgayTraDuKien")) dgv.Columns["NgayTraDuKien"].HeaderText = "Hạn Trả";
+            // 2. Đặt tên tiếng Việt cho cột (Kiểm tra cột tồn tại trước khi gán)
+            if (dgv.Columns.Contains("TenDauSach"))
+            {
+                dgv.Columns["TenDauSach"].HeaderText = "Tên Sách";
+                dgv.Columns["TenDauSach"].FillWeight = 200; // Cột tên sách rộng gấp đôi các cột khác
+            }
+
+            if (dgv.Columns.Contains("NgayTra"))
+            {
+                dgv.Columns["NgayTra"].HeaderText = "Ngày Trả";
+                dgv.Columns["NgayTra"].DefaultCellStyle.Format = "dd/MM/yyyy";
+            }
+
+            if (dgv.Columns.Contains("NgayTraDuKien"))
+            {
+                dgv.Columns["NgayTraDuKien"].HeaderText = "Hạn Trả";
+                dgv.Columns["NgayTraDuKien"].DefaultCellStyle.Format = "dd/MM/yyyy";
+            }
+
             if (dgv.Columns.Contains("SoNgayTre")) dgv.Columns["SoNgayTre"].HeaderText = "Trễ (Ngày)";
             if (dgv.Columns.Contains("TinhTrangSach")) dgv.Columns["TinhTrangSach"].HeaderText = "Lỗi Vi Phạm";
-            if (dgv.Columns.Contains("TongTienPhat")) dgv.Columns["TongTienPhat"].HeaderText = "Tiền Phạt";
 
-            // Căn chỉnh độ rộng
-            if (dgv.Columns.Contains("TenDauSach")) dgv.Columns["TenDauSach"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             if (dgv.Columns.Contains("TongTienPhat"))
             {
-                dgv.Columns["TongTienPhat"].DefaultCellStyle.Format = "N0";
+                dgv.Columns["TongTienPhat"].HeaderText = "Tiền Phạt";
+                dgv.Columns["TongTienPhat"].DefaultCellStyle.Format = "N0"; // Định dạng số tiền (ví dụ: 50,000)
                 dgv.Columns["TongTienPhat"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
             }
 
-            // Tính tổng tiền hiển thị lên Label
+            // 3. Tính tổng tiền hiển thị lên Label
             long tongTien = 0;
             foreach (DataRow row in dt.Rows)
             {
@@ -122,86 +146,5 @@ namespace QuanLyThuVien.GUI
             }
             if (lblTongTien != null) lblTongTien.Text = $"Tổng cộng: {tongTien:N0} VNĐ";
         }
-
-
-        private void LoadDetails()
-        {
-            try
-            {
-                DataTable dt = PhieuPhatBUS.Instance.GetChiTietPhieuPhat(_maPhieuPhat);
-                dgv.DataSource = dt;
-
-                if (dt != null && dt.Rows.Count > 0)
-                {
-                    // --- 1. CẤU HÌNH CƠ BẢN CHO GRID ---
-                    // Tắt tự động giãn toàn bộ để tránh bị vỡ giao diện như trong hình
-                    dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
-
-                    // Chỉnh chiều cao tiêu đề cột cho thoáng
-                    dgv.ColumnHeadersHeight = 40;
-                    dgv.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-
-                    // --- 2. ĐẶT TÊN CỘT TIẾNG VIỆT ---
-                    dgv.Columns["MaPhieuTra"].HeaderText = "Mã PT";
-                    dgv.Columns["TenDauSach"].HeaderText = "Tên Sách";
-                    dgv.Columns["NgayTra"].HeaderText = "Ngày Trả";
-                    dgv.Columns["NgayTraDuKien"].HeaderText = "Hạn Trả";
-                    dgv.Columns["SoNgayTre"].HeaderText = "Trễ (Ngày)";
-                    dgv.Columns["TinhTrangSach"].HeaderText = "Tình Trạng";
-                    dgv.Columns["TongTienPhat"].HeaderText = "Tiền Phạt";
-
-                    // --- 3. ẨN CỘT KHÔNG CẦN THIẾT ---
-                    dgv.Columns["MaPhieuTra"].Visible = false;
-
-                    // --- 4. SET ĐỘ RỘNG (WIDTH) CỐ ĐỊNH CHO CÁC CỘT NHỎ ---
-                    dgv.Columns["NgayTra"].Width = 100;
-                    dgv.Columns["NgayTraDuKien"].Width = 100;
-                    dgv.Columns["SoNgayTre"].Width = 90;
-                    dgv.Columns["TinhTrangSach"].Width = 100;
-                    dgv.Columns["TongTienPhat"].Width = 130;
-
-                    // --- 5. QUAN TRỌNG: CHO CỘT TÊN SÁCH GIÃN HẾT PHẦN CÒN LẠI ---
-                    // Phải đặt dòng này SAU khi đã set width cho các cột kia
-                    dgv.Columns["TenDauSach"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-
-                    // --- 6. ĐỊNH DẠNG DỮ LIỆU (FORMAT) ---
-                    dgv.Columns["NgayTra"].DefaultCellStyle.Format = "dd/MM/yyyy";
-                    dgv.Columns["NgayTra"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-
-                    dgv.Columns["NgayTraDuKien"].DefaultCellStyle.Format = "dd/MM/yyyy";
-                    dgv.Columns["NgayTraDuKien"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-
-                    dgv.Columns["SoNgayTre"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-                    dgv.Columns["TinhTrangSach"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-
-                    dgv.Columns["TongTienPhat"].DefaultCellStyle.Format = "N0"; // 3,600
-                    dgv.Columns["TongTienPhat"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-
-                    // --- 7. TÍNH TỔNG TIỀN ---
-                    decimal tongTien = 0;
-                    foreach (DataRow row in dt.Rows)
-                    {
-                        if (row["TongTienPhat"] != DBNull.Value)
-                        {
-                            tongTien += Convert.ToDecimal(row["TongTienPhat"]);
-                        }
-                    }
-
-                    // Cập nhật Label tổng tiền (nếu có)
-                    if (lblTongTien != null)
-                    {
-                        lblTongTien.Text = $"Tổng cộng: {tongTien.ToString("N0")} VNĐ";
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("Không có dữ liệu.", "Thông báo");
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Lỗi: " + ex.Message);
-            }
-        }
     }
-}
+    }

@@ -1,4 +1,5 @@
 ﻿using QuanLyThuVien.DAO;
+using QuanLyThuVien.DTO;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -17,6 +18,13 @@ namespace QuanLyThuVien.BUS
         public DataTable GetAllTacGia()
         {
             return TacGiaDAO.Instance.GetAllTacGia();
+        }
+
+        public bool Create(TacGiaDTO tg)
+        {
+            if (tg == null) return false;
+            if (string.IsNullOrWhiteSpace(tg.tenTacGia)) throw new ArgumentException("Tên tác giả không được để trống");
+            return TacGiaDAO.Instance.Create(tg);
         }
     }
 }

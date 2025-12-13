@@ -296,7 +296,7 @@ namespace QuanLyThuVien.BUS
         /// <summary>
         /// Thêm đầu sách mới
         /// </summary>
-        public bool AddDauSach(string tenDauSach, int maNXB, string hinhAnhPath, string namXuatBan, string ngonNgu, List<int> maTacGiaList)
+        public bool AddDauSach(string tenDauSach, int maNXB, string hinhAnhPath, string namXuatBan, string ngonNgu, List<int> maTacGiaList, int soLuong)
         {
             // Validation với LINQ
             if (string.IsNullOrWhiteSpace(tenDauSach))
@@ -308,6 +308,9 @@ namespace QuanLyThuVien.BUS
             if (maTacGiaList == null || !maTacGiaList.Any())
                 throw new ArgumentException("Sách phải có ít nhất 1 tác giả!");
 
+            if (soLuong < 0)
+                throw new ArgumentException("Số lượng sách không hợp lệ!");
+
             // LINQ: Loại bỏ mã tác giả trùng lặp
             var uniqueTacGiaList = maTacGiaList.Distinct().ToList();
 
@@ -317,7 +320,8 @@ namespace QuanLyThuVien.BUS
                 hinhAnhPath, 
                 namXuatBan, 
                 ngonNgu, 
-                uniqueTacGiaList
+                uniqueTacGiaList,
+                soLuong
             );
         }
 

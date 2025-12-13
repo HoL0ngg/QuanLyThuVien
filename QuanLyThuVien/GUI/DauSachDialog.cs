@@ -286,7 +286,10 @@ namespace QuanLyThuVien.GUI
                 
                 if (mode == "ADD")
                 {
-                    result = DauSachBUS.Instance.AddDauSach(tenSach, maNXB, this.newImagePath, namXuatBan, ngonNgu, maTacGiaList);
+                    // TODO: replace 1 with a UI input (NumericUpDown) when you add quantity control
+                    int soLuong = 1;
+                    result = DauSachBUS.Instance.AddDauSach(
+                        tenSach, maNXB, this.newImagePath, namXuatBan, ngonNgu, maTacGiaList, soLuong);
                     
                     if (result)
                     {

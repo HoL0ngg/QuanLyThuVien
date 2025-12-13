@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th12 11, 2025 lúc 05:26 PM
+-- Thời gian đã tạo: Th12 12, 2025 lúc 08:54 PM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.2.12
 
@@ -196,7 +196,20 @@ INSERT INTO `ctphieu_muon` (`MaPhieuMuon`, `MaSach`) VALUES
 (10, 7),
 (21, 3),
 (21, 7),
-(21, 10);
+(21, 10),
+(25, 11),
+(25, 12),
+(26, 11),
+(26, 12),
+(27, 3),
+(27, 6),
+(28, 12),
+(29, 12),
+(30, 6),
+(30, 11),
+(30, 12),
+(31, 11),
+(31, 12);
 
 -- --------------------------------------------------------
 
@@ -220,7 +233,8 @@ INSERT INTO `ctphieu_nhap` (`MaPhieuNhap`, `MaDauSach`, `SoLuong`, `DonGia`) VAL
 (1, 4, 200, 100000),
 (1, 6, 10, 100000),
 (1, 8, 30, 100000),
-(2, 9, 200, 100000);
+(2, 11, 100, 150000),
+(2, 12, 100, 150000);
 
 -- --------------------------------------------------------
 
@@ -241,14 +255,17 @@ CREATE TABLE `ctphieu_phat` (
 --
 
 INSERT INTO `ctphieu_phat` (`TienPhat`, `MaSach`, `MaPhieuPhat`, `MaCTPhieuPhat`, `TrangThai`) VALUES
-(100000, 5, 51, 13, 0),
-(2800, 9, 52, 14, 0),
-(78000, 2, 53, 15, 0),
-(20000, 1, 54, 16, 0),
-(80000, 8, 55, 17, 0),
-(64800, 7, 56, 18, 0),
-(1800, 4, 57, 19, 0),
-(39000, 3, 58, 20, 0);
+(5000, 1, 59, 21, 1),
+(20000, 2, 59, 22, 2),
+(15000, 3, 59, 23, 1),
+(100000, 5, 62, 29, 0),
+(2800, 9, 63, 30, 0),
+(78000, 2, 64, 31, 0),
+(20000, 1, 65, 32, 0),
+(80000, 8, 66, 33, 0),
+(64800, 7, 67, 34, 0),
+(1800, 4, 68, 35, 0),
+(39000, 3, 69, 36, 0);
 
 -- --------------------------------------------------------
 
@@ -342,7 +359,10 @@ INSERT INTO `dau_sach` (`MaDauSach`, `TenDauSach`, `HinhAnh`, `NhaXuatBan`, `Nam
 (7, 'Sherlock Holmes - Tập 1', 'sherlock1.jpg', '5', '1892', 'Tiếng Anh', 55, 120000, 1),
 (8, 'Không Gia Đình', 'khong_gia_dinh.jpg', '1', '1878', 'Tiếng Việt', 70, 80000, 1),
 (9, 'One Piece - Tập 1', 'onepiece_tap1.jpg', '1', '1997', 'Tiếng Việt', 150, 70000, 1),
-(10, 'Around the World in 80 Days', 'around80days.jpg', '6', '1873', 'Tiếng Anh', 30, 60000, 1);
+(10, 'Around the World in 80 Days', 'around80days.jpg', '6', '1873', 'Tiếng Anh', 30, 60000, 1),
+(11, 'Naruto Tập 1', 'assets\\img\\c667e781-b59f-45df-95de-b814dacba34f.jpg', '6', '2020', 'Tiếng Việt', 100, NULL, 1),
+(12, 'Jujutsu KaiSen Tập 1', 'assets\\img\\5606e4f2-1c18-4e35-9ef1-6c1becdc0f6f.jpg', '2', '2023', 'Tiếng Việt', 100, NULL, 1),
+(13, 'Jujutsu Kaisen Tập 2', 'assets\\img\\65f20588-acff-45f5-b119-bc0201fc4ef6.jpg', '2', '2023', 'Tiếng Việt', 100, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -372,7 +392,10 @@ INSERT INTO `doc_gia` (`MADG`, `TENDG`, `SDT`, `DIACHI`, `TRANGTHAI`) VALUES
 (7, 'Huỳnh Đức Thịnh', '0922334455', 'Quận 10, TP. HCM', 1),
 (8, 'Bùi Gia Huy', '0945566778', 'Quận Phú Nhuận, TP. HCM', 1),
 (9, 'Phan Minh Nhật', '0956677889', 'TP. Thủ Đức, TP. HCM', 1),
-(10, 'Tạ Thu Trang', '0933221100', 'Quận Gò Vấp, TP. HCM', 1);
+(10, 'Tạ Thu Trang', '0933221100', 'Quận Gò Vấp, TP. HCM', 1),
+(11, 'Mạnh Đức', '0978266452', '149 Lũy Bán bích', 1),
+(12, 'Hoàng Vũ Samson', '034656724', '12 Âu Cơ Hồ Chí MInh', 1),
+(13, 'Giàng A Phò', '0962277269', '100 Trường Trinh Hồ Chí Minh', 1);
 
 -- --------------------------------------------------------
 
@@ -507,7 +530,14 @@ INSERT INTO `phieu_muon` (`MaPhieuMuon`, `NgayMuon`, `NgayTraDuKien`, `trangthai
 (8, '2025-01-15', '2025-01-22', 1, 8, 2),
 (9, '2025-01-16', '2025-01-23', 3, 9, 2),
 (10, '2025-01-17', '2025-01-24', 1, 10, 2),
-(21, '2025-12-10', '2025-12-17', 1, 1, 1);
+(21, '2025-12-10', '2025-12-17', 1, 1, 1),
+(25, '2025-12-13', '2025-12-20', 1, 11, 1),
+(26, '2025-12-13', '2025-12-20', 1, 11, 1),
+(27, '2025-12-13', '2025-12-20', 1, 11, 1),
+(28, '2025-12-13', '2025-12-20', 1, 12, 1),
+(29, '2025-12-13', '2025-12-20', 1, 13, 1),
+(30, '2025-12-13', '2025-12-20', 1, 13, 1),
+(31, '2025-12-13', '2025-12-20', 1, 11, 1);
 
 -- --------------------------------------------------------
 
@@ -529,7 +559,8 @@ CREATE TABLE `phieu_nhap` (
 INSERT INTO `phieu_nhap` (`MaPhieuNhap`, `ThoiGian`, `MaNV`, `MaNCC`) VALUES
 (1, '2025-12-11', 3, 7),
 (2, '2025-09-25', 1, 4),
-(3, '2025-12-24', 3, 4);
+(3, '2025-12-24', 3, 4),
+(4, '2025-12-12', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -551,14 +582,15 @@ CREATE TABLE `phieu_phat` (
 --
 
 INSERT INTO `phieu_phat` (`MaPhieuPhat`, `NgayPhat`, `TrangThai`, `MaPhieuTra`, `Ngaytra`, `MaDG`) VALUES
-(51, '2025-12-11', 1, 10, NULL, 10),
-(52, '2025-12-11', 1, 9, NULL, 9),
-(53, '2025-12-11', 1, 8, NULL, 8),
-(54, '2025-12-11', 1, 7, NULL, 7),
-(55, '2025-12-11', 1, 5, NULL, 5),
-(56, '2025-12-11', 1, 4, NULL, 4),
-(57, '2025-12-11', 1, 3, NULL, 3),
-(58, '2025-12-11', 1, 2, NULL, 2);
+(59, '2025-12-12', 1, 1, '2025-01-12', 1),
+(62, '2025-12-11', 1, 10, NULL, 10),
+(63, '2025-12-11', 1, 9, '2025-12-11', 9),
+(64, '2025-12-11', 1, 8, '2025-12-11', 8),
+(65, '2025-12-11', 1, 7, '2025-12-11', 7),
+(66, '2025-12-11', 0, 5, '2025-12-11', 5),
+(67, '2025-12-11', 0, 4, '2025-12-11', 4),
+(68, '2025-12-11', 0, 3, '2025-12-11', 3),
+(69, '2025-12-11', 0, 2, '2025-12-11', 2);
 
 -- --------------------------------------------------------
 
@@ -616,7 +648,9 @@ INSERT INTO `sach` (`MaSach`, `trangthai`, `MaDauSach`) VALUES
 (7, 1, 7),
 (8, 1, 8),
 (9, 1, 9),
-(10, 1, 10);
+(10, 1, 10),
+(11, 1, 11),
+(12, 1, 12);
 
 -- --------------------------------------------------------
 
@@ -641,7 +675,10 @@ INSERT INTO `tacgia_dausach` (`MaTacGia`, `MaDauSach`) VALUES
 (4, 8),
 (5, 3),
 (7, 7),
-(10, 10);
+(10, 10),
+(11, 11),
+(12, 12),
+(12, 13);
 
 -- --------------------------------------------------------
 
@@ -670,7 +707,9 @@ INSERT INTO `tac_gia` (`MaTacGia`, `TenTacGia`, `NamSinh`, `QuocTich`) VALUES
 (7, 'George Orwell', '1903-06-25', 'Anh'),
 (8, 'Ernest Hemingway', '1899-07-21', 'Mỹ'),
 (9, 'Paulo Coelho', '1947-08-24', 'Brazil'),
-(10, 'Lev Tolstoy', '1828-09-09', 'Nga');
+(10, 'Lev Tolstoy', '1828-09-09', 'Nga'),
+(11, 'Kishimoto Masashi', '1974-11-08', 'Nhật Bản'),
+(12, 'Gege Akutami', '1992-12-13', 'Nhật Bản');
 
 -- --------------------------------------------------------
 
@@ -874,13 +913,13 @@ ALTER TABLE `chuc_nang`
 -- AUTO_INCREMENT cho bảng `ctphieu_muon`
 --
 ALTER TABLE `ctphieu_muon`
-  MODIFY `MaPhieuMuon` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `MaPhieuMuon` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT cho bảng `ctphieu_phat`
 --
 ALTER TABLE `ctphieu_phat`
-  MODIFY `MaCTPhieuPhat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `MaCTPhieuPhat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT cho bảng `ctphieu_tra`
@@ -898,13 +937,13 @@ ALTER TABLE `ctthe_loai`
 -- AUTO_INCREMENT cho bảng `dau_sach`
 --
 ALTER TABLE `dau_sach`
-  MODIFY `MaDauSach` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `MaDauSach` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT cho bảng `doc_gia`
 --
 ALTER TABLE `doc_gia`
-  MODIFY `MADG` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `MADG` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT cho bảng `nhan_vien`
@@ -928,19 +967,19 @@ ALTER TABLE `nha_xuat_ban`
 -- AUTO_INCREMENT cho bảng `phieu_muon`
 --
 ALTER TABLE `phieu_muon`
-  MODIFY `MaPhieuMuon` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `MaPhieuMuon` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT cho bảng `phieu_nhap`
 --
 ALTER TABLE `phieu_nhap`
-  MODIFY `MaPhieuNhap` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `MaPhieuNhap` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT cho bảng `phieu_phat`
 --
 ALTER TABLE `phieu_phat`
-  MODIFY `MaPhieuPhat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
+  MODIFY `MaPhieuPhat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
 
 --
 -- AUTO_INCREMENT cho bảng `phieu_tra`
@@ -952,13 +991,13 @@ ALTER TABLE `phieu_tra`
 -- AUTO_INCREMENT cho bảng `sach`
 --
 ALTER TABLE `sach`
-  MODIFY `MaSach` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `MaSach` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT cho bảng `tac_gia`
 --
 ALTER TABLE `tac_gia`
-  MODIFY `MaTacGia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `MaTacGia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- Các ràng buộc cho các bảng đã đổ
@@ -1030,6 +1069,12 @@ ALTER TABLE `phieu_phat`
 --
 ALTER TABLE `phieu_tra`
   ADD CONSTRAINT `phieu_tra_ibfk_1` FOREIGN KEY (`MaPhieuMuon`) REFERENCES `phieu_muon` (`MaPhieuMuon`);
+
+--
+-- Các ràng buộc cho bảng `sach`
+--
+ALTER TABLE `sach`
+  ADD CONSTRAINT `sach_ibfk_1` FOREIGN KEY (`MaDauSach`) REFERENCES `dau_sach` (`MaDauSach`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

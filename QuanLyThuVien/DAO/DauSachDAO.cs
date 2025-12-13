@@ -202,7 +202,7 @@ namespace QuanLyThuVien.DAO
         /// <summary>
         /// Thêm đầu sách mới
         /// </summary>
-        public bool AddDauSach(string tenDauSach, int maNXB, string hinhAnhPath, string namXuatBan, string ngonNgu, List<int> maTacGiaList)
+        public bool AddDauSach(string tenDauSach, int maNXB, string hinhAnhPath, string namXuatBan, string ngonNgu, List<int> maTacGiaList, int soLuong)
         {
             using (MySqlConnection connection = DataProvider.GetConnection())
             {
@@ -210,13 +210,13 @@ namespace QuanLyThuVien.DAO
                 MySqlTransaction transaction = connection.BeginTransaction();
                 MySqlCommand command = connection.CreateCommand();
                 command.Transaction = transaction;
-                
+
                 try
                 {
-                    // Thêm đầu sách
+                    // Thêm đầu sách (lưu SoLuong vào cột)
                     string queryDauSach = @"
-                        INSERT INTO dau_sach (TenDauSach, NhaXuatBan, HinhAnh, NamXuatBan, NgonNgu)
-                        VALUES (@tenDauSach, @maNXB, @hinhAnhPath, @namXuatBan, @ngonNgu); 
+                        INSERT INTO dau_sach (TenDauSach, NhaXuatBan, HinhAnh, NamXuatBan, NgonNgu, SoLuong)
+                        VALUES (@tenDauSach, @maNXB, @hinhAnhPath, @namXuatBan, @ngonNgu, @soLuong); 
                         SELECT LAST_INSERT_ID();";
 
                     command.CommandText = queryDauSach;
@@ -225,6 +225,7 @@ namespace QuanLyThuVien.DAO
                     command.Parameters.AddWithValue("@hinhAnhPath", hinhAnhPath);
                     command.Parameters.AddWithValue("@namXuatBan", namXuatBan);
                     command.Parameters.AddWithValue("@ngonNgu", ngonNgu);
+                    command.Parameters.AddWithValue("@soLuong", soLuong);
 
                     int newMaDauSach = Convert.ToInt32(command.ExecuteScalar());
 
@@ -252,6 +253,30 @@ namespace QuanLyThuVien.DAO
 
                         queryTacGia.Append(string.Join(", ", valuesList));
                         command.CommandText = queryTacGia.ToString();
+                        command.ExecuteNonQuery();
+                    }
+
+                    // Thêm bản vật lý sách vào bảng `sach` theo soLuong
+                    if (soLuong > 0)
+                    {
+                        command.Parameters.Clear();
+
+                        var sb = new StringBuilder();
+                        sb.Append("INSERT INTO sach (trangthai, MaDauSach) VALUES ");
+
+                        var valueList = new List<string>();
+                        for (int i = 0; i < soLuong; i++)
+                        {
+                            string trangParam = "@tr" + i;
+                            string maParam = "@mds" + i;
+                            valueList.Add($"({trangParam}, {maParam})");
+                            command.Parameters.AddWithValue(trangParam, 1);
+                            command.Parameters.AddWithValue(maParam, newMaDauSach);
+                        }
+
+                        sb.Append(string.Join(", ", valueList));
+                        command.CommandText = sb.ToString();
+
                         command.ExecuteNonQuery();
                     }
 

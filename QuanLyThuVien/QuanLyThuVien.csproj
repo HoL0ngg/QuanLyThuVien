@@ -200,6 +200,12 @@
     <Compile Include="GUI\DocGia.Designer.cs">
       <DependentUpon>DocGia.cs</DependentUpon>
     </Compile>
+    <Compile Include="GUI\FormThemTacGia.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\FormThemTacGia.Designer.cs">
+      <DependentUpon>FormThemTacGia.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI\FormDoiMatKhau.cs">
       <SubType>Form</SubType>
     </Compile>

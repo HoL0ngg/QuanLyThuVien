@@ -32,11 +32,13 @@ namespace QuanLyThuVien.GUI.phieutra
 
         public void setUpTable()
         {
-            var listLoai = new List<object>()
-            {   new { MaLoai = 1, TenLoai = "Trả đúng hạn" },
-                new { MaLoai = 2, TenLoai = "Trả muộn" },
-                new { MaLoai = 3, TenLoai = "Làm hỏng" },
-                new { MaLoai = 4, TenLoai = "Làm mất" }
+            // Map combo values to CTPhieuTra.TrangThai semantics:
+            // 1 = Bình thường (bao gồm trả đúng hạn và trả muộn), 2 = Hỏng, 3 = Mất
+            var listLoai = new List<object>() { 
+            //{   new { MaLoai = 1, TenLoai = "Trả đúng hạn" },
+                new { MaLoai = 1, TenLoai = "Trả muộn" },
+                new { MaLoai = 2, TenLoai = "Làm hỏng" },
+                new { MaLoai = 3, TenLoai = "Làm mất" }
             };
 
             StatusColumn.DataSource = listLoai;
@@ -50,6 +52,24 @@ namespace QuanLyThuVien.GUI.phieutra
             dataGridView1.AutoGenerateColumns = false;
         }
 
+        private static int NormalizeTrangThai(object rawValue)
+        {
+            if (rawValue == null) return 1;
+            int v;
+            if (!int.TryParse(rawValue.ToString(), out v)) return 1;
+
+            // Legacy mapping from old UI values to stored semantics
+            // Old: 1=Trả đúng hạn, 2=Trả muộn, 3=Làm hỏng, 4=Làm mất
+            // Desired storage: 1=Bình thường, 2=Hỏng, 3=Mất
+            switch (v)
+            {
+                case 1: return 1; // trả đúng hạn -> bình thường
+                case 2: return 2; // trả muộn -> bình thường
+                case 3: return 3; // làm hỏng -> hỏng
+                 // làm mất -> mất
+                default: return v; // unknown -> keep
+            }
+        }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -74,13 +94,15 @@ namespace QuanLyThuVien.GUI.phieutra
                 if (ctpm == null) continue;
 
                 var statusCell = row.Cells["StatusColumn"] as DataGridViewComboBoxCell;
-                int trangThai = Convert.ToInt32(statusCell?.Value ?? 1); 
+                int rawTrangThai = statusCell?.Value != null ? Convert.ToInt32(statusCell.Value) : 1;
+
+                int trangThai = NormalizeTrangThai(rawTrangThai);
 
                 var ctpt = new CTPhieuTraDTO
                 {
                     MaSach = ctpm.MaSach,
                     TrangThai = trangThai 
-                                             
+                                              
                 };
 
                 pt.list.Add(ctpt);

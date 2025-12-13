@@ -498,35 +498,27 @@ namespace QuanLyThuVien.DAO
         public DataTable GetListChiTietDaLuu(int maPhieuPhat)
         {
             string query = @"
-                SELECT 
-                    ctpp.MaCTPhieuPhat,
-                    ds.TenDauSach,
-                    pt.NgayTra,
-                    pm.NgayTraDuKien,
-
-                    -- 1. Số ngày trễ (Tính dựa trên ngày trả và ngày dự kiến)
-                    GREATEST(DATEDIFF(pt.NgayTra, pm.NgayTraDuKien), 0) AS SoNgayTre,
-
-                    -- 2. Tình trạng sách (Lấy từ cột TrangThai đã lưu trong chi tiết phạt)
-                    CASE 
-                        WHEN ctpp.TrangThai = 2 THEN 'Hỏng'
-                        WHEN ctpp.TrangThai = 3 THEN 'Mất'
-                        WHEN GREATEST(DATEDIFF(pt.NgayTra, pm.NgayTraDuKien), 0) > 0 THEN 'Quá hạn'
-                        ELSE 'Khác'
-                    END AS TinhTrangSach,
-
-                    -- 3. Tiền Phạt (Lấy trực tiếp số tiền ĐÃ LƯU trong DB, không tính lại)
-                    ctpp.TienPhat AS TongTienPhat
-                    
-
-                FROM ctphieu_phat ctpp
-                JOIN phieu_phat pp ON ctpp.MaPhieuPhat = pp.MaPhieuPhat
-                JOIN phieu_tra pt ON pp.MaPhieuTra = pt.MaPhieuTra
-                JOIN phieu_muon pm ON pt.MaPhieuMuon = pm.MaPhieuMuon
-                JOIN sach s ON ctpp.MaSach = s.MaSach
-                JOIN dau_sach ds ON s.MaDauSach = ds.MaDauSach
-
-                WHERE ctpp.MaPhieuPhat = @MaPhieuPhat"; ;
+        SELECT 
+            ctpp.MaCTPhieuPhat,
+            ds.TenDauSach,
+            pt.NgayTra,
+            pm.NgayTraDuKien,
+            GREATEST(DATEDIFF(pt.NgayTra, pm.NgayTraDuKien), 0) AS SoNgayTre,
+            CASE 
+                WHEN ctpp.TrangThai = 2 THEN 'Hỏng'
+                WHEN ctpp.TrangThai = 3 THEN 'Mất'
+                WHEN GREATEST(DATEDIFF(pt.NgayTra, pm.NgayTraDuKien), 0) > 0 THEN 'Quá hạn'
+                ELSE 'Khác'
+            END AS TinhTrangSach,
+            ctpp.TienPhat AS TongTienPhat
+        FROM ctphieu_phat ctpp
+        JOIN phieu_phat pp ON ctpp.MaPhieuPhat = pp.MaPhieuPhat
+        JOIN phieu_tra pt ON pp.MaPhieuTra = pt.MaPhieuTra
+        JOIN phieu_muon pm ON pt.MaPhieuMuon = pm.MaPhieuMuon
+        -- Dùng LEFT JOIN để nếu sách bị xóa thì vẫn hiện dòng phạt (tên sách sẽ null)
+        LEFT JOIN sach s ON ctpp.MaSach = s.MaSach
+        LEFT JOIN dau_sach ds ON s.MaDauSach = ds.MaDauSach
+        WHERE ctpp.MaPhieuPhat = @MaPhieuPhat";
 
             Dictionary<string, object> parameters = new Dictionary<string, object>();
             parameters.Add("@MaPhieuPhat", maPhieuPhat);
