@@ -23,6 +23,7 @@
             this.groupThongTin = new System.Windows.Forms.GroupBox();
             this.txtMaDocGia = new System.Windows.Forms.TextBox();
             this.lblMaDocGia = new System.Windows.Forms.Label();
+            this.btnTimDocGia = new QuanLyThuVien.GUI.Components.CustomButton("Tìm độc giả", "blue");
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.lblNgayMuon = new System.Windows.Forms.Label();
             this.txtNgayMuon = new System.Windows.Forms.TextBox();
@@ -36,6 +37,7 @@
             this.groupChiTiet = new System.Windows.Forms.GroupBox();
             this.dgvCT = new QuanLyThuVien.GUI.CustomDataGridView();
             this.panelBottom = new System.Windows.Forms.Panel();
+            this.btnQuayLai = new QuanLyThuVien.GUI.Components.CustomButton("Quay lại", "blue");
             this.btnHuy = new QuanLyThuVien.GUI.Components.CustomButton("Hủy", "red");
             this.btnThem = new QuanLyThuVien.GUI.Components.CustomButton("Thêm", "green");
             this.groupThongTin.SuspendLayout();
@@ -53,6 +55,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupThongTin.Controls.Add(this.txtMaDocGia);
             this.groupThongTin.Controls.Add(this.lblMaDocGia);
+            this.groupThongTin.Controls.Add(this.btnTimDocGia);
             this.groupThongTin.Controls.Add(this.tableLayoutPanel1);
             this.groupThongTin.Location = new System.Drawing.Point(3, 3);
             this.groupThongTin.Name = "groupThongTin";
@@ -132,6 +135,16 @@
             this.txtMaDocGia.Size = new System.Drawing.Size(283, 20);
             this.txtMaDocGia.TabIndex = 5;
             // 
+            // btnTimDocGia
+            // 
+            this.btnTimDocGia.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left));
+            this.btnTimDocGia.Location = new System.Drawing.Point(382, 73);
+            this.btnTimDocGia.Name = "btnTimDocGia";
+            this.btnTimDocGia.Size = new System.Drawing.Size(90, 23);
+            this.btnTimDocGia.TabIndex = 6;
+            this.btnTimDocGia.Text = "Tìm độc giả";
+            this.btnTimDocGia.UseVisualStyleBackColor = true;
+            // 
             // groupTimSach
             // 
             this.groupTimSach.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -166,7 +179,6 @@
             this.btnTimSach.TabIndex = 2;
             this.btnTimSach.Text = "Tìm";
             this.btnTimSach.UseVisualStyleBackColor = true;
-            this.btnTimSach.Click += new System.EventHandler(this.BtnTimSach_Click);
             // 
             // txtTuKhoaSach
             // 
@@ -214,6 +226,7 @@
             // 
             this.panelBottom.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelBottom.Controls.Add(this.btnQuayLai);
             this.panelBottom.Controls.Add(this.btnHuy);
             this.panelBottom.Controls.Add(this.btnThem);
             this.panelBottom.Location = new System.Drawing.Point(3, 528);
@@ -221,10 +234,20 @@
             this.panelBottom.Size = new System.Drawing.Size(776, 40);
             this.panelBottom.TabIndex = 3;
             // 
+            // btnQuayLai
+            // 
+            this.btnQuayLai.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnQuayLai.Location = new System.Drawing.Point(700, 8);
+            this.btnQuayLai.Name = "btnQuayLai";
+            this.btnQuayLai.Size = new System.Drawing.Size(75, 25);
+            this.btnQuayLai.TabIndex = 2;
+            this.btnQuayLai.Text = "Quay lại";
+            this.btnQuayLai.UseVisualStyleBackColor = true;
+            // 
             // btnHuy
             // 
             this.btnHuy.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnHuy.Location = new System.Drawing.Point(691, 8);
+            this.btnHuy.Location = new System.Drawing.Point(619, 8);
             this.btnHuy.Name = "btnHuy";
             this.btnHuy.Size = new System.Drawing.Size(75, 25);
             this.btnHuy.TabIndex = 1;
@@ -234,7 +257,7 @@
             // btnThem
             // 
             this.btnThem.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnThem.Location = new System.Drawing.Point(610, 8);
+            this.btnThem.Location = new System.Drawing.Point(538, 8);
             this.btnThem.Name = "btnThem";
             this.btnThem.Size = new System.Drawing.Size(75, 25);
             this.btnThem.TabIndex = 0;
@@ -281,9 +304,11 @@
         private System.Windows.Forms.GroupBox groupChiTiet;
         private System.Windows.Forms.DataGridView dgvCT;
         private System.Windows.Forms.Panel panelBottom;
+        private System.Windows.Forms.Button btnQuayLai;
         private System.Windows.Forms.Button btnHuy;
         private System.Windows.Forms.Button btnThem;
         private System.Windows.Forms.Label lblMaDocGia;
         private System.Windows.Forms.TextBox txtMaDocGia;
+        private System.Windows.Forms.Button btnTimDocGia;
     }
 }
