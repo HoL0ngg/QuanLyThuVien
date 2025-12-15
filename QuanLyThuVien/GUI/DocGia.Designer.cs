@@ -31,14 +31,14 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dgvDocGia = new QuanLyThuVien.GUI.CustomDataGridView();
             this.grpTimKiem = new System.Windows.Forms.GroupBox();
-            this.btnClearFilters = new System.Windows.Forms.Button();
+            this.btnClearFilters = new QuanLyThuVien.GUI.Components.CustomButton("Xóa lọc", "red");
             this.lblMaDGSearch = new System.Windows.Forms.Label();
             this.txtMaDGSearch = new System.Windows.Forms.TextBox();
             this.lblTenDGSearch = new System.Windows.Forms.Label();
             this.txtTenDGSearch = new System.Windows.Forms.TextBox();
             this.lblSDTSearch = new System.Windows.Forms.Label();
             this.txtSDTSearch = new System.Windows.Forms.TextBox();
-            this.btnTimKiem = new System.Windows.Forms.Button();
+            this.btnTimKiem = new QuanLyThuVien.GUI.Components.CustomButton("Tìm kiếm", "blue");
             this.grpThongTinDocGia = new System.Windows.Forms.GroupBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDocGia)).BeginInit();
             this.grpTimKiem.SuspendLayout();
