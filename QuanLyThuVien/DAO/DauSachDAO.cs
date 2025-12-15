@@ -387,21 +387,21 @@ namespace QuanLyThuVien.DAO
                 .OrderBy(ds => ds.TenDauSach)
                 .ToList();
         }
-        public bool UpdateSoLuongTonKho(int maDauSach, int soLuongThayDoi)
+        public bool UpdateSoLuongTon(int maDauSach, int soLuongThayDoi)
         {
             string query = "UPDATE dau_sach SET SoLuong = IFNULL(SoLuong, 0) + @SoLuongThayDoi WHERE MaDauSach = @MaDauSach";
 
             var parameters = new Dictionary<String, object>
             {
-                { "@SoLuongThayDoi", soLuongThayDoi }, 
-        
+                { "@SoLuongThayDoi", soLuongThayDoi },
+
                 { "@MaDauSach", maDauSach }
             };
 
             int result = DataProvider.ExecuteNonQuery(query, parameters);
             return result > 0;
         }
-        public bool UpdateGiaDauSach(int maDauSach, double donGia)
+        public bool UpdateGiaBan(int maDauSach, double donGia)
         {
             string query = "UPDATE dau_sach SET Gia = @Gia WHERE MaDauSach = @MaDauSach";
             var param = new Dictionary<string, object>

@@ -12,8 +12,8 @@ namespace QuanLyThuVien.DTO
         public DateTime ThoiGian { get; set; }
         public int MaNV { get; set; }
         public int MaNCC { get; set; }
-        public string TenNV { get; set; }
         public string TenNCC { get; set; }
+        public string TrangThai { get; set; }
 
         public List<CTPhieuNhapDTO> ct { get; set; }
 

@@ -91,5 +91,62 @@ namespace QuanLyThuVien.DAO
 
             return result;
         }
+        public static bool ExecuteTransaction(List<Tuple<string, Dictionary<string, object>>> commands)
+        {
+            MySqlConnection conn = null;
+            MySqlTransaction tran = null;
+
+            try
+            {
+                conn = GetConnection(); // Giả định bạn có hàm GetConnection()
+                conn.Open();
+                tran = conn.BeginTransaction();
+
+                foreach (var cmdTuple in commands)
+                {
+                    string query = cmdTuple.Item1;
+                    Dictionary<string, object> parameters = cmdTuple.Item2;
+
+                    using (MySqlCommand command = new MySqlCommand(query, conn, tran)) // SỬ DỤNG TRAN VÀ CONN
+                    {
+                        if (parameters != null)
+                        {
+                            foreach (var param in parameters)
+                            {
+                                command.Parameters.AddWithValue(param.Key, param.Value);
+                            }
+                        }
+
+                        // Cố gắng thực thi lệnh. Nếu có lỗi SQL, nó sẽ ném ra Exception
+                        if (command.ExecuteNonQuery() <= 0 && query.Trim().ToUpper().StartsWith("INSERT"))
+                        {
+                            // Nếu là INSERT mà không có dòng nào bị ảnh hưởng -> Thất bại
+                            throw new Exception("Lỗi khi thêm dữ liệu chi tiết phiếu nhập.");
+                        }
+                        // Đối với DELETE, 0 dòng ảnh hưởng vẫn có thể là thành công (nếu không có gì để xóa)
+                    }
+                }
+
+                tran.Commit();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                if (tran != null)
+                {
+                    tran.Rollback();
+                }
+                Console.WriteLine("Lỗi Giao dịch (Rollback): " + ex.Message);
+                // Có thể thêm logging chi tiết hơn ở đây
+                return false;
+            }
+            finally
+            {
+                if (conn != null && conn.State == ConnectionState.Open)
+                {
+                    conn.Close();
+                }
+            }
+        }
     }
 }

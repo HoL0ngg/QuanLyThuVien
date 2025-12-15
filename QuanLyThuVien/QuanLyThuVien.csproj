@@ -224,6 +224,12 @@
     <Compile Include="GUI\FormPhanQuyen.Designer.cs">
       <DependentUpon>FormPhanQuyen.cs</DependentUpon>
     </Compile>
+    <Compile Include="GUI\FormSuaPhieuNhap.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\FormSuaPhieuNhap.Designer.cs">
+      <DependentUpon>FormSuaPhieuNhap.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI\FormThemNhomQuyen.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -423,6 +429,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\FormPhanQuyen.resx">
       <DependentUpon>FormPhanQuyen.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\FormSuaPhieuNhap.resx">
+      <DependentUpon>FormSuaPhieuNhap.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\NhanVienGUI.resx">
       <DependentUpon>NhanVienGUI.cs</DependentUpon>

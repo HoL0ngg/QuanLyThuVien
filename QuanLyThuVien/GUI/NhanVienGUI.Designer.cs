@@ -53,7 +53,7 @@
             this.panelTop.Location = new System.Drawing.Point(0, 0);
             this.panelTop.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panelTop.Name = "panelTop";
-            this.panelTop.Size = new System.Drawing.Size(1040, 80);
+            this.panelTop.Size = new System.Drawing.Size(0, 80);
             this.panelTop.TabIndex = 0;
             // 
             // btnLamMoi
@@ -134,7 +134,7 @@
             this.dgvNhanVien.RowHeadersWidth = 51;
             this.dgvNhanVien.RowTemplate.Height = 24;
             this.dgvNhanVien.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvNhanVien.Size = new System.Drawing.Size(1040, 649);
+            this.dgvNhanVien.Size = new System.Drawing.Size(0, 0);
             this.dgvNhanVien.TabIndex = 1;
             this.dgvNhanVien.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvNhanVien_CellClick);
             // 
@@ -143,10 +143,10 @@
             this.panelBottom.BackColor = System.Drawing.SystemColors.Window;
             this.panelBottom.Controls.Add(this.lblTongSo);
             this.panelBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelBottom.Location = new System.Drawing.Point(0, 629);
+            this.panelBottom.Location = new System.Drawing.Point(0, -100);
             this.panelBottom.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panelBottom.Name = "panelBottom";
-            this.panelBottom.Size = new System.Drawing.Size(1040, 100);
+            this.panelBottom.Size = new System.Drawing.Size(0, 100);
             this.panelBottom.TabIndex = 2;
             // 
             // lblTongSo
@@ -170,7 +170,7 @@
             this.Controls.Add(this.panelTop);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "NhanVienGUI";
-            this.Size = new System.Drawing.Size(1040, 729);
+            this.Size = new System.Drawing.Size(0, 0);
             this.panelTop.ResumeLayout(false);
             this.panelTop.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvNhanVien)).EndInit();
