@@ -46,7 +46,7 @@ namespace QuanLyThuVien.BUS
                 {
                     dauSachBus.CapNhatSoLuongTon(ct.MaDauSach, ct.SoLuong);
 
-                    dauSachBus.CapNhatDonGia(ct.MaDauSach, ct.DonGia);
+                    dauSachBus.CapNhatGiaBan(ct.MaDauSach, ct.DonGia);
 
                     return true;
                 }

@@ -213,6 +213,12 @@
     <Compile Include="GUI\FormThemTacGia.Designer.cs">
       <DependentUpon>FormThemTacGia.cs</DependentUpon>
     </Compile>
+    <Compile Include="GUI\DocGiaDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\DocGiaDialog.Designer.cs">
+      <DependentUpon>DocGiaDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI\FormDoiMatKhau.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -230,6 +236,12 @@
     </Compile>
     <Compile Include="GUI\FormPhanQuyen.Designer.cs">
       <DependentUpon>FormPhanQuyen.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\FormSuaPhieuNhap.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\FormSuaPhieuNhap.Designer.cs">
+      <DependentUpon>FormSuaPhieuNhap.cs</DependentUpon>
     </Compile>
     <Compile Include="GUI\FormThemNhomQuyen.cs">
       <SubType>Form</SubType>
@@ -427,6 +439,9 @@
     <EmbeddedResource Include="GUI\DocGia.resx">
       <DependentUpon>DocGia.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="GUI\DocGiaDialog.resx">
+      <DependentUpon>DocGiaDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GUI\FormDoiMatKhau.resx">
       <DependentUpon>FormDoiMatKhau.cs</DependentUpon>
     </EmbeddedResource>
@@ -435,6 +450,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\FormPhanQuyen.resx">
       <DependentUpon>FormPhanQuyen.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\FormSuaPhieuNhap.resx">
+      <DependentUpon>FormSuaPhieuNhap.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\NhanVienGUI.resx">
       <DependentUpon>NhanVienGUI.cs</DependentUpon>

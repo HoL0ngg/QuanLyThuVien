@@ -12,7 +12,9 @@ namespace QuanLyThuVien.BUS
     {
         private PhieuNhapDAO dao = new PhieuNhapDAO();
         private CTPhieuNhapBUS ctBus = new CTPhieuNhapBUS();
+        private CTPhieuNhapDAO ctDao = new CTPhieuNhapDAO();
         private DauSachBUS dauSachBus = DauSachBUS.Instance;
+        private DauSachDAO dauSachDAO = DauSachDAO.Instance;
 
         // lay danh sach phieu nhap
         public List<PhieuNhapDTO> GetALL()
@@ -21,13 +23,33 @@ namespace QuanLyThuVien.BUS
         }
 
         // them phieu nhap
-        public bool Insert(PhieuNhapDTO pn)
+        public int Insert(PhieuNhapDTO pn)
         {
-            if (pn == null)
-                throw new ArgumentNullException(nameof(pn));
-            if (pn.ThoiGian == DateTime.MinValue)
-                throw new Exception("Ngày nhập không hợp lệ");
-            return dao.Insert(pn);
+            int maPhieuNhapMoi = dao.Insert(pn);
+
+            if (maPhieuNhapMoi <= 0)
+            {
+                return -1;
+            }
+
+            foreach (CTPhieuNhapDTO ct in pn.ct)
+            {
+                ct.MaPhieuNhap = maPhieuNhapMoi;
+
+                bool ctSuccess = ctDao.Insert(ct);
+
+                if (!ctSuccess)
+                {
+                    
+                    return -1;
+                }
+
+                // 3. Cập nhật tồn kho (Nếu cần)
+                // Ví dụ: DauSachBUS.Instance.CapNhatSoLuongTon(ct.MaDauSach, ct.SoLuong);
+            }
+
+            // Thành công
+            return maPhieuNhapMoi;
         }
         public bool Update(PhieuNhapDTO pn)
         {
@@ -36,6 +58,10 @@ namespace QuanLyThuVien.BUS
                 throw new Exception("Thông tin phiếu nhập không hợp lệ");
             }
             return dao.Update(pn);  
+        }
+        public bool UpdateFullPhieuNhap(PhieuNhapDTO pnMoi)
+        {
+            return dao.UpdatePhieuNhapTransaction(pnMoi);
         }
         public bool Delete(int maPhieuNhap)
         {
@@ -85,5 +111,41 @@ namespace QuanLyThuVien.BUS
             }
             return dao.Search(keyword);
         }
+        public bool ProcessPhieuNhap(PhieuNhapDTO phieuNhap)
+        {
+            bool result = false;
+            try
+            {
+                if (dao.UpdatePhieuNhapTransaction(phieuNhap))
+                {
+                    foreach (var ct in phieuNhap.ct)
+                    {
+                        int maDauSach = ct.MaDauSach;
+                        int soLuongNhap = ct.SoLuong;
+                        double donGiaNhap = ct.DonGia;
+                        if (!dauSachBus.CapNhatSoLuongTon(maDauSach, soLuongNhap))
+                        {
+                            throw new Exception($"Lỗi cập nhật tồn kho cho Mã: {maDauSach}.");
+                        }
+                        double giaBanMoi = donGiaNhap;
+                        if (!dauSachBus.CapNhatGiaBan(maDauSach, giaBanMoi))
+                        {
+                            throw new Exception($"Lỗi cập nhật giá bán cho Mã: {maDauSach}.");
+                        }
+                    }
+                    result = true;
+                }
+                else
+                {
+                    result = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Lỗi khi xử lý tồn kho/giá bán (ProcessPhieuNhap): " + ex.Message, ex);
+            }
+            return result;
+        }
     }
+
 }

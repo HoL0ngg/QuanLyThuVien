@@ -80,13 +80,13 @@ namespace QuanLyThuVien.BUS
                 }
             }
 
-            return DauSachDAO.Instance.UpdateSoLuongTonKho(maDauSach, soLuong);
+            return DauSachDAO.Instance.UpdateSoLuongTon(maDauSach, soLuong);
         }
-        public bool CapNhatDonGia(int maDauSach, double donGia)
+        public bool CapNhatGiaBan(int maDauSach, double donGia)
         {
             if (maDauSach <= 0 || donGia <= 0)
                 throw new ArgumentException("Thông tin Mã Đầu Sách hoặc Đơn Giá không hợp lệ.");
-            return DauSachDAO.Instance.UpdateGiaDauSach(maDauSach, donGia);
+            return DauSachDAO.Instance.UpdateGiaBan(maDauSach, donGia);
         }
         #endregion
 

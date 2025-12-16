@@ -86,7 +86,7 @@ namespace QuanLyThuVien.GUI
                     }
                 }
             }
-            lblTongTien.Text = $"Tổng tiền: {tongtien.ToString("N0")} VNĐ";
+            lblTongTien.Text = $"{tongtien.ToString("N0")} VNĐ";
         }
 
         private void LoadSach()
@@ -131,9 +131,6 @@ namespace QuanLyThuVien.GUI
             LoadDanhSach();
             dataGridView1.CellClick += CTPhieuNhap_CellClick;
             dataGridView1.DataBindingComplete += dataGridView1_DataBindingComplete;
-            btnThem.Click += new EventHandler(them);
-            btnXoa.Click += new EventHandler(xoa);
-            btnSua.Click += new EventHandler(sua);
             btnHuy.Click += new EventHandler(Cancel);
 
         }
@@ -269,23 +266,23 @@ namespace QuanLyThuVien.GUI
                 MessageBox.Show("Lỗi khi sửa: " + ex.Message, "Lỗi");
             }
         }
-        private void btnSearch_Click(object sender, EventArgs e)
-        {
-            string tensach = txtSearch.Text.Trim();
-            var result = bus.Search(MaPhieuHienTai,tensach);
-            if (result == null || result.Count == 0)
-            {
-                MessageBox.Show("Không tìm thấy phiếu nhập nào phù hợp với từ khóa",
-                                "Thông báo",
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Information);
+        //private void btnSearch_Click(object sender, EventArgs e)
+        //{
+        //    string tensach = txtSearch.Text.Trim();
+        //    var result = bus.Search(MaPhieuHienTai,tensach);
+        //    if (result == null || result.Count == 0)
+        //    {
+        //        MessageBox.Show("Không tìm thấy phiếu nhập nào phù hợp với từ khóa",
+        //                        "Thông báo",
+        //                        MessageBoxButtons.OK,
+        //                        MessageBoxIcon.Information);
 
-                dataGridView1.DataSource = null;
-                ResetInput();
-                return;
-            }
-            dataGridView1.DataSource = result;
-        }
+        //        dataGridView1.DataSource = null;
+        //        ResetInput();
+        //        return;
+        //    }
+        //    dataGridView1.DataSource = result;
+        //}
         private void Cancel(object sender, EventArgs e)
         {
             OnChiTietClosed?.Invoke(this, EventArgs.Empty);
@@ -308,7 +305,7 @@ namespace QuanLyThuVien.GUI
 
         private void btnSearch_Click_1(object sender, EventArgs e)
         {
-            btnSearch_Click(this, EventArgs.Empty);
+            //btnSearch_Click(this, EventArgs.Empty);
         }
     }
 }

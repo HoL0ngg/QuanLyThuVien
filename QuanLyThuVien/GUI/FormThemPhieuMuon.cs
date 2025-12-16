@@ -29,7 +29,9 @@ namespace QuanLyThuVien.GUI
             this.Load += FormThemPhieuMuon_Load;
             btnThem.Click += BtnThem_Click;
             btnHuy.Click += BtnHuy_Click;
+            btnQuayLai.Click += BtnQuayLai_Click;
             btnTimSach.Click += BtnTimSach_Click;
+            btnTimDocGia.Click += BtnTimDocGia_Click;
             txtTuKhoaSach.KeyDown += (s, e) => { if (e.KeyCode == Keys.Enter) { BtnTimSach_Click(null, null); e.Handled = e.SuppressKeyPress = true; } };
             dgvKetQuaSach.CellContentClick += DgvKetQuaSach_CellContentClick;
             dgvCT.CellContentClick += DgvCT_CellContentClick;
@@ -41,6 +43,7 @@ namespace QuanLyThuVien.GUI
             dtpNgayTraDuKien.Value = DateTime.Today.AddDays(7);
             dgvCT.DataSource = ctList;
             AddButtonColumn(dgvCT, DeleteColumnName, "Xóa", "X", Color.Red);
+            AddButtonColumn(dgvKetQuaSach, AddColumnName, "Thêm", "+", Color.DarkGreen);
         }
 
         private void BtnTimSach_Click(object sender, EventArgs e)
@@ -55,9 +58,7 @@ namespace QuanLyThuVien.GUI
                 return;
             }
 
-            dgvKetQuaSach.AutoGenerateColumns = false; // chúng ta đã set cột thủ công
             dgvKetQuaSach.DataSource = results;
-            AddButtonColumn(dgvKetQuaSach, AddColumnName, "Thêm", "+", Color.DarkGreen);
         }
 
         private void BtnThem_Click(object sender, EventArgs e)
@@ -230,6 +231,53 @@ namespace QuanLyThuVien.GUI
             var col = new DataGridViewButtonColumn { Name = name, HeaderText = header, Text = text, UseColumnTextForButtonValue = true, AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells };
             grid.Columns.Add(col);
             col.DisplayIndex = grid.Columns.Count - 1;
+        }
+
+        private void BtnTimDocGia_Click(object sender, EventArgs e)
+        {
+            if (txtMaDocGia == null || string.IsNullOrWhiteSpace(txtMaDocGia.Text))
+            {
+                MessageBox.Show("Vui lòng nhập mã độc giả trước khi tìm.", "Thiếu dữ liệu", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtMaDocGia?.Focus();
+                return;
+            }
+
+            var dlg = new DocGiaDialog();
+            try
+            {
+                if (int.TryParse(txtMaDocGia.Text.Trim(), out int maDocGia))
+                {
+                    var dgBus = new DocGiaBUS();
+                    var docGia = dgBus.GetById(maDocGia);
+                    if (docGia != null)
+                    {
+                        dlg.SetDocGia(docGia);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Không tìm thấy độc giả với mã đã nhập.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        return;
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Mã độc giả phải là số.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    txtMaDocGia.Focus();
+                    return;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi tải thông tin độc giả: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            dlg.ShowDialog(this);
+        }
+
+        private void BtnQuayLai_Click(object sender, EventArgs e)
+        {
+            CloseRequested?.Invoke();
         }
     }
 }
