@@ -84,7 +84,7 @@
             this.tabControlTK.Location = new System.Drawing.Point(0, 0);
             this.tabControlTK.Name = "tabControlTK";
             this.tabControlTK.SelectedIndex = 0;
-            this.tabControlTK.Size = new System.Drawing.Size(1101, 732);
+            this.tabControlTK.Size = new System.Drawing.Size(1587, 651);
             this.tabControlTK.TabIndex = 0;
             // 
             // btn_tongquan
@@ -95,7 +95,7 @@
             this.btn_tongquan.Location = new System.Drawing.Point(4, 32);
             this.btn_tongquan.Name = "btn_tongquan";
             this.btn_tongquan.Padding = new System.Windows.Forms.Padding(10);
-            this.btn_tongquan.Size = new System.Drawing.Size(1093, 696);
+            this.btn_tongquan.Size = new System.Drawing.Size(1579, 615);
             this.btn_tongquan.TabIndex = 0;
             this.btn_tongquan.Text = "Tổng Quan";
             // 
@@ -107,7 +107,7 @@
             this.panelMain.Location = new System.Drawing.Point(10, 90);
             this.panelMain.Name = "panelMain";
             this.panelMain.Padding = new System.Windows.Forms.Padding(10);
-            this.panelMain.Size = new System.Drawing.Size(1073, 596);
+            this.panelMain.Size = new System.Drawing.Size(1559, 515);
             this.panelMain.TabIndex = 0;
             // 
             // panelCharts
@@ -125,7 +125,7 @@
             this.panelCharts.Padding = new System.Windows.Forms.Padding(0, 10, 0, 10);
             this.panelCharts.RowCount = 1;
             this.panelCharts.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 426F));
-            this.panelCharts.Size = new System.Drawing.Size(1053, 446);
+            this.panelCharts.Size = new System.Drawing.Size(1539, 365);
             this.panelCharts.TabIndex = 0;
             // 
             // panelTrend
@@ -136,29 +136,29 @@
             this.panelTrend.Margin = new System.Windows.Forms.Padding(8);
             this.panelTrend.Name = "panelTrend";
             this.panelTrend.Padding = new System.Windows.Forms.Padding(16);
-            this.panelTrend.Size = new System.Drawing.Size(331, 410);
+            this.panelTrend.Size = new System.Drawing.Size(491, 410);
             this.panelTrend.TabIndex = 0;
             // 
             // panelTop5
             // 
             this.panelTop5.BackColor = System.Drawing.Color.White;
             this.panelTop5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelTop5.Location = new System.Drawing.Point(355, 18);
+            this.panelTop5.Location = new System.Drawing.Point(515, 18);
             this.panelTop5.Margin = new System.Windows.Forms.Padding(8);
             this.panelTop5.Name = "panelTop5";
             this.panelTop5.Padding = new System.Windows.Forms.Padding(16);
-            this.panelTop5.Size = new System.Drawing.Size(342, 410);
+            this.panelTop5.Size = new System.Drawing.Size(507, 410);
             this.panelTop5.TabIndex = 1;
             // 
             // panelCategory
             // 
             this.panelCategory.BackColor = System.Drawing.Color.White;
             this.panelCategory.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelCategory.Location = new System.Drawing.Point(713, 18);
+            this.panelCategory.Location = new System.Drawing.Point(1038, 18);
             this.panelCategory.Margin = new System.Windows.Forms.Padding(8);
             this.panelCategory.Name = "panelCategory";
             this.panelCategory.Padding = new System.Windows.Forms.Padding(16);
-            this.panelCategory.Size = new System.Drawing.Size(332, 410);
+            this.panelCategory.Size = new System.Drawing.Size(493, 410);
             this.panelCategory.TabIndex = 2;
             // 
             // panelKPI
@@ -178,7 +178,7 @@
             this.panelKPI.Padding = new System.Windows.Forms.Padding(0, 5, 0, 5);
             this.panelKPI.RowCount = 1;
             this.panelKPI.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 120F));
-            this.panelKPI.Size = new System.Drawing.Size(1053, 130);
+            this.panelKPI.Size = new System.Drawing.Size(1539, 130);
             this.panelKPI.TabIndex = 2;
             // 
             // pnlKpi1
@@ -191,7 +191,7 @@
             this.pnlKpi1.Margin = new System.Windows.Forms.Padding(8);
             this.pnlKpi1.Name = "pnlKpi1";
             this.pnlKpi1.Padding = new System.Windows.Forms.Padding(16, 12, 16, 12);
-            this.pnlKpi1.Size = new System.Drawing.Size(247, 104);
+            this.pnlKpi1.Size = new System.Drawing.Size(368, 104);
             this.pnlKpi1.TabIndex = 0;
             // 
             // kpiBorrow
@@ -201,7 +201,7 @@
             this.kpiBorrow.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
             this.kpiBorrow.Location = new System.Drawing.Point(16, 36);
             this.kpiBorrow.Name = "kpiBorrow";
-            this.kpiBorrow.Size = new System.Drawing.Size(215, 56);
+            this.kpiBorrow.Size = new System.Drawing.Size(336, 56);
             this.kpiBorrow.TabIndex = 0;
             this.kpiBorrow.Text = "0";
             this.kpiBorrow.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -214,7 +214,7 @@
             this.lblKpi1Title.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(117)))), ((int)(((byte)(117)))), ((int)(((byte)(117)))));
             this.lblKpi1Title.Location = new System.Drawing.Point(16, 12);
             this.lblKpi1Title.Name = "lblKpi1Title";
-            this.lblKpi1Title.Size = new System.Drawing.Size(215, 24);
+            this.lblKpi1Title.Size = new System.Drawing.Size(336, 24);
             this.lblKpi1Title.TabIndex = 1;
             this.lblKpi1Title.Text = "LƯỢT MƯỢN";
             this.lblKpi1Title.Click += new System.EventHandler(this.lblKpi1Title_Click);
@@ -225,11 +225,11 @@
             this.pnlKpi2.Controls.Add(this.kpiBooks);
             this.pnlKpi2.Controls.Add(this.lblKpi2Title);
             this.pnlKpi2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlKpi2.Location = new System.Drawing.Point(271, 13);
+            this.pnlKpi2.Location = new System.Drawing.Point(392, 13);
             this.pnlKpi2.Margin = new System.Windows.Forms.Padding(8);
             this.pnlKpi2.Name = "pnlKpi2";
             this.pnlKpi2.Padding = new System.Windows.Forms.Padding(16, 12, 16, 12);
-            this.pnlKpi2.Size = new System.Drawing.Size(247, 104);
+            this.pnlKpi2.Size = new System.Drawing.Size(368, 104);
             this.pnlKpi2.TabIndex = 1;
             // 
             // kpiBooks
@@ -239,7 +239,7 @@
             this.kpiBooks.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(175)))), ((int)(((byte)(80)))));
             this.kpiBooks.Location = new System.Drawing.Point(16, 36);
             this.kpiBooks.Name = "kpiBooks";
-            this.kpiBooks.Size = new System.Drawing.Size(215, 56);
+            this.kpiBooks.Size = new System.Drawing.Size(336, 56);
             this.kpiBooks.TabIndex = 0;
             this.kpiBooks.Text = "0";
             this.kpiBooks.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -252,7 +252,7 @@
             this.lblKpi2Title.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(117)))), ((int)(((byte)(117)))), ((int)(((byte)(117)))));
             this.lblKpi2Title.Location = new System.Drawing.Point(16, 12);
             this.lblKpi2Title.Name = "lblKpi2Title";
-            this.lblKpi2Title.Size = new System.Drawing.Size(215, 24);
+            this.lblKpi2Title.Size = new System.Drawing.Size(336, 24);
             this.lblKpi2Title.TabIndex = 1;
             this.lblKpi2Title.Text = "SÁCH TRONG KHO";
             // 
@@ -262,11 +262,11 @@
             this.pnlKpi3.Controls.Add(this.kpiOverdue);
             this.pnlKpi3.Controls.Add(this.lblKpi3Title);
             this.pnlKpi3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlKpi3.Location = new System.Drawing.Point(534, 13);
+            this.pnlKpi3.Location = new System.Drawing.Point(776, 13);
             this.pnlKpi3.Margin = new System.Windows.Forms.Padding(8);
             this.pnlKpi3.Name = "pnlKpi3";
             this.pnlKpi3.Padding = new System.Windows.Forms.Padding(16, 12, 16, 12);
-            this.pnlKpi3.Size = new System.Drawing.Size(247, 104);
+            this.pnlKpi3.Size = new System.Drawing.Size(368, 104);
             this.pnlKpi3.TabIndex = 2;
             // 
             // kpiOverdue
@@ -276,7 +276,7 @@
             this.kpiOverdue.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(67)))), ((int)(((byte)(54)))), ((int)(((byte)(54)))));
             this.kpiOverdue.Location = new System.Drawing.Point(16, 36);
             this.kpiOverdue.Name = "kpiOverdue";
-            this.kpiOverdue.Size = new System.Drawing.Size(215, 56);
+            this.kpiOverdue.Size = new System.Drawing.Size(336, 56);
             this.kpiOverdue.TabIndex = 0;
             this.kpiOverdue.Text = "0";
             this.kpiOverdue.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -288,7 +288,7 @@
             this.lblKpi3Title.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(117)))), ((int)(((byte)(117)))), ((int)(((byte)(117)))));
             this.lblKpi3Title.Location = new System.Drawing.Point(16, 12);
             this.lblKpi3Title.Name = "lblKpi3Title";
-            this.lblKpi3Title.Size = new System.Drawing.Size(215, 24);
+            this.lblKpi3Title.Size = new System.Drawing.Size(336, 24);
             this.lblKpi3Title.TabIndex = 1;
             this.lblKpi3Title.Text = "Sách Hỏng/Mất";
             // 
@@ -298,11 +298,11 @@
             this.pnlKpi4.Controls.Add(this.kpiPenalty);
             this.pnlKpi4.Controls.Add(this.lblKpi4Title);
             this.pnlKpi4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlKpi4.Location = new System.Drawing.Point(797, 13);
+            this.pnlKpi4.Location = new System.Drawing.Point(1160, 13);
             this.pnlKpi4.Margin = new System.Windows.Forms.Padding(8);
             this.pnlKpi4.Name = "pnlKpi4";
             this.pnlKpi4.Padding = new System.Windows.Forms.Padding(16, 12, 16, 12);
-            this.pnlKpi4.Size = new System.Drawing.Size(248, 104);
+            this.pnlKpi4.Size = new System.Drawing.Size(371, 104);
             this.pnlKpi4.TabIndex = 3;
             // 
             // kpiPenalty
@@ -312,7 +312,7 @@
             this.kpiPenalty.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(152)))), ((int)(((byte)(0)))));
             this.kpiPenalty.Location = new System.Drawing.Point(16, 36);
             this.kpiPenalty.Name = "kpiPenalty";
-            this.kpiPenalty.Size = new System.Drawing.Size(216, 56);
+            this.kpiPenalty.Size = new System.Drawing.Size(339, 56);
             this.kpiPenalty.TabIndex = 0;
             this.kpiPenalty.Text = "0 đ";
             this.kpiPenalty.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -324,7 +324,7 @@
             this.lblKpi4Title.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(117)))), ((int)(((byte)(117)))), ((int)(((byte)(117)))));
             this.lblKpi4Title.Location = new System.Drawing.Point(16, 12);
             this.lblKpi4Title.Name = "lblKpi4Title";
-            this.lblKpi4Title.Size = new System.Drawing.Size(216, 24);
+            this.lblKpi4Title.Size = new System.Drawing.Size(339, 24);
             this.lblKpi4Title.TabIndex = 1;
             this.lblKpi4Title.Text = "THU PHÍ PHẠT";
             // 
@@ -345,7 +345,7 @@
             this.panelTop.Location = new System.Drawing.Point(10, 10);
             this.panelTop.Name = "panelTop";
             this.panelTop.Padding = new System.Windows.Forms.Padding(16, 8, 16, 8);
-            this.panelTop.Size = new System.Drawing.Size(1073, 80);
+            this.panelTop.Size = new System.Drawing.Size(1559, 80);
             this.panelTop.TabIndex = 1;
             // 
             // lblFilterTitle
@@ -521,7 +521,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.Controls.Add(this.tabControlTK);
             this.Name = "UCMain";
-            this.Size = new System.Drawing.Size(1101, 732);
+            this.Size = new System.Drawing.Size(1587, 651);
             this.Load += new System.EventHandler(this.UCMain_Load);
             this.tabControlTK.ResumeLayout(false);
             this.btn_tongquan.ResumeLayout(false);

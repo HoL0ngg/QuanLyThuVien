@@ -1,5 +1,6 @@
 ﻿using QuanLyThuVien.BUS;
 using QuanLyThuVien.DTO;
+using QuanLyThuVien.GUI.phieuphat;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -145,7 +146,7 @@ namespace QuanLyThuVien.GUI
 
             ensureColumn("colID", "MaPhieuPhat", "Mã");
             ensureColumn("colNgayPhat", "NgayPhat", "Ngày phạt");
-            ensureColumn("colTrangThai", "TrangThaiText", "Trạng thái");
+            ensureColumn("colTrangThai", "TrangThai", "Trạng thái");
             ensureColumn("colTien", "tienPhat", "Tiền phạt");
             ensureColumn("colTen", "TenDG", "Tên độc giả");
 
@@ -239,6 +240,19 @@ namespace QuanLyThuVien.GUI
             {
                 var result = dlg.ShowDialog();
                 if (result == DialogResult.OK) LoadPhieuPhat(null);
+            }
+        }
+
+        private void btnMucPhat_Click(object sender, EventArgs e)
+        {
+            using (var dlg = new MucPhat())
+            {
+                var res = dlg.ShowDialog();
+                if (res == DialogResult.OK)
+                {
+                    // nothing to refresh in PhieuPhat list for now, but optionally could reload
+                    LoadPhieuPhat(null);
+                }
             }
         }
 
@@ -355,8 +369,39 @@ namespace QuanLyThuVien.GUI
         {
             if (dgvPhieuPhat.Columns[e.ColumnIndex].Name == "colTrangThai" && e.Value != null)
             {
-                int value = Convert.ToInt32(e.Value);
-                e.Value = value == 1 ? "Da dong" : "Chua dong";
+                int intVal = 0;
+                if (e.Value is int)
+                {
+                    intVal = (int)e.Value;
+                }
+                else if (int.TryParse(e.Value.ToString(), out intVal))
+                {
+                    // parsed successfully, intVal set
+                }
+                else
+                {
+                    // If already string, normalize common variants
+                    string s = e.Value.ToString();
+                    if (s.Equals("Da dong", StringComparison.InvariantCultureIgnoreCase) || s.Equals("Đã đóng", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        e.Value = "Đã đóng";
+                        e.FormattingApplied = true;
+                        return;
+                    }
+                    else if (s.Equals("Chua dong", StringComparison.InvariantCultureIgnoreCase) || s.Equals("Chưa đóng", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        e.Value = "Chưa đóng";
+                        e.FormattingApplied = true;
+                        return;
+                    }
+                    else
+                    {
+                        // leave as-is
+                        return;
+                    }
+                }
+
+                e.Value = intVal == 1 ? "Đã đóng" : "Chưa đóng";
                 e.FormattingApplied = true;
             }
         }

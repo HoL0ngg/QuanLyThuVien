@@ -135,6 +135,7 @@
     <Compile Include="DAO\PhieuTraDAO.cs" />
     <Compile Include="DAO\TacGiaDAO.cs" />
     <Compile Include="DAO\TaiKhoanDAO.cs" />
+    <Compile Include="DTO\MucPhatDTO.cs" />
     <Compile Include="DTO\SachDTO.cs" />
     <Compile Include="DTO\ThongKePhieuPhatDTO.cs" />
     <Compile Include="DTO\ChucNangDTO.cs" />
@@ -241,6 +242,12 @@
     </Compile>
     <Compile Include="GUI\NhanVienGUI.Designer.cs">
       <DependentUpon>NhanVienGUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\phieuphat\MucPhat.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\phieuphat\MucPhat.Designer.cs">
+      <DependentUpon>MucPhat.cs</DependentUpon>
     </Compile>
     <Compile Include="GUI\phieuphat\FormChiTietPhieuPhat.cs">
       <SubType>Form</SubType>

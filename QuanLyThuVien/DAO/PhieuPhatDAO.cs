@@ -35,12 +35,22 @@ namespace QuanLyThuVien.DAO
                     pp.NgayPhat,
                     pp.TrangThai,
                     pp.Ngaytra AS NgayTra,
-                    SUM(ct.TienPhat) AS TienPhat,
+                    -- Tính tiền phạt dựa trên cấu hình phat p
+                    SUM(
+                        CASE
+                            WHEN ct.TrangThai = 3 THEN IFNULL(p.Mat,0) + GREATEST(DATEDIFF(pt.NgayTra, pm.NgayTraDuKien), 0) * IFNULL(p.Tre,0)
+                            WHEN ct.TrangThai = 2 THEN IFNULL(p.Hong,0) + GREATEST(DATEDIFF(pt.NgayTra, pm.NgayTraDuKien), 0) * IFNULL(p.Tre,0)
+                            ELSE GREATEST(DATEDIFF(pt.NgayTra, pm.NgayTraDuKien), 0) * IFNULL(p.Tre,0)
+                        END
+                    ) AS TienPhat,
                     dg.TenDG,
                     pp.MaDG
                 FROM phieu_phat pp
                 JOIN ctphieu_phat ct ON ct.MaPhieuPhat = pp.MaPhieuPhat
+                JOIN phieu_tra pt ON pp.MaPhieuTra = pt.MaPhieuTra
+                JOIN phieu_muon pm ON pt.MaPhieuMuon = pm.MaPhieuMuon
                 JOIN doc_gia dg ON pp.MaDG = dg.MaDG
+                LEFT JOIN phat p ON 1=1
                 GROUP BY pp.MaPhieuPhat, pp.NgayPhat, pp.TrangThai, pp.Ngaytra, dg.TenDG, pp.MaDG
                 ORDER BY pp.MaPhieuPhat DESC;";
 
@@ -55,7 +65,7 @@ namespace QuanLyThuVien.DAO
                     NgayPhat = Convert.ToDateTime(r["NgayPhat"]),
                     TrangThai = Convert.ToInt32(r["TrangThai"]),
                     NgayTra = r["NgayTra"] == DBNull.Value ? DateTime.MinValue : Convert.ToDateTime(r["NgayTra"]),
-                    tienPhat = Convert.ToInt32(r["TienPhat"]),
+                    tienPhat = r["TienPhat"] == DBNull.Value ? 0 : Convert.ToInt32(r["TienPhat"]),
                     TenDG = r["TenDG"]?.ToString(),
                     MaDG = Convert.ToInt32(r["MaDG"])
                 });
@@ -71,12 +81,21 @@ namespace QuanLyThuVien.DAO
                     pp.NgayPhat,
                     pp.TrangThai,
                     pp.Ngaytra AS NgayTra,
-                    SUM(ct.TienPhat) AS TienPhat,
+                    SUM(
+                        CASE
+                            WHEN ct.TrangThai = 3 THEN IFNULL(p.Mat,0) + GREATEST(DATEDIFF(pt.NgayTra, pm.NgayTraDuKien), 0) * IFNULL(p.Tre,0)
+                            WHEN ct.TrangThai = 2 THEN IFNULL(p.Hong,0) + GREATEST(DATEDIFF(pt.NgayTra, pm.NgayTraDuKien), 0) * IFNULL(p.Tre,0)
+                            ELSE GREATEST(DATEDIFF(pt.NgayTra, pm.NgayTraDuKien), 0) * IFNULL(p.Tre,0)
+                        END
+                    ) AS TienPhat,
                     dg.TenDG,
                     pp.MaDG
                 FROM phieu_phat pp
                 JOIN ctphieu_phat ct ON ct.MaPhieuPhat = pp.MaPhieuPhat
+                JOIN phieu_tra pt ON pp.MaPhieuTra = pt.MaPhieuTra
+                JOIN phieu_muon pm ON pt.MaPhieuMuon = pm.MaPhieuMuon
                 JOIN doc_gia dg ON pp.MaDG = dg.MaDG
+                LEFT JOIN phat p ON 1=1
                 WHERE @TrangThai IS NULL OR pp.TrangThai = @TrangThai
                 GROUP BY pp.MaPhieuPhat, pp.NgayPhat, pp.TrangThai, pp.Ngaytra, dg.TenDG, pp.MaDG
                 ORDER BY pp.MaPhieuPhat DESC;";
@@ -97,7 +116,7 @@ namespace QuanLyThuVien.DAO
                     NgayPhat = Convert.ToDateTime(r["NgayPhat"]),
                     TrangThai = Convert.ToInt32(r["TrangThai"]),
                     NgayTra = r["NgayTra"] == DBNull.Value ? DateTime.MinValue : Convert.ToDateTime(r["NgayTra"]),
-                    tienPhat = Convert.ToInt32(r["TienPhat"]),
+                    tienPhat = r["TienPhat"] == DBNull.Value ? 0 : Convert.ToInt32(r["TienPhat"]),
                     TenDG = r["TenDG"]?.ToString(),
                     MaDG = Convert.ToInt32(r["MaDG"])
                 });
@@ -113,12 +132,21 @@ namespace QuanLyThuVien.DAO
                     pp.NgayPhat,
                     pp.TrangThai,
                     pp.Ngaytra AS NgayTra,
-                    SUM(ct.TienPhat) AS TienPhat,
+                    SUM(
+                        CASE
+                            WHEN ct.TrangThai = 3 THEN IFNULL(p.Mat,0) + GREATEST(DATEDIFF(pt.NgayTra, pm.NgayTraDuKien), 0) * IFNULL(p.Tre,0)
+                            WHEN ct.TrangThai = 2 THEN IFNULL(p.Hong,0) + GREATEST(DATEDIFF(pt.NgayTra, pm.NgayTraDuKien), 0) * IFNULL(p.Tre,0)
+                            ELSE GREATEST(DATEDIFF(pt.NgayTra, pm.NgayTraDuKien), 0) * IFNULL(p.Tre,0)
+                        END
+                    ) AS TienPhat,
                     dg.TenDG,
                     pp.MaDG
                 FROM phieu_phat pp
                 JOIN ctphieu_phat ct ON ct.MaPhieuPhat = pp.MaPhieuPhat
+                JOIN phieu_tra pt ON pp.MaPhieuTra = pt.MaPhieuTra
+                JOIN phieu_muon pm ON pt.MaPhieuMuon = pm.MaPhieuMuon
                 JOIN doc_gia dg ON pp.MaDG = dg.MaDG
+                LEFT JOIN phat p ON 1=1
                 WHERE pp.NgayPhat BETWEEN @Begin AND @End
                 GROUP BY pp.MaPhieuPhat, pp.NgayPhat, pp.TrangThai, pp.Ngaytra, dg.TenDG, pp.MaDG
                 ORDER BY pp.MaPhieuPhat DESC;";
@@ -140,7 +168,7 @@ namespace QuanLyThuVien.DAO
                     NgayPhat = Convert.ToDateTime(r["NgayPhat"]),
                     TrangThai = Convert.ToInt32(r["TrangThai"]),
                     NgayTra = r["NgayTra"] == DBNull.Value ? DateTime.MinValue : Convert.ToDateTime(r["NgayTra"]),
-                    tienPhat = Convert.ToInt32(r["TienPhat"]),
+                    tienPhat = r["TienPhat"] == DBNull.Value ? 0 : Convert.ToInt32(r["TienPhat"]),
                     TenDG = r["TenDG"]?.ToString(),
                     MaDG = Convert.ToInt32(r["MaDG"])
                 });
@@ -156,12 +184,21 @@ namespace QuanLyThuVien.DAO
                     pp.NgayPhat,
                     pp.TrangThai,
                     pp.Ngaytra AS NgayTra,
-                    SUM(ct.TienPhat) AS TienPhat,
+                    SUM(
+                        CASE
+                            WHEN ct.TrangThai = 3 THEN IFNULL(p.Mat,0) + GREATEST(DATEDIFF(pt.NgayTra, pm.NgayTraDuKien), 0) * IFNULL(p.Tre,0)
+                            WHEN ct.TrangThai = 2 THEN IFNULL(p.Hong,0) + GREATEST(DATEDIFF(pt.NgayTra, pm.NgayTraDuKien), 0) * IFNULL(p.Tre,0)
+                            ELSE GREATEST(DATEDIFF(pt.NgayTra, pm.NgayTraDuKien), 0) * IFNULL(p.Tre,0)
+                        END
+                    ) AS TienPhat,
                     dg.TenDG,
                     pp.MaDG
                 FROM phieu_phat pp
                 JOIN ctphieu_phat ct ON ct.MaPhieuPhat = pp.MaPhieuPhat
+                JOIN phieu_tra pt ON pp.MaPhieuTra = pt.MaPhieuTra
+                JOIN phieu_muon pm ON pt.MaPhieuMuon = pm.MaPhieuMuon
                 JOIN doc_gia dg ON pp.MaDG = dg.MaDG
+                LEFT JOIN phat p ON 1=1
                 WHERE dg.TenDG LIKE @kw OR pp.MaPhieuPhat = @Id
                 GROUP BY pp.MaPhieuPhat, pp.NgayPhat, pp.TrangThai, pp.Ngaytra, dg.TenDG, pp.MaDG
                 ORDER BY pp.MaPhieuPhat DESC;";
@@ -189,7 +226,7 @@ namespace QuanLyThuVien.DAO
                     NgayPhat = Convert.ToDateTime(r["NgayPhat"]),
                     TrangThai = Convert.ToInt32(r["TrangThai"]),
                     NgayTra = r["NgayTra"] == DBNull.Value ? DateTime.MinValue : Convert.ToDateTime(r["NgayTra"]),
-                    tienPhat = Convert.ToInt32(r["TienPhat"]),
+                    tienPhat = r["TienPhat"] == DBNull.Value ? 0 : Convert.ToInt32(r["TienPhat"]),
                     TenDG = r["TenDG"]?.ToString(),
                     MaDG = Convert.ToInt32(r["MaDG"])
                 });
@@ -316,6 +353,23 @@ namespace QuanLyThuVien.DAO
                         {
                             cmd.Transaction = trans;
 
+                            // Đọc cấu hình mức phạt từ bảng phat
+                            int phatTre = 0, phatHong = 0, phatMat = 0;
+                            using (var cmdGetPhat = conn.CreateCommand())
+                            {
+                                cmdGetPhat.Transaction = trans;
+                                cmdGetPhat.CommandText = "SELECT Tre, Hong, Mat FROM phat LIMIT 1;";
+                                using (var r = cmdGetPhat.ExecuteReader())
+                                {
+                                    if (r.Read())
+                                    {
+                                        phatTre = r["Tre"] != DBNull.Value ? Convert.ToInt32(r["Tre"]) : 0;
+                                        phatHong = r["Hong"] != DBNull.Value ? Convert.ToInt32(r["Hong"]) : 0;
+                                        phatMat = r["Mat"] != DBNull.Value ? Convert.ToInt32(r["Mat"]) : 0;
+                                    }
+                                }
+                            }
+
                             foreach (var item in items)
                             {
                                 // 1. Lấy MaSach TỪ ctphieu_tra để đảm bảo tồn tại trong bảng sach
@@ -346,7 +400,6 @@ namespace QuanLyThuVien.DAO
                                 (@NgayPhat, @TrangThai, @MaPhieuTra, @NgayTra, @MaDG);";
 
                                 DateTime ngayHienTai = DateTime.Now.Date;
-                                
                                 cmd.Parameters.AddWithValue("@NgayPhat", ngayHienTai);
                                 cmd.Parameters.AddWithValue("@TrangThai", 1); // Trạng thái = 1 (Đã đóng)
                                 cmd.Parameters.AddWithValue("@MaPhieuTra", item.MaPhieuTra);
@@ -356,31 +409,24 @@ namespace QuanLyThuVien.DAO
                                 cmd.ExecuteNonQuery();
                                 long newPhieuPhatId = cmd.LastInsertedId;
 
-                                // 3. TÍNH TOÁN TIỀN PHẠT
+                                // 3. TÍNH TOÁN TIỀN PHẠT dựa trên cấu hình trong bảng phat
                                 int tienPhat = item.TienPhat;
                                 if (tienPhat == 0)
                                 {
-                                    if (item.QuaHan) tienPhat += item.SoNgayTre * 5000;
-                                    if (item.TrangThai == 2) tienPhat += 50000;
-                                    if (item.TrangThai == 3)
+                                    // Nếu quá hạn
+                                    if (item.QuaHan)
                                     {
-                                        using (MySqlCommand cmdPrice = conn.CreateCommand())
-                                        {
-                                            cmdPrice.Transaction = trans;
-                                            cmdPrice.CommandText = @"
-                                        SELECT ds.Gia 
-                                        FROM sach s 
-                                        JOIN dau_sach ds ON s.MaDauSach = ds.MaDauSach 
-                                        WHERE s.MaSach = @MaSach 
-                                        LIMIT 1";
-                                            cmdPrice.Parameters.AddWithValue("@MaSach", maSach);
-                                            object obj = cmdPrice.ExecuteScalar();
-                                            if (obj != null && obj != DBNull.Value)
-                                            {
-                                                int.TryParse(obj.ToString(), out int gia);
-                                                tienPhat += gia;
-                                            }
-                                        }
+                                        tienPhat += item.SoNgayTre * phatTre;
+                                    }
+
+                                    // Tình trạng sách: 2 = Hỏng, 3 = Mất
+                                    if (item.TrangThai == 2)
+                                    {
+                                        tienPhat += phatHong;
+                                    }
+                                    else if (item.TrangThai == 3)
+                                    {
+                                        tienPhat += phatMat;
                                     }
                                 }
 
@@ -441,60 +487,51 @@ namespace QuanLyThuVien.DAO
         // Add this method inside the PhieuPhatDAO class
         public DataTable GetChiTietPhieuPhat(int maPhieuTra)
         {
-            // Cú pháp SQL dành cho MySQL (DATEDIFF chỉ 2 tham số)
+            // Sử dụng giá trị mức phạt từ bảng `phat`
             string query = @"
                 SELECT 
                     pt.MaPhieuTra,
                     ds.TenDauSach,
                     pt.NgayTra,
                     pm.NgayTraDuKien,
-                    
-                    -- 1. Số ngày trễ: MySQL dùng DATEDIFF(Date1, Date2) -> Date1 - Date2
                     GREATEST(DATEDIFF(pt.NgayTra, pm.NgayTraDuKien), 0) AS SoNgayTre,
-
-                    -- 2. Tình trạng sách
                     CASE 
                         WHEN ctpt.TrangThai = 1 THEN 'Bình thường'
                         WHEN ctpt.TrangThai = 2 THEN 'Hỏng'
                         WHEN ctpt.TrangThai = 3 THEN 'Mất'
                         ELSE 'Khác'
                     END AS TinhTrangSach,
-
-                    -- 3. Tính Tiền Phạt
-                    ROUND(
+                    -- Lấy mức phạt từ bảng phat (assume một dòng cấu hình)
+                    p.Tre AS MucTre,
+                    p.Hong AS MucHong,
+                    p.Mat AS MucMat,
+                    -- Tính tiền phạt theo cấu hình: 
+                    -- Quá hạn: SoNgayTre * p.Tre
+                    -- Hỏng: p.Hong + SoNgayTre * p.Tre
+                    -- Mất: p.Mat + SoNgayTre * p.Tre
+                    (
                         CASE 
-                            -- MẤT (3): Phạt 100% giá, KHÔNG tính ngày trễ
-                            WHEN ctpt.TrangThai = 3 THEN ds.Gia
-                            
-                            -- HỎNG (2): Phạt 50% giá + Tiền ngày trễ (nếu có)
-                            WHEN ctpt.TrangThai = 2 THEN 
-                                (ds.Gia * 0.5) + 
-                                (GREATEST(DATEDIFF(pt.NgayTra, pm.NgayTraDuKien), 0) * ds.Gia * 0.02)
-                            
-                            -- BÌNH THƯỜNG (1): Chỉ phạt Tiền ngày trễ (nếu có)
-                            ELSE 
-                                (GREATEST(DATEDIFF(pt.NgayTra, pm.NgayTraDuKien), 0) * ds.Gia * 0.02)
+                            WHEN ctpt.TrangThai = 3 THEN (IFNULL(p.Mat,0) + GREATEST(DATEDIFF(pt.NgayTra, pm.NgayTraDuKien), 0) * IFNULL(p.Tre,0))
+                            WHEN ctpt.TrangThai = 2 THEN (IFNULL(p.Hong,0) + GREATEST(DATEDIFF(pt.NgayTra, pm.NgayTraDuKien), 0) * IFNULL(p.Tre,0))
+                            ELSE (GREATEST(DATEDIFF(pt.NgayTra, pm.NgayTraDuKien), 0) * IFNULL(p.Tre,0))
                         END
                     ) AS TongTienPhat
-
                 FROM ctphieu_tra ctpt
                 JOIN phieu_tra pt ON ctpt.MaPhieuTra = pt.MaPhieuTra
                 JOIN sach s ON ctpt.MaSach = s.MaSach
                 JOIN dau_sach ds ON s.MaDauSach = ds.MaDauSach
                 JOIN phieu_muon pm ON pt.MaPhieuMuon = pm.MaPhieuMuon
-
+                -- Lấy cấu hình mức phạt (một dòng) bằng cross join
+                LEFT JOIN phat p ON 1=1
                 WHERE 
                     pt.MaPhieuTra = @MaPhieuTra 
                     AND (ctpt.TrangThai IN (2, 3) OR pt.NgayTra > pm.NgayTraDuKien)";
 
-            // Tạo danh sách tham số để truyền vào DataProvider
             Dictionary<string, object> parameters = new Dictionary<string, object>();
             parameters.Add("@MaPhieuTra", maPhieuTra);
 
-            // Gọi DataProvider để thực thi
             return DataProvider.ExecuteQuery(query, parameters);
-        
-    }
+        }
         public DataTable GetListChiTietDaLuu(int maPhieuPhat)
         {
             string query = @"
@@ -510,7 +547,18 @@ namespace QuanLyThuVien.DAO
                 WHEN GREATEST(DATEDIFF(pt.NgayTra, pm.NgayTraDuKien), 0) > 0 THEN 'Quá hạn'
                 ELSE 'Khác'
             END AS TinhTrangSach,
-            ctpp.TienPhat AS TongTienPhat
+            -- Lấy mức phạt từ bảng phat
+            p.Tre AS MucTre,
+            p.Hong AS MucHong,
+            p.Mat AS MucMat,
+            -- Tính tiền phạt giống như chế độ xem trước
+            (
+                CASE 
+                    WHEN ctpp.TrangThai = 3 THEN (IFNULL(p.Mat,0) + GREATEST(DATEDIFF(pt.NgayTra, pm.NgayTraDuKien), 0) * IFNULL(p.Tre,0))
+                    WHEN ctpp.TrangThai = 2 THEN (IFNULL(p.Hong,0) + GREATEST(DATEDIFF(pt.NgayTra, pm.NgayTraDuKien), 0) * IFNULL(p.Tre,0))
+                    ELSE (GREATEST(DATEDIFF(pt.NgayTra, pm.NgayTraDuKien), 0) * IFNULL(p.Tre,0))
+                END
+            ) AS TongTienPhat
         FROM ctphieu_phat ctpp
         JOIN phieu_phat pp ON ctpp.MaPhieuPhat = pp.MaPhieuPhat
         JOIN phieu_tra pt ON pp.MaPhieuTra = pt.MaPhieuTra
@@ -518,12 +566,59 @@ namespace QuanLyThuVien.DAO
         -- Dùng LEFT JOIN để nếu sách bị xóa thì vẫn hiện dòng phạt (tên sách sẽ null)
         LEFT JOIN sach s ON ctpp.MaSach = s.MaSach
         LEFT JOIN dau_sach ds ON s.MaDauSach = ds.MaDauSach
+        -- Lấy cấu hình mức phạt
+        LEFT JOIN phat p ON 1=1
         WHERE ctpp.MaPhieuPhat = @MaPhieuPhat";
 
             Dictionary<string, object> parameters = new Dictionary<string, object>();
             parameters.Add("@MaPhieuPhat", maPhieuPhat);
 
             return DataProvider.ExecuteQuery(query, parameters);
+        }
+
+        // New: đọc mức phạt từ bảng `phat` (trả MucPhatDTO)
+        public MucPhatDTO GetMucPhat()
+        {
+            string sql = "SELECT Tre, Hong, Mat FROM phat LIMIT 1";
+            DataTable dt = DataProvider.ExecuteQuery(sql);
+            if (dt.Rows.Count == 0) return null;
+            DataRow r = dt.Rows[0];
+            return new MucPhatDTO
+            {
+                Tre = r["Tre"] == DBNull.Value ? 0 : Convert.ToInt32(r["Tre"]),
+                Hong = r["Hong"] == DBNull.Value ? 0 : Convert.ToInt32(r["Hong"]),
+                Mat = r["Mat"] == DBNull.Value ? 0 : Convert.ToInt32(r["Mat"])
+            };
+        }
+
+        // New: Lưu mức phạt vào bảng `phat` (insert hoặc update)
+        public bool SaveMucPhat(MucPhatDTO dto)
+        {
+            if (dto == null) return false;
+            // Kiểm tra xem đã có bản ghi trong bảng phat hay chưa
+            string sqlCount = "SELECT COUNT(*) AS cnt FROM phat";
+            DataTable dt = DataProvider.ExecuteQuery(sqlCount);
+            int count = 0;
+            if (dt.Rows.Count > 0)
+                count = Convert.ToInt32(dt.Rows[0]["cnt"]);
+
+            var parameters = new Dictionary<string, object>
+            {
+                { "@Tre", dto.Tre },
+                { "@Hong", dto.Hong },
+                { "@Mat", dto.Mat }
+            };
+
+            if (count > 0)
+            {
+                string sql = "UPDATE phat SET Tre = @Tre, Hong = @Hong, Mat = @Mat";
+                return DataProvider.ExecuteNonQuery(sql, parameters) > 0;
+            }
+            else
+            {
+                string sql = "INSERT INTO phat (Tre, Hong, Mat) VALUES (@Tre, @Hong, @Mat)";
+                return DataProvider.ExecuteNonQuery(sql, parameters) > 0;
+            }
         }
 
     }

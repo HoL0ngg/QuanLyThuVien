@@ -36,7 +36,7 @@ namespace QuanLyThuVien.GUI.phieutra
             // 1 = Bình thường (bao gồm trả đúng hạn và trả muộn), 2 = Hỏng, 3 = Mất
             var listLoai = new List<object>() { 
             //{   new { MaLoai = 1, TenLoai = "Trả đúng hạn" },
-                new { MaLoai = 1, TenLoai = "Trả muộn" },
+                new { MaLoai = 1, TenLoai = "Bình Thường" },
                 new { MaLoai = 2, TenLoai = "Làm hỏng" },
                 new { MaLoai = 3, TenLoai = "Làm mất" }
             };

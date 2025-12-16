@@ -108,43 +108,64 @@ namespace QuanLyThuVien.GUI
                 if (dgv.Columns.Contains(col)) dgv.Columns[col].Visible = false;
             }
 
-            // 2. Đặt tên tiếng Việt cho cột (Kiểm tra cột tồn tại trước khi gán)
+            // 2. Đặt tên tiếng Việt có dấu cho cột (Kiểm tra cột tồn tại trước khi gán)
             if (dgv.Columns.Contains("TenDauSach"))
             {
-                dgv.Columns["TenDauSach"].HeaderText = "Tên Sách";
-                dgv.Columns["TenDauSach"].FillWeight = 200; // Cột tên sách rộng gấp đôi các cột khác
+                dgv.Columns["TenDauSach"].HeaderText = "Tên sách";
+                dgv.Columns["TenDauSach"].FillWeight = 200; // Cột tên sách rộng hơn
             }
 
             if (dgv.Columns.Contains("NgayTra"))
             {
-                dgv.Columns["NgayTra"].HeaderText = "Ngày Trả";
+                dgv.Columns["NgayTra"].HeaderText = "Ngày trả";
                 dgv.Columns["NgayTra"].DefaultCellStyle.Format = "dd/MM/yyyy";
             }
 
             if (dgv.Columns.Contains("NgayTraDuKien"))
             {
-                dgv.Columns["NgayTraDuKien"].HeaderText = "Hạn Trả";
+                dgv.Columns["NgayTraDuKien"].HeaderText = "Hạn trả";
                 dgv.Columns["NgayTraDuKien"].DefaultCellStyle.Format = "dd/MM/yyyy";
             }
 
-            if (dgv.Columns.Contains("SoNgayTre")) dgv.Columns["SoNgayTre"].HeaderText = "Trễ (Ngày)";
-            if (dgv.Columns.Contains("TinhTrangSach")) dgv.Columns["TinhTrangSach"].HeaderText = "Lỗi Vi Phạm";
+            if (dgv.Columns.Contains("SoNgayTre"))
+            {
+                dgv.Columns["SoNgayTre"].HeaderText = "Trễ (ngày)";
+                dgv.Columns["SoNgayTre"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            }
+
+            if (dgv.Columns.Contains("TinhTrangSach"))
+            {
+                dgv.Columns["TinhTrangSach"].HeaderText = "Tình trạng";
+                dgv.Columns["TinhTrangSach"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            }
 
             if (dgv.Columns.Contains("TongTienPhat"))
             {
-                dgv.Columns["TongTienPhat"].HeaderText = "Tiền Phạt";
-                dgv.Columns["TongTienPhat"].DefaultCellStyle.Format = "N0"; // Định dạng số tiền (ví dụ: 50,000)
+                dgv.Columns["TongTienPhat"].HeaderText = "Tiền phạt";
+                dgv.Columns["TongTienPhat"].DefaultCellStyle.Format = "N0"; // Định dạng số tiền
                 dgv.Columns["TongTienPhat"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
             }
+
+            // Nếu có cột MucTre, MucHong, MucMat (do query mới trả về), ẩn hoặc đổi tên hiện rõ nếu muốn
+            if (dgv.Columns.Contains("MucTre")) dgv.Columns["MucTre"].HeaderText = "Mức trễ/ngày";
+            if (dgv.Columns.Contains("MucHong")) dgv.Columns["MucHong"].HeaderText = "Phạt hỏng (cố định)";
+            if (dgv.Columns.Contains("MucMat")) dgv.Columns["MucMat"].HeaderText = "Phạt mất (cố định)";
 
             // 3. Tính tổng tiền hiển thị lên Label
             long tongTien = 0;
             foreach (DataRow row in dt.Rows)
             {
-                if (row["TongTienPhat"] != DBNull.Value)
+                if (row.Table.Columns.Contains("TongTienPhat") && row["TongTienPhat"] != DBNull.Value)
                     tongTien += Convert.ToInt64(row["TongTienPhat"]);
+                else if (row.Table.Columns.Contains("TienPhat") && row["TienPhat"] != DBNull.Value)
+                    tongTien += Convert.ToInt64(row["TienPhat"]);
             }
             if (lblTongTien != null) lblTongTien.Text = $"Tổng cộng: {tongTien:N0} VNĐ";
+
+            // Visual tweaks
+            dgv.RowHeadersVisible = false;
+            dgv.AllowUserToAddRows = false;
+            dgv.AllowUserToResizeRows = false;
         }
     }
-    }
+}

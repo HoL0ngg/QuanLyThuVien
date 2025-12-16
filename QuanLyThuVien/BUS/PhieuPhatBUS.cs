@@ -96,5 +96,16 @@ namespace QuanLyThuVien.BUS
         {
             return PhieuPhatDAO.Instance.GetListChiTietDaLuu(maPhieuPhat);
         }
+
+        // New: wrapper to get/save MucPhat via DAO
+        public MucPhatDTO GetMucPhat()
+        {
+            return PhieuPhatDAO.Instance.GetMucPhat();
+        }
+
+        public bool SaveMucPhat(MucPhatDTO dto)
+        {
+            return PhieuPhatDAO.Instance.SaveMucPhat(dto);
+        }
     }
 }

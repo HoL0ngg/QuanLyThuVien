@@ -30,10 +30,12 @@
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panelTop = new System.Windows.Forms.Panel();
             this.btn_resest = new System.Windows.Forms.Button();
             this.btn_search = new System.Windows.Forms.Button();
+            this.btnMucPhat = new System.Windows.Forms.Button();
             this.cbbPhieuPhat = new System.Windows.Forms.ComboBox();
             this.DTP_end = new System.Windows.Forms.DateTimePicker();
             this.lb_dateEnd = new System.Windows.Forms.Label();
@@ -58,6 +60,7 @@
             this.panelTop.BackColor = System.Drawing.Color.White;
             this.panelTop.Controls.Add(this.btn_resest);
             this.panelTop.Controls.Add(this.btn_search);
+            this.panelTop.Controls.Add(this.btnMucPhat);
             this.panelTop.Controls.Add(this.cbbPhieuPhat);
             this.panelTop.Controls.Add(this.DTP_end);
             this.panelTop.Controls.Add(this.lb_dateEnd);
@@ -69,7 +72,7 @@
             this.panelTop.Location = new System.Drawing.Point(0, 0);
             this.panelTop.Name = "panelTop";
             this.panelTop.Padding = new System.Windows.Forms.Padding(15, 10, 15, 10);
-            this.panelTop.Size = new System.Drawing.Size(1332, 100);
+            this.panelTop.Size = new System.Drawing.Size(1587, 100);
             this.panelTop.TabIndex = 0;
             // 
             // btn_resest
@@ -99,6 +102,20 @@
             this.btn_search.Text = "Tìm kiếm";
             this.btn_search.UseVisualStyleBackColor = false;
             this.btn_search.Click += new System.EventHandler(this.btn_search_Click);
+            // 
+            // btnMucPhat
+            // 
+            this.btnMucPhat.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(152)))), ((int)(((byte)(0)))));
+            this.btnMucPhat.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnMucPhat.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.btnMucPhat.ForeColor = System.Drawing.Color.White;
+            this.btnMucPhat.Location = new System.Drawing.Point(1180, 12);
+            this.btnMucPhat.Name = "btnMucPhat";
+            this.btnMucPhat.Size = new System.Drawing.Size(120, 35);
+            this.btnMucPhat.TabIndex = 9;
+            this.btnMucPhat.Text = "Mức phạt";
+            this.btnMucPhat.UseVisualStyleBackColor = false;
+            this.btnMucPhat.Click += new System.EventHandler(this.btnMucPhat_Click);
             // 
             // cbbPhieuPhat
             // 
@@ -181,7 +198,7 @@
             this.panelContentPhieuPhat.Location = new System.Drawing.Point(0, 100);
             this.panelContentPhieuPhat.Name = "panelContentPhieuPhat";
             this.panelContentPhieuPhat.Padding = new System.Windows.Forms.Padding(15, 10, 15, 15);
-            this.panelContentPhieuPhat.Size = new System.Drawing.Size(1332, 585);
+            this.panelContentPhieuPhat.Size = new System.Drawing.Size(1587, 557);
             this.panelContentPhieuPhat.TabIndex = 1;
             // 
             // dgvPhieuPhat
@@ -212,14 +229,14 @@
             this.colTien,
             this.colNgayPhat,
             this.colTrangThai});
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI", 9F);
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(181)))), ((int)(((byte)(246)))));
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvPhieuPhat.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Segoe UI", 9F);
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(181)))), ((int)(((byte)(246)))));
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvPhieuPhat.DefaultCellStyle = dataGridViewCellStyle4;
             this.dgvPhieuPhat.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvPhieuPhat.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dgvPhieuPhat.EnableHeadersVisualStyles = false;
@@ -232,12 +249,13 @@
             this.dgvPhieuPhat.RowHeadersWidth = 51;
             this.dgvPhieuPhat.RowTemplate.Height = 35;
             this.dgvPhieuPhat.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvPhieuPhat.Size = new System.Drawing.Size(1302, 560);
+            this.dgvPhieuPhat.Size = new System.Drawing.Size(1557, 532);
             this.dgvPhieuPhat.TabIndex = 0;
             this.dgvPhieuPhat.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvPhieuPhat_CellContentClick);
             // 
             // colID
             // 
+            this.colID.DataPropertyName = "MaPhieuPhat";
             this.colID.FillWeight = 60F;
             this.colID.HeaderText = "Mã";
             this.colID.MinimumWidth = 6;
@@ -246,6 +264,7 @@
             // 
             // colTen
             // 
+            this.colTen.DataPropertyName = "TenDG";
             this.colTen.FillWeight = 130F;
             this.colTen.HeaderText = "Độc Giả";
             this.colTen.MinimumWidth = 6;
@@ -254,6 +273,10 @@
             // 
             // colTien
             // 
+            this.colTien.DataPropertyName = "tienPhat";
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle3.Format = "N0";
+            this.colTien.DefaultCellStyle = dataGridViewCellStyle3;
             this.colTien.FillWeight = 80F;
             this.colTien.HeaderText = "Tiền Phạt";
             this.colTien.MinimumWidth = 6;
@@ -262,6 +285,7 @@
             // 
             // colNgayPhat
             // 
+            this.colNgayPhat.DataPropertyName = "NgayPhat";
             this.colNgayPhat.HeaderText = "Ngày Phạt";
             this.colNgayPhat.MinimumWidth = 6;
             this.colNgayPhat.Name = "colNgayPhat";
@@ -269,6 +293,7 @@
             // 
             // colTrangThai
             // 
+            this.colTrangThai.DataPropertyName = "TrangThaiText";
             this.colTrangThai.FillWeight = 90F;
             this.colTrangThai.HeaderText = "Trạng Thái";
             this.colTrangThai.MinimumWidth = 6;
@@ -282,7 +307,7 @@
             this.Controls.Add(this.panelContentPhieuPhat);
             this.Controls.Add(this.panelTop);
             this.Name = "PhieuPhat";
-            this.Size = new System.Drawing.Size(1332, 685);
+            this.Size = new System.Drawing.Size(1587, 657);
             this.Load += new System.EventHandler(this.PhieuPhat_Load);
             this.panelTop.ResumeLayout(false);
             this.panelTop.PerformLayout();
@@ -297,6 +322,7 @@
         private System.Windows.Forms.Panel panelTop;
         private System.Windows.Forms.Button btn_resest;
         private System.Windows.Forms.Button btn_search;
+        private System.Windows.Forms.Button btnMucPhat;
         private System.Windows.Forms.ComboBox cbbPhieuPhat;
         private System.Windows.Forms.DateTimePicker DTP_end;
         private System.Windows.Forms.Label lb_dateEnd;
