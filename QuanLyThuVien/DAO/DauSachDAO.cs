@@ -412,17 +412,17 @@ namespace QuanLyThuVien.DAO
                 .OrderBy(ds => ds.TenDauSach)
                 .ToList();
         }
-        public bool UpdateSoLuongTonKho(int maDauSach, int soLuong)
+        public bool UpdateSoLuongTonKho(int maDauSach, int soLuongThayDoi)
         {
-            string query = @"
-                UPDATE dau_sach 
-                SET SoLuong = SoLuong + @SoLuong 
-                WHERE MaDauSach = @MaDauSach";
+            string query = "UPDATE dau_sach SET SoLuong = IFNULL(SoLuong, 0) + @SoLuongThayDoi WHERE MaDauSach = @MaDauSach";
+
             var parameters = new Dictionary<String, object>
             {
-                { "@SoLuong", soLuong },
+                { "@SoLuongThayDoi", soLuongThayDoi }, 
+        
                 { "@MaDauSach", maDauSach }
             };
+
             int result = DataProvider.ExecuteNonQuery(query, parameters);
             return result > 0;
         }

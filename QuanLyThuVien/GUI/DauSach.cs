@@ -27,6 +27,7 @@ namespace QuanLyThuVien.GUI
 
         private void CustomizeDataGridView()
         {
+            dgvDauSach.Columns.Clear();
             dgvDauSach.EnableHeadersVisualStyles = false;
             dgvDauSach.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(33, 150, 243);
             dgvDauSach.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
